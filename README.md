@@ -16,13 +16,15 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install rolemodel_rails
-
 ## Usage
 
 TODO: Write usage instructions here
+
+## Generators
+
+* [Github](./lib/generators/rolemodel/github)
+* Testing
+  * [RSpec](./lib/generators/rolemodel/testing/rspec)
 
 ## Development
 
