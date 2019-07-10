@@ -1,0 +1,5 @@
+Description:
+    runs all the generators
+
+Example:
+    rails generate rolemodel:all
