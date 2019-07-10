@@ -1,17 +1,22 @@
+require_relative '../../../bundler_helpers'
+
 module Rolemodel
   module Testing
     class RspecGenerator < Rails::Generators::Base
+      include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
       def install_rspec
         gem_group :development, :test do
           gem 'rspec-rails'
         end
+        run_bundle
 
         gem_group :test do
           gem 'capybara'
           gem 'webdrivers'
         end
+        run_bundle
       end
 
       def add_spec_files
