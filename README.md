@@ -9,7 +9,9 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rolemodel_rails'
+group :development do
+  gem 'rolemodel_rails', github: 'RoleModel/rolemodel_rails'
+end
 ```
 
 And then execute:
