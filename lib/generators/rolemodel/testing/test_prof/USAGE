@@ -1,0 +1,5 @@
+Description:
+    installs TestProf
+
+Example:
+    rails generate rolemodel:testing:test_prof
