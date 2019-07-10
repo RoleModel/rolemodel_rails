@@ -1,8 +1,8 @@
 Description:
-    Explain the generator
+    Sets of our standard Github configuration
 
 Example:
-    rails generate github Thing
+    rails generate rolemodel:github
 
     This will create:
-        what/will/it/create
+        .github/pull_request_template.md
