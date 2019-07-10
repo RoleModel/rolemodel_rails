@@ -1,0 +1,8 @@
+Description:
+    installs and configures FactoryBot
+
+Example:
+    rails generate rolemodel:testing:factory_bot
+
+    This will create:
+        spec/support/factory_bot.rb
