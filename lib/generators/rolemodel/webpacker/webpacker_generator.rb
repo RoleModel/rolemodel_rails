@@ -16,6 +16,9 @@ module Rolemodel
       gem 'webpacker'
       run_bundle
       rake('webpacker:install')
+
+      say 'Add the content_security_policy config for webpack-dev-server'
+      template 'content_security_policy.rb', 'config/initializers/content_security_policy.rb'
     end
 
     def install_react
