@@ -1,8 +1,14 @@
-# RolemodelRails
+# RoleModel Rails
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rolemodel_rails`. To experiment with that code, run `bin/console` for an interactive prompt.
+Executable Best Practices for Rails apps, based on RoleModel's best approaches
 
-TODO: Delete this and the text above, and describe your gem
+Attempts to solve the pain of:
+
+* Setup of a new Rails app is harder than it needs to be
+  * We've tried application templates, but only useful onetime
+* Our BestPractice learns don't often get ported into other projects as it isn't straightforward to do so
+* There is an emerging pattern of libraries using generators (e.g. webpacker) to migrate a setup between library versions
+
 
 ## Installation
 
@@ -20,23 +26,47 @@ And then execute:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run all generators (useful on a new app)
+
+```shell
+bin/rails g rolemodel:all
+```
+
+Or run a specific generator
+
+```shell
+bin/rails g rolemodel:webpacker
+```
 
 ## Generators
 
 * [Github](./lib/generators/rolemodel/github)
 * Testing
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
+  * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
+  * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
+* [Webpacker](./lib/generators/rolemodel/webpacker)
+* [Readme](./lib/generators/rolemodel/readme)
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+We use the 2 embed Rails apps [example](./example) and [example_with_webpacker](./example_with_webpacker) to test the usage of the generators.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+`example` is simply a fresh generated Rails app. To recreate it (after Rails version changes, etc) use:
+
+```shell
+bin/recreate_example
+```
+
+Because Webpacker has so many moving parts, we want test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:
+
+```shell
+bin/recreate_example
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rolemodel_rails.
+Bug reports and pull requests are welcome on GitHub at https://github.com/RoleModel/rolemodel_rails.
 
 ## License
 

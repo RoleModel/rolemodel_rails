@@ -16,6 +16,10 @@
 // const imagePath = (name) => images(name, true)
 
 console.log('Hello World from Webpacker')
+// Polyfills per docs: https://github.com/rails/webpacker/blob/master/docs/es6.md#babel
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);
 var ReactRailsUJS = require("react_ujs");

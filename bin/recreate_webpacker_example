@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+rm -fr example_with_webpacker
+rails _5.2.3_ new --skip-keeps --skip-spring example_with_webpacker
+cd example_with_webpacker
+echo "gem 'rolemodel_rails', path: '..'" >> Gemfile
+bundle install
+bin/spring stop
+bin/rails g rolemodel:webpacker --force
+cd -
