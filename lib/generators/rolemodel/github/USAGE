@@ -1,5 +1,5 @@
 Description:
-    Sets of our standard Github configuration
+    Sets up our standard Github configuration
 
 Example:
     rails generate rolemodel:github

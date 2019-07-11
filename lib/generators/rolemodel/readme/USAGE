@@ -1,0 +1,8 @@
+Description:
+    Sets up our standard README for a project
+
+Example:
+    rails generate rolemodel:readme
+
+    This will create:
+        /README.md
