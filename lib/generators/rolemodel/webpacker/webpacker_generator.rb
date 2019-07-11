@@ -69,7 +69,7 @@ module Rolemodel
 
       json = JSON.parse(File.read('package.json'))
       json['scripts'] = yarn_scripts
-      File.write('package.json', JSON.pretty_generate(json))
+      File.write('package.json', JSON.pretty_generate(json) + "\n")
 
       say 'Add Rake task'
       template 'javascript_tests.rake.erb', 'lib/tasks/javascript_tests.rake'

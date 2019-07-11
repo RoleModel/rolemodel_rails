@@ -24,7 +24,7 @@ module Rolemodel
         template 'spec_helper.rb', 'spec/spec_helper.rb'
         template '.rspec', '.rspec'
         template 'support/capybara_drivers.rb', 'spec/support/capybara_drivers.rb'
-        template 'support/system_tests.rb', 'spec/support/system_tests.rb'
+        template 'support/helpers.rb', 'spec/support/helpers.rb'
       end
     end
   end
