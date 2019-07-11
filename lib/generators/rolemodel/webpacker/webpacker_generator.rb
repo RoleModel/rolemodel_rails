@@ -16,10 +16,22 @@ module Rolemodel
       gem 'webpacker'
       run_bundle
       rake('webpacker:install')
+    end
 
+    def configure_csp
       say 'Add the content_security_policy config for webpack-dev-server'
       template 'content_security_policy.rb', 'config/initializers/content_security_policy.rb'
     end
+
+    def setup_polyfills
+      append_to_file 'app/javascript/packs/application.js', <<~JS
+        // Polyfills per docs: https://github.com/rails/webpacker/blob/master/docs/es6.md#babel
+        import "core-js/stable";
+        import "regenerator-runtime/runtime";
+
+      JS
+    end
+
 
     def install_react
       if yes? 'Does this project need react? [Yn]'
