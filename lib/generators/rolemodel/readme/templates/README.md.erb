@@ -1,6 +1,6 @@
 # Overview
 ## Name and aliases
-The project is named "<name>". Some will refer to it as "<alias1>" or "<alias2>".
+The project is named "<%= @project_name %>". Some will refer to it as "<alias1>" or "<alias2>".
 
 ## Purpose
 The system is designed to solve the problem of ... Users had the problem, but this system resolves it by ...
@@ -29,8 +29,8 @@ The customer states that only Chrome will be used.
 \```
 brew update --system
 brew upgrade ruby-build
-git clone http://github.com/RoleModel/<project>
-cd <project>
+git clone http://github.com/RoleModel/<%= @project_name %>
+cd <%= @project_name %>
 rbenv install
 gem install bundler
 bundle install
@@ -76,7 +76,7 @@ When finished with the feature and the code has been reviewed, the commits shoul
 * Monthly invoicing on last business day of the month
 
 # Links to:
-## [Git repo](http://github.com/RoleModel/)
+## [Git repo](http://github.com/RoleModel/<%= @project_name %>)
 ## [Task management system](http://trello.com)
 ## [Staging](http://staging.<applicationname>.com)
 ## [Production](http://app.<applicationname>.com)

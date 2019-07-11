@@ -3,7 +3,8 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def install_readme
-      template 'README.md', 'README.md'
+      @project_name = ask "What is the project name? Example: 'project_name':", :yellow
+      template 'README.md.erb', 'README.md'
     end
   end
 end
