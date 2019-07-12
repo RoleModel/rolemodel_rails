@@ -1,0 +1,12 @@
+Description:
+    generates RSpec and system tests config
+
+Example:
+    rails generate rolemodel:testing:rspec
+
+    This will create:
+        spec/rails_helper.rb
+        spec/spec_helper.rb
+        spec/support/capybara_drivers.rb
+        spec/support/helpers.rb
+        .rspec

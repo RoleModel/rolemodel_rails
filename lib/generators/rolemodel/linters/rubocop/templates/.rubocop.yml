@@ -1,0 +1,71 @@
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - vendor/**/*
+    - config/**/*
+    - node_modules/**/*
+    - tmp/**/*
+
+Rails:
+  Enabled: true
+
+Rails/ActionFilter:
+  Enabled: false
+
+Rails/Delegate:
+  Enabled: false
+
+Metrics:
+  Severity: refactor
+
+# RSpec tests and rake tasks are expected to have
+# large blocks, so exclude them from this cop.
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+# Hard to make this pass always and want to keep flexibility
+Layout/AlignArray:
+  Enabled: false
+
+# Best Practices for readability
+Layout:
+  Severity: refactor
+
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
+
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent
+
+
+Lint/UnusedMethodArgument:
+  Severity: refactor
+  AutoCorrect: false
+
+Lint/UnusedBlockArgument:
+  Severity: refactor
+  AutoCorrect: false
+
+Lint/UselessAssignment:
+  Severity: refactor
+  AutoCorrect: false
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+
+Lint/Loop:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+
+Style:
+  Severity: refactor
+
+# It is ok to use inject at times
+Style/EachWithObject:
+  Enabled: false
