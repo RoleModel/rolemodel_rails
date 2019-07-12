@@ -7,15 +7,6 @@ AllCops:
     - node_modules/**/*
     - tmp/**/*
 
-Rails:
-  Enabled: true
-
-Rails/ActionFilter:
-  Enabled: false
-
-Rails/Delegate:
-  Enabled: false
-
 Metrics:
   Severity: refactor
 
