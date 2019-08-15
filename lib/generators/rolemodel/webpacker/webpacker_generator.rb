@@ -12,77 +12,37 @@ module Rolemodel
       raise "Don't have yarn installed. Fix it.\nRun: `npm install -g yarn`" unless system 'yarn --version'
     end
 
-    def install_webpacker
+    def install_webpacker_with_react
       gem 'webpacker'
+      gem 'react-rails'
       run_bundle
-      rake('webpacker:install')
+      files = Dir.glob(Pathname(Rolemodel::WebpackerGenerator.source_root).join('generated', '**', '*'))
+      files.each do |file|
+        next if File.directory?(file)
+
+        source = file.sub(Rolemodel::WebpackerGenerator.source_root + '/', '')
+        destination = file.sub(Rolemodel::WebpackerGenerator.source_root + '/generated/', '')
+        copy_file source, destination
+      end
+    end
+
+    def remove_old_config_files
+      remove_file '.babelrc'
+      remove_file '.postcssrc'
     end
 
     def configure_csp
       say 'Add the content_security_policy config for webpack-dev-server'
-      template 'content_security_policy.rb', 'config/initializers/content_security_policy.rb'
+      copy_file 'content_security_policy.rb', 'config/initializers/content_security_policy.rb'
     end
 
-    def setup_polyfills
-      append_to_file 'app/javascript/packs/application.js', <<~JS
-        // Polyfills per docs: https://github.com/rails/webpacker/blob/master/docs/es6.md#babel
-        import "core-js/stable";
-        import "regenerator-runtime/runtime";
-
-      JS
-    end
-
-
-    def install_react
-      if yes? 'Does this project need react? [Yn]'
-        @using_react = true
-        rake('webpacker:install:react')
-        remove_file 'app/javascript/packs/hello_react.jsx'
-        gem 'react-rails'
-        run_bundle
-        run 'yarn add prop-types'
-        generate('react:install')
-      end
-    end
-
-    def install_jest
-      @using_cond = false
-      say 'Installing Jest'
-      run 'yarn add -D jest babel-jest'
+    def add_jest_config
+      say 'Add Jest config'
       template 'jest.config.js.erb', 'jest.config.js'
-      template 'FilePathMock.js', 'spec/javascript/support/FilePathMock.js'
-
-      if @using_react
-        say 'Installing Enzyme'
-        run 'yarn add -D jest-enzyme enzyme enzyme-adapter-react-16'
-        template 'enzyme.js', 'spec/javascript/support/enzyme.js'
-      end
+      copy_file 'FilePathMock.js', 'spec/javascript/support/FilePathMock.js'
     end
 
     def setup_tasks
-      say 'Adding package.json test scripts'
-
-      if @using_cond
-        yarn_scripts = {
-          "test" => "bundle exec rake javascript_tests",
-          "test_view" => "NODE_ENV=test jest --watch",
-          "test_view_ci" => "NODE_ENV=test jest",
-          "test_shared" => "NODE_ENV=test NODE_PATH=\"./node_modules:./app/javascript:$NODE_PATH\" jasmine"
-        }
-      else
-        yarn_scripts = {
-          "test" => "jest --watch",
-          "test_ci" => "jest",
-          "test_debug" => "CI=1 node --inspect-brk ./node_modules/.bin/jest --runInBand --no-cache --env=jsdom",
-          "eslint" => "eslint 'app/**/*.js' 'spec/**/*.js'",
-          "stylelint" => "stylelint app/javascript/stylesheets/**/*.{css,scss}"
-        }
-      end
-
-      json = JSON.parse(File.read('package.json'))
-      json['scripts'] = yarn_scripts
-      File.write('package.json', JSON.pretty_generate(json) + "\n")
-
       say 'Add Rake task'
       template 'javascript_tests.rake.erb', 'lib/tasks/javascript_tests.rake'
       append_to_file 'Rakefile', "\ntask default: [ 'spec', 'javascript_tests' ]"

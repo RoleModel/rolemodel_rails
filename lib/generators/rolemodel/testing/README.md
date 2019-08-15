@@ -1,5 +1,7 @@
 # Testing Generator
 
+[USAGE](./USAGE)
+
 ## What you get
 
 * [RSpec](./rspec)

@@ -1,5 +1,7 @@
 # RoleModel Generator
 
+[USAGE](./USAGE)
+
 ## What you get
 
 * [Github](./github)

@@ -32,16 +32,28 @@ Run all generators (useful on a new app)
 bin/rails g rolemodel:all
 ```
 
-Or run a specific generator
+Or run a single generator
 
 ```shell
 bin/rails g rolemodel:webpacker
 ```
 
+Or run a category subset
+
+```shell
+bin/rails g rolemodel:testing:all
+```
+
+You can see complete list of available generators (including those under the RoleModel namespace) by running
+
+```shell
+bin/rails g
+```
+
 ## Generators
 
 * [Github](./lib/generators/rolemodel/github)
-* Testing
+* [Testing](./lib/generators/rolemodel/testing)
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
@@ -50,7 +62,7 @@ bin/rails g rolemodel:webpacker
 
 ## Development
 
-We use the 2 embed Rails apps [example](./example) and [example_with_webpacker](./example_with_webpacker) to test the usage of the generators.
+We use the 2 embeded Rails apps [example](./example) and [example_with_webpacker](./example_with_webpacker) to test the usage of the generators.
 
 `example` is simply a fresh generated Rails app. To recreate it (after Rails version changes, etc) use:
 
@@ -61,7 +73,7 @@ bin/recreate_example
 Because Webpacker has so many moving parts, we want test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:
 
 ```shell
-bin/recreate_example
+bin/recreate_webpacker_example
 ```
 
 ## Contributing

@@ -17,8 +17,5 @@ module.exports = {
   },<% else %>
   moduleNameMapper: {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|svg)$": "<rootDir>/spec/javascript/support/FilePathMock.js"
-  },<% end %><% if @using_react %>
-  setupFilesAfterEnv: [
-    '<rootDir>/spec/javascript/support/enzyme.js'
-  ]<% end %>
+  },<% end %>
 }
