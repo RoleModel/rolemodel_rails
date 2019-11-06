@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+rm -fr example_rails6
+rails _6.0.0_ new --skip-keeps --skip-git --skip-spring example_rails6
+cd example_rails6
+echo "gem 'rolemodel_rails', path: '..'" >> Gemfile
+bundle install
+bin/spring stop
+cd -
