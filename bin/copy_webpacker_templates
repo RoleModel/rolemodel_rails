@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'fileutils'
-require 'pry'
 IGNORED_FILES = /(Gemfile|\.keep|yarn\.lock)/
 GENERATOR_TEMPLATE_DIRECTORY = 'lib/generators/rolemodel/webpacker/templates/generated/'
 files = %x[ git diff --name-only --staged ].split("\n")

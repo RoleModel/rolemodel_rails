@@ -12,12 +12,39 @@ module Rolemodel
         rake('webpacker:install')
       end
 
+      def install_polyfills
+        run 'yarn add core-js@3'
+
+        append_to_file 'app/javascript/packs/application.js', <<~JS
+
+          // Polyfills per docs: https://github.com/rails/webpacker/blob/master/docs/es6.md#babel
+          import "core-js/stable";
+          import "regenerator-runtime/runtime";
+
+        JS
+      end
+
+      def install_rails_js_with_npm
+        say 'Installing Rails JS dependencies'
+
+        run 'yarn add @rails/ujs @rails/activestorage @rails/actioncable turbolinks'
+
+        append_to_file 'app/javascript/packs/application.js', <<~JS
+
+          require("@rails/ujs").start()
+          require("turbolinks").start()
+          require("@rails/activestorage").start()
+          require("channels")
+
+        JS
+      end
+
       def install_react
         rake('webpacker:install:react')
         remove_file 'app/javascript/packs/hello_react.jsx'
         gem 'react-rails'
         run_bundle
-        run 'yarn add prop-types core-js@3'
+        run 'yarn add prop-types'
         generate('react:install')
       end
 
@@ -25,12 +52,6 @@ module Rolemodel
         say 'Installing Jest'
         # TODO move into package.json template
         run 'yarn add -D jest babel-jest'
-      end
-
-      def install_rails_js_with_npm
-        # TODO as part of moving away from sprockets
-        say 'Installing Rails JS dependencies'
-        # run 'yarn add @rails/webpacker @rails/ujs @rails/activestorage @rails/actioncable @rails/actiontext turbolinks'
       end
 
       def setup_tasks

@@ -29,6 +29,7 @@ module Rolemodel
     def remove_old_config_files
       remove_file '.babelrc'
       remove_file '.postcssrc'
+      remove_file 'app/assets/javascript/application.js'
     end
 
     def configure_csp
