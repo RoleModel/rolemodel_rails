@@ -58,6 +58,8 @@ bin/rails g
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
 * [Webpacker](./lib/generators/rolemodel/webpacker)
+* [CSS](./lib/generators/rolemodel/css)
+  * [Base](./lib/generators/rolemodel/css/base)
 * [Readme](./lib/generators/rolemodel/readme)
 
 ## Development
