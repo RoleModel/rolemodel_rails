@@ -1,0 +1,31 @@
+thead {
+  background: var(--color-contrast-medium);
+}
+
+th {
+  color: var(--color-contrast-high);
+
+  font-weight: 500;
+  font-size: var(--text-sm);
+  text-align: left;
+
+  padding: var(--space-sm) var(--space-md);
+
+  &:first-child {
+    border-top-left-radius: var(--radius);
+  }
+
+  &:last-child {
+    border-top-right-radius: var(--radius);
+  }
+}
+
+td {
+  border-bottom: 1px solid var(--color-contrast-low);
+  padding: var(--space-sm) var(--space-md);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}

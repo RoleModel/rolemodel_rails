@@ -1,0 +1,167 @@
+.container.margin-bottom-xl
+  h1.margin-top-xl Basic Style Guide Demo
+
+  .flex.justify-between.margin-top-xl
+    section.section--typography.margin-right-xl
+      h2.section__title.margin-bottom-lg Typography
+
+      h1 Heading 1
+      h2 Heading 2
+      h3 Heading 3
+      h4 Heading 4
+      h5 Heading 5
+      h6 Heading 6
+
+    section.section--spacing-guide
+      h2.section__title.margin-bottom-lg Spacing Reference
+      .flex.flex-row.justify-between
+        .flex-col
+          .spacing-example style="width: var(--space-xxs)"
+          span --space-xxs (2px)
+        .flex-col
+          .spacing-example style="width: var(--space-xs)"
+          span --space-xs (6px)
+        .flex-col
+          .spacing-example style="width: var(--space-sm)"
+          span --space-sm (10px)
+        .flex-col
+          .spacing-example style="width: var(--space-md)"
+          span --space-md (16px)
+        .flex-col
+          .spacing-example style="width: var(--space-lg)"
+          span --space-lg (26px)
+        .flex-col
+          .spacing-example style="width: var(--space-xl)"
+          span --space-xl (42px)
+
+  section.section--colors.margin-top-xl
+    h2.section__title Colors
+    .flex.flex-row
+      - ['--color-primary', '--color-accent', '--color-white', '--color-black'].each do |color|
+        .swatch style="background: var(#{color})"
+          span = color
+
+    .flex.flex-row.margin-top-md
+      - ['--color-contrast-lower', '--color-contrast-low', '--color-contrast-medium', '--color-contrast-high', '--color-contrast-higher'].each do |color|
+        .swatch style="background: var(#{color})"
+          span = color
+
+    .flex.flex-row.margin-top-md
+      - ['--color-error-lighter', '--color-error-light', '--color-error', '--color-error-vibrant'].each do |color|
+        .swatch style="background: var(#{color})"
+          span = color
+
+    .flex.flex-row.margin-top-md
+      - ['--color-warning-lighter', '--color-warning-light', '--color-warning'].each do |color|
+        .swatch style="background: var(#{color})"
+          span = color
+
+    .flex.flex-row.margin-top-md
+      - ['--color-info-lighter', '--color-info-light', '--color-info'].each do |color|
+        .swatch style="background: var(#{color})"
+          span = color
+
+    .flex.flex-row.margin-top-md
+      - ['--color-notice-lighter', '--color-notice-light', '--color-notice'].each do |color|
+        .swatch style="background: var(#{color})"
+          span = color
+
+  section.section--buttons.margin-top-xl
+    h2.section__title Button
+
+    .flex.justify-between.items-center
+      button Basic Button
+      a.btn Link Button
+      a.btn.btn--primary Primary Button
+      a.btn.btn--outline Outline Button
+      a.btn.btn--outline.btn--small Small Button
+      a.btn.btn--label Label Button
+
+  section.section--forms.margin-top-xl
+    h2.section__title Form
+
+    #error_explanation
+      h2 2 errors prohibited this from being saved
+      ul
+        li Tags rank is not a number
+        li Title can't be blank
+
+    form
+      .form__group.field_with_errors
+        label.form__label Text Input
+        span.error Can't be blank
+        input.form__input type="text"
+
+      .form__group
+        label.form__label Password Input
+        input.form__input type="password"
+
+      .form__group
+        label.form__label Number Input
+        input.form__input type="number"
+
+      .form__group
+        label.form__label Email Input
+        input.form__input type="email"
+
+      .form__group
+        label.form__label Phone Input
+        input.form__input type="phone"
+
+      .form__group
+        label.form__label Select Dropdown
+        select.form__dropdown
+          option Option 1
+          option Option 2
+          option Option 3
+
+      .form__group
+        input.form__checkbox type="checkbox"
+        label.form__label Checkbox Input
+
+      .form__group
+        input.form__radio type="radio"
+        label.form__label Radio Input 1
+        input.form__radio type="radio"
+        label.form__label Radio Input 2
+
+  section.section--cards.margin-top-xl
+    h2.section__title Card
+
+    .card
+      span Sample content
+
+  section.section--alerts.margin-top-xl
+    h2.section__title Alert
+    .alert.alert--notice
+      span .alert.alert--notice
+
+    .alert.alert--info
+      span .alert.alert--info
+
+    .alert.alert--error
+      span .alert.alert--error
+
+    .alert.alert--warning
+      span .alert.alert--warning
+
+
+  section.section--tables.margin-top-xl
+    h2.section__title Table
+
+    table
+      thead
+        th Column 1
+        th Column 2
+        th
+      tbody
+        tr
+          td Data 1
+          td Data 2
+          td.text-left
+            a.btn.btn--outline.btn--small Label
+        tr
+          td Data 4
+          td Data 5
+          td.text-left
+            a.btn.btn--outline.btn--small Label

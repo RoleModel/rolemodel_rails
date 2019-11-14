@@ -1,0 +1,74 @@
+:root {
+
+  // Main Colors
+  --color-primary: #5485d2;
+  --color-accent: #585858;
+
+  --color-white: #FFFFFF;
+  --color-black: #1A202C;
+
+  // Success/Notice
+  --color-notice: #155724;
+  --color-notice-light: #c3e6cb;
+  --color-notice-lighter: #d4edda;
+
+  // Info
+  --color-info: #004085;
+  --color-info-light: #b8daff;
+  --color-info-lighter: #cce5ff;
+
+  // Error
+  --color-error: #721c24;
+  --color-error-light: #f5c6cb;
+  --color-error-lighter: #f8d7da;
+  --color-error-vibrant: #f95849;
+
+  // Warning
+  --color-warning: #856404;
+  --color-warning-light: #ffeeba;
+  --color-warning-lighter: #fff3cd;
+
+  // Contrast
+  --color-contrast-lower: #F9F9F9;
+  --color-contrast-low: #EBEBEB;
+  --color-contrast-medium: #E0E0E0;
+  --color-contrast-high: #5E6168;
+  --color-contrast-higher: #1A202C;
+
+  // Border
+  --radius: 6px;
+  --radius-sm: 2px;
+   --border-width: 2px;
+
+   // Shadows
+   --shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+
+  // Font Families
+  --font-primary: 'Roboto', sans-serif;
+
+  // Text Ratios
+  --text-scale-ratio: 1.2;
+  --text-xs: calc((1rem / var(--text-scale-ratio)) / var(--text-scale-ratio));
+  --text-sm: calc(var(--text-xs) * var(--text-scale-ratio));
+  --text-md: calc(var(--text-sm) * var(--text-scale-ratio) * var(--text-scale-ratio));
+  --text-lg: calc(var(--text-md) * var(--text-scale-ratio));
+  --text-xl: calc(var(--text-lg) * var(--text-scale-ratio));
+  --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio));
+  --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio));
+
+  // Spacing
+  --space-unit: 1rem;
+  --space-xxs: calc(0.236 * var(--space-unit)); // 2px
+  --space-xs: calc(0.382 * var(--space-unit)); // 6px
+  --space-sm: calc(0.618 * var(--space-unit)); // 10px
+  --space-md: calc(1 * var(--space-unit)); // 16px
+  --space-lg: calc(1.618 * var(--space-unit)); // 26px
+  --space-xl: calc(2.618 * var(--space-unit)); // 42px
+
+  // Breakpoints
+  --breakpoint-xs: 32rem; // ~512px phone
+  --breakpoint-sm: 48rem; // ~768px vertical ipad
+  --breakpoint-md: 64rem; // ~1024px landscape ipad
+  --breakpoint-lg: 80rem; // ~1280px small laptop
+  --breakpoint-xl: 90rem; // ~1440px big laptop
+}
