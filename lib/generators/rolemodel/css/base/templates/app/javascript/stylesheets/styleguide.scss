@@ -1,0 +1,33 @@
+.styleguide-section__title {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-xs);
+
+  border-bottom: var(--border-width) solid var(--color-contrast-low);
+
+  &::before {
+    margin-right: var(--space-xs);
+
+    content: '#';
+
+    color: var(--color-contrast-medium);
+  }
+}
+
+.styleguide-section--typography {
+  flex: 1;
+}
+
+.styleguide-section--spacing {
+  flex: 4;
+}
+
+.spacing-example {
+  position: relative;
+
+  display: block;
+
+  height: 2rem;
+  margin-bottom: var(--space-lg);
+
+  background: var(--color-primary);
+}
