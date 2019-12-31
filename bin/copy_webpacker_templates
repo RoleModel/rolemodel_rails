@@ -7,6 +7,6 @@ files = %x[ git diff --name-only --staged ].split("\n")
 
 files.each do |file|
   next if file.match IGNORED_FILES
-  destination = file.sub('example_rails5/', GENERATOR_TEMPLATE_DIRECTORY)
+  destination = file.sub('example_rails6/', GENERATOR_TEMPLATE_DIRECTORY)
   FileUtils.cp file, destination
 end
