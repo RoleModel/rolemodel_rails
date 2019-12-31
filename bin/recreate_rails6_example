@@ -4,9 +4,10 @@ IFS=$'\n\t'
 set -vx
 
 rm -fr example_rails6
-rails _6.0.0_ new --skip-keeps --skip-git --skip-spring example_rails6
+rails _6.0.2.1_ new --skip-keeps --skip-git --skip-spring example_rails6
 cd example_rails6
 echo "gem 'rolemodel_rails', path: '..'" >> Gemfile
 bundle install
-bin/spring stop
+git checkout config/credentials.yml.enc
+git checkout config/master.key
 cd -
