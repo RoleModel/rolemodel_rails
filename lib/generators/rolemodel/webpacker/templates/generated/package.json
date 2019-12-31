@@ -2,23 +2,23 @@
   "name": "example_rails5",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.7.0",
-    "@rails/actioncable": "^6.0.1",
-    "@rails/activestorage": "^6.0.1",
-    "@rails/ujs": "^6.0.1",
-    "@rails/webpacker": "^4.0.7",
+    "@babel/preset-react": "^7.7.4",
+    "@rails/actioncable": "^6.0.2-1",
+    "@rails/activestorage": "^6.0.2-1",
+    "@rails/ujs": "^6.0.2-1",
+    "@rails/webpacker": "4.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "core-js": "3",
     "prop-types": "^15.7.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react_ujs": "^2.6.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
-    "webpack-dev-server": "^3.9.0"
+    "webpack-dev-server": "^3.10.1"
   },
   "scripts": {
     "test": "jest --watch",
