@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "jest --watch",
-    "test_ci": "jest",
+    "test_ci": "jest --passWithNoTests",
     "test_debug": "CI=1 node --inspect-brk ./node_modules/.bin/jest --runInBand --no-cache --env=jsdom",
     "eslint": "eslint 'app/**/*.js' 'spec/**/*.js'",
     "stylelint": "stylelint app/javascript/stylesheets/**/*.{css,scss}"
