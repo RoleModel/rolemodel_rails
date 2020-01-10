@@ -1,4 +1,4 @@
-.alert {
+.flash {
   position: relative;
   padding: var(--space-sm) var(--space-md);
   margin-bottom: var(--space-md);
@@ -6,25 +6,25 @@
   border-radius: var(--radius);
 }
 
-.alert--notice {
+.flash--notice {
   color: var(--color-notice);
   background-color: var(--color-notice-lighter);
   border-color: var(--color-notice-light);
 }
 
-.alert--info {
+.flash--info {
   color: var(--color-info);
   background-color: var(--color-info-lighter);
   border-color: var(--color-info-light);
 }
 
-.alert--alert {
+.flash--alert {
   color: var(--color-error);
   background-color: var(--color-error-lighter);
   border-color: var(--color-error-light);
 }
 
-.alert--warning {
+.flash--warning {
   color: var(--color-warning);
   background-color: var(--color-warning-lighter);
   border-color: var(--color-warning-light);
