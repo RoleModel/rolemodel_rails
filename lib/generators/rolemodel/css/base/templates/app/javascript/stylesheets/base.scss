@@ -14,7 +14,7 @@ html {
 body {
   height: inherit;
 
-  color: var(--black);
+  color: var(--color-black);
   background: var(--color-contrast-lower);
 }
 
@@ -69,6 +69,10 @@ p {
   margin-bottom: var(--space-sm);
 
   font-size: 1rem;
+}
+
+small {
+  font-size: var(--text-sm);
 }
 
 .container {

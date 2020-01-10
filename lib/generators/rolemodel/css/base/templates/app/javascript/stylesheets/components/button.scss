@@ -47,7 +47,7 @@ button {
 .btn--outline {
   border: var(--border-width) solid var(--color-contrast-low);
   background: var(--color-white);
-  color: var(--black);
+  color: var(--color-black);
 
   &:hover {
     background: var(--color-contrast-low);

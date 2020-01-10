@@ -47,6 +47,8 @@
   --font-primary: 'Roboto', sans-serif;
 
   // Text Ratios
+  // This is using a 16px base font-size using the Minor Third ratio
+  // Visit https://codyhouse.co/ds/globals/typography to play around with different text sizes
   --text-scale-ratio: 1.2;
   --text-xs: calc((1rem / var(--text-scale-ratio)) / var(--text-scale-ratio)); // ~11.1px
   --text-sm: calc(var(--text-xs) * var(--text-scale-ratio)); // ~13.3px
@@ -57,6 +59,8 @@
   --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio)); // ~39.8px
 
   // Spacing
+  // This is using the Golden Ratio to get these numbers
+  // Visit https://codyhouse.co/ds/globals/spacing to play around with different ratios
   --space-unit: 1rem;
   --space-xxs: calc(0.236 * var(--space-unit)); // 2px
   --space-xs: calc(0.382 * var(--space-unit)); // 6px
