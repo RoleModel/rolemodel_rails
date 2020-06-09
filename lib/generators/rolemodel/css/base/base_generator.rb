@@ -6,6 +6,11 @@ module Rolemodel
       include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
+      def add_slim
+        gem 'slim'
+        run_bundle
+      end
+
       def copy_css_templates
         files = Dir.glob(Pathname(Rolemodel::Css::BaseGenerator.source_root).join('**', '*'))
         files.each do |file|
