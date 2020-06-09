@@ -6,14 +6,14 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def create_node_version
-      node_version = '10.16.0'
+      node_version = '12.16.3'
       create_file ".node-version", node_version
       raise "Don't have node version #{node_version} installed. Fix it.\nRun: `nodenv install #{node_version}`" unless system 'node --version'
       raise "Don't have yarn installed. Fix it.\nRun: `npm install -g yarn`" unless system 'yarn --version'
     end
 
     def install_webpacker_with_react
-      gem 'webpacker'
+      gem 'webpacker', '~> 5.1'
       gem 'react-rails'
       run_bundle
       files = Dir.glob(Pathname(Rolemodel::WebpackerGenerator.source_root).join('generated', '**', '*'))
