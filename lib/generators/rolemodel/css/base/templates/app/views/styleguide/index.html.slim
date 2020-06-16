@@ -15,24 +15,24 @@
     section.styleguide-section--spacing
       h2.styleguide-section__title.margin-bottom-lg Spacing Reference
       .flex.flex-row.justify-between
-        .flex-col
-          .spacing-example style="width: var(--space-xxs)"
-          span --space-xxs (2px)
-        .flex-col
-          .spacing-example style="width: var(--space-xs)"
-          span --space-xs (6px)
-        .flex-col
-          .spacing-example style="width: var(--space-sm)"
-          span --space-sm (10px)
-        .flex-col
-          .spacing-example style="width: var(--space-md)"
-          span --space-md (16px)
-        .flex-col
-          .spacing-example style="width: var(--space-lg)"
-          span --space-lg (26px)
-        .flex-col
-          .spacing-example style="width: var(--space-xl)"
-          span --space-xl (42px)
+          .flex-col
+            .spacing-example style="width: var(--space-xxs)"
+            span --space-xxs (2px)
+          .flex-col
+            .spacing-example style="width: var(--space-xs)"
+            span --space-xs (6px)
+          .flex-col
+            .spacing-example style="width: var(--space-sm)"
+            span --space-sm (10px)
+          .flex-col
+            .spacing-example style="width: var(--space-md)"
+            span --space-md (16px)
+          .flex-col
+            .spacing-example style="width: var(--space-lg)"
+            span --space-lg (26px)
+          .flex-col
+            .spacing-example style="width: var(--space-xl)"
+            span --space-xl (42px)
 
   section.section--colors.margin-top-xl
     h2.styleguide-section__title Colors
@@ -147,21 +147,56 @@
 
 
   section.section--tables.margin-top-xl
-    h2.styleguide-section__title Table
+    h2.styleguide-section__title Tables
 
-    table
-      thead
-        th Column 1
-        th Column 2
-        th
-      tbody
-        tr
-          td Data 1
-          td Data 2
-          td.text-left
-            a.btn.btn--outline.btn--small Label
-        tr
-          td Data 4
-          td Data 5
-          td.text-left
-            a.btn.btn--outline.btn--small Label
+    .card.card--no-padding
+      h2.margin-y-md.margin-left-md Table
+
+      table.table
+        thead
+          th Column 1
+          th Column 2
+          th
+            .text-right Action
+        tbody
+          tr
+            td
+              .flex.items-center.justify-start.margin-right-lg
+                | Data 1
+            td Data 2
+            td.text-right
+              a.btn.btn--outline.btn--small Label
+          tr
+            td
+              .flex.items-center.justify-start.margin-right-lg
+                | Data 4
+            td Data 5
+            td.text-right
+              a.btn.btn--outline.btn--small Label
+
+    .card.card--no-padding.margin-y-lg
+      h2.margin-y-md.margin-left-md Form Table
+
+      form
+        table.table
+          thead
+            th Button
+            th Measure
+            th.flex.justify-end Link
+          tbody
+            tr
+              td
+                input type="radio" id="radio-1" name="radio-button" class="margin-right-sm" Button 1
+              td item/unit
+              td.flex.justify-end Other Information
+            tr
+              td
+                input type="radio" id="radio-2" name="radio-button" class="margin-right-sm" Button 2
+              td item/unit
+              td.flex.justify-end Other Information
+            tr.form__submit
+              td
+              td
+              td.flex.justify-end.items-center
+                  button.btn.btn--outline Cancel
+                  button.btn.btn--primary.margin-left-sm type="submit" Submit

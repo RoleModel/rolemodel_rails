@@ -86,6 +86,10 @@ label {
   margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
 }
 
+.form__submit {
+  background: var(--color-contrast-lower);
+}
+
 // Imported from simple_form
 #error_explanation {
   background-color: var(--color-error-lighter);

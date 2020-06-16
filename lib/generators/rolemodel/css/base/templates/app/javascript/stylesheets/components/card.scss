@@ -5,3 +5,10 @@
   width: 100%;
   background: var(--color-white);
 }
+
+.card--no-padding {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0;
+}
