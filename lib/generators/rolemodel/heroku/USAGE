@@ -5,6 +5,5 @@ Example:
     rails generate rolemodel:heroku
 
     This will create:
-        bin/heroku_release
         app.json
         Procfile
