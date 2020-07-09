@@ -1,0 +1,30 @@
+{
+  "name": "<%= @project_name %>",
+  "scripts": {
+    "postdeploy": "bin/rails db:schema:load db:seed"
+  },
+  "env": {
+    "HONEYBADGER_API_KEY": {
+      "required": true
+    },
+    "HONEYBADGER_ENV": {
+      "required": true,
+      "value": "review-app"
+    }
+  },
+  "addons": [
+    "heroku-postgresql",
+    "papertrail"
+  ],
+  "buildpacks": [
+    {
+      "url":"heroku/metrics"
+    },
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}

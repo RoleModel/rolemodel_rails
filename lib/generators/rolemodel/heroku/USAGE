@@ -1,0 +1,9 @@
+Description:
+    Sets up our standard Heroku deployment configuration
+
+Example:
+    rails generate rolemodel:heroku
+
+    This will create:
+        app.json
+        Procfile

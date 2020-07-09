@@ -61,6 +61,7 @@ bin/rails g
 * [CSS](./lib/generators/rolemodel/css)
   * [Base](./lib/generators/rolemodel/css/base)
 * [Readme](./lib/generators/rolemodel/readme)
+* [Heroku](./lib/generators/rolemodel/heroku)
 
 ## Development
 
