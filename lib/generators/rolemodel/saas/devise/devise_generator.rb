@@ -14,9 +14,8 @@ module Rolemodel
         generate :devise, 'user first_name:string last_name:string'
       end
 
-      def add_invitable
-        @add_invitable = yes?('Would you like to add user invitations?')
-        if @add_invitable
+      def add_invitable        
+        if yes?('Would you like to add user invitations?')
           gem 'devise_invitable'
           run_bundle
 
