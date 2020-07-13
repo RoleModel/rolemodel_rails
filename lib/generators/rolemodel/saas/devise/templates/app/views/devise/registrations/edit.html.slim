@@ -7,6 +7,21 @@
       = f.error_notification
       .form-inputs
         .form__group
+          = f.input :first_name,
+            autofocus: true,
+            input_html: { class: 'form__input' },
+            label_html: { class: 'form__label' }
+        .form__group
+          = f.input :last_name,
+            input_html: { class: 'form__input' },
+            label_html: { class: 'form__label' }
+        - if resource.org_admin?
+          .form__group
+            = f.input :organization_name,
+              required: true,
+              input_html: { class: 'form__input' },
+              label_html: { class: 'form__label' }
+        .form__group
           = f.input :email,
             required: true,
             autofocus: true,

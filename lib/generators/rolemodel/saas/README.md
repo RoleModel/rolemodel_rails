@@ -5,5 +5,3 @@
 ## What you get
 
 * [Devise](./devise)
-* [Stripe](./stripe)
-* [SSO](./sso)

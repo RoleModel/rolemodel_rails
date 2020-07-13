@@ -5,14 +5,17 @@ Depends on [Devise Generator](../devise)
 ## What you get
 
 Installs [devise](https://github.com/heartcombo/devise)
+Installs [devise_invitable](https://github.com/scambra/devise_invitable)
 
-### Factory Syntax methods
+### Models
+* Adds User model
 
-Allow you to use the short hand methods for creating or building factories
+### Views
+* Current user
+* Sign up, sign in, sign out
+* Add user profile page
 
-```ruby
-it 'tests something' do
-  created_user = create(:user)
-  built_user = build(:user)
-end
-```
+### Tests
+* Devise test helpers
+* User system test
+* Devise registration test

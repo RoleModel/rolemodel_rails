@@ -5,4 +5,15 @@ Example:
     rails generate rolemodel:saas:devise
 
     This will create:
-        spec/support/factory_bot.rb
+        app/controllers/application_controller.rb
+        app/controllers/users/registrations_controller.rb
+        app/views/devise
+        spec/controllers/users/registrations_controller_spec.rb
+        spec/support/devise.rb
+        spec/system/users_spec.rb
+
+    This will modify:
+        config/environments/development.rb
+        config/environments/production.rb
+        app/models/user.rb
+        db/seeds.rb
