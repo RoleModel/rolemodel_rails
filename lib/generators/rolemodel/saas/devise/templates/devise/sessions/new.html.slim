@@ -1,0 +1,22 @@
+.container
+  .card.card--form.form--centered
+    h2 Login
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-inputs
+        .form__group
+          = f.input :email,
+            autofocus: true,
+            label: false,
+            placeholder: 'Email',
+            input_html: { autocomplete: 'email', class: 'form__input' }
+        .form__group
+          = f.input :password,
+            label: false,
+            placeholder: 'Password',
+            input_html: { autocomplete: "current-password", class: 'form__input' }
+        .form__group.flex.justify-between.items-center
+          = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+          = f.button :submit, 'Login', class: 'btn--primary'
+      hr
+      .form-actions.justify-center
+        = render "devise/shared/links"

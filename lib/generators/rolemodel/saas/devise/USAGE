@@ -1,0 +1,8 @@
+Description:
+    installs and configures Devise
+
+Example:
+    rails generate rolemodel:saas:devise
+
+    This will create:
+        spec/support/factory_bot.rb

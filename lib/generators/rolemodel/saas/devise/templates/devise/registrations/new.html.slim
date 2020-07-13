@@ -1,0 +1,40 @@
+.container
+  .card.card--form.form--centered
+    h2 Sign up
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = f.error_notification
+      .form-inputs
+        .form__group
+          = f.input :first_name,
+            autofocus: true,
+            input_html: { class: 'form__input' },
+            label_html: { class: 'form__label' }
+        .form__group
+          = f.input :last_name,
+            input_html: { class: 'form__input' },
+            label_html: { class: 'form__label' }
+        .form__group
+          = f.fields_for :organization_attributes do |organization_fields|
+            = organization_fields.input :name,
+              label: 'Organization Name',
+              required: true,
+              input_html: { class: 'form__input' },
+              label_html: { class: 'form__label' }
+        .form__group
+          = f.input :email,
+            input_html: { autocomplete: 'email', class: 'form__input' },
+            label_html: { class: 'form__label' }
+        .form__group
+          = f.input :password,
+            required: true,
+            input_html: { autocomplete: 'new-password', class: 'form__input' },
+            label_html: { class: 'form__label' }
+        .form__group
+          = f.input :password_confirmation,
+            required: true,
+            input_html: { autocomplete: 'new-password', class: 'form__input' },
+            label_html: { class: 'form__label' }
+      hr
+      .form-actions.form__footer
+        = f.button :submit, "Sign up", class: 'btn--primary'
+        = render "devise/shared/links"

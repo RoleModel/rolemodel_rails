@@ -9,6 +9,13 @@ Attempts to solve the pain of:
 * Our BestPractice learns don't often get ported into other projects as it isn't straightforward to do so
 * There is an emerging pattern of libraries using generators (e.g. webpacker) to migrate a setup between library versions
 
+## Precondition
+
+The rolemodel_rails gem expects to be added to an existing Rails project. Typically those are started with:
+
+```shell
+rails new <app-name> --skip-test --database=postgresql
+```
 
 ## Installation
 
@@ -62,6 +69,8 @@ bin/rails g
   * [Base](./lib/generators/rolemodel/css/base)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Heroku](./lib/generators/rolemodel/heroku)
+* [SaaS](./lib/generators/rolemodel/saas)
+  * [Devise](./lib/generators/rolemodel/saas/devise)
 
 ## Development
 
