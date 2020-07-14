@@ -14,7 +14,7 @@ module Rolemodel
         generate :devise, 'user first_name:string last_name:string'
       end
 
-      def add_invitable        
+      def add_invitable
         if yes?('Would you like to add user invitations?')
           gem 'devise_invitable'
           run_bundle
@@ -80,11 +80,11 @@ module Rolemodel
         inject_into_file 'db/seeds.rb', after: "Examples:\n" do <<-'RUBY'
           if Rails.env.development?
             puts 'Creating the default user environment...'
-         
+
             organization = Organization.create!(
               name: 'RoleModel Software'
             )
-         
+
             User.create!(
               first_name: 'Support',
               last_name: 'Admin',
