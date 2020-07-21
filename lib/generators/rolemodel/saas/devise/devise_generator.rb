@@ -26,7 +26,10 @@ module Rolemodel
       end
 
       def add_routes
-        route "devise_for :users, controllers: { registrations: 'users/registrations' }"
+        route_info = ", controllers: {\n    registrations: 'users/registrations',\n"
+        route_info += "    invitations: 'users/invitations',\n" if @add_invitations
+        route_info += "  }"
+        inject_into_file 'config/routes.rb', route_info, after: /devise_for :users$/
       end
 
       def add_modified_files
