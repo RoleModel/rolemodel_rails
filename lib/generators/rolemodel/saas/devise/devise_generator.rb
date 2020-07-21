@@ -15,7 +15,8 @@ module Rolemodel
       end
 
       def add_invitable
-        if yes?('Would you like to add user invitations?')
+        @add_invitations = yes?('Would you like to add user invitations?')
+        if @add_invitations
           gem 'devise_invitable'
           run_bundle
 
@@ -29,12 +30,19 @@ module Rolemodel
       end
 
       def add_modified_files
-        template 'app/controllers/application_controller.rb'
-        template 'app/controllers/users/registrations_controller.rb'
-        template 'app/views/devise'
-        template 'spec/controllers/users/registrations_controller_spec.rb'
-        template 'spec/support/devise.rb'
-        template 'spec/system/users_spec.rb'
+        copy_file 'app/controllers/application_controller.rb'
+        copy_file 'app/controllers/users/registrations_controller.rb'
+        if @add_invitations
+          copy_file 'app/controllers/users/invitations_controller.rb'
+          directory 'app/views/devise/invitations'
+        end
+        directory 'app/views/devise/passwords'
+        directory 'app/views/devise/registrations'
+        directory 'app/views/devise/sessions'
+        directory 'app/views/devise/shared'
+        copy_file 'spec/controllers/users/registrations_controller_spec.rb'
+        copy_file 'spec/support/devise.rb'
+        copy_file 'spec/system/users_spec.rb'
       end
 
       def modify_existing_files

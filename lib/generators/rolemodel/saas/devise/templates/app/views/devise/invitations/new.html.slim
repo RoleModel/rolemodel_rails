@@ -1,0 +1,17 @@
+= render 'shared/nav',
+  name: t('devise.invitations.new.header'),
+  notice: notice
+
+.user-form
+  = form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post} do |f|
+    = devise_error_messages!
+
+    = f.label :name, 'Name', class: 'user-form__label'
+    = f.text_field :name, class: 'user-form__input'
+
+    = f.label :email, 'Email', class: 'user-form__label'
+    = f.text_field :email, class: 'user-form__input'
+
+    .user-form__actions
+      = link_to 'Cancel', organization_path, class: 'user-form__cancel'
+      = f.submit t("devise.invitations.new.submit_button"), class: 'user-form__submit'
