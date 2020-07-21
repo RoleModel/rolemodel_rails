@@ -11,7 +11,9 @@ module Rolemodel
           name = File.dirname(generator).split('/').last
           generate "rolemodel:#{name}:all"
         else
-          name = File.basename(generator, '_generator.rb')
+          prefix = File.dirname(generator.sub(base_path, '')).split('/').reject(&:blank?).join(':')
+          base_name = File.basename(generator, '_generator.rb')
+          name = prefix.present? && prefix != base_name ? "#{prefix}:#{base_name}" : base_name
           generate "rolemodel:#{name}"
         end
       end
