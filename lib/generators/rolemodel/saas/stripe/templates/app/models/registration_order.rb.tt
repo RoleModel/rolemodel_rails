@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 
 class RegistrationOrder < ApplicationRecord
-  attr_writer :pending_membership_athlete_ids
-
   belongs_to :user
-  belongs_to :event, optional: true
+  belongs_to :<%= @key_model_names[:singular] %>, optional: true
   belongs_to :promotional_code, optional: true
 
   has_many :registration_items
-  has_many :membership_items
-  has_many :contestant_items
-  has_many :ticket_items
+  <% if @ticket_needed %>has_many :ticket_items<% end %>
   has_many :refunds
 
   validates :user, presence: true
@@ -36,28 +32,17 @@ class RegistrationOrder < ApplicationRecord
 
     registration_items.each do |item|
       item.record_pricing!
-      item.register_athlete
     end
   end
 
-  def season
-    @season ||= membership_items.first&.season
-  end
-
   def name
-    return event.name if event?
+    return <%= @key_model_names[:singular] %>.name if <%= @key_model_names[:singular] %>?
 
-    season ? season.description : "Order #: #{padded_id}"
+    "Order #: #{padded_id}"
   end
 
-  def event?
-    event_id?
-  end
-
-  def clear_unused_registration_items(season)
-    return if transaction_id
-
-    membership_items.where.not(season: season).destroy_all
+  def <%= @key_model_names[:singular] %>?
+    <%= @key_model_names[:singular] %>_id?
   end
 
   def refund!(convenience_fees_refunded = 0)
@@ -67,42 +52,14 @@ class RegistrationOrder < ApplicationRecord
     )
   end
 
-  def athlete_price_fixed_adjustment
-    return promotional_code.adjustment if promotional_code&.fixed?
-
-    0
-  end
-
-  def athlete_price_percentage_adjustment
-    return promotional_code.adjustment if promotional_code&.percentage?
-
-    1
-  end
-
   def padded_id
     format('%08d', id)
   end
-
-  def contestants_ordered
-    contestant_items.count { |item| !item.refunded? }
-  end
-
+<% if @ticket_needed %>
   def tickets_ordered
     ticket_items.sum { |item| !item.refunded? ? item.quantity : 0 }
   end
-
-  def total_gym_revenue
-    @total_gym_revenue ||= registration_items.sum(&:gym_revenue) - processing_fees
-  end
-
-  def pending_membership_athlete_ids
-    @pending_membership_athlete_ids ||= membership_items.pluck(:athlete_id)
-  end
-
-  def pending_membership_for?(athlete_id)
-    pending_membership_athlete_ids.include?(athlete_id)
-  end
-
+<% end %>
   def completely_refunded?
     base_price == 0.0
   end

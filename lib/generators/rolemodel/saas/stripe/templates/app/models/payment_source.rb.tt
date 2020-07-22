@@ -19,7 +19,7 @@ class PaymentSource
   end
 
   def connected_account(order)
-    org = order.event ? order.event.organization : order.season&.league&.organization
+    org = order.<%= @key_model_names[:singular] %> ? order.<%= @key_model_names[:singular] %>.organization : order.season&.league&.organization
     org&.stripe_connect_account
   end
 

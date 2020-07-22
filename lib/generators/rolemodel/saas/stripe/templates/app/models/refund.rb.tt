@@ -104,6 +104,6 @@ class Refund < ApplicationRecord
   end
 
   def connected_account
-    registration_order.event&.organization&.stripe_account_id
+    registration_order.<%= @key_model_names[:singular] %>&.organization&.stripe_account_id
   end
 end

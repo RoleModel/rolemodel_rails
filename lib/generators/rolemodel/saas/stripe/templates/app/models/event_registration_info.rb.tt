@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+class <%= @key_model_names[:klass] %>RegistrationInfo < ApplicationRecord
+  belongs_to :<%= @key_model_names[:singular] %>
+  has_many :price_variations, -> { order(position: :asc) }, dependent: :destroy
+  has_many :promotional_codes, dependent: :nullify
+  alias_attribute :limits, :registration_limits
+
+  validates :<%= @key_model_names[:singular] %>, :price, :price_name, presence: true
+
+  def price_of(registration_item)
+    matching_variation = price_variations.detect { |variation| variation.match(registration_item) }
+    matching_variation.try(:price) || price
+  end
+
+  def address
+    self[:address] || <%= @key_model_names[:singular] %>.organization.address
+  end
+
+  def default_description
+    <<~HEREDOC
+      <h1><%= @key_model_names[:singular].titleize %></h1>
+      <div>Fill in the rest of the default description into <%= @key_model_names[:singular] %>_registration_info.rb</div>
+    HEREDOC
+  end
+
+  def includes_promo_code?(promo_code)
+    promotional_codes.include? promo_code
+  end
+end

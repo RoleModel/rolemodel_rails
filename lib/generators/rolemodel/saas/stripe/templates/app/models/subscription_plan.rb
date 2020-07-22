@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class SubscriptionPlan
-  delegate :max_contestants, :max_user_count, :manage_events?,
-    :virtual_events?, :upgrade_value, :multiple_courses?, :waves?, :initial_credits,
-    :registration?, :view_leader_boards?, :associate_athletes?, to: :class
+  delegate :max_user_count, :upgrade_value, :initial_credits, :registration?, to: :class
 
   UPGRADE_VALUES = OpenStruct.new(
     bottom: 0,
@@ -20,39 +18,19 @@ class SubscriptionPlan
   # NOTE: Promo codes should always be UPPERCASED so that we can compare without
   #   case sensitivity!
   ACTIVE_PROMOTIONS = {
-    'UNAA' => {
+    'DISCOUNT' => {
       'expires_on' => Date.parse('2025-08-01'),
-      'league-gym-yearly' => 100.00
+      'organization-yearly' => 100.00
     }
   }.freeze
 
   class << self
-    def max_contestants
-      Subscription::UNLIMITED_CONTESTANTS
-    end
-
     def max_user_count
-      Subscription::LEAGUE_GYM_USERS
-    end
-
-    def manage_events?
-      true
-    end
-
-    def virtual_events?
-      false
+      Subscription::ORGANIZATION_USERS
     end
 
     def upgrade_value
       UPGRADE_VALUES.high
-    end
-
-    def multiple_courses?
-      false
-    end
-
-    def waves?
-      true
     end
 
     def registration?
@@ -61,14 +39,6 @@ class SubscriptionPlan
 
     def initial_credits
       0
-    end
-
-    def view_leader_boards?
-      true
-    end
-
-    def associate_athletes?
-      false
     end
 
     # Descendants here means subclasses of SubscriptionPlan; we ask each type

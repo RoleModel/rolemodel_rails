@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+class PriceVariation < ApplicationRecord
+  belongs_to :<%= @key_model_names[:singular] %>_registration_info
+  acts_as_list scope: :<%= @key_model_names[:singular] %>_registration_info
+
+  validates :<%= @key_model_names[:singular] %>_registration_info, :price, :name, presence: true
+end

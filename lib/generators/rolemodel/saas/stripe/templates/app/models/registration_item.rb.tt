@@ -3,7 +3,7 @@
 class RegistrationItem < ApplicationRecord
   belongs_to :registration_order
 
-  scope :without_tickets, -> { where.not(type: 'TicketItem') }
+  <% if @ticket_needed %>scope :without_tickets, -> { where.not(type: 'TicketItem') }<% end %>
 
   validates :type, :quantity, presence: true
 
@@ -44,8 +44,7 @@ class RegistrationItem < ApplicationRecord
 
   def record_pricing!
     update(
-      recorded_price: registration_price,
-      gym_revenue: registration_price
+      recorded_price: registration_price
     )
   end
 

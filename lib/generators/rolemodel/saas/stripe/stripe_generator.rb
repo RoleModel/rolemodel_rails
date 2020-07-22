@@ -14,12 +14,51 @@ module Rolemodel
       def ask_for_model
         @subscription_needed = yes?('Do you need subscriptions?')
         @registration_needed = yes?('Do you need registrations?')
-        if @registration_needed
-          while @key_model_name.blank? do
-            @key_model_name = ask('What is the key model name that needs registration (eg. events)?')
-          end
+        @ticket_needed = yes?('Do you need tickets?')
+        key_model_name = ''
+        while key_model_name.blank?
+          key_model_name = ask('What is the key model name (eg. events)?')
         end
+        @key_model_names = {
+          klass: key_model_name.classify.singularize,
+          klass_plural: key_model_name.classify.pluralize,
+          singular: key_model_name.underscore.singularize,
+          plural: key_model_name.underscore.pluralize
+        }
       end
+
+      def add_models
+        copy_file 'app/models/bank_account.rb'
+        template 'app/models/event.rb.tt', "app/models/#{@key_model_names[:singular]}.rb"
+        if @registration_needed
+          template 'app/models/event_registration_info.rb', "app/models/#{@key_model_names[:singular]}_registration_info.rb"
+          template 'app/models/registration_item.rb'
+          template 'app/models/registration_order.rb'
+          copy_file 'app/models/registration_pricing.rb'
+        end
+        if @subscription_needed
+          copy_file 'app/models/subscription.rb'
+          copy_file 'app/models/subscription/null.rb'
+          copy_file 'app/models/subscription/stripe.rb'
+          copy_file 'app/models/subscription_description.rb'
+          copy_file 'app/models/subscription_plan.rb'
+          copy_file 'app/models/subscription_plan/organization.rb'
+          copy_file 'app/models/subscription_plan/individual.rb'
+          copy_file 'app/models/subscription_plan/participant.rb'
+          copy_file 'app/models/subscription_plan/registration.rb'
+        end
+        if @ticket_needed
+          template 'app/models/ticket.rb.tt'
+          copy_file 'app/models/ticket_item.rb'
+        end
+        template 'app/models/payment_source.rb'
+        template 'app/models/price_variation.rb'
+        template 'app/models/promotional_code.rb'
+        template 'app/models/refund.rb'
+        copy_file 'app/models/user_gateway_id.rb'
+      end
+
+      private
 
       def add_routes
         route <<~ROUTES
@@ -33,13 +72,13 @@ module Rolemodel
             resources :organizations, only: [:index, :show]
           end
 
-          resources :#{@key_model_name.pluralize}, except: [:show] do
+          resources :#{@key_model_names[:plural]}, except: [:show] do
             member do
               get :details
               get :options
               get :registration_orders
             end
-            resources :#{@key_model_name.singularize}_registration_infos, only: :update, as: :registration_infos do
+            resources :#{@key_model_names[:singular]}_registration_infos, only: :update, as: :registration_infos do
               member do
                 patch :update_price
               end
@@ -49,20 +88,20 @@ module Rolemodel
             resource :bank_account, only: [ :edit, :update ]
 
             collection do
-              get :manage, to: '#{@key_model_name.pluralize}#manage'
-              get :oauth, to: 'stripe##{@key_model_name.singularize}_oauth'
+              get :manage, to: '#{@key_model_names[:plural]}#manage'
+              get :oauth, to: 'stripe##{@key_model_names[:singular]}_oauth'
             end
           end
 
-          scope '#{@key_model_name.pluralize}/:id', controller: :#{@key_model_name.singularize}_registrations do
-            get :registration, action: :new, as: :registration_#{@key_model_name.singularize}
+          scope '#{@key_model_names[:plural]}/:id', controller: :#{@key_model_names[:singular]}_registrations do
+            get :registration, action: :new, as: :registration_#{@key_model_names[:singular]}
             post :registration, action: :create
             post :register_tickets, action: :update_ticket
-            delete 'registrations/:itemId', action: :destroy, as: :#{@key_model_name.singularize}_unregister
+            delete 'registrations/:itemId', action: :destroy, as: :#{@key_model_names[:singular]}_unregister
 
-            get :checkout, action: :checkout, as: :checkout_#{@key_model_name.singularize}
-            post :apply_promo_code, as: :apply_promo_code_#{@key_model_name.singularize}
-            post :process_payment, action: :process_payment, as: :process_payment_#{@key_model_name.singularize}
+            get :checkout, action: :checkout, as: :checkout_#{@key_model_names[:singular]}
+            post :apply_promo_code, as: :apply_promo_code_#{@key_model_names[:singular]}
+            post :process_payment, action: :process_payment, as: :process_payment_#{@key_model_names[:singular]}
           end
 
           resources :subscriptions, only: [ :new, :create ]
@@ -84,24 +123,19 @@ module Rolemodel
 
           post '/stripe/webhooks', to: 'stripe#webhooks'
 
-          get '#{@key_model_name.pluralize}/:id', to: '#{@key_model_name.singularize}_registrations#show', as: :show_#{@key_model_name.singularize}
+          get '#{@key_model_names[:plural]}/:id', to: '#{@key_model_names[:singular]}_registrations#show', as: :show_#{@key_model_names[:singular]}
 
           ROUTES
       end
 
-      def add_models
-        if yes?('Would you like to add user invitations?')
-          # gem 'devise_invitable'
-          # run_bundle
-
-          # generate 'devise_invitable:install'
-          # generate :devise_invitable, 'user'
-        end
+      def add_controllers
       end
 
       private
+      def add_services
+      end
 
-      def add_controllers
+      def add_configuration
       end
 
       def add_test_files
@@ -111,6 +145,9 @@ module Rolemodel
         copy_file 'spec/controllers/users/registrations_controller_spec.rb'
         copy_file 'spec/support/devise.rb'
         copy_file 'spec/system/users_spec.rb'
+      end
+
+      def add_factories
       end
 
       def modify_existing_files

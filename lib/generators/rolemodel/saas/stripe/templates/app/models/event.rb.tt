@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+class <%= @key_model_names[:klass] %> < ApplicationRecord
+  belongs_to :organization
+<% if @registration_needed %>
+  has_many :registration_orders
+  has_many :registration_items, lambda {
+    merge(RegistrationOrder.paid)
+      .where(refunded_amount: 0)
+  }, through: :registration_orders
+<% if @ticket_needed %>has_many :tickets<% end %>
+  has_one :<%= @key_model_names[:singular] %>_registration_info # until we have soft deletes... holding off on, dependent: :destroy
+  alias_attribute :registration_info, :<%= @key_model_names[:singular] %>_registration_info
+
+  scope :uses_registration, -> { where(enable_registration: true) }
+<% end %>
+  validates :name, presence: true
+
+  accepts_nested_attributes_for :organization, update_only: true
+<% if @registration_needed %>
+  def registration_closed?
+    Date.current >= registration_closed_at
+  end
+<% end %>
+  def to_param
+    [id, name.parameterize].join('-')
+  end
+end

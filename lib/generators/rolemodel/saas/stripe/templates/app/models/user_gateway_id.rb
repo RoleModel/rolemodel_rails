@@ -26,7 +26,7 @@ class UserGatewayId < ApplicationRecord
       Stripe::Customer.create({
         email: user.email,
         name: user.name,
-        metadata: { ninjamaster_user_id: user.id }
+        metadata: { application_user_id: user.id }
       }, stripe_account: connect_account)
     update(stripe_customer_id: customer.id)
   end

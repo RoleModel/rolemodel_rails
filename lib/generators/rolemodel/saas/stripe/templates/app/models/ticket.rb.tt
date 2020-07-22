@@ -1,0 +1,26 @@
+# frozen_string_literal: true
+
+class Ticket < ApplicationRecord
+  validates :name, :price, presence: true
+
+  belongs_to :<%= @key_model_names[:singular] %>
+  has_many :registration_items
+
+  def unit_price
+    ticket.price
+  end
+
+  def as_json(options = {})
+    order = options.delete(:registration_item_for_order)
+
+    super(options).merge(comment: comment).tap do |response|
+      response.merge!(registration_item: registration_item_for_<%= @key_model_names[:singular] %>(order)) if order.present?
+    end
+  end
+
+  def registration_item_for_<%= @key_model_names[:singular] %>(order)
+    registration_items.joins(:registration_order).find_by(
+      registration_orders: { id: order.id, <%= @key_model_names[:singular] %>: order.<%= @key_model_names[:singular] %>, transaction_id: nil }
+    )
+  end
+end

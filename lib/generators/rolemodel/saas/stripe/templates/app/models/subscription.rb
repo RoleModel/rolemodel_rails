@@ -4,17 +4,11 @@ class Subscription < ApplicationRecord
   PLAN_CATEGORIES = [
     SubscriptionPlan::Participant,
     SubscriptionPlan::Individual,
-    SubscriptionPlan::Gym,
-    SubscriptionPlan::LeagueGym
+    SubscriptionPlan::Organization
   ].map(&:name)
-  UNLIMITED_CONTESTANTS = 100000 # More than reasonable for now
-  LIMITED_CONTESTANTS = 25
-  VERY_LIMITED_CONTESTANTS = 5
-  NO_CONTESTANTS = 0
-  LEAGUE_GYM_USERS = 5
-  GYM_USERS = 3
   INDIVIDUAL_USERS = 1
   PARTICIPANT_USERS = 1
+  ORGANIZATION_USERS = 5
 
   # Grace period to allow card to go through and Stripe to notify our webhooks
   GRACE_PERIOD = 1.day
@@ -24,9 +18,7 @@ class Subscription < ApplicationRecord
   validates :plan_category, inclusion: { in: PLAN_CATEGORIES }
   accepts_nested_attributes_for :subscription_descriptions
 
-  delegate :manage_events?, :virtual_events?, :waves?, :max_contestants,
-    :max_user_count, :upgrade_value, :initial_credits, :registration?,
-    :view_leader_boards?, :associate_athletes?, :multiple_courses?, to: :plan
+  delegate :max_user_count, :upgrade_value, :initial_credits, :registration?, to: :plan
 
   delegate :display_charge_cycle, :plan_id, :price, :display_price,
     :display_payment_method, to: :gateway_subscription
@@ -71,10 +63,7 @@ class Subscription < ApplicationRecord
   end
 
   def description
-    [
-      display_price,
-      "#{display_contestants} contestants per event."
-    ].compact.join(' ')
+    display_price
   end
 
   def plan_category=(plan_category_string)
@@ -124,14 +113,14 @@ class Subscription < ApplicationRecord
   end
 
   def downgrade_not_available?(target_plan:)
-    minimum_league_gym_days = 62
+    minimum_days = 62
 
-    # Makes sure they are on a league gym monthly plan, and they are not trying to upgrade
-    return false if target_plan == 'league-gym-yearly'
+    # Makes sure they are on a organization monthly plan, and they are not trying to upgrade
+    return false if target_plan == 'organization-yearly'
 
-    paid_for_three_months = (paid_through_date.to_time - created_at).to_i / 1.day < minimum_league_gym_days
+    paid_for_three_months = (paid_through_date.to_time - created_at).to_i / 1.day < minimum_days
 
-    plan_category == 'SubscriptionPlan::LeagueGym' &&
+    plan_category == 'SubscriptionPlan::Organization' &&
       display_charge_cycle == 'monthly' && paid_for_three_months
   end
 
@@ -151,19 +140,9 @@ class Subscription < ApplicationRecord
 
   private
 
-  def display_contestants
-    max_contestants == UNLIMITED_CONTESTANTS ? 'Unlimited' : max_contestants
-  end
-
-  # TODO: Simplify in TR#1248
   def gateway_subscription
-    @gateway_subscription ||=
-      if braintree_subscription_id?
-        Subscription::Braintree.new(braintree_subscription_id)
-      else
-        Subscription::Stripe.new(stripe_subscription_id)
-      end
-  rescue ::Braintree::NotFoundError, ::Stripe::InvalidRequestError
+    @gateway_subscription ||= Subscription::Stripe.new(stripe_subscription_id)
+  rescue ::Stripe::InvalidRequestError
     @gateway_subscription = Subscription::Null.new
   end
 

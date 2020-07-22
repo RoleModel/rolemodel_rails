@@ -145,6 +145,6 @@ class RegistrationPricing
     return if connected_account.blank?
 
     prefix = connected_account.settings.payments.statement_descriptor.first(19)
-    "#{prefix}*NM"
+    raise 'this needs to be changed' # "#{prefix}*NM"
   end
 end
