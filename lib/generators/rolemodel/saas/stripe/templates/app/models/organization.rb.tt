@@ -1,0 +1,123 @@
+# frozen_string_literal: true
+
+class Organization < ApplicationRecord
+  has_many :<%= @key_model_names[:plural] %>
+  has_many :users, inverse_of: :organization
+  <% if @subscription_needed %>has_many :subscriptions, inverse_of: :organization<% end %>
+  has_one :bank_account
+  accepts_nested_attributes_for :users<% if @subscription_needed %>, :subscriptions<% end %>
+
+  validates :name, presence: true
+<% if @subscription_needed %>
+  validates :credits, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  def has_credits?
+    credits.positive?
+  end
+
+  def spend_credit(spending_credits = 1)
+    self.credits -= spending_credits unless spending_credits > credits || credits.zero?
+  end
+
+  def add_credits(subscription)
+    old = active_subscription
+    if subscription.upgrade_value > old.upgrade_value
+      self.credits += subscription.initial_credits - old.initial_credits
+    end
+    if subscription == old
+      self.credits = subscription.initial_credits
+    end
+  end
+
+  def out_of_invites?
+    users.count >= max_user_count
+  end
+
+  def max_user_count
+    active_subscription.max_user_count
+  end
+
+  def active_subscription
+    @active_subscription ||= begin
+      subscriptions.detect { |s| (s.active? || s.trialing?) && s.paid_up? } ||
+        subscriptions.detect(&:invited?) ||
+        subscriptions.select { |s| s.canceled? && s.paid_up? }.max_by(&:created_at) ||
+        subscriptions.detect { |s| s.pending? && s.paid_up? } ||
+        Subscription.default
+    end
+  end
+
+  def upcoming_subscription
+    @upcoming_subscription ||= subscriptions.detect { |s| s.pending? && !s.paid_up? }
+  end
+
+  # If the plan is the same, that means the cycle (year/month/quarter) is
+  # changing. We treat this as a downgrade, so they finish out their current
+  # billing period. E.g. finish out the year they paid for before billing monthly
+  def upgrading?(plan_category_string)
+    plan_category_string.constantize.upgrade_value > active_subscription.upgrade_value
+  end
+
+  def reload
+    @active_subscription = nil
+    @upcoming_subscription = nil
+    super
+  end
+
+  def plan_category
+    active_subscription.plan_category.demodulize
+  end
+
+  def status
+    return 'Downgrading' if upcoming_subscription
+
+    active_subscription.status
+  end
+
+  def paid_through_date
+    active_subscription.paid_through_date
+  end
+
+  def next_billing_date
+    active_subscription.next_billing_date
+  end
+<% end %>
+  def admin_email
+    users.detect(&:org_admin?).try(:email) || users.detect(&:support_admin?).try(:email)
+  end
+
+  def gateway_customer_path
+    if stripe_customer_id?
+      "https://dashboard.stripe.com/customers/#{stripe_customer_id}"
+    end
+  end
+
+  def verified_stripe_customer_id(email = admin_email)
+    begin
+      customer = Stripe::Customer.retrieve(stripe_customer_id)
+      create_stripe_customer(email) if customer.deleted?
+    rescue Stripe::StripeError
+      create_stripe_customer(email)
+    end
+    stripe_customer_id
+  end
+
+  def stripe_connect_account
+    return if stripe_account_id.blank?
+
+    @stripe_connect_account ||= Stripe::Account.retrieve(stripe_account_id)
+  end
+
+  private
+
+  def create_stripe_customer(email)
+    customer =
+      Stripe::Customer.list(email: email).first ||
+      Stripe::Customer.create(
+        email: email,
+        name: name,
+        metadata: { application_org_id: id }
+      )
+    update(stripe_customer_id: customer.id)
+  end
+end

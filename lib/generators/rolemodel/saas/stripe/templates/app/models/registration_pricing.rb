@@ -85,7 +85,7 @@ class RegistrationPricing
         statement_descriptor: statement_descriptor,
         default_source: payment_source.source(connected_account_id),
         # TODO: Is this the right approach?
-        # If we aren't working with a Connected gym account, we can't take application fees.
+        # If we aren't working with a Connected organization account, we can't take application fees.
         application_fee_amount: connected_account_id ? (total_convenience_fees * 100).to_i : nil
       }, stripe_account: connected_account_id)
       # Then delete any associated items, so we start fresh

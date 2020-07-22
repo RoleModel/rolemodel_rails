@@ -8,12 +8,12 @@ class PaymentSource
     @user = user
   end
 
-  # Customer ID in Gym if connect_account, otherwise Customer ID in NinjaMaster
+  # Customer ID in Organization if connect_account, otherwise Customer ID in Application
   def connected_customer_id(account_id)
     user.verified_stripe_customer_id(account_id)
   end
 
-  # Customer ID in NinjaMaster
+  # Customer ID in Application
   def stripe_customer_id
     @stripe_customer_id ||= user.verified_stripe_customer_id
   end
@@ -34,7 +34,7 @@ class PaymentSource
       customer: stripe_customer_id,
       original_source: card
     }, stripe_account: account_id)
-    # associate to the gym's copy of the customer
+    # associate to the organization's copy of the customer
     Stripe::Customer.create_source(
       connected_customer_id(account_id),
       { source: token },

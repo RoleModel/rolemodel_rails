@@ -32,9 +32,12 @@ module Rolemodel
         template 'app/models/event.rb.tt', "app/models/#{@key_model_names[:singular]}.rb"
         if @registration_needed
           template 'app/models/event_registration_info.rb', "app/models/#{@key_model_names[:singular]}_registration_info.rb"
+          template 'app/models/price_variation.rb'
+          template 'app/models/promotional_code.rb'
           template 'app/models/registration_item.rb'
           template 'app/models/registration_order.rb'
           copy_file 'app/models/registration_pricing.rb'
+          template 'app/models/refund.rb'
         end
         if @subscription_needed
           copy_file 'app/models/subscription.rb'
@@ -52,9 +55,7 @@ module Rolemodel
           copy_file 'app/models/ticket_item.rb'
         end
         template 'app/models/payment_source.rb'
-        template 'app/models/price_variation.rb'
-        template 'app/models/promotional_code.rb'
-        template 'app/models/refund.rb'
+        template 'app/models/organization.rb'
         copy_file 'app/models/user_gateway_id.rb'
       end
 
