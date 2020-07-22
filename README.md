@@ -71,6 +71,7 @@ bin/rails g
 * [Heroku](./lib/generators/rolemodel/heroku)
 * [SaaS](./lib/generators/rolemodel/saas)
   * [Devise](./lib/generators/rolemodel/saas/devise)
+  * [Stripe](./lib/generators/rolemodel/saas/stripe)
 
 ## Development
 
