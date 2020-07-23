@@ -59,33 +59,67 @@ module Rolemodel
         copy_file 'app/models/user_gateway_id.rb'
       end
 
-      private
-
+      # adding in reverse order since it adds to the top of the file
       def add_routes
-        route <<~ROUTES
-          resource :organization, only: [:show, :edit, :update] do
-            get :oauth, to: 'stripe#organization_oauth'
-          end
-          resources :organization_invitations, only: [:index, :new, :create]
+        if @registration_needed
+          route %Q|get '#{@key_model_names[:plural]}/:id', to: '#{@key_model_names[:singular]}_registrations#show', as: :show_#{@key_model_names[:singular]}|
+        end
+        route "post '/stripe/webhooks', to: 'stripe#webhooks'"
+        if @registration_needed
+          route <<~'ROUTES'
+            resources :registration_orders, only: [:show, :edit] do
+              member do
+                post :refund
+                post :refund_all
+              end
 
-          namespace :admin do
-            resources :subscriptions, only: [:edit, :update]
-            resources :organizations, only: [:index, :show]
-          end
-
-          resources :#{@key_model_names[:plural]}, except: [:show] do
-            member do
-              get :details
-              get :options
-              get :registration_orders
+              collection do
+                get 'confirmation/:registration_order_ids', action: :confirmation, as: :confirmation
+              end
             end
-            resources :#{@key_model_names[:singular]}_registration_infos, only: :update, as: :registration_infos do
+          ROUTES
+        end
+
+        if @subscription_needed
+          route "get 'subscriptions/promotions', to: 'subscriptions#promotions', as: :promotions"
+          route "delete 'subscriptions/cancel', to: 'subscriptions#cancel', as: :cancel_subscription # no id needed"
+          route "patch 'subscriptions/update', to: 'subscriptions#update', as: :subscription # no id needed"
+          route "get 'subscriptions/edit', to: 'subscriptions#edit', as: :edit_subscription # no id needed"
+          route 'resources :subscriptions, only: [ :new, :create ]'
+        end
+
+        if @registration_needed
+          route <<~ROUTES
+            scope '#{@key_model_names[:plural]}/:id', controller: :#{@key_model_names[:singular]}_registrations do
+              get :registration, action: :new, as: :registration_#{@key_model_names[:singular]}
+              post :registration, action: :create
+              post :register_tickets, action: :update_ticket
+              delete 'registrations/:itemId', action: :destroy, as: :#{@key_model_names[:singular]}_unregister
+
+              get :checkout, action: :checkout, as: :checkout_#{@key_model_names[:singular]}
+              post :apply_promo_code, as: :apply_promo_code_#{@key_model_names[:singular]}
+              post :process_payment, action: :process_payment, as: :process_payment_#{@key_model_names[:singular]}
+            end
+          ROUTES
+        end
+
+        # intentionally indented an extra level to make the output match in the routes.rb file
+        registration_infos_routes = <<~ROUTE
+          resources :#{@key_model_names[:singular]}_registration_infos, only: :update, as: :registration_infos do
               member do
                 patch :update_price
               end
               resources :price_variations, only: %i[create update]
             end
+        ROUTE
 
+        route <<~ROUTES
+          resources :#{@key_model_names[:plural]}, except: [:show] do
+            member do
+              get :details
+              get :options#{"\n    get :registration_orders" if @registration_needed}
+            end
+            #{registration_infos_routes if @registration_needed}
             resource :bank_account, only: [ :edit, :update ]
 
             collection do
@@ -93,41 +127,23 @@ module Rolemodel
               get :oauth, to: 'stripe##{@key_model_names[:singular]}_oauth'
             end
           end
+        ROUTES
 
-          scope '#{@key_model_names[:plural]}/:id', controller: :#{@key_model_names[:singular]}_registrations do
-            get :registration, action: :new, as: :registration_#{@key_model_names[:singular]}
-            post :registration, action: :create
-            post :register_tickets, action: :update_ticket
-            delete 'registrations/:itemId', action: :destroy, as: :#{@key_model_names[:singular]}_unregister
-
-            get :checkout, action: :checkout, as: :checkout_#{@key_model_names[:singular]}
-            post :apply_promo_code, as: :apply_promo_code_#{@key_model_names[:singular]}
-            post :process_payment, action: :process_payment, as: :process_payment_#{@key_model_names[:singular]}
+        route <<~ROUTES
+          namespace :admin do
+            #{"resources :subscriptions, only: [:edit, :update]\n  " if @subscription_needed}resources :organizations, only: [:index, :show]
           end
+        ROUTES
 
-          resources :subscriptions, only: [ :new, :create ]
-          get 'subscriptions/edit', to: 'subscriptions#edit', as: :edit_subscription # no id needed
-          patch 'subscriptions/update', to: 'subscriptions#update', as: :subscription # no id needed
-          delete 'subscriptions/cancel', to: 'subscriptions#cancel', as: :cancel_subscription # no id needed
-          get 'subscriptions/promotions', to: 'subscriptions#promotions', as: :promotions
-
-          resources :registration_orders, only: [:show, :edit] do
-            member do
-              post :refund
-              post :refund_all
-            end
-
-            collection do
-              get 'confirmation/:registration_order_ids', action: :confirmation, as: :confirmation
-            end
+        route 'resources :organization_invitations, only: [:index, :new, :create]'
+        route <<~'ROUTES'
+          resource :organization, only: [:show, :edit, :update] do
+            get :oauth, to: 'stripe#organization_oauth'
           end
-
-          post '/stripe/webhooks', to: 'stripe#webhooks'
-
-          get '#{@key_model_names[:plural]}/:id', to: '#{@key_model_names[:singular]}_registrations#show', as: :show_#{@key_model_names[:singular]}
-
-          ROUTES
+        ROUTES
       end
+
+      private
 
       def add_controllers
       end
