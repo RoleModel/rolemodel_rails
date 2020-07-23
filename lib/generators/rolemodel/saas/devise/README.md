@@ -1,6 +1,7 @@
 # Devise Generator
 
-Depends on [Devise Generator](../devise)
+Depends on devise and devise_invitable generators
+Depends on [RSpec Generator](../../testing/rspec)
 
 ## What you get
 

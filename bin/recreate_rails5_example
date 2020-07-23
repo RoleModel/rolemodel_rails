@@ -4,9 +4,12 @@ IFS=$'\n\t'
 set -vx
 
 rm -fr example_rails5
-rails _5.2.3_ new --skip-keeps --skip-git --skip-spring example_rails5
+rails _5.2.4_ new --skip-keeps --skip-git --skip-spring example_rails5
 cd example_rails5
-echo "gem 'rolemodel_rails', path: '..'" >> Gemfile
+echo "group :development do
+  gem 'rolemodel_rails', path: '..'
+end" >> Gemfile
 bundle install
-bin/spring stop
+git checkout config/credentials.yml.enc
+git checkout config/master.key
 cd -

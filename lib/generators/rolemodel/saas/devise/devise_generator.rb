@@ -74,7 +74,7 @@ module Rolemodel
           accepts_nested_attributes_for :organization
 
           VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-          validates :first_name, :last_name, :organization, :email, presence: true
+          validates :first_name, :last_name, :email, presence: true
           validates :email, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
           validates :role, inclusion: { in: ROLES }
           delegate :name, to: :organization, prefix: true
