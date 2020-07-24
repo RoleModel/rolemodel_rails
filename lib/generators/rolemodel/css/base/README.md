@@ -28,6 +28,7 @@ Depends on [Webpacker Generator](../../webpacker)
 
 * [csslayout.io](https://csslayout.io/patterns/)
 * [codyhouse.co](https://codyhouse.co/ds/components)
+* [uiguideline.com](https://www.uiguideline.com)
 
 ## Updating Styles
 
