@@ -2,6 +2,7 @@
 
 Depends on devise and devise_invitable generators
 Depends on [RSpec Generator](../../testing/rspec)
+Depends on Slim/slim-rails
 
 ## What you get
 

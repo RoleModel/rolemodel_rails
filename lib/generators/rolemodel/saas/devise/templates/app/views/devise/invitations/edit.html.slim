@@ -1,28 +1,16 @@
-.page__header-container
-  nav.page__header
-    .nav-page__header-title-group
-      h1.nav-page__header-title= t 'devise.invitations.edit.header'
-
-.user-form
-  = form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f|
-    = devise_error_messages!
-    = f.hidden_field :invitation_token, readonly: true
-
-    - if resource.ninja_passport_id
-      = f.label :name, 'Name', class: 'user-form__label'
-      = f.text_field :name, class: 'user-form__input'
-
-    - if f.object.class.require_password_on_accepting
-      = f.label :password, 'Password', class: 'user-form__label'
-      = f.password_field :password, class: 'user-form__input'
-
-      = f.label :password_confirmation, 'Password Confirmation', class: 'user-form__label'
-      = f.password_field :password_confirmation, class: 'user-form__input'
-
-    p.user-form__terms I have read and agree to the RoleModel Software, Inc. #{link_to 'Terms of Use', '/terms_of_use', target: '_blank'}. I acknowledge I am over the age of 13 and agree that RoleModel Software, Inc. may share personal information I provide with others. If I am entering information for a participant 13 years of age or under, I confirm I have parental consent.
-    = f.label :agreed_to_terms_on, class: 'signup-form__agree-to-terms'
-      = f.check_box :agreed_to_terms_on, { checked: f.object.agreed_to_terms_on.present?, data: { controller: 'ga-event', action: 'click->ga-event#trackEvent', 'ga-event-event-name' => 'agreed_to_terms' } }, Date.current
-      | I agree
-
-    .user-form__actions
-      = f.submit t("devise.invitations.edit.submit_button"), class: 'user-form__submit'
+h2
+  = t "devise.invitations.edit.header"
+= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
+  = render "devise/shared/error_messages", resource: resource
+  = f.hidden_field :invitation_token, readonly: true
+  - if f.object.class.require_password_on_accepting
+    .field
+      = f.label :password
+      br
+      = f.password_field :password
+    .field
+      = f.label :password_confirmation
+      br
+      = f.password_field :password_confirmation
+  .actions
+    = f.submit t("devise.invitations.edit.submit_button")

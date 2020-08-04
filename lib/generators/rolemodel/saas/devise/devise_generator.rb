@@ -6,12 +6,18 @@ module Rolemodel
       include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
+      def add_organization
+        generate :model, 'organization name:string' unless File.exist?(Rails.root.join('app/models/organization.rb'))
+        inject_into_file 'app/models/organization.rb', 'has_many: :users, inverse_of: :organization', after: "ApplicationRecord\n"
+      end
+
       def install_devise
         gem 'devise'
         run_bundle
 
         generate 'devise:install'
         generate :devise, 'user first_name:string last_name:string'
+        generate :migration, 'add_organization_id_to_users organization_id:bigint:index'
       end
 
       def add_invitable
@@ -26,8 +32,14 @@ module Rolemodel
       end
 
       def add_routes
-        route_info = ", controllers: {\n    registrations: 'users/registrations',\n"
+        route_info = ", controllers: {\n"
+        route_info += "    // confirmations: 'users/confirmations',\n"
         route_info += "    invitations: 'users/invitations',\n" if @add_invitations
+        route_info += "    // omniauth_callbacks: 'users/omniauth_callbacks',\n"
+        route_info += "    // passwords: 'users/passwords',\n"
+        route_info += "    registrations: 'users/registrations',\n"
+        route_info += "    // sessions: 'users/sessions',\n"
+        route_info += "    // unlocks: 'users/unlocks',\n"
         route_info += "  }"
         inject_into_file 'config/routes.rb', route_info, after: /devise_for :users$/
       end
@@ -67,15 +79,16 @@ module Rolemodel
         RUBY
         end
 
+        # Update Devise email_regexp to something more useful
+        gsub_file 'config/initializers/devise.rb', '/\A[^@\s]+@[^@\s]+\z/', '/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i'
+
         inject_into_file 'app/models/user.rb', after: "class User < ApplicationRecord\n" do <<-'RUBY'
           ROLES = %w[support_admin org_admin user]
 
           belongs_to :organization, inverse_of: :users
           accepts_nested_attributes_for :organization
 
-          VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-          validates :first_name, :last_name, :email, presence: true
-          validates :email, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
+          validates :first_name, :last_name, presence: true
           validates :role, inclusion: { in: ROLES }
           delegate :name, to: :organization, prefix: true
 
