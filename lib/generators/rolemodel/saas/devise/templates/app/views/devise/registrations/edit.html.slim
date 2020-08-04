@@ -1,60 +1,55 @@
-.container
-  .card.card--form.form--centered.form--wide
-    h2
-      | Edit
-      =< resource_name.to_s.humanize
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-      = f.error_notification
-      .form-inputs
-        .form__group
-          = f.input :first_name,
-            autofocus: true,
-            input_html: { class: 'form__input' },
-            label_html: { class: 'form__label' }
-        .form__group
-          = f.input :last_name,
-            input_html: { class: 'form__input' },
-            label_html: { class: 'form__label' }
-        - if resource.org_admin?
-          .form__group
-            = f.input :organization_name,
-              required: true,
-              input_html: { class: 'form__input' },
-              label_html: { class: 'form__label' }
-        .form__group
-          = f.input :email,
-            required: true,
-            autofocus: true,
-            input_html: { class: 'form__input' },
-            label_html: { class: 'form__label' }
-          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-            p
-              | Currently waiting confirmation for:
-              =< resource.unconfirmed_email
-        .form__group
-          = f.input :password,
-            hint: "leave blank if you don't want to change it",
-            required: false,
-            input_html: { autocomplete: 'new-password', class: 'form__input' },
-            label_html: { class: 'form__label' }
-        .form__group
-          = f.input :password_confirmation,
-            required: false,
-            input_html: { autocomplete: 'new-password', class: 'form__input' },
-            label_html: { class: 'form__label' }
-        .form__group
-          = f.input :current_password,
-            required: true,
-            input_html: { autocomplete: 'current-password', class: 'form__input' },
-            label_html: { class: 'form__label' }
-      .flex.justify-between.items-center.margin-bottom-md
-        = link_to "Back", :back, class: 'link'
-        = f.button :submit, "Update", class: 'btn--primary'
-      hr
-      .flex.justify-center.margin-top-md
-        span
-          | Unhappy?
-          =< link_to "Cancel my account", registration_path(resource_name),
-            data: { confirm: "Are you sure you want to cancel your account? This action cannot be reversed." },
-            method: :delete,
-            class: 'link link--danger'
+h2
+  | Edit
+  = resource_name.to_s.humanize
+= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = render "devise/shared/error_messages", resource: resource
+  .field
+    = f.label :first_name
+    br
+    = f.text_field :first_name, autofocus: true, autocomplete: "first_name"
+  .field
+    = f.label :last_name
+    br
+    = f.text_field :last_name, autocomplete: "last_name"
+  - if resource.org_admin? || resource.support_admin?
+    .field
+      = f.label :organization_name, 'Organization Name'
+      br
+      = ff.text_field :organization_name, required: resource.organization.users.many?, autocomplete: "organization_name"
+  .field
+    = f.label :email
+    br
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    div
+      | Currently waiting confirmation for:
+      = resource.unconfirmed_email
+  .field
+    = f.label :password
+    i
+      | (leave blank if you don't want to change it)
+    br
+    = f.password_field :password, autocomplete: "new-password"
+    - if @minimum_password_length
+      br
+      em
+        = @minimum_password_length
+        |  characters minimum
+  .field
+    = f.label :password_confirmation
+    br
+    = f.password_field :password_confirmation, autocomplete: "new-password"
+  .field
+    = f.label :current_password
+    i
+      | (we need your current password to confirm your changes)
+    br
+    = f.password_field :current_password, autocomplete: "current-password"
+  .actions
+    = f.submit "Update"
+h3
+  | Cancel my account
+p
+  | Unhappy?
+  = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
+= link_to "Back", :back
