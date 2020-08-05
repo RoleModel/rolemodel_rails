@@ -19,8 +19,8 @@ module Rolemodel
         generate :devise, 'user first_name:string last_name:string'
         generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:integer super_admin:boolean'
         file_name = Dir.glob(Rails.root.join('db/migrate', '*_add_organization_and_role_to_users.rb', )).last
-        gsub_file file_name, /:role, :integer$/, ':role, :integer, default: 0'
-        gsub_file file_name, /:super_admin, :boolean$/, ':super_admin, :boolean, default: false'
+        gsub_file file_name, /:role, :integer$/, ':role, :integer, default: 0, null: false'
+        gsub_file file_name, /:super_admin, :boolean$/, ':super_admin, :boolean, default: false, null: false'
       end
 
       def add_invitable
