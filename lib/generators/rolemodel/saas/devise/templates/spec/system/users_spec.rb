@@ -6,9 +6,9 @@ RSpec.describe 'Users', type: :system do
 
     it 'allows user to sign up' do
       visit new_user_registration_path
-      fill_in 'user[first_name]', with: user.first_name
-      fill_in 'user[last_name]', with: user.last_name
-      fill_in 'Organization Name', with: user.organization_name
+      fill_in 'First name', with: user.first_name
+      fill_in 'Last name', with: user.last_name
+      fill_in 'Organization name', with: user.organization_name
       fill_in 'Email', with: user.email
       fill_in 'user[password]', with: 'password123'
       fill_in 'Password confirmation', with: 'password123'

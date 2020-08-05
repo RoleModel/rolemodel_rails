@@ -13,7 +13,7 @@ h2
     = f.text_field :last_name, required: true, autocomplete: "last_name"
   - if resource.admin? || resource.super_admin?
     .field
-      = f.label :organization_name, 'Organization Name'
+      = f.label :organization_name, 'Organization name'
       br
       = f.text_field :organization_name, required: resource.organization.users.many?, autocomplete: "organization_name"
   .field

@@ -15,7 +15,7 @@ RSpec.describe Users::RegistrationsController, type: :request do
               name: user.organization_name
             },
             email: user.email,
-            password: password
+            password: password,
             password_confirmation: password
           }
         })
