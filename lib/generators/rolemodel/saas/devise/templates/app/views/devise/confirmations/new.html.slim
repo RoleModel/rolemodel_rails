@@ -5,7 +5,7 @@ h2
   .field
     = f.label :email
     br
-    = f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
+    = f.email_field :email, required: true, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
   .actions
     = f.submit "Resend confirmation instructions"
 = render "devise/shared/links"

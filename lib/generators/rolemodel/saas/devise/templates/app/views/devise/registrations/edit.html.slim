@@ -6,11 +6,11 @@ h2
   .field
     = f.label :first_name
     br
-    = f.text_field :first_name, autofocus: true, autocomplete: "first_name"
+    = f.text_field :first_name, required: true, autofocus: true, autocomplete: "first_name"
   .field
     = f.label :last_name
     br
-    = f.text_field :last_name, autocomplete: "last_name"
+    = f.text_field :last_name, required: true, autocomplete: "last_name"
   - if resource.org_admin? || resource.support_admin?
     .field
       = f.label :organization_name, 'Organization Name'
@@ -19,7 +19,7 @@ h2
   .field
     = f.label :email
     br
-    = f.email_field :email, autocomplete: "email"
+    = f.email_field :email, required: true, autocomplete: "email"
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     div
       | Currently waiting confirmation for:
@@ -44,7 +44,7 @@ h2
     i
       | (we need your current password to confirm your changes)
     br
-    = f.password_field :current_password, autocomplete: "current-password"
+    = f.password_field :current_password, required: true, autocomplete: "current-password"
   .actions
     = f.submit "Update"
 h3

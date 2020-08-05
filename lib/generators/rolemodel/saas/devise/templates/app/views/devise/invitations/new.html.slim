@@ -5,16 +5,16 @@ h2
   .field
     = f.label :first_name
     br
-    = f.text_field :first_name, autofocus: true, autocomplete: "first_name"
+    = f.text_field :first_name, required: true, autofocus: true, autocomplete: "first_name"
   .field
     = f.label :last_name
     br
-    = f.text_field :last_name, autocomplete: "last_name"
+    = f.text_field :last_name, required: true, autocomplete: "last_name"
   - resource.class.invite_key_fields.each do |field|
     .field
       = f.label field
       br
-      = f.text_field field
+      = f.text_field field, required: true
   - if @organization
     = f.hidden_field :organization_id, @organization.id
   .actions

@@ -5,11 +5,11 @@ h2
   .field
     = f.label :first_name
     br
-    = f.text_field :first_name, autofocus: true, autocomplete: "first_name"
+    = f.text_field :first_name, required: true, autofocus: true, autocomplete: "first_name"
   .field
     = f.label :last_name
     br
-    = f.text_field :last_name, autocomplete: "last_name"
+    = f.text_field :last_name, required: true, autocomplete: "last_name"
   = f.fields_for :organization do |ff|
     .field
       = ff.label :name, 'Organization Name'
@@ -18,7 +18,7 @@ h2
   .field
     = f.label :email
     br
-    = f.email_field :email, autocomplete: "email"
+    = f.email_field :email, required: true, autocomplete: "email"
   .field
     = f.label :password
     - if @minimum_password_length
@@ -27,11 +27,11 @@ h2
         = @minimum_password_length
         |  characters minimum)
     br
-    = f.password_field :password, autocomplete: "new-password"
+    = f.password_field :password, required: true, autocomplete: "new-password"
   .field
     = f.label :password_confirmation
     br
-    = f.password_field :password_confirmation, autocomplete: "new-password"
+    = f.password_field :password_confirmation, required: true, autocomplete: "new-password"
   .actions
     = f.submit "Sign up"
 = render "devise/shared/links"
