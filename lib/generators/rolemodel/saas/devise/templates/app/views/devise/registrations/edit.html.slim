@@ -11,7 +11,7 @@ h2
     = f.label :last_name
     br
     = f.text_field :last_name, required: true, autocomplete: "last_name"
-  - if resource.org_admin? || resource.support_admin?
+  - if resource.admin? || resource.super_admin?
     .field
       = f.label :organization_name, 'Organization Name'
       br

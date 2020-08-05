@@ -6,7 +6,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # GET /resource/invitation/new
   def new
-    return redirect_to root_url unless current_user.org_admin? || current_user.support_admin?
+    return redirect_to root_url unless current_user.admin? || current_user.super_admin?
 
     @organization = Organization.find(params[:organization_id]) if params[:organization_id]
     super
@@ -55,7 +55,7 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def invite_params
     super.tap do |hash|
-      # if current_user.org_admin? && !current_user.support_admin?
+      # if current_user.admin? && !current_user.super_admin?
         hash[:organization_id] = current_user.organization_id
       # end
     end
@@ -68,7 +68,7 @@ class Users::InvitationsController < Devise::InvitationsController
   # After an invitation is created and sent, the inviter will be redirected to
   # def after_invite_path_for(inviter, invitee = nil)
   #   organization = invitee.try(:organization) || Organization.find(params[:user][:organization_id])
-  #   inviter.support_admin? ? admin_organization_path(organization) : organization_path(organization)
+  #   inviter.super_admin? ? admin_organization_path(organization) : organization_path(organization)
   # end
 
   # After an invitation is accepted, the invitee will be redirected to

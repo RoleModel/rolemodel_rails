@@ -94,20 +94,20 @@ RSpec.describe 'Users', type: :system do
       expect(user.email).to eq new_user_info[:email]
     end
 
-    it 'does not show Organization name field if user is not org_admin' do
+    it 'does not show Organization name field if user is not admin' do
       visit edit_user_registration_path
       expect(page).not_to have_field 'Organization name'
       sign_out user
 
-      org_admin = create(:user, role: 'org_admin')
+      org_admin = create(:user, :org_admin)
       sign_in org_admin
       refresh
 
       expect(page).to have_field 'Organization name'
     end
 
-    it 'allows org_admin user to update associated organization name' do
-      user.update(role: 'org_admin')
+    it 'allows admin user to update associated organization name' do
+      user.admin!
       old_organization_name = user.organization_name
       new_organization_name = 'New Org Name'
       old_organization_id = user.organization.id

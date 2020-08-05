@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    params[:user][:role] = 'org_admin'
+    params[:user][:role] = User.roles[:admin]
     super
   end
 

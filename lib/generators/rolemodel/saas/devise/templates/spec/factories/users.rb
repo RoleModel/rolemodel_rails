@@ -13,19 +13,19 @@ FactoryBot.define do
     trait :regular_user do
       first_name { "Regular" }
       last_name { "User" }
-      role { 'user' }
+      role { User.roles[:user] }
     end
 
     trait :org_admin do
       first_name { "Org" }
       last_name { "Admin" }
-      role { 'org_admin' }
+      role { User.roles[:admin] }
     end
 
     trait :support_admin do
       first_name { "Support" }
       last_name { "Admin" }
-      role { 'support_admin' }
+      super_admin { true }
     end
   end
 end

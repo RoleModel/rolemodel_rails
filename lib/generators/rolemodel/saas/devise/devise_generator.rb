@@ -17,9 +17,10 @@ module Rolemodel
 
         generate 'devise:install'
         generate :devise, 'user first_name:string last_name:string'
-        generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:string'
+        generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:integer super_admin:boolean'
         file_name = Dir.glob(Rails.root.join('db/migrate', '*_add_organization_and_role_to_users.rb', )).last
-        gsub_file file_name, /:role, :string$/, ":role, :string, default: 'user'"
+        gsub_file file_name, /:role, :integer$/, ':role, :integer, default: 0'
+        gsub_file file_name, /:super_admin, :boolean$/, ':super_admin, :boolean, default: false'
       end
 
       def add_invitable
@@ -103,22 +104,13 @@ module Rolemodel
         inject_into_file 'app/models/user.rb', after: /devise\s+:.*\n.*\n/ do
           optimize_indentation <<~'RUBY', 2
 
-            ROLES = %w[support_admin org_admin user]
+            enum role: [:user, :admin]
 
             belongs_to :organization, inverse_of: :users
             accepts_nested_attributes_for :organization
 
-            validates :first_name, :last_name, presence: true
-            validates :role, inclusion: { in: ROLES }
+            validates :first_name, :last_name, :role, presence: true
             delegate :name, to: :organization, prefix: true
-
-            def org_admin?
-              role == 'org_admin'
-            end
-
-            def support_admin?
-              role == 'support_admin'
-            end
           RUBY
         end
 
@@ -135,7 +127,8 @@ module Rolemodel
                 first_name: 'Support',
                 last_name: 'Admin',
                 organization: organization,
-                role: 'support_admin',
+                super_admin: true,
+                role: User.roles[:admin],
                 email: 'user@example.com',
                 password: 'password',
                 password_confirmation: 'password'
