@@ -15,11 +15,11 @@ h2
     .field
       = f.label :organization_name, 'Organization Name'
       br
-      = ff.text_field :organization_name, required: resource.organization.users.many?, autocomplete: "organization_name"
+      = f.text_field :organization_name, required: resource.organization.users.many?, autocomplete: "organization_name"
   .field
     = f.label :email
     br
-    = f.email_field :email, autofocus: true, autocomplete: "email"
+    = f.email_field :email, autocomplete: "email"
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     div
       | Currently waiting confirmation for:

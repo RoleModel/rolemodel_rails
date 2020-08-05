@@ -6,22 +6,15 @@ class Users::InvitationsController < Devise::InvitationsController
 
   # GET /resource/invitation/new
   def new
+    return redirect_to root_url unless current_user.org_admin? || current_user.support_admin?
+
     @organization = Organization.find(params[:organization_id]) if params[:organization_id]
     super
   end
 
   # POST /resource/invitation
-  def create
-    super do |user|
-      if !user.valid? && %i[first_name last_name email].any? { |symbol| user.errors[symbol].present? }
-        flash.now[:notice] = [
-          user.errors.full_messages_for(:first_name),
-          user.errors.full_messages_for(:last_name),
-          user.errors.full_messages_for(:email)
-        ].flatten.to_sentence
-      end
-    end
-  end
+  # def create
+  # end
 
   # GET /resource/invitation/accept?invitation_token=abcdef
   # def edit
@@ -56,19 +49,20 @@ class Users::InvitationsController < Devise::InvitationsController
 
   private
 
-  # Is this used?
-  # def user_params
-  #   params.require(:user).permit(:first_name, :last_name, :email, :organization_id).to_h.tap do |hash|
-  #     hash[:role] = 'org_admin'
-  #   end
-  # end
-
   def configure_invite_params
-    devise_parameter_sanitizer.permit(:invite, keys: [:first_name, :last_name, :email, :organization_id])
+    devise_parameter_sanitizer.permit(:invite, keys: %i[first_name last_name email organization_id])
+  end
+
+  def invite_params
+    super.tap do |hash|
+      # if current_user.org_admin? && !current_user.support_admin?
+        hash[:organization_id] = current_user.organization_id
+      # end
+    end
   end
 
   def configure_accept_invitation_params
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:first_name, :last_name, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[first_name last_name password password_confirmation])
   end
 
   # After an invitation is created and sent, the inviter will be redirected to

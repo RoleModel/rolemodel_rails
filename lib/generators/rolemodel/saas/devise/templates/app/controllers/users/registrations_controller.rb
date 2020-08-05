@@ -23,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    organization_name = params['user'].delete(:organization_name)
+    organization_name = params[:user].delete(:organization_name)
     super { resource.organization.update(name: organization_name) }
   end
 

@@ -10,7 +10,7 @@ h2
     = f.label :last_name
     br
     = f.text_field :last_name, autocomplete: "last_name"
-  - f.fields_for :organization do |ff|
+  = f.fields_for :organization do |ff|
     .field
       = ff.label :name, 'Organization Name'
       br
