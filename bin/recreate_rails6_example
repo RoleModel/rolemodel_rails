@@ -4,7 +4,7 @@ IFS=$'\n\t'
 set -vx
 
 rm -fr example_rails6
-rails _6.0.3.1_ new --skip-keeps --skip-git --skip-sprockets --skip-spring example_rails6
+rails _6.0.3.2_ new --skip-keeps --skip-git --skip-sprockets --skip-spring example_rails6
 cd example_rails6
 echo "gem 'rolemodel_rails', path: '..'" >> Gemfile
 bundle install

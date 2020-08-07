@@ -13,7 +13,8 @@ module Rolemodel
     end
 
     def install_webpacker_with_react
-      gem 'webpacker', '~> 5.1'
+      gsub_file 'Gemfile', /gem\s+['"]webpacker['"].*/, "gem 'webpacker', '~> 5.1'"
+      gem 'webpacker', '~> 5.1' # ensure webpacker is in Gemfile if it wasn't already there
       gem 'react-rails'
       run_bundle
       files = Dir.glob(Pathname(Rolemodel::WebpackerGenerator.source_root).join('generated', '**', '*'))
@@ -30,6 +31,10 @@ module Rolemodel
       remove_file '.babelrc'
       remove_file '.postcssrc'
       remove_file 'app/assets/javascript/application.js'
+    end
+
+    def run_yarn
+      run 'yarn install'
     end
 
     def configure_csp

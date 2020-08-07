@@ -194,7 +194,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   listen (~> 3.2)
   puma (~> 4.3)
-  rails (~> 6.0.3, >= 6.0.3.1)
+  rails (~> 6.0.3, >= 6.0.3.2)
   rolemodel_rails!
   selenium-webdriver
   sqlite3 (~> 1.4)
