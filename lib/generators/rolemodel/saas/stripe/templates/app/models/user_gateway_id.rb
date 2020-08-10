@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 # Serves as a "join table" between the payment gateway (Stripe) and our Users
-# Entries with a null `connect_account` field are customer ids in the NM Stripe
-# account, while others are customer records in gym Stripe Connect accounts.
+# Entries with a null `connect_account` field are customer ids in the Stripe
+# account, while others are customer records in organization Stripe Connect accounts.
 class UserGatewayId < ApplicationRecord
   belongs_to :user
 

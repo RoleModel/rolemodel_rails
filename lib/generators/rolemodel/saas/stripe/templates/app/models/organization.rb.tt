@@ -83,7 +83,7 @@ class Organization < ApplicationRecord
   end
 <% end %>
   def admin_email
-    users.detect(&:org_admin?).try(:email) || users.detect(&:support_admin?).try(:email)
+    users.detect(&:admin?).try(:email) || users.detect(&:super_admin?).try(:email)
   end
 
   def gateway_customer_path
