@@ -22,7 +22,7 @@ FactoryBot.define do
       role { User.roles[:admin] }
     end
 
-    trait :support_admin do
+    trait :super_admin do
       first_name { "Support" }
       last_name { "Admin" }
       super_admin { true }

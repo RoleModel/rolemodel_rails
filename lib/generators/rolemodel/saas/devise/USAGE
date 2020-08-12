@@ -11,7 +11,6 @@ Example:
         app/models/user.rb
         app/views/devise
         config/initializers/devise.rb
-        spec/controllers/users/registrations_controller_spec.rb
         spec/support/devise.rb
         spec/system/users_spec.rb
         spec/factories/organizations.rb

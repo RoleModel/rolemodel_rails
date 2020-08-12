@@ -22,4 +22,3 @@ Installs [devise_invitable](https://github.com/scambra/devise_invitable)
 ### Tests
 * Devise test helpers
 * User system test
-* Devise registration test

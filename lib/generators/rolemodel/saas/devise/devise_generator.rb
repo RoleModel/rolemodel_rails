@@ -17,9 +17,9 @@ module Rolemodel
 
         generate 'devise:install'
         generate :devise, 'user first_name:string last_name:string'
-        generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:integer super_admin:boolean'
+        generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:string super_admin:boolean'
         file_name = Dir.glob(Rails.root.join('db/migrate', '*_add_organization_and_role_to_users.rb', )).last
-        gsub_file file_name, /:role, :integer$/, ':role, :integer, default: 0, null: false'
+        gsub_file file_name, /:role, :string$/, ":role, :string, default: 'user', null: false"
         gsub_file file_name, /:super_admin, :boolean$/, ':super_admin, :boolean, default: false, null: false'
       end
 
@@ -36,13 +36,8 @@ module Rolemodel
 
       def add_routes
         route_info = ", controllers: {\n"
-        route_info += "    # confirmations: 'users/confirmations',\n"
         route_info += "    invitations: 'users/invitations',\n" if @add_invitations
-        route_info += "    # omniauth_callbacks: 'users/omniauth_callbacks',\n"
-        route_info += "    # passwords: 'users/passwords',\n"
         route_info += "    registrations: 'users/registrations',\n"
-        route_info += "    # sessions: 'users/sessions',\n"
-        route_info += "    # unlocks: 'users/unlocks',\n"
         route_info += "  }"
         inject_into_file 'config/routes.rb', route_info, after: /devise_for :users$/
       end
@@ -53,12 +48,7 @@ module Rolemodel
           copy_file 'app/controllers/users/invitations_controller.rb'
           directory 'app/views/devise/invitations'
         end
-        copy_file 'app/controllers/users/confirmations_controller.rb'
-        copy_file 'app/controllers/users/omniauth_callbacks_controller.rb'
-        copy_file 'app/controllers/users/passwords_controller.rb'
         copy_file 'app/controllers/users/registrations_controller.rb'
-        copy_file 'app/controllers/users/sessions_controller.rb'
-        copy_file 'app/controllers/users/unlocks_controller.rb'
         directory 'app/views/devise/confirmations'
         directory 'app/views/devise/mailer'
         directory 'app/views/devise/passwords'
@@ -66,7 +56,6 @@ module Rolemodel
         directory 'app/views/devise/sessions'
         directory 'app/views/devise/shared'
         directory 'app/views/devise/unlocks'
-        copy_file 'spec/controllers/users/registrations_controller_spec.rb'
         copy_file 'spec/support/devise.rb'
         copy_file 'spec/system/users_spec.rb'
         copy_file 'spec/factories/organizations.rb'
@@ -104,7 +93,7 @@ module Rolemodel
         inject_into_file 'app/models/user.rb', after: /devise\s+:.*\n.*\n/ do
           optimize_indentation <<~'RUBY', 2
 
-            enum role: [:user, :admin]
+            enum role: { user: 'user', admin: 'admin' }
 
             belongs_to :organization, inverse_of: :users
             accepts_nested_attributes_for :organization
