@@ -1,24 +1,25 @@
 {
-  "name": "example_rails5",
+  "name": "example_rails6",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.7.4",
-    "@rails/actioncable": "^6.0.2-1",
-    "@rails/activestorage": "^6.0.2-1",
-    "@rails/ujs": "^6.0.2-1",
-    "@rails/webpacker": "4.2.2",
+    "@babel/preset-react": "^7.10.1",
+    "@rails/actioncable": "^6.0.3-1",
+    "@rails/activestorage": "^6.0.3-1",
+    "@rails/ujs": "^6.0.3-1",
+    "@rails/webpacker": "5.1.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "core-js": "3",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react_ujs": "^2.6.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react_ujs": "^2.6.1",
     "turbolinks": "^5.2.0"
   },
+  "version": "0.1.0",
   "devDependencies": {
-    "babel-jest": "^24.9.0",
-    "jest": "^24.9.0",
-    "webpack-dev-server": "^3.10.1"
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1",
+    "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
     "test": "jest --watch",
