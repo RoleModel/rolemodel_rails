@@ -66,8 +66,9 @@ module Rolemodel
         }
 
         json = JSON.parse(File.read('package.json'))
-        json['scripts'] = yarn_scripts
+        json['scripts'] = (json['scripts'] || {}).merge(yarn_scripts)
         File.write('package.json', JSON.pretty_generate(json) + "\n")
+        run 'yarn install --check-files'
       end
     end
   end

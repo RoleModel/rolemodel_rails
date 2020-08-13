@@ -1,0 +1,5 @@
+Description:
+    runs all the SaaS generators
+
+Example:
+    rails generate rolemodel:saas:all

@@ -6,7 +6,9 @@ set -vx
 rm -fr example_rails6
 rails _6.0.3.2_ new --skip-keeps --skip-git --skip-sprockets --skip-spring example_rails6
 cd example_rails6
-echo "gem 'rolemodel_rails', path: '..'" >> Gemfile
+echo "group :development do
+  gem 'rolemodel_rails', path: '..'
+end" >> Gemfile
 bundle install
 git checkout config/credentials.yml.enc
 git checkout config/master.key
