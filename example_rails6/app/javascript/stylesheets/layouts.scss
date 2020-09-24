@@ -1,0 +1,92 @@
+
+// Sidebar Nav layout. --aside modifier is only used to distinct classname conflicts. Obviously this needs to be fixed.
+.sidebar--aside {
+  display: flex;
+  overflow: auto;
+  flex: 0 0 300px;
+  flex-direction: column;
+  height: 100vh;
+  background: #000;
+}
+
+.wrapper--main--aside {
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  padding: 0 1rem;
+}
+
+.container--aside {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  // Just for styling
+  background: #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+header--aside {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.6rem;
+  align-items: center;
+}
+
+.logo--aside {
+  margin: 1rem;
+  display: block;
+}
+
+.nav--main--aside ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  li {
+     color: #fff;
+     margin: 0.8rem 0.2rem;
+  }
+}
+
+// Headerr Nav layout. --header modifier is only used to distinct classname conflicts. Obviously this needs to be fixed.
+.wrapper--header {
+  background: #000;
+}
+
+.container--header {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+
+  // Just for styling
+  background: #eee;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+header--header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.6rem;
+  align-items: center;
+}
+
+.logo--header {
+  margin: 1rem;
+  display: block;
+}
+
+.nav--main--header ul {
+  display: flex;
+  list-style: none;
+  li {
+     color: #fff;
+     margin: 0.6rem 1rem;
+  }
+}
