@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | Testing
+      = @project_name
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'

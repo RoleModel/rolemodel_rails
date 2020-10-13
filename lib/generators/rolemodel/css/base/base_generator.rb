@@ -23,6 +23,7 @@ module Rolemodel
       end
 
       def copy_css_templates
+        @project_name = Rails.application.class.parent_name
         files = Dir.glob(Pathname(Rolemodel::Css::BaseGenerator.source_root).join('**', '*'))
         files.each do |file|
           next if File.directory?(file)
