@@ -11,6 +11,17 @@ module Rolemodel
         run_bundle
       end
 
+      def add_simple_form
+        gem 'simple_form'
+        run_bundle
+
+        generate 'simple_form:install'
+      end
+
+      def remove_application_erb_file
+        remove_file 'app/views/layouts/application.html.erb'
+      end
+
       def copy_css_templates
         files = Dir.glob(Pathname(Rolemodel::Css::BaseGenerator.source_root).join('**', '*'))
         files.each do |file|

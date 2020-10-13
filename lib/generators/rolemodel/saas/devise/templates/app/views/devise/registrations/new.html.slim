@@ -1,37 +1,15 @@
-h2
-  | Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :first_name
-    br
-    = f.text_field :first_name, required: true, autofocus: true, autocomplete: "first_name"
-  .field
-    = f.label :last_name
-    br
-    = f.text_field :last_name, required: true, autocomplete: "last_name"
-  = f.fields_for :organization do |ff|
-    .field
-      = ff.label :name, 'Organization name'
-      br
-      = ff.text_field :name, autocomplete: "organization_name"
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, required: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      em
-        | (
-        = @minimum_password_length
-        |  characters minimum)
-    br
-    = f.password_field :password, required: true, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    br
-    = f.password_field :password_confirmation, required: true, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.flex.flex-col.items-center
+  h2.margin-top-lg Sign up
+  .card.container--xs.margin-top-md
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = f.input :first_name, required: true, autofocus: true
+      = f.input :last_name, required: true
+      = f.simple_fields_for :organization do |organization_field|
+        = organization_field.input :name, label: 'Organization name'
+      = f.input :email, required: true, autocomplete: "email"
+      = f.input :password, required: true, autocomplete: "new-password"
+      = f.input :password_confirmation, required: true, autocomplete: "new-password"
+      .actions
+        = f.submit "Sign up", class: 'btn btn--primary'
+    .margin-top-md
+      = render "devise/shared/links"
