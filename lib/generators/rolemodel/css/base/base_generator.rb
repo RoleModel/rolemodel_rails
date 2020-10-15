@@ -11,7 +11,23 @@ module Rolemodel
         run_bundle
       end
 
+      def add_simple_form
+        gem 'simple_form'
+        run_bundle
+
+        generate 'simple_form:install'
+
+        gsub_file 'config/initializers/simple_form.rb', 'config.wrappers :default, class: :input', 'config.wrappers :default, class: :form__group'
+        gsub_file 'config/initializers/simple_form.rb', '# config.label_class = nil', 'config.label_class = :form__label'
+        gsub_file 'config/initializers/simple_form.rb', '# config.input_class = nil', 'config.input_class = :form__input'
+      end
+
+      def remove_application_erb_file
+        remove_file 'app/views/layouts/application.html.erb'
+      end
+
       def copy_css_templates
+        @project_name = Rails.application.class.parent_name
         files = Dir.glob(Pathname(Rolemodel::Css::BaseGenerator.source_root).join('**', '*'))
         files.each do |file|
           next if File.directory?(file)

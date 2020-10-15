@@ -63,3 +63,13 @@ button {
   background: var(--color-contrast-medium);
   border-radius: 30px;
 }
+
+.btn--active {
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  &:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+}
