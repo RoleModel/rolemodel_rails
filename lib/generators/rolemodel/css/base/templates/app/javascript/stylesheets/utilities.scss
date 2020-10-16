@@ -16,6 +16,28 @@
   flex-direction: row;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+// Flex basis
+
+.flex-half {
+  flex: 1 1 clamp(150px, unquote("calc(50% - var(--gap))"), 100%);
+}
+
+.flex-third {
+  flex: 1 1 clamp(150px, unquote("calc(33% - var(--gap))"), 100%);
+}
+
+.flex-two-thirds {
+  flex: 1 1 clamp(150px, unquote("calc(67% - var(--gap))"), 100%);
+}
+
+.flex-fourth {
+  flex: 1 1 clamp(150px, unquote("calc(25% - var(--gap))"), 100%);
+}
+
 // Justify Content
 
 .justify-start {

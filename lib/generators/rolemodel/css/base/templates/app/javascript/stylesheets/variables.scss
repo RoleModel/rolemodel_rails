@@ -68,6 +68,9 @@
   --space-md: calc(1 * var(--space-unit)); // 16px
   --space-lg: calc(1.618 * var(--space-unit)); // 26px
   --space-xl: calc(2.618 * var(--space-unit)); // 42px
+
+  //Flex Gap
+  --gap: var(--space-md);
 }
 
 // Breakpoints - SCSS variables until support is available for custom properties
