@@ -1,12 +1,21 @@
 doctype html
 html
   head
-    title
-      = @project_name
+    title App Name
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body
-    = render 'layouts/partials/flash'
-    = yield
+    meta name="viewport" content="width=device-width, initial-scale=1"
+  body.flex
+    = render 'shared/sidebar'
+    .wrapper--main
+      = render 'layouts/partials/flash'
+      = yield
+
+  / If you want a top nav, use this version or just delete it
+  / body
+  /   = render 'shared/top_nav'
+  /   .container
+  /     = render 'layouts/partials/flash'
+  /     = yield
