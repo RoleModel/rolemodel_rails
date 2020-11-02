@@ -10,5 +10,9 @@ module Rolemodel
     def install_procfile
       template 'Procfile'
     end
+
+    def force_ssl
+      uncomment_lines('config/environments/production.rb', 'config.force_ssl = true')
+    end
   end
 end
