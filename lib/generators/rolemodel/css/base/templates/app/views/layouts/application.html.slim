@@ -1,12 +1,11 @@
 doctype html
 html
   head
-    title
-      = @project_name
+    title App Name
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = render 'layouts/partials/flash'
+    = render 'shared/flash'
     = yield
