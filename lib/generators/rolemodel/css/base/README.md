@@ -33,6 +33,12 @@ Depends on [Webpacker Generator](../../webpacker)
 ## Updating Styles
 
 * Generate in a sample app
+
+```
+rails g rolemodel:webpacker
+rails g rolemodel:css:all
+```
+
 * View the styleguide modify as desired
 * Copy changes to generator with
 

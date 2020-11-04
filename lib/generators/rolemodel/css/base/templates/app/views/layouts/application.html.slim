@@ -10,12 +10,12 @@ html
   body.flex
     = render 'shared/sidebar'
     .wrapper--main
-      = render 'layouts/partials/flash'
+      = render 'shared/flash'
       = yield
 
   / If you want a top nav, use this version or just delete it
   / body
   /   = render 'shared/top_nav'
   /   .container
-  /     = render 'layouts/partials/flash'
+  /     = render 'shared/flash'
   /     = yield
