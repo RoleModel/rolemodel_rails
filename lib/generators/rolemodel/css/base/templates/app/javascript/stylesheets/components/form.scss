@@ -50,7 +50,7 @@ label {
   line-height: 1.2;
   color: var(--color-black);
   outline: 0;
-  // background: $white asset-url("dropdown.svg") no-repeat right .75rem center;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDI5IDE0IiB3aWR0aD0iMjkiPjxwYXRoIGZpbGw9IiNkMWQxZDEiIGQ9Ik05LjM3NzI3IDMuNjI1bDUuMDgxNTQgNi45MzUyM0wxOS41NDAzNiAzLjYyNSIvPjwvc3ZnPgo=') center right no-repeat;
   background-size: 8px 10px;
   background-color: var(--color-contrast-lower);
   border: 1px solid var(--color-contrast-medium);
