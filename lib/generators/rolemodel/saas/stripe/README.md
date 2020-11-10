@@ -9,6 +9,7 @@ Installs [stripe](https://github.com/stripe/stripe-ruby)
 ### Models
 * Adds Organization model
 * Adds Subscription model
+* Adds Registration model
 
 ### Views
 * Current user

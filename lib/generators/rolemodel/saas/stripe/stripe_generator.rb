@@ -59,6 +59,23 @@ module Rolemodel
         copy_file 'app/models/user_gateway_id.rb'
       end
 
+      # def add_duplicate_routes
+      #   inject_into_file 'config/routes.rb', "resources :infos\n", after: "Rails.application.routes.draw do\n"
+      #   inject_into_file 'config/routes.rb', "resources :projects\n", before: 'missing text'
+      #   route 'resources :organizations'
+      #   route 'resources :users'
+      #   route 'resources :organizations'
+      #   new_route = <<~ROUTES
+      #     resource :organization, only: [:show, :edit, :update] do
+      #       get :oauth, to: 'stripe#organization_oauth'
+      #     end
+      #   ROUTES
+      #   route new_route
+      #   route 'resources :something_different'
+      #   inject_into_file 'config/routes.rb', new_route, after: "Rails.application.routes.draw do\n"
+      #   route new_route
+      # end
+
       # adding in reverse order since it adds to the top of the file
       def add_routes
         if @registration_needed
@@ -143,31 +160,60 @@ module Rolemodel
         ROUTES
       end
 
-      private
-
       def add_controllers
+        copy_file 'app/controllers/admin/organizations_controller.rb'
+        copy_file 'app/controllers/admin/subscriptions_controller.rb'
+        copy_file 'app/controllers/bank_accounts_controller.rb'
+        copy_file 'app/controllers/event_registration_infos_controller.rb'
+        copy_file 'app/controllers/event_registrations_controller.rb'
+        copy_file 'app/controllers/events_controller.rb'
+        copy_file 'app/controllers/organization_invitations_controller.rb'
+        copy_file 'app/controllers/organizations_controller.rb'
+        copy_file 'app/controllers/price_variations_controller.rb'
+        copy_file 'app/controllers/registration_orders_controller.rb'
+        copy_file 'app/controllers/stripe_controller.rb'
+        copy_file 'app/controllers/subscriptions_controller.rb'
+        copy_file 'app/controllers/tickets_controller.rb'
       end
+
+      # items in private have not been completed yet
+      private
 
       def add_views
       end
 
-      private
       def add_services
+        copy_file 'app/services/stripe_hooks.rb'
+        copy_file 'app/services/stripe_hooks/account.rb'
+        copy_file 'app/services/stripe_hooks/base.rb'
+        copy_file 'app/services/stripe_hooks/charge.rb'
+        copy_file 'app/services/stripe_hooks/customer.rb'
       end
 
       def add_configuration
+        copy_file 'config/initializers/devise.rb'
+        copy_file 'config/initializers/filter_parameter_logging.rb'
+        copy_file 'config/initializers/payment_gateway.rb'
       end
 
       def add_database_migrations
       end
 
       def add_test_files
-        copy_file 'app/controllers/application_controller.rb'
-        copy_file 'app/controllers/users/registrations_controller.rb'
-        copy_file 'app/views/devise'
-        copy_file 'spec/controllers/users/registrations_controller_spec.rb'
-        copy_file 'spec/support/devise.rb'
-        copy_file 'spec/system/users_spec.rb'
+        copy_file 'spec/services/stripe_hooks/account_spec.rb'
+        copy_file 'spec/services/stripe_hooks/charge_spec.rb'
+        copy_file 'spec/services/stripe_hooks_spec.rb'
+        copy_file 'spec/support/stripe.rb'
+        copy_file 'spec/system/admin/organizations_spec.rb'
+        copy_file 'spec/system/admin/user_management_spec.rb'
+        copy_file 'spec/system/organization_invitations_spec.rb'
+        copy_file 'spec/system/organization_management_spec.rb'
+        copy_file 'spec/system/register_for_event_spec.rb'
+        copy_file 'spec/system/registration_orders_spec.rb'
+        copy_file 'spec/system/subscription_management/cancel_subscription_spec.rb'
+        copy_file 'spec/system/subscription_management/create_initial_subscription_spec.rb'
+        copy_file 'spec/system/subscription_management/upgrade_subscription_spec.rb'
+        copy_file 'spec/system/user_management_spec.rb'
       end
 
       def add_factories

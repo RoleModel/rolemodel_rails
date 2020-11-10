@@ -2,6 +2,7 @@
 
 [USAGE](./USAGE)
 
-## What you get
+## Sub Generators
 
-* [Devise](./devise)
+* [Devise](devise)
+* [Stripe](stripe)

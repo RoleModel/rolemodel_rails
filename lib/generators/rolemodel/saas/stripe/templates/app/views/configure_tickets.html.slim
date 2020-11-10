@@ -1,0 +1,13 @@
+= render 'shared/sheet_header',
+  title: 'Configure Your Tickets',
+  previous_page: options_event_path
+
+= react_component('TicketConfiguration',
+  event: @event,
+  tickets: @event.tickets,
+  tagConfig: @event.tag_config,
+  eventRegistrationInfo: @event_registration_info.as_json(include: :price_variations, only: [:id, :league_member_discount, :price, :price_name, :price_comment]),
+  eventRegistrationInfoUrl: event_registration_info_path(@event, @event_registration_info),
+  defaultTicketUrl: update_price_event_registration_info_path(@event, @event_registration_info),
+  ticketVariationsUrl: event_registration_info_price_variations_path(@event, @event_registration_info),
+  spectatorTicketUrl: event_tickets_path(@event))
