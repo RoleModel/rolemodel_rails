@@ -6,6 +6,7 @@ AllCops:
     - config/**/*
     - node_modules/**/*
     - tmp/**/*
+  NewCops: enable
 
 Metrics:
   Severity: refactor
@@ -19,19 +20,18 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
 
 # Hard to make this pass always and want to keep flexibility
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: false
 
 # Best Practices for readability
 Layout:
   Severity: refactor
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
-
 
 Lint/UnusedMethodArgument:
   Severity: refactor
@@ -51,7 +51,7 @@ Lint/UnderscorePrefixedVariableName:
 Lint/Loop:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Enabled: false
 
 Style:
