@@ -1,0 +1,8 @@
+Description:
+    generates ESLint config
+
+Example:
+    rails generate rolemodel:linters:eslint
+
+    This will create:
+        .eslintrc.js
