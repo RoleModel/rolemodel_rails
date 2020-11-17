@@ -1,5 +1,5 @@
 Description:
-    runs all the testing generators
+    runs all the linter generators
 
 Example:
-    rails generate rolemodel:testing:all
+    rails generate rolemodel:linters:all
