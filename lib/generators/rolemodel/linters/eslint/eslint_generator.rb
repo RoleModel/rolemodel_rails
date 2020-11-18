@@ -12,7 +12,7 @@ module Rolemodel
           babel-eslint
           eslint-config-airbnb
           eslint-plugin-import
-          esling-import-resolver-webpack
+          eslint-import-resolver-webpack
           eslint-plugin-jsx-a11y
           eslint-plugin-react
           eslint-plugin-react-hooks
