@@ -9,6 +9,7 @@ module Rolemodel
       def install_rubocop
         gem_group :development, :test do
           gem 'rubocop'
+          gem 'rubocop-rails'
         end
         run_bundle
       end
