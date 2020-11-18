@@ -3,6 +3,7 @@
 ## What you get
 
 * [Rubocop](./rubocop)
+* [ESLint](./eslint)
 
 ## Why do we use linters?
 
@@ -22,6 +23,10 @@
 
 ### Editor Setup
 
-* Atom - [linter-rubocop](https://atom.io/packages/linter-rubocop)
-  * Supporting: [rubocop-auto-correct](https://atom.io/packages/rubocop-auto-correct)
-* VSCode - [ruby-rubocop](https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop)
+* Atom
+  * [linter-rubocop](https://atom.io/packages/linter-rubocop)
+    * Supporting: [rubocop-auto-correct](https://atom.io/packages/rubocop-auto-correct)
+  * [linter-eslint](https://atom.io/packages/linter-eslint)
+* VSCode
+  * [ruby-rubocop](https://marketplace.visualstudio.com/items?itemName=misogi.ruby-rubocop)
+  * [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
