@@ -1,0 +1,64 @@
+require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - vendor/**/*
+    - config/**/*
+    - node_modules/**/*
+    - tmp/**/*
+  NewCops: enable
+
+Metrics:
+  Severity: refactor
+
+# RSpec tests and rake tasks are expected to have
+# large blocks, so exclude them from this cop.
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+# Hard to make this pass always and want to keep flexibility
+Layout/ArrayAlignment:
+  Enabled: false
+
+# Best Practices for readability
+Layout:
+  Severity: refactor
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Lint/UnusedMethodArgument:
+  Severity: refactor
+  AutoCorrect: false
+
+Lint/UnusedBlockArgument:
+  Severity: refactor
+  AutoCorrect: false
+
+Lint/UselessAssignment:
+  Severity: refactor
+  AutoCorrect: false
+
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+
+Lint/Loop:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: false
+
+Style:
+  Severity: refactor
+
+# It is ok to use inject at times
+Style/EachWithObject:
+  Enabled: false

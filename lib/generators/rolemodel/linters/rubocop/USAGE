@@ -1,0 +1,8 @@
+Description:
+    generates Rubocop config
+
+Example:
+    rails generate rolemodel:linters:rubocop
+
+    This will create:
+        .rubocop.yml

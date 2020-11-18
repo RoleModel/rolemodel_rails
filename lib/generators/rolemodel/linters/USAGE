@@ -1,0 +1,5 @@
+Description:
+    runs all the linter generators
+
+Example:
+    rails generate rolemodel:linters:all
