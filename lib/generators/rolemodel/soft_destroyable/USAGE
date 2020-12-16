@@ -1,0 +1,9 @@
+Description:
+    Add SoftDestroyable module for ActiveRecord classes
+
+Example:
+    rails generate rolemodel:soft_destroyable
+
+    This will create:
+        soft_destroyable.rb
+        soft_destroyable_behavior.rb
