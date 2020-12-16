@@ -69,6 +69,7 @@ bin/rails g
   * [Base](./lib/generators/rolemodel/css/base)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Heroku](./lib/generators/rolemodel/heroku)
+* [SoftDestroyable](./lib/generators/rolemodel/soft_destroyable)
 * [SaaS](./lib/generators/rolemodel/saas)
   * [Devise](./lib/generators/rolemodel/saas/devise)
 
