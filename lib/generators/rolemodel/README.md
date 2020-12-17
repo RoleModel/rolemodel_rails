@@ -8,6 +8,7 @@
 * [Github](./github)
 * [Heroku](./heroku)
 * [SaaS](./saas)
+* [SoftDestroyable](./soft_destroyable)
 * [Testing](./testing)
 * [Webpacker](./webpacker)
 * [README](./readme)

@@ -9,6 +9,7 @@ module Rolemodel
       generate 'rolemodel:readme'
       generate 'rolemodel:webpacker'
       generate 'rolemodel:testing:all'
+      generate 'rolemodel:soft_destroyable'
       generate 'rolemodel:saas:all'
       generate 'rolemodel:linters:all'
     end
