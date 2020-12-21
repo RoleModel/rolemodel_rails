@@ -8,11 +8,11 @@ module Rolemodel
       end
 
       def add_view_helper
-        template 'app/helpers/icon_helper.rb'
+        copy_file 'app/helpers/icon_helper.rb'
       end
 
       def add_css
-        template 'app/javascript/stylesheets/components/icon.scss'
+        copy_file 'app/javascript/stylesheets/components/icon.scss'
         append_file 'app/javascript/packs/stylesheets.scss', "@import 'stylesheets/components/icon';"
       end
     end

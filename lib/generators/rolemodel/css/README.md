@@ -4,7 +4,8 @@
 
 ## Sub Generators
 
-* [Base CSS](base)
+* [Base CSS](./base)
+* [Icons](./icons)
 
 ## Future Generators
 
