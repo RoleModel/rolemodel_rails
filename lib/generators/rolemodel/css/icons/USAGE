@@ -1,0 +1,12 @@
+Description:
+    runs the icons css generator
+
+Example:
+    rails generate rolemodel:css:icons
+
+    This will create:
+        app/helpers/icon_helper.rb
+        app/javascript/stylesheets/components/icon.scss
+
+    This will modify:
+        app/javascript/packs/stylesheets.scss
