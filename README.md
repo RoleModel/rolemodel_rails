@@ -67,6 +67,7 @@ bin/rails g
 * [Webpacker](./lib/generators/rolemodel/webpacker)
 * [CSS](./lib/generators/rolemodel/css)
   * [Base](./lib/generators/rolemodel/css/base)
+  * [Icons](./lib/generators/rolemodel/css/icons)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Heroku](./lib/generators/rolemodel/heroku)
 * [SoftDestroyable](./lib/generators/rolemodel/soft_destroyable)
