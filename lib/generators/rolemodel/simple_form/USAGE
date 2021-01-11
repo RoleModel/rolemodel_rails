@@ -1,0 +1,11 @@
+Description:
+    Add SimpleForm and configuration
+
+Example:
+    rails generate rolemodel:simple_form
+
+    This will create:
+        config/initializers/simple_form.rb
+        config/locales/simple_form.en.yml
+        simple_form input wrapper classes
+        simple_form template file

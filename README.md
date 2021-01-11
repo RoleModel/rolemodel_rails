@@ -70,6 +70,7 @@ bin/rails g
   * [Icons](./lib/generators/rolemodel/css/icons)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Heroku](./lib/generators/rolemodel/heroku)
+* [SimpleForm](./lib/generators/rolemodel/simple_form)
 * [SoftDestroyable](./lib/generators/rolemodel/soft_destroyable)
 * [SaaS](./lib/generators/rolemodel/saas)
   * [Devise](./lib/generators/rolemodel/saas/devise)

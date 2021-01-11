@@ -9,6 +9,7 @@ module Rolemodel
       generate 'rolemodel:webpacker'
       generate 'rolemodel:css:all'
       generate 'rolemodel:testing:all'
+      generate 'rolemodel:simple_form'
       generate 'rolemodel:soft_destroyable'
       generate 'rolemodel:saas:all'
       generate 'rolemodel:linters:all'
