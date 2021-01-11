@@ -113,7 +113,7 @@ SimpleForm.setup do |config| # rubocop:disable Metrics/BlockLength
   # config.item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
-  config.label_text = ->(label, required, _explicit_label) { "#{label} #{required}" }
+  # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
   config.label_class = 'form__label'
