@@ -1,6 +1,4 @@
-h2
-  | Edit
-  = resource_name.to_s.humanize
+h2= t(".title", resource: resource_name.to_s.humanize, default: "Edit %{resource}")
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = render "devise/shared/error_messages", resource: resource
   .field
@@ -13,7 +11,7 @@ h2
     = f.text_field :last_name, required: true, autocomplete: "last_name"
   - if resource.admin? || resource.super_admin?
     .field
-      = f.label :organization_name, 'Organization name'
+      = f.label :organization_name, t(".organization_name", default: "Organization name")
       br
       = f.text_field :organization_name, required: resource.organization.users.many?, autocomplete: "organization_name"
   .field
@@ -22,19 +20,17 @@ h2
     = f.email_field :email, required: true, autocomplete: "email"
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     div
-      | Currently waiting confirmation for:
-      = resource.unconfirmed_email
+      = t(".currently_waiting_confirmation_for_email", email: resource.unconfirmed_email, default: "Currently waiting confirmation for: %{email}")
   .field
     = f.label :password
     i
-      | (leave blank if you don't want to change it)
+      = "(#{t(".leave_blank_if_you_don_t_want_to_change_it", default: "leave blank if you don't want to change it")})"
     br
     = f.password_field :password, autocomplete: "new-password"
     - if @minimum_password_length
       br
       em
-        = @minimum_password_length
-        |  characters minimum
+        = t("devise.shared.minimum_password_length", count: @minimum_password_length, default: "(%{count} characters minimum)")
   .field
     = f.label :password_confirmation
     br
@@ -42,14 +38,13 @@ h2
   .field
     = f.label :current_password
     i
-      | (we need your current password to confirm your changes)
+      = "(#{t(".we_need_your_current_password_to_confirm_your_changes", default: "we need your current password to confirm your changes")})"
     br
     = f.password_field :current_password, required: true, autocomplete: "current-password"
   .actions
-    = f.submit "Update"
-h3
-  | Cancel my account
+    = f.submit t(".update", default: "Update")
+h3= t(".cancel_my_account", default: "Cancel my acount")
 p
-  | Unhappy?
-  = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+  = t(".unhappy", "Unhappy?")
+  = button_to t(".cancel_my_account", default: "Cancel my account"), registration_path(resource_name), data: { confirm: t(".are_you_sure", default: "Are you sure?") }, method: :delete
+= link_to t("devise.shared.links.back", default: "Back"), :back
