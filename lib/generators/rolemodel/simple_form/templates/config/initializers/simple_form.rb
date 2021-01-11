@@ -155,7 +155,7 @@ SimpleForm.setup do |config| # rubocop:disable Metrics/BlockLength
   # config.country_priority = nil
 
   # When false, do not use translations for labels.
-  config.translate_labels = false
+  # config.translate_labels = true
 
   # Automatically discover new inputs in Rails' autoload path.
   # config.inputs_discovery = true
