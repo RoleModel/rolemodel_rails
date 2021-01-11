@@ -27,6 +27,8 @@ en:
         unconfirmed_email: Unconfirmed email
         unlock_token: Unlock token
         updated_at: Updated at
+      organization:
+        name: Organization name
     models:
       user:
         one: User

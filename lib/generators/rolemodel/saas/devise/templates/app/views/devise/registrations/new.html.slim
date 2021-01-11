@@ -5,7 +5,7 @@
       = f.input :first_name, required: true, autofocus: true
       = f.input :last_name, required: true
       = f.simple_fields_for :organization do |organization_field|
-        = organization_field.input :name, label: t(".organization_name", default: "Organization name")
+        = organization_field.input :name
       = f.input :email, required: true, autocomplete: "email"
       = f.input :password, required: true, autocomplete: "new-password"
       = f.input :password_confirmation, required: true, autocomplete: "new-password"

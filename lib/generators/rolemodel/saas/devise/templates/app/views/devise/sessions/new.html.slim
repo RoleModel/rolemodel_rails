@@ -5,10 +5,7 @@
       = f.input :email, required: true, autofocus: true, autocomplete: "email"
       = f.input :password, required: true, autocomplete: "current-password"
       - if devise_mapping.rememberable?
-        .form__group
-          = f.label :remember_me
-            = f.check_box :remember_me
-            span.margin-left-xs= t("activerecord.attributes.user.remember_me", default: "Remember me")
+        = f.input :remember_me, as: :boolean
       .actions
         = f.submit t(".sign_in", default: "Log in"), class: "btn btn--primary"
     .margin-top-md
