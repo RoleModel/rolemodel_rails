@@ -1,0 +1,27 @@
+header
+  h1 Users
+  - if Devise.mappings[:user].try(:invitable?)
+    = link_to 'Add User', new_invitation_path(:user), class: 'btn btn--primary'
+  = link_to 'Sign out', destroy_session_path(current_user), method: :delete
+
+.table__wrapper
+  table.table
+    thead
+      tr
+        th Login
+        th First name
+        th Last name
+        th Created at
+        th width="130px" Actions
+    tbody
+      - @users.each do |user|
+        tr
+          td= user.email
+          td= user.first_name
+          td= user.last_name
+          td= user.created_at
+          td.table__actions.flex.items-center
+            - if Devise.mappings[:user].try(:invitable?) && !user.invitation_accepted?
+              = link_to 'Re-invite', reinvite_admin_user_path(user), data: { method: :post }, class: 'margin-right-md'
+
+            = link_to 'Edit', edit_admin_user_path(user)

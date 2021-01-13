@@ -40,6 +40,19 @@ module Rolemodel
         route_info += "    registrations: 'users/registrations',\n"
         route_info += "  }"
         inject_into_file 'config/routes.rb', route_info, after: /devise_for :users$/
+
+        route_info = "namespace :admin do\n"
+        if @add_invitations
+          route_info += "  resources :users do\n"
+          route_info += "    post :reinvite, on: :member\n"
+          route_info += "  end\n"
+        else
+          route_info += "  resources :users\n"
+        end
+        route_info += "end"
+        route route_info
+
+        route 'root to: "admin/users#index"' unless File.readlines("config/routes.rb").grep(/root\sto/).any?
       end
 
       def add_modified_files
@@ -51,7 +64,9 @@ module Rolemodel
           copy_file 'app/views/devise/mailer/invitation_instructions.text.slim'
           copy_file 'config/locales/devise_invitable.en.yml'
         end
+        template 'app/controllers/admin/users_controller.rb'
         copy_file 'app/controllers/users/registrations_controller.rb'
+        directory 'app/views/admin'
         directory 'app/views/devise', exclude_pattern: /invitation/
         copy_file 'config/locales/devise.en.yml'
         copy_file 'spec/support/devise.rb'
