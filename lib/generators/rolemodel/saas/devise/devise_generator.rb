@@ -47,15 +47,13 @@ module Rolemodel
         if @add_invitations
           copy_file 'app/controllers/users/invitations_controller.rb'
           directory 'app/views/devise/invitations'
+          copy_file 'app/views/devise/mailer/invitation_instructions.html.slim'
+          copy_file 'app/views/devise/mailer/invitation_instructions.text.slim'
+          copy_file 'config/locales/devise_invitable.en.yml'
         end
         copy_file 'app/controllers/users/registrations_controller.rb'
-        directory 'app/views/devise/confirmations'
-        directory 'app/views/devise/mailer'
-        directory 'app/views/devise/passwords'
-        directory 'app/views/devise/registrations'
-        directory 'app/views/devise/sessions'
-        directory 'app/views/devise/shared'
-        directory 'app/views/devise/unlocks'
+        directory 'app/views/devise', exclude_pattern: /invitation/
+        copy_file 'config/locales/devise.en.yml'
         copy_file 'spec/support/devise.rb'
         copy_file 'spec/system/users_spec.rb'
         copy_file 'spec/factories/organizations.rb'

@@ -1,15 +1,12 @@
 .flex.flex-col.items-center
-  h2.margin-top-lg Log in
+  h2.margin-top-lg= t(".sign_in", default: "Log in")
   .card.container--xs.margin-top-md
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
       = f.input :email, required: true, autofocus: true, autocomplete: "email"
       = f.input :password, required: true, autocomplete: "current-password"
       - if devise_mapping.rememberable?
-        .form__group
-          = f.label :remember_me
-            = f.check_box :remember_me
-            span.margin-left-xs Remember me
+        = f.input :remember_me, as: :boolean
       .actions
-        = f.submit "Log in", class: 'btn btn--primary'
+        = f.submit t(".sign_in", default: "Log in"), class: "btn btn--primary"
     .margin-top-md
       = render "devise/shared/links"
