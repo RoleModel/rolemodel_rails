@@ -25,6 +25,7 @@ module Rolemodel
         destination = file.sub(Rolemodel::WebpackerGenerator.source_root + '/generated/', '')
         copy_file source, destination
       end
+      directory 'generated/app/javascript/components', 'app/javascript/components'
     end
 
     def remove_old_config_files
