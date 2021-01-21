@@ -11,14 +11,13 @@ module Rolemodel
       run 'yarn add turbolinks-animate'
     end
 
-    def add_stuff
+    def add_ui_components
       copy_file 'app/helpers/modal_helper.rb'
-      addendum = File.read([source_paths.first, '/application_addendum.js'].join)
+      addendum = File.read([source_paths.last, '/application_addendum.js'].join)
       append_to_file 'app/javascript/packs/application.js', addendum
-      copy_file 'app/layouts/application.html.slim'
+      copy_file 'app/views/layouts/application.html.slim'
       copy_file 'app/views/shared/_custom_confirm.html.slim'
       copy_file 'app/views/shared/_modal.html.slim'
-      # copy_file 'doc/modal.md'
     end
 
     def add_css
@@ -35,6 +34,10 @@ module Rolemodel
 
         VARIABLES
       end
+    end
+
+    def add_documentation
+      copy_file 'doc/modal.md'
     end
   end
 end
