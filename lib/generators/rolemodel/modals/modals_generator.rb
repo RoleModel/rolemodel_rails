@@ -7,10 +7,6 @@ module Rolemodel
       generate 'rolemodel:css:icons'
     end
 
-    def install_turbolinks_animate
-      run 'yarn add turbolinks-animate'
-    end
-
     def add_ui_components
       copy_file 'app/helpers/modal_helper.rb'
       addendum = File.read([source_paths.last, '/application_addendum.js'].join)
