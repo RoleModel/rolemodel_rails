@@ -16,6 +16,7 @@ module Rolemodel
       copy_file 'app/javascript/packs/rolemodel-panel.js'
       copy_file 'app/javascript/packs/makeFormsRemote.js'
       copy_file 'app/views/layouts/application.html.slim'
+      copy_file 'app/views/layouts/full_screen.html.slim'
       copy_file 'app/views/shared/_custom_confirm.html.slim'
       copy_file 'app/views/shared/_modal.html.slim'
     end
@@ -37,10 +38,6 @@ module Rolemodel
 
         VARIABLES
       end
-    end
-
-    def add_documentation
-      copy_file 'doc/modal.md'
     end
   end
 end
