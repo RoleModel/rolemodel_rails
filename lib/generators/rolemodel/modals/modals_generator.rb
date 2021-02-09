@@ -11,6 +11,10 @@ module Rolemodel
       copy_file 'app/helpers/modal_helper.rb'
       addendum = File.read([source_paths.last, '/application_addendum.js'].join)
       append_to_file 'app/javascript/packs/application.js', addendum
+      copy_file 'app/javascript/packs/rolemodel-custom-confirm.js'
+      copy_file 'app/javascript/packs/rolemodel-modal.js'
+      copy_file 'app/javascript/packs/rolemodel-panel.js'
+      copy_file 'app/javascript/packs/makeFormsRemote.js'
       copy_file 'app/views/layouts/application.html.slim'
       copy_file 'app/views/shared/_custom_confirm.html.slim'
       copy_file 'app/views/shared/_modal.html.slim'
@@ -27,6 +31,9 @@ module Rolemodel
           // Panel
           --panel-width: 40%;
           --panel-transition-speed: 400ms;
+
+          // Modals
+          --modal-transition-speed: 300ms;
 
         VARIABLES
       end

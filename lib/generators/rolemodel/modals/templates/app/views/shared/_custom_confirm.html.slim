@@ -5,4 +5,4 @@
     p#custom-confirm-body.margin-bottom-lg
     .flex.justify-center.items-center
       .btn.btn--outline.margin-right-sm#custom-confirm-close Cancel
-      = button_to "Yes, I'm sure", '', class: 'btn btn--primary', id: 'custom-confirm-submit', form: { id: 'custom-confirm-form' }
+      = link_to "Yes, I'm sure", '', class: 'btn btn--primary', id: 'custom-confirm-accept'
