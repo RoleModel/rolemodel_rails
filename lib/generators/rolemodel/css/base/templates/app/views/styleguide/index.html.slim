@@ -116,8 +116,13 @@
           option Option 3
 
       .form__group
-        input.form__checkbox type="checkbox"
-        label.form__label Checkbox Input
+        .checkbox
+          input id="demo-checkbox" type="checkbox"
+          label for="demo-checkbox" Checkbox
+        .checkbox
+          input id="demo-checkbox-disabled" type="checkbox" disabled="disabled"
+          label for="demo-checkbox-disabled" Disabled Checkbox
+
 
       .form__group
         input.form__radio type="radio"

@@ -1,0 +1,79 @@
+.checkbox {
+  position: relative;
+  margin: var(--space-md) 0;
+  text-align: left;
+
+  &.checkbox-inline {
+    display: inline-block;
+  }
+
+  label {
+    cursor: pointer;
+    display: inline;
+    line-height: var(--text-md);
+    vertical-align: top;
+    clear: both;
+    padding-left: var(--space-xxs);
+    &:not(:empty) {
+      padding-left: var(--text-xs);
+    }
+
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &:before {
+      // box
+      width: var(--text-md);
+      height: var(--text-md);
+      background: var(--color-white);
+      border: 2px solid var(--color-contrast-high);
+      border-radius: var(--space-xxs);
+      cursor: pointer;
+      transition: background .3s;
+    }
+  }
+
+  input[type="checkbox"] {
+    outline: 0;
+    visibility: hidden;
+    width: var(--text-md);
+    margin: 0;
+    display: block;
+    float: left;
+    font-size: inherit;
+
+    &:checked {
+       + label:before{
+        background: var(--color-primary);
+        border:none;
+      }
+      + label:after {
+
+        $checkmark-size: 1.25em - 2 * .25em;
+
+        transform: translate(var(--space-xxs), (1.25em / 2) - ($checkmark-size / 2.6)) rotate(-45deg);
+        width: $checkmark-size;
+        height: $checkmark-size / 2;
+
+        border: var(--space-xxs) solid var(--color-white);
+        border-top-style: none;
+        border-right-style: none;
+      }
+    }
+
+    &:disabled {
+      + label:before{
+        border-color: var(--color-contrast-medium);
+      }
+      &:checked {
+        + label:before{
+          background: var(--color-contrast-medium);
+        }
+      }
+    }
+  }
+}
