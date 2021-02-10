@@ -1,23 +1,16 @@
 .checkbox {
   position: relative;
   margin: var(--space-md) 0;
-  text-align: left;
-
-  &.checkbox-inline {
-    display: inline-block;
-  }
 
   label {
+    // Label text
+    color: var(--color-contrast-high);
     cursor: pointer;
     display: inline;
     line-height: var(--text-md);
-    vertical-align: top;
-    clear: both;
-    padding-left: var(--space-xxs);
-    &:not(:empty) {
-      padding-left: var(--text-xs);
-    }
+    padding-left: var(--text-xs);
 
+    // Box
     &:before, &:after {
       content: "";
       position: absolute;
@@ -25,53 +18,66 @@
       top: 0;
     }
 
+    &:hover {
+      &:before {
+        border-color: var(--color-primary);
+      }
+    }
+
     &:before {
-      // box
       width: var(--text-md);
       height: var(--text-md);
       background: var(--color-white);
-      border: 2px solid var(--color-contrast-high);
+      border: 2px solid var(--color-contrast-medium);
       border-radius: var(--space-xxs);
       cursor: pointer;
-      transition: background .3s;
+      transition: background .3s, border .3s;
     }
   }
 
+  // Checkmark
   input[type="checkbox"] {
-    outline: 0;
-    visibility: hidden;
     width: var(--text-md);
-    margin: 0;
-    display: block;
-    float: left;
-    font-size: inherit;
 
     &:checked {
-       + label:before{
+      + label:before {
+        // background color of box when checked
         background: var(--color-primary);
-        border:none;
+        border-color: var(--color-primary);
       }
+
       + label:after {
-
-        $checkmark-size: 1.25em - 2 * .25em;
-
-        transform: translate(var(--space-xxs), (1.25em / 2) - ($checkmark-size / 2.6)) rotate(-45deg);
-        width: $checkmark-size;
-        height: $checkmark-size / 2;
-
-        border: var(--space-xxs) solid var(--color-white);
+        // Checkmark
+        transition: transform .3s ease, opacity .2s;
+        transform: rotate(var(--r, -40deg));
+        border: 3px solid var(--color-white);
         border-top-style: none;
         border-right-style: none;
+        left: 4px;
+        top: 5px;
+        $checkmark-size: 1.25em - 2 * .25em;
+        width: $checkmark-size;
+        height: $checkmark-size / 2;
       }
     }
 
     &:disabled {
-      + label:before{
-        border-color: var(--color-contrast-medium);
+      + label {
+        color: var(--color-disabled);
+        cursor: not-allowed;
+
+        &:before{
+          border-color: var(--color-contrast-low);
+          background-color: var(--color-contrast-lower);
+          cursor: not-allowed;
+        }
       }
+
       &:checked {
-        + label:before{
-          background: var(--color-contrast-medium);
+        + label:before {
+          border-color: var(--color-contrast-low);
+          background-color: var(--color-contrast-low);
+          cursor: not-allowed;
         }
       }
     }
