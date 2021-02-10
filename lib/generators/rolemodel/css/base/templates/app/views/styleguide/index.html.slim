@@ -116,19 +116,32 @@
           option Option 3
 
       .form__group
+        input.form__checkbox type="checkbox"
+        label.form__label Checkbox Input
+
         .checkbox
           input id="demo-checkbox" type="checkbox"
           label for="demo-checkbox" Checkbox
         .checkbox
           input id="demo-checkbox-disabled" type="checkbox" disabled="disabled"
-          label for="demo-checkbox-disabled" Disabled Checkbox
+          label for="demo-checkbox-disabled" Disabled checkbox
+        .checkbox
+          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+          label for="demo-checkbox-disabled-checked" Disabled checkbox (checked)
 
 
       .form__group
         input.form__radio type="radio"
         label.form__label Radio Input 1
+
         input.form__radio type="radio"
         label.form__label Radio Input 2
+
+        input id="form-radio" type="radio" name="radio" value="1"
+        label for="form-radio" New Radio
+
+        input id="form-radio-disabled" type="radio" name="radio" value="1" disabled="disabled"
+        label for="form-radio-disabled" New Radio Disabled
 
   section.section--cards.margin-top-xl
     h2.styleguide-section__title Card
@@ -187,21 +200,23 @@
           thead
             th Button
             th Measure
-            th.flex.justify-end Link
+            th.text-right Link
           tbody
             tr
               td
-                input type="radio" id="radio-1" name="radio-button" class="margin-right-sm" Button 1
+                input type="radio" id="radio-1" name="radio-button"
+                label for="radio-1" Button 1
               td item/unit
-              td.flex.justify-end Other Information
+              td.text-right Other Information
             tr
               td
-                input type="radio" id="radio-2" name="radio-button" class="margin-right-sm" Button 2
+                input type="radio" id="radio-2" name="radio-button"
+                label for="radio-2" Button 2
               td item/unit
-              td.flex.justify-end Other Information
+              td.text-right Other Information
             tr.form__submit
               td
               td
-              td.flex.justify-end.items-center
+              td.text-right
                   button.btn.btn--outline Cancel
                   button.btn.btn--primary.margin-left-sm type="submit" Submit
