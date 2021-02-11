@@ -2,21 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1df292b0-126f-4d18-a789-7673b09e98e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/Gemfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/Rakefile" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/Rakefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_rails6/app/controllers/styleguide_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/app/controllers/styleguide_controller.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example_rails6/app/javascript/channels/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/app/javascript/channels/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/app/javascript/packs/application.js" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/app/javascript/packs/application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/app/views/layouts/application.html.erb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/config/initializers/content_security_policy.rb" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/config/initializers/content_security_policy.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_rails6/app/views/layouts/full_screen.html.slim" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/app/views/layouts/full_screen.html.slim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_rails6/app/views/styleguide/index.html.slim" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/app/views/styleguide/index.html.slim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example_rails6/app/views/styleguide/test.html.slim" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example_rails6/config/routes.rb" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/config/routes.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/config/webpacker.yml" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/config/webpacker.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example_rails6/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example_rails6/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generators/rolemodel/css/base/templates/app/javascript/stylesheets/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generators/rolemodel/css/base/templates/app/javascript/stylesheets/variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generators/rolemodel/readme/USAGE" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generators/rolemodel/readme/USAGE" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +61,14 @@
       <workItem from="1613006682899" duration="757000" />
       <workItem from="1613007454939" duration="747000" />
     </task>
+    <task id="LOCAL-00001" summary="Commit generated code">
+      <created>1613054372307</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1613054372307</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,11 +79,27 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="copy" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Commit generated code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit generated code" />
   </component>
 </project>
