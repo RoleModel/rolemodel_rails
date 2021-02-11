@@ -1,0 +1,31 @@
+.flash {
+  position: relative;
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius);
+}
+
+.flash--notice {
+  color: var(--color-notice-text);
+  background-color: var(--color-notice-lighter);
+  border-color: var(--color-notice-light);
+}
+
+.flash--info {
+  color: var(--color-info-text);
+  background-color: var(--color-info-lighter);
+  border-color: var(--color-info-light);
+}
+
+.flash--alert {
+  color: var(--color-danger-text);
+  background-color: var(--color-danger-lighter);
+  border-color: var(--color-danger-light);
+}
+
+.flash--warning {
+  color: var(--color-warning-text);
+  background-color: var(--color-warning-lighter);
+  border-color: var(--color-warning-light);
+}

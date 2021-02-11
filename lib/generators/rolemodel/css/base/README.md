@@ -24,6 +24,10 @@ Depends on [Webpacker Generator](../../webpacker)
 * [Typography Type Scale](https://codyhouse.co/ds/globals/typography)
 * [Spacing](https://codyhouse.co/ds/globals/spacing)
 
+## Color Theory
+
+* [Swatches](https://yeun.github.io/open-color/)
+
 ## Component Reference Resources
 
 * [csslayout.io](https://csslayout.io/patterns/)
