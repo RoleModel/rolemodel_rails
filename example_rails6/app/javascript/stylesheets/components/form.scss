@@ -13,6 +13,22 @@ label {
   cursor: pointer;
 }
 
+// DEMO CLASSES
+
+.form--third {
+  width: 33%;
+}
+
+.form--half {
+  width: 48%;
+}
+
+.form--full {
+  width: 100%;
+}
+
+// END OF DEMO CLASSES
+
 .form__label {
   padding-bottom: var(--space-xs);
   margin-bottom: 0;
@@ -113,9 +129,9 @@ label {
 .error {
   padding: var(--space-xxs) var(--space-xs);
 
-  color: white;
+  color: var(--color-error-vibrant);
   border-radius: var(--radius-sm);
-  background: var(--color-error-vibrant);
+  // background: var(--color-error-vibrant);
 
   font-size: var(--text-xs);
 }
@@ -124,6 +140,7 @@ label {
 .field_with_errors {
   input {
     box-shadow: inset 0 0 0 1px var(--color-error-vibrant);
+    background: var(--color-error-even-lighter);
   }
 }
 

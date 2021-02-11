@@ -31,3 +31,10 @@
 
   background: var(--color-primary);
 }
+
+.demo-form {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  // max-width: 200rem;
+}
