@@ -1,72 +1,88 @@
 .demo-form
-  section.section--forms.form--third.margin-top-xl
-    h2.styleguide-section__title Give us all your information
+  .card.margin-top-lg
+    section.section--forms
+      h2.styleguide-section__title Give us all your information
 
-    form
-      .flex.justify-between
-        .form--half.field_with_errors
-          .flex.justify-between
-            label.form__label SSN
-            span.error Can't be blank
-          input.form__input type="text"
-            / = icon('error_outline')
+      #error_explanation.animate__animated.animate__fadeIn
+        h2 2 errors prohibited this from being saved
+        ul
+          li Tags rank is not a number
+          li Title can't be blank
 
-        .form--half.margin-left-md
-          label.form__label Drivers License
-          input.form__input type="password"
+      form.margin-md
+        .form__group
+          label.form__label Entire Name
+          input.form__input
 
-      .form__group.flex
-        .checkbox
-          input id="demo-checkbox" type="checkbox"
-          label for="demo-checkbox" Male
-        .checkbox
-          input id="demo-checkbox-disabled" type="checkbox"
-          label for="demo-checkbox-disabled" Female
-        .checkbox
-          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
-          label for="demo-checkbox-disabled-checked" Alien
-        .checkbox
-          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled"
-          label for="demo-checkbox-disabled-checked" Butterfly
+        .flex.justify-between
+          .form--half.field_with_errors
+            .flex.justify-between
+              label.form__label SSN
+              span.error.animate__animated.animate__flash Can't be blank
+            input.form__input type="text"
+            / span.material-icons error_outline
 
-      .form__group
-        label.form__label Address
-        input.form__input type="number"
+          .form--half.margin-left-md
+            label.form__label Drivers License
+            input.form__input type="password"
 
-      .form__group
-        label.form__label Email
-        input.form__input type="email"
+        .flex.margin-y-md
+          .checkbox
+            input id="demo-checkbox" type="checkbox"
+            label for="demo-checkbox" Male
+          .checkbox
+            input id="demo-checkbox-disabled" type="checkbox"
+            label for="demo-checkbox-disabled" Female
+          .checkbox
+            input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+            label for="demo-checkbox-disabled-checked" Alien
+          .checkbox
+            input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled"
+            label for="demo-checkbox-disabled-checked" Butterfly
 
-      .flex.justify-between.items-center
-        .form__group.form--third.field_with_errors
-          label.form__label Phone Input
-          input.form__input type="phone"
+        .form__group
+          label.form__label Address
+          input.form__input type="number"
 
-        .form__group.form--third.flex.flex-col
-          .flex.items-center.margin-top-lg.margin-left-md
-            input id="form-radio" type="radio" name="radio" value="1"
-            label.margin-none for="form-radio" Cell
+        .form__group
+          label.form__label Email
+          input.form__input type="email"
 
-          .flex.items-center.margin-top-xs.margin-left-md
-            input id="form-radio" type="radio" name="radio" value="1"
-            label.margin-none for="form-radio" Home
+        .flex.justify-between.items-center
+          .form__group.form--two-thirds.field_with_errors
+            label.form__label Phone Input
+            input.form__input type="phone"
 
-        .form__group.form--third
-          label.form__label Favorite Color
-          select.form__dropdown
-            option Red
-            option Blue
-            option Green
+          .form__group.form--third.flex.flex-col
+            .flex.items-center.margin-top-lg.margin-left-md
+              input id="form-radio" type="radio" name="radio" value="1"
+              label.margin-none for="form-radio" Cell
 
-      .form__group
-        .checkbox
-          input id="demo-checkbox-agree" type="checkbox"
-          label for="demo-checkbox-agree" I agree
-        .checkbox
-          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
-          label for="demo-checkbox-disabled-checked" You can have all my money too
+            .flex.items-center.margin-top-xs.margin-left-md
+              input id="form-radio" type="radio" name="radio" value="1"
+              label.margin-none for="form-radio" Home
 
-      .flex.justify-between.items-center
-        a.btn.btn--outline Go Back
-        a.btn.btn--primary data-confirm="Are you sure?" data-confirm-details="This will do something" Submit
+        .flex
+          .form__group.form--half
+            label.form__label Favorite Color
+            select.form__dropdown
+              option Red
+              option Blue
+              option Green
+
+          .form__group.form--half
+            label.form__label Card Number
+            input.form__input type="number"
+
+        .form__group
+          .checkbox
+            input id="demo-checkbox-agree" type="checkbox"
+            label for="demo-checkbox-agree" I agree
+          .checkbox
+            input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+            label for="demo-checkbox-disabled-checked" You can have all my money too
+
+        .flex.justify-end.items-center
+          a.btn.btn--outline.margin-right-sm Go Back
+          a.btn.btn--primary data-confirm="Are you sure?" data-confirm-details="This will do something" Submit
 

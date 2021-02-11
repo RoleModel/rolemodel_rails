@@ -1,0 +1,80 @@
+.demo-form
+  section.section--forms.form--third.margin-top-xl
+    h2.styleguide-section__title.animate__animated.animate__zoomInDown Give us all your information
+
+    form
+      .form__group.animate__animated.animate__fadeInBottomLeft
+        label.form__label Entire Name
+        input.form__input
+
+      .flex.justify-between.animate__animated.animate__wobble
+        .form--half.field_with_errors
+          .flex.justify-between.animate__animated.animate__rubberBand
+            label.form__label SSN
+            span.error Can't be blank
+          input.form__input type="text"
+            / = icon('error_outline')
+
+        .form--half.margin-left-md
+          label.form__label Drivers License
+          input.form__input type="password"
+
+      .form__group.flex.animate__animated.animate__backInLeft
+        .checkbox.animate__animated.animate__rotateIn
+          input id="demo-checkbox" type="checkbox"
+          label for="demo-checkbox" Male
+        .checkbox.animate__animated
+          input id="demo-checkbox-disabled" type="checkbox"
+          label for="demo-checkbox-disabled" Female
+        .checkbox.animate__animated
+          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+          label for="demo-checkbox-disabled-checked" Alien
+        .checkbox.animate__animated
+          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled"
+          label for="demo-checkbox-disabled-checked" Butterfly
+
+      .form__group.animate__animated.animate__fadeInRight
+        label.form__label Address
+        input.form__input type="number"
+
+      .form__group.animate__animated.animate__zoomInDown
+        label.form__label Email
+        input.form__input type="email"
+
+      .flex.justify-between.items-center.animate__animated.animate__slideInRight
+        .form__group.form--third.field_with_errors
+          label.form__label Phone
+          input.form__input type="phone"
+
+        .form__group.form--third.flex.flex-col.animate__animated.animate__jello
+          .flex.items-center.margin-top-lg.margin-left-md
+            input id="form-radio" type="radio" name="radio" value="1"
+            label.margin-none for="form-radio" Cell
+
+          .flex.items-center.margin-top-xs.margin-left-md.animate__animated.animate__rotateInDownRight
+            input id="form-radio" type="radio" name="radio" value="1"
+            label.margin-none for="form-radio" Home
+
+        .form__group.form--third.animate__animated.animate__rotateInUpLeft
+          label.form__label Favorite Color
+          select.form__dropdown.animate__animated
+            option Red
+            option Blue
+            option Green
+
+      .form__group.animate__animated.animate__rollIn
+        label.form__label Card
+        input.form__input type="number"
+
+      .form__group.animate__animated.animate__slideInUp
+        .checkbox
+          input id="demo-checkbox-agree" type="checkbox"
+          label for="demo-checkbox-agree" I agree
+        .checkbox
+          input id="demo-checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+          label for="demo-checkbox-disabled-checked" You can have all my money too
+
+      .flex.justify-between.items-center.animate__animated.animate__flip
+        a.btn.btn--outline Go Back
+        a.btn.btn--primary data-confirm="Are you sure?" data-confirm-details="This will do something" Submit
+
