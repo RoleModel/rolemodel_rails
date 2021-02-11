@@ -53,3 +53,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development do
   gem 'rolemodel_rails', path: '..'
 end
+gem 'slim'
+gem 'simple_form'
