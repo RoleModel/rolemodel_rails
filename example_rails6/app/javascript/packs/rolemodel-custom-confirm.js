@@ -19,6 +19,10 @@ export default class RolemodelCustomConfirm {
     return document.getElementById('custom-confirm-body')
   }
 
+  get customConfirmContent() {
+    return document.getElementById('custom-confirm-content')
+  }
+
   get customConfirmAccept() {
     return document.getElementById('custom-confirm-accept')
   }
@@ -69,6 +73,8 @@ export default class RolemodelCustomConfirm {
 
       // Open the modal
       this.customConfirm.classList.add('modal--active')
+      this.customConfirmContent.classList.add('animate__animated')
+      this.customConfirmContent.classList.add('animate__rotateInDownRight')
 
       // Rails.confirm expects a true or false return. False here prevents the
       // action in question (deleting something, etc.) from happening right away
@@ -83,6 +89,8 @@ export default class RolemodelCustomConfirm {
       this.closeModalElement.addEventListener('click', (e) => {
         e.preventDefault()
         this.customConfirm.classList.remove('modal--active')
+        this.customConfirmContent.classList.remove('animate__animated')
+        this.customConfirmContent.classList.remove('animate__rotateInDownRight')
       })
     }
   }

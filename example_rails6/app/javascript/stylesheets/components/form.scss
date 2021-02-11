@@ -156,6 +156,14 @@ label {
   }
 }
 
+.form__error-placeholder {
+  align-self: center;
+  margin-left: -28px;
+  font-family: 'Material Icons';
+  font-size: var(--text-md);
+  color: var(--color-error-vibrant);
+}
+
 // Not sure if we need this
 .field_group {
   margin-bottom: var(--space-lg);
