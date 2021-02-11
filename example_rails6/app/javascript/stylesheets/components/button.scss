@@ -35,9 +35,10 @@ button {
 .btn--primary {
   background: var(--color-primary);
   color: var(--color-white);
+  transition: background .3s;
 
   &:hover {
-    background: var(--color-accent);
+    background: var(--color-primary-hover);
   }
   &:visited {
     color: var(--color-white);
@@ -71,5 +72,14 @@ button {
   &:hover:not(:disabled) {
     background: var(--color-primary);
     color: var(--color-white);
+  }
+}
+
+.btn--3d {
+  box-shadow: 2px 2px 5px var(--color-disabled);
+  transition: box-shadow .3s;
+
+  &:hover {
+    box-shadow: 1px 1px 4px var(--color-contrast-medium);
   }
 }
