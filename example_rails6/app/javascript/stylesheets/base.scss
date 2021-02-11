@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap');
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+
+  font-family: var(--font-primary);
+  font-size: 16px;
+}
+
+body {
+  height: inherit;
+
+  color: var(--color-black);
+  background: var(--color-contrast-lower);
+}
+
+button, input, optgroup, select, textarea {
+  margin: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+blockquote, dl, dd, h1, h2, h3, h4, h5, h6, figure, pre {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: var(--space-sm);
+
+  font-weight: 400;
+}
+
+h1 {
+  font-size: var(--text-xxl);
+}
+
+h2 {
+  font-size: var(--text-xl);
+}
+
+h3 {
+  font-size: var(--text-lg);
+}
+
+h4 {
+  text-transform: uppercase;
+
+  color: var(--color-contrast-high);
+
+  font-size: var(--text-md);
+}
+
+h5 {
+  font-size: var(--text-sm);
+}
+
+h6 {
+  font-size: var(--text-xs);
+}
+
+p {
+  margin-bottom: var(--space-sm);
+
+  font-size: 1rem;
+}
+
+small {
+  font-size: var(--text-sm);
+}
+
+.container {
+  max-width: $breakpoint-lg;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.container--xs {
+  max-width: $breakpoint-xs;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}

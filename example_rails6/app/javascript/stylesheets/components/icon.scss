@@ -1,0 +1,13 @@
+// Look up icons at: https://material.io/resources/icons/
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+.material-icons {
+  font-size: 1.3em;
+  line-height: 0.9em;
+
+  max-width: 28px;
+}
+
+.material-icons--lg {
+  font-size: 5rem;
+}

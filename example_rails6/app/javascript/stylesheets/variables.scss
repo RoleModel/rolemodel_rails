@@ -17,6 +17,9 @@
   --color-info-light: #b8daff;
   --color-info-lighter: #cce5ff;
 
+  // Disabled
+  --color-disabled: #a1a1a1;
+
   // Error
   --color-error: #721c24;
   --color-error-light: #f5c6cb;
@@ -27,9 +30,6 @@
   --color-warning: #856404;
   --color-warning-light: #ffeeba;
   --color-warning-lighter: #fff3cd;
-
-  // Disabled
-  --color-disabled: #a1a1a1;
 
   // Contrast
   --color-contrast-lower: #F9F9F9;
@@ -60,6 +60,13 @@
   --text-xl: calc(var(--text-lg) * var(--text-scale-ratio)); // ~27.6px
   --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio)); // ~33.2px
   --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio)); // ~39.8px
+
+  // Panel
+  --panel-width: 40%;
+  --panel-transition-speed: 400ms;
+
+  // Modals
+  --modal-transition-speed: 300ms;
 
   // Spacing
   // This is using the Golden Ratio to get these numbers
