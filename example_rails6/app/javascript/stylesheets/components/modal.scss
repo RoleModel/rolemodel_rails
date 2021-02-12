@@ -26,7 +26,7 @@
   background: var(--color-black);
 	visibility: hidden;
   opacity: 0;
-  // transition: all var(--modal-transition-speed);
+  transition: all var(--modal-transition-speed);
 }
 
 .modal__content {
@@ -36,9 +36,9 @@
   background: var(--color-white);
   border-radius: var(--radius);
   z-index: 12;
-  // transform: scale(0.7);
+  transform: scale(0.7);
   opacity: 0;
-  // transition: all var(--modal-transition-speed);
+  transition: all var(--modal-transition-speed);
 }
 
 .modal--active {
@@ -46,7 +46,7 @@
   visibility: visible;
 
   .modal__content {
-    // transform: scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 

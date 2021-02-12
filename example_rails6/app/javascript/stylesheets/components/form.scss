@@ -31,7 +31,6 @@ label {
   width: 100%;
 }
 
-
 .demo-form {
   width: 100vw;
   display: flex;
@@ -98,15 +97,6 @@ label {
   text-align: left;
 }
 
-// TODO: Remove this
-.form__checkbox {
-  margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
-}
-
-.form__radio {
-  margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
-}
-
 .form__submit {
   background: var(--color-contrast-lower);
 }
@@ -129,7 +119,6 @@ label {
   }
 }
 
-// .form__error?
 .error {
   color: var(--color-error-vibrant);
   border-radius: var(--radius-sm);
