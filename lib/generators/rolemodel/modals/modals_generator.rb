@@ -8,7 +8,7 @@ module Rolemodel
     end
 
     def add_ui_components
-      copy_file 'app/helpers/modal_helper.rb'
+      copy_file 'app/helpers/dynamic_link_helper.rb'
       addendum = File.read([source_paths.last, '/application_addendum.js'].join)
       append_to_file 'app/javascript/packs/application.js', addendum
       copy_file 'app/javascript/packs/rolemodel-custom-confirm.js'
