@@ -1,0 +1,80 @@
+input[type='radio'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: var(--text-md);
+  width: var(--text-md);
+  outline: none;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  border: 2px solid var(--color-contrast-low);
+  background: var(--color-white);
+  transition: background .3s, border-color .3s, box-shadow .2s;
+  border-radius: 50%;
+
+  // Blue circle when checked
+  &:checked {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  // White circle
+  &:after {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: var(--color-white);
+    transform: scale(.5);
+    opacity: 1;
+    content: '';
+    display: block;
+    left: -2px;
+    top: -2px;
+    position: absolute;
+    transition: transform .6s cubic-bezier(.2, .85, .32, 1.2), opacity .2s;
+  }
+
+  // Disabled
+  &:disabled {
+    background: var(--color-contrast-lower);
+    cursor: not-allowed;
+
+    &:after {
+      // hide white circle
+      opacity: 0;
+    }
+
+    &:checked {
+      background: var(--color-contrast-lower);
+      border-color: var(--color-contrast-low);
+    }
+
+    & + label {
+      color: var(--color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  &:hover {
+    &:not(:checked) {
+      &:not(:disabled) {
+        border-color: var(--color-primary);
+      }
+    }
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--color-info-lighter);
+  }
+
+  & + label {
+    font-size: 14px;
+    line-height: 21px;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+}

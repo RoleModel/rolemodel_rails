@@ -1,0 +1,159 @@
+label {
+  display: inline-block;
+  margin-right: var(--space-sm);
+  margin-bottom: var(--space-sm);
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// TODO: Remove this?
+[type="checkbox"] {
+  cursor: pointer;
+}
+
+// DEMO CLASSES
+
+.form--third {
+  width: 33%;
+}
+
+.form--half {
+  width: 48%;
+}
+
+.form--two-thirds {
+  width: 66%;
+}
+
+.form--full {
+  width: 100%;
+}
+
+.demo-form {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+// END OF DEMO CLASSES
+
+.form__label {
+  padding-bottom: var(--space-xs);
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: var(--color-contrast-high);
+  font-weight: 400;
+  font-size: var(--text-sm);
+  letter-spacing: 0.4px;
+}
+
+.form__input,
+.form__dropdown {
+  background-color: var(--color-contrast-lower);
+  border: 2px solid var(--color-contrast-medium);
+  font-weight: 300;
+  border-radius: var(--radius);
+  color: var(--color-black);
+  padding: var(--space-sm) var(--space-md);
+  width: 100%;
+  transition: border-color .3s;
+  font-size: var(--text-sm);
+
+  &:hover:not(:focus):not(:disabled) {
+    cursor: pointer;
+    border-color: var(--color-contrast-mediumer);
+  }
+
+  &:focus {
+    color: var(--color-black);
+    border-color: var(--color-contrast-mediumerer);
+    outline: 0;
+  }
+}
+
+.form__input {
+  height: auto;
+  display: block;
+  line-height: 1.5;
+  will-change: border-color, box-shadow;
+  box-shadow: none;
+}
+
+.form__dropdown {
+  height: 2.7rem;
+  line-height: 1.2;
+  outline: 0;
+  background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDI5IDE0IiB3aWR0aD0iMjkiPjxwYXRoIGZpbGw9IiNkMWQxZDEiIGQ9Ik05LjM3NzI3IDMuNjI1bDUuMDgxNTQgNi45MzUyM0wxOS41NDAzNiAzLjYyNSIvPjwvc3ZnPgo=') center right no-repeat;
+  background-size: 8px 10px;
+  display: inline-block;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form__group {
+  margin: var(--space-sm) auto;
+  text-align: left;
+}
+
+.form__submit {
+  background: var(--color-contrast-lower);
+}
+
+// Imported from simple_form
+#error_explanation {
+  background-color: var(--color-error-lighter);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-error-light);
+  color: var(--color-error);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-lg);
+
+  h2 {
+    font-size: var(--text-md);
+  }
+
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+.error {
+  color: var(--color-error-vibrant);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+}
+
+// .form__input--error?
+.field_with_errors {
+  label {
+    color: var(--color-error-vibrant);
+  }
+
+  input {
+    border-color: var(--color-error-light);
+    background: var(--color-error-even-lighter);
+
+    &:focus {
+      border-color: var(--color-error-vibrant);
+    }
+
+    &:hover {
+      border-color: var(--color-error-vibrant) !important;
+    }
+  }
+}
+
+.form__error-placeholder {
+  align-self: center;
+  margin-left: -28px;
+  font-family: 'Material Icons';
+  font-size: var(--text-md);
+  color: var(--color-error-vibrant);
+}
+
+// Not sure if we need this
+.field_group {
+  margin-bottom: var(--space-lg);
+}
