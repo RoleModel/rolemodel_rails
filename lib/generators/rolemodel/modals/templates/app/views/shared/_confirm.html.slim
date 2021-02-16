@@ -1,0 +1,8 @@
+.modal#confirm.flex.items-center.justify-center
+  .modal__backdrop
+  .modal__content.text-center
+    h3#confirm-title
+    p#confirm-body.margin-bottom-lg
+    .flex.justify-center.items-center
+      .btn.btn--outline.margin-right-sm#confirm-close Cancel
+      = link_to "Yes, I'm sure", '', class: 'btn btn--primary', id: 'confirm-accept'

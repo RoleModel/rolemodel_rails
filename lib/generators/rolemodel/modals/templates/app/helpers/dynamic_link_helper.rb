@@ -4,6 +4,6 @@ module DynamicLinkHelper
   end
 
   def modal_link_to(name, url, classes = nil)
-    link_to(name, url, class: classes, data: { remote: true, custom_remote_modal: true })
+    link_to(name, url, class: classes, data: { remote: true, modal: true })
   end
 end

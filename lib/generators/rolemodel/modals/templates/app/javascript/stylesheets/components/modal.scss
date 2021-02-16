@@ -24,20 +24,21 @@
   left: 0;
   z-index: 11;
   background: var(--color-black);
-	visibility: hidden;
+  visibility: hidden;
   opacity: 0;
   transition: all var(--modal-transition-speed);
 }
 
 .modal__content {
   max-height: 500px;
-  width: 564px;
+  width: var(--modal-width);
   padding: var(--space-lg);
   background: var(--color-white);
   border-radius: var(--radius);
   z-index: 12;
   transform: scale(0.7);
   opacity: 0;
+  overflow-y: scroll;
   transition: all var(--modal-transition-speed);
 }
 
