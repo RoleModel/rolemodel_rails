@@ -38,10 +38,11 @@
     h2.styleguide-section__title Colors
     h3 Primary
     h4 Scale
+    p Usage --color-primary-"number". Example --color-primary-300
     .flex.flex-row.flex-wrap.margin-bottom-md
       - ([ 50 ] + 9.times.map.with_index { |n, i| (i + 1) * 100 }).each do |color|
         .swatch style="background: var(--color-primary-#{color})"
-          span = "--color-primary-#{color}"
+          span = color
 
     h4 Semantic
     .flex.flex-row.margin-bottom-lg
@@ -51,10 +52,11 @@
 
     h3 Secondary
     h4 Scale
+    p Usage --color-secondary-"number". Example --color-secondary-300
     .flex.flex-row.margin-bottom-md
       - ([ 50 ] + 9.times.map.with_index { |n, i| (i + 1) * 100 }).each do |color|
         .swatch style="background: var(--color-secondary-#{color})"
-          span = "--color-secondary-#{color}"
+          span = color
 
     h4 Semantic
     .flex.flex-row.margin-bottom-lg
@@ -64,15 +66,31 @@
 
     h3 Neutral
     h4 Scale
+    p Usage --color-neutral-"number". Example --color-neutral-300
     .flex.flex-row.margin-bottom-md
       - ([ 50 ] + 9.times.map.with_index { |n, i| (i + 1) * 100 }).each do |color|
         .swatch style="background: var(--color-neutral-#{color})"
-          span = "--color-neutral-#{color}"
+            span = color
 
     h4 Semantic Layers
+    .margin-bottom-lg
+      p Each layer has 3 parts to it: background, text, and border.
+      p.margin-bottom-md For example with layer 3, you have --neutral-layer-3-background, --neutral-layer-3-text, and --neutral-layer-3-border
+      .flex
+        .card style="background: var(--neutral-layer-1-background); border: 3px solid var(--neutral-layer-1-border);"
+          span style="color: var(--neutral-layer-1-text)" = "--neutral-layer-1"
+          .card style="background: var(--neutral-layer-2-background); border: 3px solid var(--neutral-layer-2-border);"
+            span style="color: var(--neutral-layer-2-text)" = "--neutral-layer-2"
+            .card style="background: var(--neutral-layer-3-background); border: 3px solid var(--neutral-layer-3-border);"
+              span style="color: var(--neutral-layer-3-text)" = "--neutral-layer-3"
+              .card style="background: var(--neutral-layer-4-background); border: 3px solid var(--neutral-layer-4-border);"
+                span style="color: var(--neutral-layer-4-text)" = "--neutral-layer-4"
+
+
+    h4 Semantic Specialty Layers
     .flex.flex-row.margin-bottom-lg
-      - ['1', '2', '3', '4', 'card', 'card-container', 'floating'].each do |color|
-        .swatch style="background: var(--neutral-layer-#{color})"
+      - ['card', 'card-container', 'floating'].each do |color|
+        .swatch style="background: var(--neutral-layer-#{color});"
           span = "--neutral-layer-#{color}"
 
     h3 Text Colors
@@ -93,7 +111,7 @@
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
         .swatch style="background: var(--color-warning#{color})"
           span = "--color-warning#{color}"
-    
+
     h4 Info
     .flex.flex-row.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
@@ -128,14 +146,15 @@
         li Title can't be blank
 
     form
-      .form__group.field_with_errors
+      .form__group.form__input--error
         label.form__label Text Input
-        span.error Can't be blank
+        span.form__error Can't be blank
         input.form__input type="text"
 
       .form__group
         label.form__label Password Input
         input.form__input type="password"
+        span.form__hint Here's a password hint
 
       .form__group
         label.form__label Number Input
