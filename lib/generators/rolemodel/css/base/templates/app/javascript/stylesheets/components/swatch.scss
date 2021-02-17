@@ -14,9 +14,9 @@
   span {
     padding: var(--space-xxs) var(--space-xs);
 
-    color: var(--color-contrast-high);
-    border: 1px solid var(--color-contrast-medium);
+    color: var(--neutral-layer-2-text);
+    border: 1px solid var(--neutral-layer-2-border);
     border-radius: var(--radius);
-    background: var(--color-contrast-lower);
+    background: var(--neutral-layer-2-background);
   }
 }

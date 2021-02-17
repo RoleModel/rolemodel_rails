@@ -1,39 +1,237 @@
+// See ./theme.scss for more color scales
+
+$color-primary-50: hsl(205, 100%, 95%);
+$color-primary-100: hsl(206, 100%, 91%);
+$color-primary-200: hsl(205, 99%, 82%);
+$color-primary-300: hsl(207, 96%, 72%);
+$color-primary-400: hsl(207, 92%, 64%);
+$color-primary-500: hsl(207, 86%, 57%);
+$color-primary-600: hsl(208, 80%, 52%);
+$color-primary-700: hsl(208, 77%, 47%);
+$color-primary-800: hsl(209, 77%, 43%);
+$color-primary-900: hsl(209, 75%, 38%);
+
+$color-secondary-50: hsl(51, 99%, 93%);
+$color-secondary-100: hsl(48, 100%, 88%);
+$color-secondary-200: hsl(49, 99%, 80%);
+$color-secondary-300: hsl(48, 100%, 70%);
+$color-secondary-400: hsl(47, 100%, 61%);
+$color-secondary-500: hsl(45, 97%, 54%);
+$color-secondary-600: hsl(42, 96%, 50%);
+$color-secondary-700: hsl(39, 100%, 48%);
+$color-secondary-800: hsl(35, 99%, 47%);
+$color-secondary-900: hsl(31, 99%, 45%);
+
+$color-neutral-50: hsl(207, 19%, 98%);
+$color-neutral-100: hsl(208, 19%, 95%);
+$color-neutral-200: hsl(214, 15%, 93%);
+$color-neutral-300: hsl(213, 14%, 89%);
+$color-neutral-400: hsl(208, 13%, 83%);
+$color-neutral-500: hsl(208, 11%, 71%);
+$color-neutral-600: hsl(208, 7%, 56%);
+$color-neutral-700: hsl(208, 9%, 31%);
+$color-neutral-800: hsl(208, 10%, 23%);
+$color-neutral-900: hsl(213, 11%, 15%);
+
+$color-white: #ffffff;
+$color-black: #010204;
+
 :root {
 
-  // Main Colors
-  --color-primary: #5485d2;
-  --color-accent: #585858;
+  --color-white: #{$color-white};
+  --color-black: #{$color-black};
 
-  --color-white: #FFFFFF;
-  --color-black: #1A202C;
+  // Primary Colors (normal usage)
+  --color-primary-lighter: #{$color-primary-50};
+  --color-primary-light: #{$color-primary-300};
+  --color-primary: #{$color-primary-400};
+  --color-primary-dark: #{$color-primary-500};
+  --color-primary-darker: #{$color-primary-700};
 
-  // Success/Notice
-  --color-notice: #155724;
-  --color-notice-light: #c3e6cb;
-  --color-notice-lighter: #d4edda;
+  --color-primary-text: #{$color-white};
 
-  // Info
-  --color-info: #004085;
-  --color-info-light: #b8daff;
-  --color-info-lighter: #cce5ff;
+  // Numbered color weights (similar to font weight)
+  --color-primary-50: #{$color-primary-50};
+  --color-primary-100: #{$color-primary-100};
+  --color-primary-200: #{$color-primary-200};
+  --color-primary-300: #{$color-primary-300};
+  --color-primary-400: #{$color-primary-400};
+  --color-primary-500: #{$color-primary-500};
+  --color-primary-600: #{$color-primary-600};
+  --color-primary-700: #{$color-primary-700};
+  --color-primary-800: #{$color-primary-800};
+  --color-primary-900: #{$color-primary-900};
 
-  // Error
-  --color-error: #721c24;
-  --color-error-light: #f5c6cb;
-  --color-error-lighter: #f8d7da;
-  --color-error-vibrant: #f95849;
+  // Secondary Colors (normal usage)
+  --color-secondary-lighter: #{$color-secondary-50};
+  --color-secondary-light: #{$color-secondary-300};
+  --color-secondary: #{$color-secondary-400};
+  --color-secondary-dark: #{$color-secondary-500};
+  --color-secondary-darker: #{$color-secondary-700};
+
+  --color-secondary-text: #{$color-black};
+
+  // Numbered color weights (similar to font weight)
+  --color-secondary-50: #{$color-secondary-50};
+  --color-secondary-100: #{$color-secondary-100};
+  --color-secondary-200: #{$color-secondary-200};
+  --color-secondary-300: #{$color-secondary-300};
+  --color-secondary-400: #{$color-secondary-400};
+  --color-secondary-500: #{$color-secondary-500};
+  --color-secondary-600: #{$color-secondary-600};
+  --color-secondary-700: #{$color-secondary-700};
+  --color-secondary-800: #{$color-secondary-800};
+  --color-secondary-900: #{$color-secondary-900};
+
+  // Neutrals (normal usage)
+  --neutral-layer-app-background: --color-white;
+
+  --neutral-layer-1-background: #{$color-neutral-50};
+  --neutral-layer-1-text: #{$color-neutral-600};
+  --neutral-layer-1-border: #{$color-neutral-400};
+
+  --neutral-layer-2-background: #{$color-neutral-300};
+  --neutral-layer-2-text: #{$color-neutral-700};
+  --neutral-layer-2-border: #{$color-neutral-500};
+
+  --neutral-layer-3-background: #{$color-neutral-400};
+  --neutral-layer-3-text: #{$color-neutral-800};
+  --neutral-layer-3-border: #{$color-neutral-600};
+
+  --neutral-layer-4-background: #{$color-neutral-500};
+  --neutral-layer-4-text: #{$color-neutral-900};
+  --neutral-layer-4-border: #{$color-neutral-700};
+
+  --neutral-layer-card: #{$color-white};
+  --neutral-layer-card-container: #{$color-neutral-200};
+  --neutral-layer-floating: #{$color-neutral-200};
+
+  // Numbered color weights (similar to font weight)
+  --color-neutral-50: #{$color-neutral-50};
+  --color-neutral-100: #{$color-neutral-100};
+  --color-neutral-200: #{$color-neutral-200};
+  --color-neutral-300: #{$color-neutral-300};
+  --color-neutral-400: #{$color-neutral-400};
+  --color-neutral-500: #{$color-neutral-500};
+  --color-neutral-600: #{$color-neutral-600};
+  --color-neutral-700: #{$color-neutral-700};
+  --color-neutral-800: #{$color-neutral-800};
+  --color-neutral-900: #{$color-neutral-900};
 
   // Warning
-  --color-warning: #856404;
-  --color-warning-light: #ffeeba;
-  --color-warning-lighter: #fff3cd;
+  --color-warning-lighter: #{$color-yellow-50};
+  --color-warning-light: #{$color-yellow-300};
+  --color-warning: #{$color-yellow-400};
+  --color-warning-dark: #{$color-yellow-500};
+  --color-warning-darker: #{$color-yellow-700};
+  --color-warning-text: #{$color-yellow-700};
 
-  // Contrast
-  --color-contrast-lower: #F9F9F9;
-  --color-contrast-low: #EBEBEB;
-  --color-contrast-medium: #E0E0E0;
-  --color-contrast-high: #5E6168;
-  --color-contrast-higher: #1A202C;
+  // Danger
+  --color-danger-lighter: #{$color-red-50};
+  --color-danger-light: #{$color-red-300};
+  --color-danger: #{$color-red-400};
+  --color-danger-dark: #{$color-red-500};
+  --color-danger-darker: #{$color-red-700};
+  --color-danger-text: #{$color-red-700};
+
+  // Info
+  --color-info-lighter: #{$color-blue-50};
+  --color-info-light: #{$color-blue-300};
+  --color-info: #{$color-blue-400};
+  --color-info-dark: #{$color-blue-500};
+  --color-info-darker: #{$color-blue-700};
+  --color-info-text: #{$color-blue-700};
+
+  // Notice
+  --color-notice-lighter: #{$color-green-50};
+  --color-notice-light: #{$color-green-300};
+  --color-notice: #{$color-green-400};
+  --color-notice-dark: #{$color-green-500};
+  --color-notice-darker: #{$color-green-700};
+  --color-notice-text: #{$color-green-700};
+
+  @media (prefers-color-scheme: dark) {
+    & {
+      --color-white: #{$color-black};
+      --color-black: #{$color-white};
+
+      --color-primary-lighter: #{$color-neutral-700};
+      --color-primary-light: #{$color-primary-500};
+      --color-primary: #{$color-primary-400};
+      --color-primary-dark: #{$color-primary-300};
+      --color-primary-darker: #{$color-neutral-100};
+
+      --color-secondary-lighter: #{$color-neutral-700};
+      --color-secondary-light: #{$color-secondary-500};
+      --color-secondary: #{$color-secondary-400};
+      --color-secondary-dark: #{$color-secondary-300};
+      --color-secondary-darker: #{$color-neutral-100};
+
+      // Neutrals
+      --neutral-layer-app-background: #{$color-black};
+
+      --neutral-layer-1-background: #{$color-neutral-700};
+      --neutral-layer-1-text: #{$color-neutral-300};
+      --neutral-layer-1-border: #{$color-neutral-500};
+
+      --neutral-layer-2-background: #{$color-neutral-600};
+      --neutral-layer-2-text: #{$color-neutral-200};
+      --neutral-layer-2-border: #{$color-neutral-400};
+
+      --neutral-layer-3-background: #{$color-neutral-500};
+      --neutral-layer-3-text: #{$color-neutral-100};
+      --neutral-layer-3-border: #{$color-neutral-300};
+
+      --neutral-layer-4-background: #{$color-neutral-400};
+      --neutral-layer-4-text: #{$color-neutral-100};
+      --neutral-layer-4-border: #{$color-neutral-100};
+
+      --neutral-layer-card: #{$color-neutral-800};
+      --neutral-layer-card-container: #{$color-neutral-700};
+      --neutral-layer-floating: #{$color-neutral-800};
+
+
+      --color-neutral-50: #{$color-neutral-900};
+      --color-neutral-100: #{$color-neutral-800};
+      --color-neutral-200: #{$color-neutral-700};
+      --color-neutral-300: #{$color-neutral-600};
+      --color-neutral-400: #{$color-neutral-500};
+      --color-neutral-500: #{$color-neutral-400};
+      --color-neutral-600: #{$color-neutral-300};
+      --color-neutral-700: #{$color-neutral-200};
+      --color-neutral-800: #{$color-neutral-100};
+      --color-neutral-900: #{$color-neutral-50};
+
+      --color-warning-lighter: #{$color-yellow-600};
+      --color-warning-light: #{$color-yellow-500};
+      --color-warning: #{$color-yellow-400};
+      --color-warning-dark: #{$color-yellow-300};
+      --color-warning-darker: #{$color-yellow-100};
+      --color-warning-text: #{$color-neutral-800};
+
+      --color-danger-lighter: #{$color-red-600};
+      --color-danger-light: #{$color-red-500};
+      --color-danger: #{$color-red-400};
+      --color-danger-dark: #{$color-red-300};
+      --color-danger-darker: #{$color-red-100};
+      --color-danger-text: #{$color-neutral-800};
+
+      --color-info-lighter: #{$color-blue-600};
+      --color-info-light: #{$color-blue-500};
+      --color-info: #{$color-blue-400};
+      --color-info-dark: #{$color-blue-300};
+      --color-info-darker: #{$color-blue-100};
+      --color-info-text: #{$color-neutral-800};
+
+      --color-notice-lighter: #{$color-green-600};
+      --color-notice-light: #{$color-green-500};
+      --color-notice: #{$color-green-400};
+      --color-notice-dark: #{$color-green-300};
+      --color-notice-darker: #{$color-green-100};
+      --color-notice-text: #{$color-neutral-800};
+    }
+  }
+
 
   // Border
   --radius: 6px;
@@ -69,6 +267,71 @@
   --space-lg: calc(1.618 * var(--space-unit)); // 26px
   --space-xl: calc(2.618 * var(--space-unit)); // 42px
 }
+
+// :root {
+
+//   // Main Colors
+//   --color-primary: #5485d2;
+//   --color-accent: #585858;
+
+//   --color-white: #FFFFFF;
+//   --color-black: #1A202C;
+
+//   // Success/Notice
+//   --color-notice: #155724;
+//   --color-notice-light: #c3e6cb;
+//   --color-notice-lighter: #d4edda;
+
+//   // Info
+//   --color-info: #004085;
+//   --color-info-light: #b8daff;
+//   --color-info-lighter: #cce5ff;
+
+//   // Error
+//   --color-error: #721c24;
+//   --color-error-light: #f5c6cb;
+//   --color-error-lighter: #f8d7da;
+//   --color-error-vibrant: #f95849;
+
+//   // Warning
+//   --color-warning: #856404;
+//   --color-warning-light: #ffeeba;
+//   --color-warning-lighter: #fff3cd;
+
+//   // Border
+//   --radius: 6px;
+//   --radius-sm: 2px;
+//   --border-width: 2px;
+
+//   // Shadows
+//   --shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+
+//   // Font Families
+//   --font-primary: 'Roboto', sans-serif;
+
+//   // Text Ratios
+//   // This is using a 16px base font-size using the Minor Third ratio
+//   // Visit https://codyhouse.co/ds/globals/typography to play around with different text sizes
+//   --text-scale-ratio: 1.2;
+//   --text-xs: calc((1rem / var(--text-scale-ratio)) / var(--text-scale-ratio)); // ~11.1px
+//   --text-sm: calc(var(--text-xs) * var(--text-scale-ratio)); // ~13.3px
+//   --text-md: calc(var(--text-sm) * var(--text-scale-ratio) * var(--text-scale-ratio)); // ~19.2px
+//   --text-lg: calc(var(--text-md) * var(--text-scale-ratio)); // ~23px
+//   --text-xl: calc(var(--text-lg) * var(--text-scale-ratio)); // ~27.6px
+//   --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio)); // ~33.2px
+//   --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio)); // ~39.8px
+
+//   // Spacing
+//   // This is using the Golden Ratio to get these numbers
+//   // Visit https://codyhouse.co/ds/globals/spacing to play around with different ratios
+//   --space-unit: 1rem;
+//   --space-xxs: calc(0.236 * var(--space-unit)); // 2px
+//   --space-xs: calc(0.382 * var(--space-unit)); // 6px
+//   --space-sm: calc(0.618 * var(--space-unit)); // 10px
+//   --space-md: calc(1 * var(--space-unit)); // 16px
+//   --space-lg: calc(1.618 * var(--space-unit)); // 26px
+//   --space-xl: calc(2.618 * var(--space-unit)); // 42px
+// }
 
 // Breakpoints - SCSS variables until support is available for custom properties
 $breakpoint-xs: 32rem; // ~512px phone
