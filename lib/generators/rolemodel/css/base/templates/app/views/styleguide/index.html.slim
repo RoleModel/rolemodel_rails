@@ -139,7 +139,7 @@
   section.card.section--forms.margin-top-xl
     h2.styleguide-section__title Form
 
-    .form__error-summary
+    #error_explanation
       h2 2 errors prohibited this from being saved
       ul
         li Tags rank is not a number
@@ -176,14 +176,29 @@
           option Option 3
 
       .form__group
-        input.form__checkbox type="checkbox"
-        label.form__label Checkbox Input
+        .form__checkbox
+          input id="checkbox" type="checkbox"
+          label.form__label for="checkbox" Checkbox
+        .form__checkbox
+          input id="checkbox-disabled" type="checkbox" disabled="disabled"
+          label.form__label for="checkbox-disabled" Disabled checkbox
+        .form__checkbox
+          input id="checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+          label.form__label for="checkbox-disabled-checked" Disabled checkbox (checked)
 
       .form__group
-        input.form__radio type="radio"
-        label.form__label Radio Input 1
-        input.form__radio type="radio"
-        label.form__label Radio Input 2
+        input.form__radio id="form-radio-1" type="radio" name="radio" value="1"
+        label.form__label for="form-radio-1" Radio 1
+
+        input.form__radio id="form-radio-2" type="radio" name="radio" value="2"
+        label.form__label for="form-radio-2" Radio 2
+
+      .form__group
+        input.form__radio id="form-radio-disabled" type="radio" name="disabled-radio" value="1" disabled="disabled"
+        label.form__label for="form-radio-disabled" Radio Disabled
+
+        input.form__radio id="form-radio-disabled-checked" type="radio" name="disabled-radio" value="1" disabled="disabled" checked="checked"
+        label.form__label for="form-radio-disabled-checked" Radio Disabled checked
 
   section.card.section--cards.margin-top-xl
     h2.styleguide-section__title Card
