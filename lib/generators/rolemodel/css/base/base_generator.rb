@@ -11,10 +11,6 @@ module Rolemodel
         run_bundle
       end
 
-      def add_simple_form
-        generate 'rolemodel:simple_form'
-      end
-
       def remove_application_erb_file
         remove_file 'app/views/layouts/application.html.erb'
       end

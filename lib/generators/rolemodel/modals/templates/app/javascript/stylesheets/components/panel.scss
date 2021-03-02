@@ -1,0 +1,22 @@
+.panel {
+  height: 100vh;
+  width: var(--panel-width);
+  z-index: 100;
+  position: absolute;
+  right: calc(-1 * var(--panel-width)); // this pushes the panel off the sceen to the right
+  background: white;
+  transition: right var(--panel-transition-speed);
+
+  overflow-y: scroll;
+  padding-bottom: var(--space-lg);
+}
+
+.panel--active {
+  right: 0;
+  box-shadow: var(--panel-shadow);
+}
+
+.panel__close {
+  float: right;
+  cursor: pointer;
+}
