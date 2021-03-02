@@ -48,7 +48,7 @@ $color-black: #010204;
   --color-primary-dark: #{$color-primary-500};
   --color-primary-darker: #{$color-primary-700};
 
-  --color-primary-text: #{$color-white};
+  --color-primary-text: #{$color-neutral-50};
 
   // Numbered color weights (similar to font weight)
   --color-primary-50: #{$color-primary-50};
@@ -87,11 +87,11 @@ $color-black: #010204;
   --neutral-layer-app-background: --color-white;
 
   --neutral-layer-1-background: #{$color-neutral-50};
-  --neutral-layer-1-text: #{$color-neutral-600};
+  --neutral-layer-1-text: #{$color-neutral-800};
   --neutral-layer-1-border: #{$color-neutral-400};
 
   --neutral-layer-2-background: #{$color-neutral-300};
-  --neutral-layer-2-text: #{$color-neutral-700};
+  --neutral-layer-2-text: #{$color-neutral-800};
   --neutral-layer-2-border: #{$color-neutral-500};
 
   --neutral-layer-3-background: #{$color-neutral-400};
@@ -99,8 +99,8 @@ $color-black: #010204;
   --neutral-layer-3-border: #{$color-neutral-600};
 
   --neutral-layer-4-background: #{$color-neutral-500};
-  --neutral-layer-4-text: #{$color-neutral-900};
-  --neutral-layer-4-border: #{$color-neutral-700};
+  --neutral-layer-4-text: #{$color-neutral-100};
+  --neutral-layer-4-border: #{$color-neutral-200};
 
   --neutral-layer-card: #{$color-white};
   --neutral-layer-card-container: #{$color-neutral-200};
@@ -168,22 +168,22 @@ $color-black: #010204;
       --color-secondary-darker: #{$color-neutral-100};
 
       // Neutrals
-      --neutral-layer-app-background: #{$color-black};
+      --neutral-layer-app-background: #{$color-neutral-900};
 
-      --neutral-layer-1-background: #{$color-neutral-700};
+      --neutral-layer-1-background: #{$color-neutral-800};
       --neutral-layer-1-text: #{$color-neutral-300};
       --neutral-layer-1-border: #{$color-neutral-500};
 
-      --neutral-layer-2-background: #{$color-neutral-600};
+      --neutral-layer-2-background: #{$color-neutral-700};
       --neutral-layer-2-text: #{$color-neutral-200};
       --neutral-layer-2-border: #{$color-neutral-400};
 
-      --neutral-layer-3-background: #{$color-neutral-500};
+      --neutral-layer-3-background: #{$color-neutral-600};
       --neutral-layer-3-text: #{$color-neutral-100};
       --neutral-layer-3-border: #{$color-neutral-300};
 
-      --neutral-layer-4-background: #{$color-neutral-400};
-      --neutral-layer-4-text: #{$color-neutral-100};
+      --neutral-layer-4-background: #{$color-neutral-500};
+      --neutral-layer-4-text: #{$color-neutral-800};
       --neutral-layer-4-border: #{$color-neutral-100};
 
       --neutral-layer-card: #{$color-neutral-800};

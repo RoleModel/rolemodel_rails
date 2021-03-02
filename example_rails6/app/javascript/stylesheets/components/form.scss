@@ -91,7 +91,7 @@ label {
   background-color: var(--color-danger-lighter);
   border-radius: var(--radius);
   border: 1px solid var(--color-danger-light);
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   margin-bottom: var(--space-lg);
   padding: var(--space-lg);
 
@@ -106,9 +106,9 @@ label {
 .form__error {
   padding: var(--space-xxs) var(--space-xs);
 
-  color: white;
+  color: var(--color-danger-text);
   border-radius: var(--radius-sm);
-  background: var(--color-danger-dark);
+  background: var(--color-danger-lighter);
 
   font-size: var(--text-xs);
 }
