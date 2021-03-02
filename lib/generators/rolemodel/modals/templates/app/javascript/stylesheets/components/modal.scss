@@ -38,7 +38,7 @@
   z-index: 12;
   transform: scale(0.7);
   opacity: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   transition: all var(--modal-transition-speed);
 }
 

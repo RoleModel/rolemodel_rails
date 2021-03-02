@@ -18,8 +18,8 @@ The data attributes needed to make this work
 - `confirm_button` (optional, default: "Yes, I'm sure") - Allows the button text affirming the action to be changed
 
 ## Example Panel and Modal
-Panel: `= panel_link_to 'Some link', panel_link_path, 'btn btn--primary'`
-Modal: `= modal_link_to "Modal Test", new_model_path, 'btn btn--primary'`
+Panel: `= panel_link_to 'Some link', panel_link_path, class: 'btn btn--primary'`
+Modal: `= modal_link_to "Modal Test", new_model_path, class: 'btn btn--primary'`
 
 For both the panel and the modal, you'll want to use the `full_screen` layout provided by the generator in your controller action. This allows the form/content to work if it is directly linked to in the browser rather than opened in a modal or panel
 

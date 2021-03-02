@@ -41,5 +41,20 @@ module Rolemodel
         VARIABLES
       end
     end
+
+    def add_to_styleguide
+      inject_into_file 'app/controllers/styleguide_controller.rb', after: "def index; end\n" do
+        optimize_indentation <<~'VARIABLES', 2
+
+          def full
+            render layout: 'full_screen'
+          end
+        VARIABLES
+      end
+      route "get '/styleguide/full', to: 'styleguide#full', as: :styleguide_full"
+      copy_file 'app/views/styleguide/full.html.slim'
+      copy_file 'app/views/styleguide/_modals.html.slim'
+      append_to_file 'app/views/styleguide/index.html.slim', "  = render 'modals'"
+    end
   end
 end
