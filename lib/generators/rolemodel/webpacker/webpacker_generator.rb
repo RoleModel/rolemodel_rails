@@ -25,6 +25,15 @@ module Rolemodel
         destination = file.sub(Rolemodel::WebpackerGenerator.source_root + '/generated/', '')
         copy_file source, destination
       end
+      directory 'generated/app/javascript/components', 'app/javascript/components'
+
+      inject_into_file 'config/environments/development.rb', before: '  # Raises error for missing translations.' do
+        optimize_indentation <<~'CONTENT', 2
+          # Ensure yarn installed files are up to date when compiling webpack assets
+          config.webpacker.check_yarn_integrity = true
+
+        CONTENT
+      end
     end
 
     def remove_old_config_files
