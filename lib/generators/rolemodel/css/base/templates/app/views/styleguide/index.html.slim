@@ -139,7 +139,7 @@
   section.card.section--forms.margin-top-xl
     h2.styleguide-section__title Form
 
-    #error_explanation
+    .form__error-summary
       h2 2 errors prohibited this from being saved
       ul
         li Tags rank is not a number
@@ -175,16 +175,15 @@
           option Option 2
           option Option 3
 
-      .form__group
-        .form__checkbox
-          input id="checkbox" type="checkbox"
-          label.form__label for="checkbox" Checkbox
-        .form__checkbox
-          input id="checkbox-disabled" type="checkbox" disabled="disabled"
-          label.form__label for="checkbox-disabled" Disabled checkbox
-        .form__checkbox
-          input id="checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
-          label.form__label for="checkbox-disabled-checked" Disabled checkbox (checked)
+      .form__group--checkbox
+        input id="checkbox" type="checkbox"
+        label.form__label for="checkbox" Checkbox
+      .form__group--checkbox
+        input id="checkbox-disabled" type="checkbox" disabled="disabled"
+        label.form__label for="checkbox-disabled" Disabled checkbox
+      .form__group--checkbox
+        input id="checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+        label.form__label for="checkbox-disabled-checked" Disabled checkbox (checked)
 
       .form__group
         input.form__radio id="form-radio-1" type="radio" name="radio" value="1"

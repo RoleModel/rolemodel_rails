@@ -67,6 +67,15 @@ SimpleForm.setup do |config|
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
 
+  config.wrappers(:inline_boolean, class: 'form__group--checkbox', hint_class: :field_with_hint,
+                                   error_class: :field_with_errors, valid_class: :field_without_errors) do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label_input
+    b.use :hint,  wrap_with: { tag: :span, class: :form__hint }
+    b.use :error, wrap_with: { tag: :span, class: :error }
+  end
+
   # Define the way to render check boxes / radio buttons with labels.
   # Defaults to :nested for bootstrap config.
   #   inline: input + label
@@ -136,7 +145,9 @@ SimpleForm.setup do |config|
 
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
-  # config.wrapper_mappings = { string: :prepend }
+  config.wrapper_mappings = {
+    boolean: :inline_boolean
+  }
 
   # Namespaces where SimpleForm should look for custom input classes that
   # override default inputs.
