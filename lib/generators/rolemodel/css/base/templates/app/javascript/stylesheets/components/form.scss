@@ -51,7 +51,7 @@ label {
   color: var(--color-black);
   outline: 0;
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDI5IDE0IiB3aWR0aD0iMjkiPjxwYXRoIGZpbGw9IiNkMWQxZDEiIGQ9Ik05LjM3NzI3IDMuNjI1bDUuMDgxNTQgNi45MzUyM0wxOS41NDAzNiAzLjYyNSIvPjwvc3ZnPgo=') center right no-repeat;
-  background-size: 8px 10px;
+  background-size: 30px 15px;
   background-color: var(--neutral-layer-1-background);
   border: var(--border-width) solid var(--neutral-layer-1-border);
   font-weight: 300;
@@ -78,7 +78,7 @@ label {
   text-align: left;
 }
 
-.form__checkbox {
+.form__group--checkbox {
   position: relative;
   margin: var(--space-md) 0;
 
@@ -133,8 +133,8 @@ label {
         border: 3px solid var(--color-white);
         border-top-style: none;
         border-right-style: none;
-        left: 4px;
-        top: 5px;
+        left: 5px;
+        top: 6px;
         $checkmark-size: 1.25em - 2 * .25em;
         width: $checkmark-size;
         height: $checkmark-size / 2;
@@ -149,6 +149,11 @@ label {
           border-color: var(--neutral-layer-2-border);
           background-color: var(--neutral-layer-2-background);
           cursor: not-allowed;
+        }
+
+        &:after {
+          // Checkmark
+          border-color: var(--neutral-layer-2-text);
         }
       }
 
@@ -223,6 +228,7 @@ label {
     }
 
     & + label {
+      // color: var(--color-disabled);
       cursor: not-allowed;
     }
   }
@@ -254,7 +260,7 @@ label {
   background-color: var(--color-danger-lighter);
   border-radius: var(--radius);
   border: 1px solid var(--color-danger-light);
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   margin-bottom: var(--space-lg);
   padding: var(--space-lg);
 
@@ -269,9 +275,9 @@ label {
 .form__error {
   padding: var(--space-xxs) var(--space-xs);
 
-  color: white;
+  color: var(--color-danger-text);
   border-radius: var(--radius-sm);
-  background: var(--color-danger-dark);
+  background: var(--color-danger-lighter);
 
   font-size: var(--text-xs);
 }
