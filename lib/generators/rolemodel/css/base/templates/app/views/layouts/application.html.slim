@@ -6,6 +6,16 @@ html
     = csp_meta_tag
     = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  body
-    = render 'shared/flash'
-    = yield
+    meta name="viewport" content="width=device-width, initial-scale=1"
+  body.flex
+    = render 'shared/sidebar'
+    .wrapper--main
+      = render 'shared/flash'
+      = yield
+
+  / If you want a top nav, use this version or just delete it
+  / body
+  /   = render 'shared/top_nav'
+  /   .container
+  /     = render 'shared/flash'
+  /     = yield

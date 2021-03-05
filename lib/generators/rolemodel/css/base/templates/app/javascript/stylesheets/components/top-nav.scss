@@ -1,0 +1,24 @@
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-white);
+  box-shadow: var(--shadow);
+  padding: 0 var(--space-md);
+}
+
+.top-nav__item {
+  font-weight: 500;
+  line-height: 1.25rem;
+
+  a {
+    padding: var(--space-sm);
+    text-decoration: none;
+
+    color: var(--color-link-dark);
+
+    &.top-nav__item--active {
+      color: var(--color-primary);
+    }
+  }
+}
