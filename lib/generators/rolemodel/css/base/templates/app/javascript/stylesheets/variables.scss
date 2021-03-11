@@ -85,6 +85,7 @@ $color-black: #010204;
 
   // Neutrals (normal usage)
   --neutral-layer-app-background: --color-white;
+  --neutral-layer-app-text: --color-black;
 
   --neutral-layer-1-background: #{$color-neutral-50};
   --neutral-layer-1-text: #{$color-neutral-800};
