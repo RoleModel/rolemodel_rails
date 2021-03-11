@@ -14,8 +14,8 @@ html {
 body {
   height: inherit;
 
-  color: var(--color-black);
-  background: var(--color-contrast-lower);
+  color: var(--neutral-layer-app-text);
+  background: var(--neutral-layer-app-background);
 }
 
 button, input, optgroup, select, textarea {
@@ -52,7 +52,7 @@ h3 {
 h4 {
   text-transform: uppercase;
 
-  color: var(--color-contrast-high);
+  color: var(--neutral-layer-2-text);
 
   font-size: var(--text-md);
 }

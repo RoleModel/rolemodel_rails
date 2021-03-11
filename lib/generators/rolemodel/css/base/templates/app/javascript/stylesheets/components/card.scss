@@ -1,8 +1,8 @@
 .card {
-  border: 1px solid var(--color-contrast-medium);
+  border: 1px solid var(--neutral-layer-card-border);
   border-radius: var(--radius);
   padding: var(--space-lg);
-  background: var(--color-white);
+  background: var(--neutral-layer-card);
 }
 
 .card--no-padding {

@@ -11,11 +11,11 @@ module Rolemodel
       copy_file 'app/helpers/dynamic_link_helper.rb'
       addendum = File.read([source_paths.last, '/application_addendum.js'].join)
       append_to_file 'app/javascript/packs/application.js', addendum
-      copy_file 'app/javascript/packs/helpers/rolemodel-confirm.js'
-      copy_file 'app/javascript/packs/helpers/rolemodel-modal.js'
-      copy_file 'app/javascript/packs/helpers/rolemodel-panel.js'
-      copy_file 'app/javascript/packs/helpers/makeFormsRemote.js'
-      copy_file 'app/javascript/packs/helpers/loadingErrorTemplate.js'
+      copy_file 'app/javascript/helpers/rolemodel-confirm.js'
+      copy_file 'app/javascript/helpers/rolemodel-modal.js'
+      copy_file 'app/javascript/helpers/rolemodel-panel.js'
+      copy_file 'app/javascript/helpers/makeFormsRemote.js'
+      copy_file 'app/javascript/helpers/loadingErrorTemplate.js'
       copy_file 'app/views/layouts/application.html.slim'
       copy_file 'app/views/layouts/full_screen.html.slim'
       copy_file 'app/views/shared/_confirm.html.slim'

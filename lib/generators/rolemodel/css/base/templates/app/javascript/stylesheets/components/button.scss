@@ -7,6 +7,7 @@ button {
   border: 0;
   outline: 0;
   background: none;
+  color: var(--color-black);
 }
 
 .btn {
@@ -19,7 +20,6 @@ button {
 
   transition: all 120ms;
   text-decoration: none;
-  text-transform: uppercase;
   text-align: center;
 
   border: 0;
@@ -34,23 +34,46 @@ button {
 
 .btn--primary {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-primary-text);
 
   &:hover {
-    background: var(--color-accent);
+    background: var(--color-primary-light);
   }
-  &:visited {
-    color: var(--color-white);
+}
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-secondary-text);
+
+  &:hover {
+    background: var(--color-secondary-light);
   }
 }
 
 .btn--outline {
-  border: var(--border-width) solid var(--color-contrast-low);
-  background: var(--color-white);
-  color: var(--color-black);
+  border: var(--border-width) solid var(--color-neutral-300);
+  background: transparent;
+
+  &.btn--primary {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+
+    &:hover {
+      background: var(--color-primary-lighter);
+    }
+  }
+
+  &.btn--secondary {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+
+    &:hover {
+      background: var(--color-secondary-lighter);
+    }
+  }
 
   &:hover {
-    background: var(--color-contrast-low);
+    background: var(--color-neutral-100);
   }
 }
 
@@ -59,17 +82,16 @@ button {
   padding: var(--space-xxs) var(--space-xs);
 }
 
-.btn--label {
-  background: var(--color-contrast-medium);
+.btn--rounded {
   border-radius: 30px;
 }
 
 .btn--active {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-primary-text);
 
   &:hover:not(:disabled) {
     background: var(--color-primary);
-    color: var(--color-white);
+    color: var(--color-primary-text);
   }
 }

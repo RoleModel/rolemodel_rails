@@ -4,7 +4,7 @@
   z-index: 100;
   position: absolute;
   right: calc(-1 * var(--panel-width)); // this pushes the panel off the sceen to the right
-  background: white;
+  background: var(--neutral-layer-card);
   transition: right var(--panel-transition-speed);
 
   overflow-y: scroll;
