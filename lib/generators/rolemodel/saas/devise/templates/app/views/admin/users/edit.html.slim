@@ -1,0 +1,10 @@
+.card.container--xxs
+  h1 Edit User
+  = simple_form_for(@user, url: admin_user_path(@user), html: { method: :put }) do |f|
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :email, required: true
+
+    .form__actions
+      = link_to 'Back', :back, class: 'btn btn--outline'
+      = f.submit 'Update', class: 'btn btn--primary'
