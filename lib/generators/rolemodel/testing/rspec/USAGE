@@ -8,5 +8,6 @@ Example:
         spec/rails_helper.rb
         spec/spec_helper.rb
         spec/support/capybara_drivers.rb
+        spec/support/capybara_testid.rb
         spec/support/helpers.rb
         .rspec
