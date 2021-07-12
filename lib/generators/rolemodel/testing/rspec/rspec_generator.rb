@@ -26,6 +26,7 @@ module Rolemodel
         template 'support/capybara_drivers.rb', 'spec/support/capybara_drivers.rb'
         template 'support/capybara_testid.rb', 'spec/support/capybara_testid.rb'
         template 'support/helpers.rb', 'spec/support/helpers.rb'
+        template 'support/webpacker.rb', 'spec/support/webpacker.rb'
         append_file '.gitignore', 'spec/examples.txt'
       end
     end

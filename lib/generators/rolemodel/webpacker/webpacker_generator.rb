@@ -57,11 +57,6 @@ module Rolemodel
       copy_file 'FilePathMock.js', 'spec/javascript/support/FilePathMock.js'
     end
 
-    def add_rspec_helper
-      say 'Add RSpec helper'
-      copy_file 'spec/support/webpacker.rb'
-    end
-
     def setup_tasks
       say 'Add Rake task'
       template 'javascript_tests.rake.erb', 'lib/tasks/javascript_tests.rake'

@@ -10,4 +10,5 @@ Example:
         spec/support/capybara_drivers.rb
         spec/support/capybara_testid.rb
         spec/support/helpers.rb
+        spec/support/webpacker.rb
         .rspec
