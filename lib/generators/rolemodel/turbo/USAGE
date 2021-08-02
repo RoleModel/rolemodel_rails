@@ -1,0 +1,5 @@
+Description:
+    Sets up our standard Turbo configuration
+
+Example:
+    rails generate rolemodel:turbo
