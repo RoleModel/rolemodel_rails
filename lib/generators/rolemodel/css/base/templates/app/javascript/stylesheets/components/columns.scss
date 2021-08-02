@@ -1,0 +1,88 @@
+.columns {
+  display: flex;
+}
+
+.column {
+  display: block;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  padding: var(--space-sm);
+
+  //  Sizing
+
+  &.is-full {
+    flex: none;
+    width: 100%;
+  }
+
+  &.is-half {
+    flex: none;
+    width: calc(100% * 1/2);
+  }
+
+  &.is-offset-one-half {
+    margin-left: calc(100% * 1/2);
+  }
+
+  @function pluralize($string, $number) {
+    @if $number == "1" {
+      @return $string;
+    } @else {
+      @return "#{$string}s";
+    }
+  }
+
+  // Fifths Sizing and Offset
+  $numbers: ("four": "4", "three": "3", "two": "2", "one": "1");
+  @each $name, $number in $numbers {
+    &.is-#{$name}-#{pluralize("fifth", $number)} {
+      flex: none;
+      width: calc(100% * #{$number}/5);
+    }
+
+    &.is-offset-#{$name}-#{pluralize("fifth", $number)} {
+      margin-left: calc(100% * #{$number}/5);
+    }
+  }
+
+  // Quarters Sizing and Offset
+  $numbers: ("three": "3", "one": "1");
+  @each $name, $number in $numbers {
+    &.is-#{$name}-#{pluralize("quarter", $number)} {
+      flex: none;
+      width: calc(100% * #{$number}/4);
+    }
+
+    &.is-offset-#{$name}-#{pluralize("quarter", $number)} {
+      margin-left: calc(100% * #{$number}/4);
+    }
+  }
+
+  // Thirds Sizing and Offset
+  $numbers: ("two": "2", "one": "1");
+  @each $name, $number in $numbers {
+    &.is-#{$name}-#{pluralize("third", $number)} {
+      flex: none;
+      width: calc(100% * #{$number}/3);
+    }
+
+    &.is-offset-#{$name}-#{pluralize("third", $number)} {
+      margin-left: calc(100% * #{$number}/3);
+    }
+  }
+
+  // 12 columns system with offsets
+  @for $counter from 1 through 12 {
+    &.is-#{$counter} {
+      flex: none;
+      width: calc(100% / 12 * #{$counter});
+    }
+
+    @if $counter != 12 {
+      &.is-offset-#{$counter} {
+        margin-left: calc(100% / 12 * #{$counter});
+      }
+    }
+  }
+}
