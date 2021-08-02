@@ -1,4 +1,4 @@
-require_relative '../../../bundler_helpers'
+require_relative '../../bundler_helpers'
 
 module Rolemodel
   class TurboGenerator < Rails::Generators::Base
@@ -6,10 +6,10 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def install_turbo
-      gem 'turbo'
+      gem 'turbo-rails'
       run_bundle
 
-      generate 'turbo:install'
+      run 'rails turbo:install'
     end
   end
 end
