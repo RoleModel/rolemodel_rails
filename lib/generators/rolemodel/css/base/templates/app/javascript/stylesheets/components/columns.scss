@@ -1,5 +1,19 @@
 .columns {
-  display: flex;
+  @media screen and (min-width: $breakpoint-sm) {
+    display: flex;
+  }
+
+  margin-left: calc(-1 * var(--space-sm));
+  margin-right: calc(-1 * var(--space-sm));
+  margin-top: calc(-1 * var(--space-sm));
+
+  &:not(:last-child) {
+    margin-bottom: calc(var(--space-lg) - var(--space-sm));
+  }
+
+  &.is-mobile {
+    display: flex;
+  }
 }
 
 .column {
