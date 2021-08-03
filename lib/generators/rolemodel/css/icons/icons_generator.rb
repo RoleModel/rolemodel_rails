@@ -41,7 +41,7 @@ module Rolemodel
                 test: /\.svg$/,
                 use: [{
                   loader: require.resolve('./loaders/custom-icon-loader')
-                }],
+                }]
               },
               { before: 'file' }
             )
@@ -49,7 +49,7 @@ module Rolemodel
         end
       end
 
-      def modify_application
+      def require_images
         inject_into_file 'app/javascript/packs/application.js', after: "ActiveStorage.start()\n" do
           <<~'JS'
 

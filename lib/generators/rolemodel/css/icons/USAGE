@@ -7,6 +7,9 @@ Example:
     This will create:
         app/helpers/icon_helper.rb
         app/javascript/stylesheets/components/icon.scss
+        app/javascript/images
 
     This will modify:
         app/javascript/packs/stylesheets.scss
+        app/javascript/packs/application.js
+        config/webpack/environment.js
