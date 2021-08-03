@@ -52,6 +52,62 @@ module Rolemodel
         end
       end
 
+      def modify_stylguide_with_examples
+        copy_file 'app/javascript/images/icons/custom-icon.svg'
+
+        inject_into_file 'app/views/styleguide/index.html.slim' do
+          optimize_indentation <<~'slim', 2
+
+            section.card.section--icons.margin-top-xl
+              h2.styleguide-section__title Icons
+              .flex.justify-around
+                div
+                  h4 Material Icons
+                  .flex.items-center.margin-bottom-sm
+                    .margin-right-lg
+                      = icon('settings')
+                    .code icon('settings')
+                  .flex.items-center.margin-bottom-sm
+                    .margin-right-lg
+                      = icon('delete', color: 'danger')
+                    .code icon('delete', color: danger)
+                  .flex.items-center.margin-bottom-sm
+                    .margin-right-lg
+                      = icon('info', color: 'primary', classes: 'icon--lg')
+                    .code icon('info', color: 'primary', classes: 'icon--lg')
+                div
+                  h4 Custom Icons
+                  .flex.items-center.margin-bottom-sm
+                    span Located in
+                    .code.margin-left-sm app/javascript/images/icons
+                  .flex.items-center.margin-bottom-sm
+                    .margin-right-lg
+                      = icon('custom-icon')
+                    .code icon('custom-icon')
+          slim
+        end
+
+        inject_into_file 'app/javascript/stylesheets/styleguide.scss' do
+          <<~'slim'
+
+            .section--icons {
+              h4 {
+                text-transform: none;
+                font-weight: bold;
+              }
+            
+              .code {
+                font-family: monospace;
+                background: var(--color-neutral-50);
+                border-radius: 3px;
+                word-wrap: break-word;
+                padding: .4rem .3rem;
+              }
+            }
+          slim
+        end
+      end
+
       def require_images
         inject_into_file 'app/javascript/packs/application.js', after: "ActiveStorage.start()\n" do
           <<~'JS'
