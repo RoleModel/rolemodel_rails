@@ -189,6 +189,7 @@
 
     // Halves
     &.is-half { width: var(--one-half); }
+    &.is-offset-half { margin-left: var(--one-half); }
 
     // 12 Space System Sizing
     &.is-1 { width: var(--one-twelfth); }
