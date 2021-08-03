@@ -11,3 +11,14 @@ $material-icons-font-path: '~material-icons/iconfont/';
 .material-icons--lg {
   font-size: 5rem;
 }
+
+.custom-icons {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.custom-icons svg {
+  width: 100%;
+  height: 100%;
+}
