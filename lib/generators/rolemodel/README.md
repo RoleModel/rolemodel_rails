@@ -12,6 +12,7 @@
 * [SoftDestroyable](./soft_destroyable)
 * [Testing](./testing)
 * [Webpacker](./webpacker)
+* [Turbo](./turbo)
 * [README](./readme)
 
 ## Helpful documentation

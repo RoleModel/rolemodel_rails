@@ -7,6 +7,7 @@ module Rolemodel
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
       generate 'rolemodel:webpacker'
+      generate 'rolemodel:turbo'
       generate 'rolemodel:css:all'
       generate 'rolemodel:testing:all'
       generate 'rolemodel:simple_form'
