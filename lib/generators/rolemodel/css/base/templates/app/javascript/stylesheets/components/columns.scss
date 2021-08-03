@@ -1,3 +1,5 @@
+// Inspired by https://bulma.io/documentation/columns/
+
 .columns {
   @media screen and (min-width: $breakpoint-sm) {
     display: flex;
@@ -11,43 +13,133 @@
     margin-bottom: calc(var(--space-lg) - var(--space-sm));
   }
 
-  &.is-mobile {
-    display: flex;
+  // Sizing Variables
+  --four-fifths: calc(100% * 4/5);
+  --three-fifths: calc(100% * 3/5);
+  --two-fifths: calc(100% * 2/5);
+  --one-fifth: calc(100% * 1/5);
+
+  --three-quarters: calc(100% * 3/4);
+  --one-quarter: calc(100% * 1/4);
+
+  --two-thirds: calc(100% * 2/3);
+  --one-third: calc(100% * 1/3);
+
+  --one-half: calc(100% * 1/2);
+
+  // 12 Space Sizings
+  --one-twelfth: calc(100% / 12 * 1);
+  --two-twelfths: calc(100% / 12 * 2);
+  --three-twelfths: calc(100% / 12 * 3);
+  --four-twelfths: calc(100% / 12 * 4);
+  --five-twelfths: calc(100% / 12 * 5);
+  --six-twelfths: calc(100% / 12 * 6);
+  --seven-twelfths: calc(100% / 12 * 7);
+  --eight-twelfths: calc(100% / 12 * 8);
+  --nine-twelfths: calc(100% / 12 * 9);
+  --ten-twelfths: calc(100% / 12 * 10);
+  --eleven-twelfths: calc(100% / 12 * 11);
+  --twelve-twelfths: 100%;
+}
+
+// Wrapping
+.columns.is-multiline {
+  flex-wrap: wrap;
+}
+
+// Gapless
+.columns.is-gapless {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+
+  &>.column {
+    margin: 0;
+    padding: 0!important;
   }
+}
 
-  &.is-gapless {
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
+// Variable Gap Sizing
+.columns.is-variable {
+  --columnGap: var(--space-sm);
+  margin-left: calc(-1 * var(--columnGap));
+  margin-right: calc(-1 * var(--columnGap));
 
-    &>.column {
-      margin: 0;
-      padding: 0!important;
-    }
+  // TODO: better name? These could be confused with the column sizings
+  // E.G. `.columns.is-variable.is-1` is close to `.column.is-1`
+  &.is-0 { --columnGap: 0rem; }
+  &.is-1 { --columnGap: var(--space-xxs); }
+  &.is-2 { --columnGap: var(--space-xs); }
+  &.is-3 { --columnGap: var(--space-sm); }
+  &.is-4 { --columnGap: var(--space-md); }
+  &.is-5 { --columnGap: var(--space-lg); }
+  &.is-6 { --columnGap: var(--space-xl); }
+
+  &>.column {
+    padding-left: var(--columnGap);
+    padding-right: var(--columnGap);
   }
+}
 
-  &.is-multiline {
-    flex-wrap: wrap;
-  }
+// Force Flexing on Mobile
+.columns.is-mobile {
+  display: flex;
 
+  &>.column {
+    // Fifths Sizing
+    &.is-four-fifths { width: var(--four-fifths); }
+    &.is-three-fifths { width: var(--three-fifths); }
+    &.is-two-fifths { width: var(--two-fifths); }
+    &.is-one-fifth { width: var(--one-fifth); }
+    // Fifths Offsets
+    &.is-offset-four-fifths { margin-left: var(--four-fifths); }
+    &.is-offset-three-fifths { margin-left: var(--three-fifths); }
+    &.is-offset-two-fifths { margin-left: var(--two-fifths); }
+    &.is-offset-one-fifth { margin-left: var(--one-fifth); }
 
-  &.is-variable {
-    --columnGap: var(--space-sm);
-    margin-left: calc(-1 * var(--columnGap));
-    margin-right: calc(-1 * var(--columnGap));
+    // Quarters Sizing
+    &.is-three-quarters { width: var(--three-quarters); }
+    &.is-one-quarter { width: var(--one-quarter); }
+    // Quarters Offsets
+    &.is-offset-three-quarters { margin-left: var(--three-quarters); }
+    &.is-offset-one-quarter { margin-left: var(--one-quarter); }
 
-    &.is-0 { --columnGap: 0rem; }
-    &.is-1 { --columnGap: var(--space-xxs); }
-    &.is-2 { --columnGap: var(--space-xs); }
-    &.is-3 { --columnGap: var(--space-sm); }
-    &.is-4 { --columnGap: var(--space-md); }
-    &.is-5 { --columnGap: var(--space-lg); }
-    &.is-6 { --columnGap: var(--space-xl); }
+    // Thirds Sizing
+    &.is-two-thirds { width: var(--two-thirds); }
+    &.is-one-third { width: var(--one-third); }
+    // Thirds Offsets
+    &.is-offset-two-thirds { margin-left: var(--two-thirds); }
+    &.is-offset-one-third { margin-left: var(--one-third); }
 
-    &>.column {
-      padding-left: var(--columnGap);
-      padding-right: var(--columnGap);
-    }
+    // Halves
+    &.is-half { width: var(--one-half); }
+    &.is-offset-half { margin-left: var(--one-half); }
+
+    // 12 Space System Sizing
+    &.is-1 { width: var(--one-twelfth); }
+    &.is-2 { width: var(--two-twelfths); }
+    &.is-3 { width: var(--three-twelfths); }
+    &.is-4 { width: var(--four-twelfths); }
+    &.is-5 { width: var(--five-twelfths); }
+    &.is-6 { width: var(--six-twelfths); }
+    &.is-7 { width: var(--seven-twelfths); }
+    &.is-8 { width: var(--eight-twelfths); }
+    &.is-9 { width: var(--nine-twelfths); }
+    &.is-10 { width: var(--ten-twelfths); }
+    &.is-11 { width: var(--eleven-twelfths); }
+    &.is-12 { width: var(--twelve-twelfths); }
+    // 12 Space System Offsets
+    &.is-offset-1 { margin-left: var(--one-twelfth); }
+    &.is-offset-2 { margin-left: var(--two-twelfths); }
+    &.is-offset-3 { margin-left: var(--three-twelfths); }
+    &.is-offset-4 { margin-left: var(--four-twelfths); }
+    &.is-offset-5 { margin-left: var(--five-twelfths); }
+    &.is-offset-6 { margin-left: var(--six-twelfths); }
+    &.is-offset-7 { margin-left: var(--seven-twelfths); }
+    &.is-offset-8 { margin-left: var(--eight-twelfths); }
+    &.is-offset-9 { margin-left: var(--nine-twelfths); }
+    &.is-offset-10 { margin-left: var(--ten-twelfths); }
+    &.is-offset-11 { margin-left: var(--eleven-twelfths); }
   }
 }
 
@@ -57,81 +149,296 @@
   flex-grow: 1;
   flex-shrink: 1;
   padding: var(--space-sm);
+}
 
-  //  Sizing
+// Full Width
+.column.is-full {
+  flex: none;
+  width: 100%;
+}
 
-  &.is-full {
-    flex: none;
-    width: 100%;
-  }
+// Half Width
+.column.is-half {
+  flex: none;
 
-  &.is-half {
-    flex: none;
-    width: calc(100% * 1/2);
-  }
-
-  &.is-offset-one-half {
-    margin-left: calc(100% * 1/2);
-  }
-
-  @function pluralize($string, $number) {
-    @if $number == "1" {
-      @return $string;
-    } @else {
-      @return "#{$string}s";
-    }
-  }
-
-  // Fifths Sizing and Offset
-  $numbers: ("four": "4", "three": "3", "two": "2", "one": "1");
-  @each $name, $number in $numbers {
-    &.is-#{$name}-#{pluralize("fifth", $number)} {
-      flex: none;
-      width: calc(100% * #{$number}/5);
-    }
-
-    &.is-offset-#{$name}-#{pluralize("fifth", $number)} {
-      margin-left: calc(100% * #{$number}/5);
-    }
-  }
-
-  // Quarters Sizing and Offset
-  $numbers: ("three": "3", "one": "1");
-  @each $name, $number in $numbers {
-    &.is-#{$name}-#{pluralize("quarter", $number)} {
-      flex: none;
-      width: calc(100% * #{$number}/4);
-    }
-
-    &.is-offset-#{$name}-#{pluralize("quarter", $number)} {
-      margin-left: calc(100% * #{$number}/4);
-    }
-  }
-
-  // Thirds Sizing and Offset
-  $numbers: ("two": "2", "one": "1");
-  @each $name, $number in $numbers {
-    &.is-#{$name}-#{pluralize("third", $number)} {
-      flex: none;
-      width: calc(100% * #{$number}/3);
-    }
-
-    &.is-offset-#{$name}-#{pluralize("third", $number)} {
-      margin-left: calc(100% * #{$number}/3);
-    }
-  }
-
-  // 12 columns system with offsets
-  @for $counter from 1 through 12 {
-    &.is-#{$counter} {
-      flex: none;
-      width: calc(100% / 12 * #{$counter});
-    }
-
-    @if $counter != 12 {
-      &.is-offset-#{$counter} {
-        margin-left: calc(100% / 12 * #{$counter});
-      }
-    }
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--one-half);
   }
 }
+
+// Half Offset
+.column.is-offset-one-half {
+  margin-left: var(--one-half);
+}
+
+// region Fifths Sizing and Override
+.column.is-four-fifths {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--four-fifths);
+  }
+}
+
+.column.is-offset-four-fifths {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--four-fifths);
+  }
+}
+
+.column.is-three-fifths {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--three-fifths);
+  }
+}
+
+.column.is-offset-three-fifths {
+  margin-left: var(--three-fifths);
+}
+
+.column.is-two-fifths {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--two-fifths);
+  }
+}
+
+.column.is-offset-two-fifths {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--two-fifths);
+  }
+}
+
+.column.is-one-fifth {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--one-fifth);
+  }
+}
+
+.column.is-offset-one-fifth {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--one-fifth);
+  }
+}
+// endregion
+
+// region Quarters Sizing and Override
+.column.is-three-quarters {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--three-quarters);
+  }
+}
+
+.column.is-offset-three-quarters {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--three-quarters);
+  }
+}
+
+.column.is-one-quarter {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--one-quarter);
+  }
+}
+
+.column.is-offset-one-quarter {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--one-quarter);
+  }
+}
+// endregion Quarters Sizing and Override
+
+// region Thirds Sizing and Offset
+.column.is-two-thirds {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--two-thirds);
+  }
+}
+
+.column.is-offset-two-thirds {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--two-thirds);
+  }
+}
+
+.column.is-one-third {
+  flex: none;
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--one-third);
+  }
+}
+
+.column.is-offset-one-third {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--one-third);
+  }
+}
+// endregion Thirds Sizing and Offset
+
+// region 12 columns system with offsets
+.column.is-1 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--one-twelfth);
+  }
+}
+
+.column.is-offset-1 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--one-twelfth);
+  }
+}
+
+.column.is-2 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--two-twelfths);
+  }
+}
+
+.column.is-offset-2 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--two-twelfths);
+  }
+}
+
+.column.is-3 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--three-twelfths);
+  }
+}
+
+.column.is-offset-3 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--three-twelfths);
+  }
+}
+
+.column.is-4 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--four-twelfths);
+  }
+}
+
+.column.is-offset-4 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--four-twelfths);
+  }
+}
+
+.column.is-5 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--five-twelfths);
+  }
+}
+
+.column.is-offset-5 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--five-twelfths);
+  }
+}
+
+.column.is-6 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--six-twelfths);
+  }
+}
+
+.column.is-offset-6 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--six-twelfths);
+  }
+}
+
+.column.is-7 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--seven-twelfths);
+  }
+}
+
+.column.is-offset-7 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--seven-twelfths);
+  }
+}
+
+.column.is-8 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--eight-twelfths);
+  }
+}
+
+.column.is-offset-8 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--eight-twelfths);
+  }
+}
+
+.column.is-9 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--nine-twelfths);
+  }
+}
+
+.column.is-offset-9 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--nine-twelfths);
+  }
+}
+
+.column.is-10 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--ten-twelfths);
+  }
+}
+
+.column.is-offset-10 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--ten-twelfths);
+  }
+}
+
+.column.is-11 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--eleven-twelfths);
+  }
+}
+
+.column.is-offset-11 {
+  @media screen and (min-width: $breakpoint-sm) {
+    margin-left: var(--eleven-twelfths);
+  }
+}
+
+.column.is-12 {
+  flex: none;
+
+  @media screen and (min-width: $breakpoint-sm) {
+    width: var(--twelve-twelfths);
+  }
+}
+// endregion 12 columns system with offsets
