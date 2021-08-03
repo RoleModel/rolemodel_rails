@@ -3,9 +3,8 @@ module Rolemodel
     class IconsGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
-      def install_webpack
-        generate 'rolemodel:webpacker' # unless File.exists?(Rails.root.join('app/javascript/packs/application.js'))
-        generate 'rolemodel:css:base' # unless File.exists?(Rails.root.join('app/javascript/packs/stylesheet.js'))
+      def install_css_base
+        generate 'rolemodel:css:base' unless File.exists?(Rails.root.join('app/javascript/packs/stylesheet.js'))
       end
 
       def install_packages
@@ -51,7 +50,6 @@ module Rolemodel
       end
 
       def modify_application
-
         inject_into_file 'app/javascript/packs/application.js', after: "ActiveStorage.start()\n" do
           <<~'JS'
 
