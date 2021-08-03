@@ -27,8 +27,9 @@ module Rolemodel
         append_file 'app/javascript/packs/stylesheets.scss', "@import 'stylesheets/components/icon';"
       end
 
-      def add_images_directory
+      def add_image_directories
         run 'mkdir app/javascript/images'
+        run 'mkdir app/javascript/images/icons'
       end
 
       def modify_webpack_environment
@@ -38,13 +39,15 @@ module Rolemodel
             environment.loaders.insert(
               'customIcons',
               {
-                test: /\.svg$/,
+                test: /\/icons\/.*.svg$/,
                 use: [{
                   loader: require.resolve('./loaders/custom-icon-loader')
                 }]
               },
-              { before: 'file' }
+              { after: 'file' }
             )
+  
+            environment.loaders.get('file').exclude = /\/icons\/.*.svg$/
           JS
         end
       end
@@ -54,7 +57,7 @@ module Rolemodel
           <<~'JS'
 
             // require custom icons
-            require.context("images")
+            require.context('images')
           JS
         end
       end

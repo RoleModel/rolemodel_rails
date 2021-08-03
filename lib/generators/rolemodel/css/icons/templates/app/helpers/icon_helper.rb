@@ -15,7 +15,7 @@ module IconHelper
 
   def custom_icon(name)
     # Check for a custom SVG icon matching the given name.
-    custom_icon_path = Webpacker.manifest.lookup("media/images/#{name}.svg")
+    custom_icon_path = Webpacker.manifest.lookup("media/images/icons/#{name}.svg")
     return if custom_icon_path.blank?
 
     custom_icon_contents = load_svg_from_file_or_dev_server(custom_icon_path)
