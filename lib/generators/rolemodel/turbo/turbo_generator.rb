@@ -11,5 +11,10 @@ module Rolemodel
 
       run 'rails turbo:install'
     end
+
+    def add_react_rails_ujs_event_handlers
+      addendum = File.read([source_paths.last, '/application_addendum.js'].join)
+      append_to_file 'app/javascript/packs/application.js', addendum
+    end
   end
 end
