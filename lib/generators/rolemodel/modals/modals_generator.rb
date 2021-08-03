@@ -5,6 +5,7 @@ module Rolemodel
     def install_icons
       generate 'rolemodel:css:base' unless File.exists?(Rails.root.join('app/javascript/packs/stylesheets.scss'))
       generate 'rolemodel:css:icons'
+      generate 'rolemodel:turbo'
     end
 
     def add_ui_components
