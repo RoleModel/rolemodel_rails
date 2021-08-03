@@ -79,6 +79,10 @@
     padding-left: var(--columnGap);
     padding-right: var(--columnGap);
   }
+
+  &.is-multiline>.column {
+    padding: var(--columnGap);
+  }
 }
 
 // Force Flexing on Mobile
