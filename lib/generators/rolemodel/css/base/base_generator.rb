@@ -6,6 +6,10 @@ module Rolemodel
       include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
+      def install_webpack
+        generate 'rolemodel:webpacker' unless Gem.loaded_specs.has_key?('react-rails')
+      end
+
       def add_slim
         gem 'slim'
         run_bundle
