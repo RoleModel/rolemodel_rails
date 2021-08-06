@@ -28,8 +28,7 @@ module Rolemodel
       end
 
       def add_image_directories
-        run 'mkdir app/javascript/images'
-        run 'mkdir app/javascript/images/icons'
+        FileUtils.mkdir_p Rails.root.join('app/javascript/images/icons')
       end
 
       def modify_webpack_environment
