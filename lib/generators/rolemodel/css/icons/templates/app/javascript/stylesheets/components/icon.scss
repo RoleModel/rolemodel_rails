@@ -12,11 +12,11 @@ $material-icons-font-path: '~material-icons/iconfont/';
   font-size: 2rem;
 }
 
-.icon--xlg {
+.icon--xl {
   font-size: 3rem;
 }
 
-.icon--xxlg {
+.icon--xxl {
   font-size: 4rem;
 }
 
@@ -24,6 +24,21 @@ $material-icons-font-path: '~material-icons/iconfont/';
   display: inline-block;
   width: 24px;
   height: 24px;
+
+  &.icon--lg {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &.icon--xl {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &.icon--xxl {
+    width: 4rem;
+    height: 4rem;
+  }
 }
 
 .custom-icons svg {

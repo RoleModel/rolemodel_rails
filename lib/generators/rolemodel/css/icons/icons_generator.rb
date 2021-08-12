@@ -100,7 +100,7 @@ module Rolemodel
                 background: var(--color-neutral-50);
                 border-radius: 3px;
                 word-wrap: break-word;
-                padding: .4rem .3rem;
+                padding: 0.4rem 0.3rem;
               }
             }
           slim
