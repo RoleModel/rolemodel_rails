@@ -4,7 +4,7 @@ module Rolemodel
       source_root File.expand_path('templates', __dir__)
 
       def install_css_base
-        generate 'rolemodel:css:base' unless File.exists?(Rails.root.join('app/javascript/packs/stylesheet.js'))
+        generate 'rolemodel:css:base'
       end
 
       def install_packages
