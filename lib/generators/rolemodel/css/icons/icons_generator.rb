@@ -112,7 +112,7 @@ module Rolemodel
           <<~'JS'
 
             // require custom icons
-            require.context('images')
+            require.context('images/icons')
           JS
         end
       end
