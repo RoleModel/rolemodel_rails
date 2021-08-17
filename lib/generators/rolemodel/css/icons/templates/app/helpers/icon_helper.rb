@@ -1,24 +1,29 @@
 module IconHelper
   def icon(name, classes: nil, color: nil, hover_text: name)
-    contents = custom_icon(name) || name
+    using_custom_icon = custom?(name)
+    contents = using_custom_icon ? custom_content(name) : name
 
-    tag.span(contents, class: icon_classes(classes, custom_icon(name)), style: "color: var(--color-#{color})", title: hover_text)
+    tag.span(contents, class: classes(classes, using_custom_icon), style: "color: var(--color-#{color})", title: hover_text)
   end
 
   private
 
-  def icon_classes(classes, is_custom)
-    icon_class = is_custom ? 'custom-icons' : 'material-icons'
+  def classes(classes, using_custom_icon)
+    icon_class = using_custom_icon ? 'custom-icons' : 'material-icons'
 
-    classes.present? ? classes.prepend("#{icon_class} ") : icon_class
+    "#{icon_class} #{classes}"
   end
 
-  def custom_icon(name)
-    # Check for a custom SVG icon matching the given name.
-    custom_icon_path = Webpacker.manifest.lookup("media/images/icons/#{name}.svg")
-    return if custom_icon_path.blank?
+  def custom_icon_path(name)
+    Webpacker.manifest.lookup("media/images/icons/#{name}.svg")
+  end
 
-    custom_icon_contents = load_svg_from_file_or_dev_server(custom_icon_path)
+  def custom?(name)
+    custom_icon_path(name).present?
+  end
+
+  def custom_content(name)
+    custom_icon_contents = load_svg_from_file_or_dev_server(custom_icon_path(name))
 
     # These SVG files can safely be marked html_safe since we created them and
     # they are part of this app's code.
