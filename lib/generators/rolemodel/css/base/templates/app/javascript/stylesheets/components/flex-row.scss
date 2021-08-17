@@ -1,0 +1,44 @@
+// Inspired by https://bulma.io/documentation/columns/
+
+.flex-row {
+  @media screen and (min-width: $breakpoint-sm) {
+    display: flex;
+  }
+
+  --flex-gap: var(--space-sm);
+
+  margin: calc(-1 * var(--flex-gap));
+
+  &.flex-gap-none { --flex-gap: 0rem; }
+  &.flex-gap-xxs { --flex-gap: var(--space-xxs); }
+  &.flex-gap-xs { --flex-gap: var(--space-xs); }
+  &.flex-gap-sm { --flex-gap: var(--space-sm); }
+  &.flex-gap-md { --flex-gap: var(--space-md); }
+  &.flex-gap-lg { --flex-gap: var(--space-lg); }
+  &.flex-gap-xl { --flex-gap: var(--space-xl); }
+
+  &.flex-wrap > * {
+    padding: var(--flex-gap);
+  }
+}
+
+.flex-row > * {
+  display: block;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  padding: var(--flex-gap);
+
+  &.four-fifths-width, &.three-fifths-width, &.two-fifths-width, &.one-fifth-width,
+  &.three-quarters-width, &.one-quarter-width,
+  &.two-thirds-width, &.one-third-width,
+  &.full-width, &.half-width { flex: none; }
+
+  @media screen and (max-width: $breakpoint-sm) {
+    &.four-fifths-width, &.three-fifths-width, &.two-fifths-width, &.one-fifth-width,
+    &.three-quarters-width, &.one-quarter-width,
+    &.two-thirds-width, &.one-third-width,
+    &.full-width, &.half-width { width: 100%; }
+  }
+}
