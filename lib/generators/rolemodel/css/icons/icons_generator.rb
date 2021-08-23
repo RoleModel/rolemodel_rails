@@ -3,10 +3,6 @@ module Rolemodel
     class IconsGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
-      def install_css_base
-        generate 'rolemodel:css:base'
-      end
-
       def install_packages
         run 'yarn add svgo'
         run 'yarn add material-icons'
@@ -51,7 +47,7 @@ module Rolemodel
         end
       end
 
-      def modify_stylguide_with_examples
+      def modify_styleguide_with_examples
         copy_file 'app/javascript/images/icons/custom-icon.svg'
 
         inject_into_file 'app/views/styleguide/index.html.slim' do
@@ -98,7 +94,7 @@ module Rolemodel
               .code {
                 font-family: monospace;
                 background: var(--color-neutral-50);
-                border-radius: 3px;
+                border-radius: var(--radius-sm);
                 word-wrap: break-word;
                 padding: 0.4rem 0.3rem;
               }

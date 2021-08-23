@@ -6,10 +6,6 @@ module Rolemodel
       include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
-      def install_webpack
-        generate 'rolemodel:webpacker'
-      end
-
       def add_slim
         gem 'slim'
         run_bundle
