@@ -1,8 +1,14 @@
 # Icons Generator
 
-Depends on [Base CSS Generator](../base)
+[Base CSS Generator](../base)
 
 ## What you get
 
-* material-icons and the necessary CSS setup
-* A view helper for icons (`icon(name)`)
+### Material Icons
+* Allows use of material-icons with the necessary CSS setup. 
+* Adds a icon helper to render them `icon(<material-icon-name>)`
+
+### Custom Icons
+* Adds ability to use custom icons by putting images into `app/javascript/images/icons` and referencing them with icon helper `icon(<custom-icon-name>)`
+* Adds two webpack loaders for processing and normalizing `svg` files
+
