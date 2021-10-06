@@ -26,6 +26,14 @@ button, input, optgroup, select, textarea {
   line-height: inherit;
 }
 
+a {
+  color: var(--color-primary);
+
+  &:visited {
+    color: var(--color-primary);
+  }
+}
+
 blockquote, dl, dd, h1, h2, h3, h4, h5, h6, figure, pre {
   margin: 0;
 }
