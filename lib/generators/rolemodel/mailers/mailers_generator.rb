@@ -16,6 +16,16 @@ module Rolemodel
     end
 
     def add_action_mailer_asset_host
+      unless File.exist?(Rails.root.join('config/initializers/devise.rb'))
+        inject_into_file 'config/environments/development.rb', after: "config.action_mailer.perform_caching = false\n" do
+          optimize_indentation <<~'RUBY', 2
+
+            # Default mailing host suggested by Devise installation instructions
+            config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+          RUBY
+        end
+      end
+      
       inject_into_file 'config/environments/development.rb', after: "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }\n" do
         optimize_indentation <<~'RUBY', 2
 

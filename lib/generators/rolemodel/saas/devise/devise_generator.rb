@@ -61,12 +61,14 @@ module Rolemodel
       end
 
       def modify_existing_files
-        inject_into_file 'config/environments/development.rb', after: "config.action_mailer.perform_caching = false\n" do
-          optimize_indentation <<~'RUBY', 2
+        unless File.exist?(Rails.root.join('config/initializers/premailer_rails.rb'))
+          inject_into_file 'config/environments/development.rb', after: "config.action_mailer.perform_caching = false\n" do
+            optimize_indentation <<~'RUBY', 2
 
-            # Default mailing host suggested by Devise installation instructions
-            config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-          RUBY
+              # Default mailing host suggested by Devise installation instructions
+              config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+            RUBY
+          end
         end
 
         inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
