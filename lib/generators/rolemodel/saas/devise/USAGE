@@ -15,6 +15,7 @@ Example:
         spec/system/users_spec.rb
         spec/factories/organizations.rb
         spec/factories/users.rb
+        spec/mailers/previews/devise_mailer_preview.rb
 
     This will modify:
         config/environments/development.rb
