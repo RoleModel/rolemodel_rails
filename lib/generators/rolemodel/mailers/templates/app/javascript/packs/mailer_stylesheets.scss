@@ -1,0 +1,42 @@
+@import 'stylesheets/vendor/normalize';
+@import 'stylesheets/theme';
+@import 'stylesheets/variables';
+@import 'stylesheets/base';
+@import 'stylesheets/utilities';
+
+@import 'stylesheets/components/flash';
+@import 'stylesheets/components/button';
+@import 'stylesheets/components/card';
+@import 'stylesheets/components/form';
+@import 'stylesheets/components/table';
+
+@import 'stylesheets/components/icon';
+
+:root {
+  --neutral-layer-app-background: #{$color-neutral-50};
+  --text-scale-ratio: 1.15;
+}
+
+.email-container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.card {
+  border-color: $color-neutral-200; // Why can I not use the css variable?
+}
+
+.email-header {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.email-header__logo {
+  max-width: 100px;
+}
+
+.email-footer {
+  text-align: center;
+  color: $color-neutral-600;
+}

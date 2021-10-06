@@ -1,0 +1,16 @@
+html lang="en"
+  head
+    meta http-equiv="Content-Type" content="text/html; charset=utf-8" /
+    = stylesheet_pack_tag 'mailer_stylesheets', media: 'all'
+  body
+    .email-container
+      .email-header
+        = link_to image_tag('/logo.png', class: 'email-header__logo'), root_url
+
+      .card
+        = yield
+
+      .email-footer
+        p Click #{link_to('here', root_url, class: '')} to unsubscribe
+        p Example App Title
+        p &copy;2021 RoleModel Software, Inc.
