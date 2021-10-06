@@ -48,6 +48,11 @@ module Rolemodel
       copy_file 'public/logo.png'
     end
 
+    def remove_default_mailer_template
+      remove_file 'app/views/layouts/mailer.html.erb'
+      remove_file 'app/views/layouts/mailer.text.erb'
+    end
+
     def add_mailer_template
       copy_file 'app/mailers/user_mailer.rb'
       copy_file 'app/views/user_mailer/welcome_email.html.slim'
