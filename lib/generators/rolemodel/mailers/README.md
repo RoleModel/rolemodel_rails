@@ -1,10 +1,12 @@
 # Mailer Generator
 
+Depends on css:base
+
 ## What you get
 
-### PremailerRails
+### Premailer Rails
 
-[Premailer Rails](https://github.com/fphilipe/premailer-rails)
+Installs [Premailer Rails](https://github.com/fphilipe/premailer-rails)
 
 ### Email Template
 
