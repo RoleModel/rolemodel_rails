@@ -1,21 +1,20 @@
 .container.margin-bottom-xl
   h1.margin-top-xl Basic Style Guide Demo
 
-  .columns.is-variable.is-5
-    .column.styleguide-section--typography
-      section.card
-        h2.styleguide-section__title.margin-bottom-lg Typography
+  .flex.layout-row.gap-xl.margin-top-xl
+    section.card.styleguide-section--typography
+      h2.styleguide-section__title.margin-bottom-lg Typography
 
-        h1 Heading 1
-        h2 Heading 2
-        h3 Heading 3
-        h4 Heading 4
-        h5 Heading 5
-        h6 Heading 6
-    .column.styleguide-section--spacing
-      section.card.full-height
-        h2.styleguide-section__title.margin-bottom-lg Spacing Reference
-        .flex.flex-row.justify-between
+      h1 Heading 1
+      h2 Heading 2
+      h3 Heading 3
+      h4 Heading 4
+      h5 Heading 5
+      h6 Heading 6
+
+    section.card.styleguide-section--spacing
+      h2.styleguide-section__title.margin-bottom-lg Spacing Reference
+      .flex.flex-row.justify-between
           .flex-col
             .spacing-example style="width: var(--space-xxs)"
             span --space-xxs (2px)
@@ -34,44 +33,43 @@
           .flex-col
             .spacing-example style="width: var(--space-xl)"
             span --space-xl (42px)
+
   section.card.section--colors.margin-top-xl
     h2.styleguide-section__title Colors
     h3 Primary
     h4 Scale
     p Usage --color-primary-"number". Example --color-primary-300
-    .columns.is-multiline.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ([ 50 ] + 9.times.map.with_index { |n, i| (i + 1) * 100 }).each do |color|
-        .column.is-one-fifth
-          .swatch style="background: var(--color-primary-#{color})"
-            span = color
-    / .flex.flex-row.flex-wrap.margin-bottom-md
+        .swatch.one-fifth-width style="background: var(--color-primary-#{color})"
+          span = color
 
     h4 Semantic
-    .flex.flex-row.margin-bottom-lg
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
-        .swatch style="background: var(--color-primary#{color})"
+        .swatch.one-fifth-width style="background: var(--color-primary#{color})"
           span = "--color-primary-#{color}"
 
     h3 Secondary
     h4 Scale
     p Usage --color-secondary-"number". Example --color-secondary-300
-    .flex.flex-row.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ([ 50 ] + 9.times.map.with_index { |n, i| (i + 1) * 100 }).each do |color|
-        .swatch style="background: var(--color-secondary-#{color})"
+        .swatch.one-fifth-width style="background: var(--color-secondary-#{color})"
           span = color
 
     h4 Semantic
-    .flex.flex-row.margin-bottom-lg
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
-        .swatch style="background: var(--color-secondary#{color})"
+        .swatch.one-fifth-width style="background: var(--color-secondary#{color})"
           span = "--color-secondary#{color}"
 
     h3 Neutral
     h4 Scale
     p Usage --color-neutral-"number". Example --color-neutral-300
-    .flex.flex-row.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ([ 50 ] + 9.times.map.with_index { |n, i| (i + 1) * 100 }).each do |color|
-        .swatch style="background: var(--color-neutral-#{color})"
+        .swatch.one-fifth-width style="background: var(--color-neutral-#{color})"
             span = color
 
     h4 Semantic Layers
@@ -90,46 +88,46 @@
 
 
     h4 Semantic Specialty Layers
-    .flex.flex-row.margin-bottom-lg
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-lg
       - ['card', 'card-container', 'floating'].each do |color|
-        .swatch style="background: var(--neutral-layer-#{color});"
+        .swatch.one-fifth-width style="background: var(--neutral-layer-#{color});"
           span = "--neutral-layer-#{color}"
 
     h3 Text Colors
-    .flex.flex-row.margin-top-lg
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-lg
       - ['--color-primary-text', '--color-secondary-text', '--color-warning-text', '--color-danger-text', '--color-info-text', '--color-notice-text', '--color-white', '--color-black'].each do |color|
-        .swatch style="background: var(#{color})"
+        .swatch.one-fifth-width style="background: var(#{color})"
           span = color
 
     h3 Badges
     h4 Danger
-    .flex.flex-row.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
-        .swatch style="background: var(--color-danger#{color})"
+        .swatch.one-fifth-width style="background: var(--color-danger#{color})"
           span = "--color-danger#{color}"
 
     h4 Warning
-    .flex.flex-row.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
-        .swatch style="background: var(--color-warning#{color})"
+        .swatch.one-fifth-width style="background: var(--color-warning#{color})"
           span = "--color-warning#{color}"
 
     h4 Info
-    .flex.flex-row.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
-        .swatch style="background: var(--color-info#{color})"
+        .swatch.one-fifth-width style="background: var(--color-info#{color})"
           span = "--color-info#{color}"
 
     h4 Notice
-    .flex.flex-row.margin-bottom-md
+    .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
       - ['-lighter', '-light', '', '-dark', '-darker'].each do |color|
-        .swatch style="background: var(--color-notice#{color})"
+        .swatch.one-fifth-width style="background: var(--color-notice#{color})"
           span = "--color-notice#{color}"
 
   section.card.section--buttons.margin-top-xl
     h2.styleguide-section__title Button
 
-    .flex.justify-between.items-center
+    .flex.justify-between.items-center.flex-wrap.gap-md
       button.btn Basic Button
       a.btn.btn--primary Primary Button
       a.btn.btn--secondary Secondary Button
@@ -277,129 +275,137 @@
                   button.btn.btn--outline Cancel
                   button.btn.btn--primary.margin-left-sm type="submit" Submit
 
-  section.card.section--columns.margin-top-xl
-    h2.styleguide-section__title Flex Row
+  section.card.section--layout.margin-top-xl
+    h2.styleguide-section__title Layout
 
-    .flex-row
-      .column
+    h3 Layout row
+    .flex.layout-row
+      p First Column
+      p Second Column
+      p Third Column
+      p Fourth Column
+
+    h3.margin-top-sm Adjustable gap
+    .flex.layout-row.gap-md
+      .card
         p First Column
-      .column
+      .card
         p Second Column
-      .column
+      .card
         p Third Column
-      .column
+      .card
         p Fourth Column
 
-    h2.margin-y-md.margin-left-md Flex Row column Sizes
+    h3.margin-top-sm Column sizing
 
-    .flex-row
-      .column.full-width
+    .flex.layout-row
+      .card.full-width
         p .full-width
 
-    .flex-row
-      .column.four-fifths-width
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.four-fifths-width
         p .four-fifths-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.three-quarters-width
-        p .three-quarters-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.two-thirds-width
-        p .two-thirds-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.three-fifths-width
-        p .three-fifths-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.half-width
-        p .half-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.two-fifths-width
-        p .two-fifths-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.one-third-width
-        p .one-third-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    .flex-row
-      .column.one-fifth-width
-        p .one-fifth-width
-      .column
-        p.filler Auto
-      .column
-        p.filler Auto
-
-    h2.margin-y-md.margin-left-md Multiline
-
-    .flex-row.flex-wrap
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column.half-width
-        p half-width
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column.one-quarter-width
-        p .one-quarter-width
-      .column
+      .card
+        p Auto
+      .card
         p Auto
 
-    h2.margin-y-md.margin-left-md Variable Gap
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.three-quarters-width
+        p .three-quarters-width
+      .card
+        p Auto
+      .card
+        p Auto
 
-    .flex-row.flex-gap-xl
-      .column.one-quarter-width
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.two-thirds-width
+        p .two-thirds-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.three-fifths-width
+        p .three-fifths-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.half-width
+        p .half-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.two-fifths-width
+        p .two-fifths-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.one-third-width
+        p .one-third-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.one-quarter-width
         p .one-quarter-width
-      .column.one-quarter-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    .flex.layout-row.gap-md.margin-top-sm
+      .card.one-fifth-width
+        p .one-fifth-width
+      .card
+        p Auto
+      .card
+        p Auto
+
+    h3.margin-top-sm Multiline
+
+    .flex.layout-row.gap-xxs.margin-top-sm.flex-wrap
+      .card.one-quarter-width
         p .one-quarter-width
-      .column.one-quarter-width
+      .card.one-quarter-width
         p .one-quarter-width
-      .column.one-quarter-width
+      .card.one-quarter-width
         p .one-quarter-width
+      .card.one-quarter-width
+        p .one-quarter-width
+      .card.half-width
+        p half-width
+      .card.one-quarter-width
+        p .one-quarter-width
+      .card.one-quarter-width
+        p .one-quarter-width
+      .card.one-quarter-width
+        p .one-quarter-width
+      .card
+        p Auto
+
+    h3.margin-top-sm Variable Gap
+
+    .flex.layout-row.gap-xl.margin-top-sm
+      .card
+        p Auto
+      .card
+        p Auto
+      .card
+        p Auto
+      .card
+        p Auto
 
   = render 'modals'
