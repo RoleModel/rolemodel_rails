@@ -74,6 +74,7 @@ bin/rails g
 * [SoftDestroyable](./lib/generators/rolemodel/soft_destroyable)
 * [SaaS](./lib/generators/rolemodel/saas)
   * [Devise](./lib/generators/rolemodel/saas/devise)
+* [Mailers](./lib/generators/rolemodel/mailers)
 
 ## Development
 

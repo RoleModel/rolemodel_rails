@@ -13,6 +13,7 @@ module Rolemodel
       generate 'rolemodel:soft_destroyable'
       generate 'rolemodel:saas:all'
       generate 'rolemodel:linters:all'
+      generate 'rolemodel:mailers'
     end
   end
 end

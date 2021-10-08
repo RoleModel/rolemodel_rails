@@ -1,0 +1,21 @@
+Description:
+    Sets up our standard ActionMailer configuration with layout using CSS base styles
+
+Example:
+    rails generate rolemodel:mailers
+
+    This will create:
+        app/javascript/packs/mailer_stylesheets.scss
+        app/mailers/user_mailer.rb
+        app/views/layouts/mailer.html.slim
+        app/views/user_mailer/welcome_email.html.slim
+        config/initializers/premailer_rails.rb
+        public/logo.png
+        spec/mailers/previews/user_preview.rb
+
+    This will modify:
+        config/environments/development.rb
+
+    This will remove:
+        app/views/layouts/mailer.html.erb
+        app/views/layouts/mailer.text.erb
