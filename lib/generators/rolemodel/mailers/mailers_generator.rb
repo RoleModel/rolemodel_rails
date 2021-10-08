@@ -25,7 +25,7 @@ module Rolemodel
           RUBY
         end
       end
-      
+
       inject_into_file 'config/environments/development.rb', after: "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }\n" do
         optimize_indentation <<~'RUBY', 2
 
@@ -54,9 +54,9 @@ module Rolemodel
     end
 
     def add_mailer_template
-      copy_file 'app/mailers/user_mailer.rb'
-      copy_file 'app/views/user_mailer/welcome_email.html.slim'
-      copy_file 'spec/mailers/previews/user_preview.rb'
+      copy_file 'app/mailers/example_mailer.rb'
+      copy_file 'app/views/example_mailer/example_email.html.slim'
+      copy_file 'spec/mailers/previews/example_preview.rb'
     end
   end
 end

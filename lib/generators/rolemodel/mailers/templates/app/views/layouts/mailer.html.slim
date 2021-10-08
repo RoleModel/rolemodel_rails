@@ -13,5 +13,5 @@ html lang="en"
 
       .email-footer
         / p Click #{link_to('here', root_url, class: '')} to unsubscribe
-        p Example App Title
+        p = Rails.application.class.module_parent_name
         p &copy;2021 RoleModel Software, Inc.
