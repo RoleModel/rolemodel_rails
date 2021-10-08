@@ -128,12 +128,7 @@ module Rolemodel
       end
 
       def define_devise_mailer_layout
-        append_to_file 'config/initializers/devise.rb', <<~RUBY
-
-          Rails.application.config.to_prepare do
-            Devise::Mailer.layout 'mailer'
-          end
-        RUBY
+        gsub_file 'config/initializers/devise.rb', "# config.parent_mailer = 'ActionMailer::Base'", "config.parent_mailer = 'ApplicationMailer'"
       end
 
       def add_devise_mailer_preview
