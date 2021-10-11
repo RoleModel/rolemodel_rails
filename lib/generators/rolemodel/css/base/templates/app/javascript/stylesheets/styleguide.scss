@@ -31,19 +31,3 @@
 
   background: var(--color-primary);
 }
-
-.columns-example {
-  .column p {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border-radius: var(--radius);
-    text-align: center;
-    margin: 0;
-    padding: var(--space-sm);
-
-    &.filler {
-      background-color: var(--color-neutral-400);
-      color: var(--neutral-layer-1-text);
-    }
-  }
-}
