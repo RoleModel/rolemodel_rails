@@ -1,9 +1,15 @@
-# https://github.com/fphilipe/premailer-rails
-# Default configuration:
-# {
-#   input_encoding: 'UTF-8',
-#   generate_text_part: true,
-#   strategies: [:filesystem, :asset_pipeline, :network]
-# }
+module CustomPropertyCSSHelper
+  def load_css(url)
+    # strip out any CSS Custom Properties, PostCSS includes the fallbacks,
+    # but Premailer can't ignore them so we remove them
+    super.gsub(/(\b[a-z_-]*?:[^\n;{}]*var\(.*?)?\B--.*?(;|(?=\}))/, '')
+  end
+end
 
-# Premailer::Rails.config.merge!(create_shorthands: false)
+class Premailer
+  module Rails
+    module CSSHelper
+      extend CustomPropertyCSSHelper
+    end
+  end
+end

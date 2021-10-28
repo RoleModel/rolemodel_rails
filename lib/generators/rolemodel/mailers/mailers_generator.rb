@@ -15,6 +15,10 @@ module Rolemodel
       copy_file 'config/initializers/premailer_rails.rb'
     end
 
+    def include_postcss_calc
+      inject_into_file 'postcss.config.js', ",\n    require('postcss-calc')", after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
+    end
+
     def add_action_mailer_asset_host
       unless File.exist?(Rails.root.join('config/initializers/devise.rb'))
         inject_into_file 'config/environments/development.rb', after: "config.action_mailer.perform_caching = false\n" do
@@ -56,7 +60,7 @@ module Rolemodel
     def add_mailer_template
       copy_file 'app/mailers/example_mailer.rb'
       copy_file 'app/views/example_mailer/example_email.html.slim'
-      copy_file 'spec/mailers/previews/example_preview.rb'
+      copy_file 'spec/mailers/previews/example_mailer_preview.rb'
     end
   end
 end
