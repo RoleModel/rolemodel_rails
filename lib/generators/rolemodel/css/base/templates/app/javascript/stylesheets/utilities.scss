@@ -54,10 +54,19 @@
   & > * {
     flex: 1;
 
-    &.four-fifths-width, &.three-fifths-width, &.two-fifths-width, &.one-fifth-width,
-    &.three-quarters-width, &.one-quarter-width,
-    &.two-thirds-width, &.one-third-width,
-    &.full-width, &.half-width { flex: none; }
+    &.four-fifths-width { flex-basis: calc(100% * 4/5); }
+    &.three-fifths-width { flex-basis: calc(100% * 3/5); }
+    &.two-fifths-width { flex-basis: calc(100% * 2/5); }
+    &.one-fifth-width { flex-basis: calc(100% * 1/5); }
+
+    &.three-quarters-width { flex-basis: calc(100% * 3/4); }
+    &.one-quarter-width { flex-basis: calc(100% * 1/4); }
+
+    &.two-thirds-width { flex-basis: calc(100% * 2/3); }
+    &.one-third-width { flex-basis: calc(100% * 1/3); }
+
+    &.full-width { flex-basis: 100%; }
+    &.half-width { flex-basis: 50%; }
   }
 
   @media screen and (max-width: $breakpoint-sm) {
