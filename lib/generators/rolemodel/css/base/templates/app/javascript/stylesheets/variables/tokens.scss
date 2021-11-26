@@ -1,0 +1,62 @@
+// Using Mixins allows us to include them at a component level
+// as needed and override them.
+
+@mixin border-radius {
+  --radius-lg: 8px;
+  --radius: 6px;
+  --radius-sm: 2px;
+}
+
+@mixin text-scales {
+  // Visit https://codyhouse.co/ds/globals/typography to play around with different text sizes
+  --text-base-size: 1rem;
+  --text-scale-ratio: 1.15;
+  --text-unit: var(--text-base-size);
+
+  --text-xxs: calc((var(--text-unit) / var(--text-scale-ratio)) / var(--text-scale-ratio)); // ~12px
+  --text-xs: calc(var(--text-xxs) * var(--text-scale-ratio)); // ~14px
+  --text-sm: calc(var(--text-xs) * var(--text-scale-ratio)); // ~16px
+  --text-md: calc(var(--text-sm) * var(--text-scale-ratio)); // ~18px
+  --text-lg: calc(var(--text-md) * var(--text-scale-ratio)); // ~21px
+  --text-xl: calc(var(--text-lg) * var(--text-scale-ratio)); // ~24px
+  --text-xxl: calc(var(--text-xl) * var(--text-scale-ratio)); // ~28px
+  --text-xxxl: calc(var(--text-xxl) * var(--text-scale-ratio)); // ~32px
+  --text-xxxxl: calc(var(--text-xxxl) * var(--text-scale-ratio)); // ~37px
+  --text-xxxxxl: calc(var(--text-xxxxl) * var(--text-scale-ratio)); // ~42px
+}
+
+@mixin spacing-scales {
+  // This is using the Golden Ratio to get these numbers
+  // Visit https://codyhouse.co/ds/globals/spacing to play around with different ratios
+  --space-unit: 1rem;
+  --space-xxxs: calc(0.123 * var(--space-unit)); // 2px
+  --space-xxs: calc(0.236 * var(--space-unit)); // 2px
+  --space-xs: calc(0.382 * var(--space-unit)); // 6px
+  --space-sm: calc(0.618 * var(--space-unit)); // 10px
+  --space-md: calc(1 * var(--space-unit)); // 16px
+  --space-lg: calc(1.618 * var(--space-unit)); // 26px
+  --space-xl: calc(2.618 * var(--space-unit)); // 42px
+}
+
+@mixin elevations {
+  --elevation-1: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-2: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
+  --elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3);
+  --elevation-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+:root {
+  // Border
+  @include border-radius;
+  --border-width: 2px;
+
+  // Text Ratios
+  @include text-scales;
+
+  // Spacing
+  @include spacing-scales;
+
+  // Elevations
+  @include elevations;
+}

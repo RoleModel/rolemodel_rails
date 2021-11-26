@@ -1,0 +1,8 @@
+@import 'themes/example_colors'; // Provide example color hsl values to use in the base theme
+@import 'themes/base_theme'; // A 5 color theme. 3 main colors, a neutral color and a neutral variant
+// @import 'themes/rolemodel_theme'; // alternate theme idea
+@import 'base_color_scales'; // Turn the choosen colors into full scales
+@import 'semantic_color_scales'; // Turn the scales into semantic usable variables
+@import 'dark_mode'; // Define how to adjust the scales for dark mode
+@import 'tokens'; // Add basic utility variables. E.G. elevations/shadows, text sizes, margins
+@import 'breakpoints'; // Add breakpoint variables

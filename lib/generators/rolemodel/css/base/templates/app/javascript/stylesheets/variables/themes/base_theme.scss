@@ -1,0 +1,26 @@
+// Define your five colors.
+:root {
+  // Choose from the example colors in themes/example_colors, or set your own HSL values
+  --color-primary-h: var(--color-blue-h);
+  --color-primary-s: var(--color-blue-s);
+  --color-primary-l: var(--color-blue-l);
+
+  --color-secondary-h: var(--color-teal-h);
+  --color-secondary-s: var(--color-teal-s);
+  --color-secondary-l: var(--color-teal-l);
+
+  --color-tertiary-h: var(--color-violet-h);
+  --color-tertiary-s: var(--color-violet-s);
+  --color-tertiary-l: var(--color-violet-l);
+
+  --color-neutral-h: 240;
+  --color-neutral-s: 2%;
+  --color-neutral-l: 38%;
+
+  --color-neutral-variant-h: 229;
+  --color-neutral-variant-s: 6%;
+  --color-neutral-variant-l: 38%;
+
+  // Font Families
+  --font-primary: 'Roboto', sans-serif;
+}

@@ -1,6 +1,5 @@
 @import 'stylesheets/vendor/normalize';
-@import 'stylesheets/theme';
-@import 'stylesheets/variables';
+@import 'stylesheets/variables/all';
 @import 'stylesheets/base';
 @import 'stylesheets/utilities';
 
@@ -11,4 +10,10 @@
 @import 'stylesheets/components/swatch';
 @import 'stylesheets/components/table';
 
+@import 'stylesheets/components/semantic_backgrounds';
+
+@import 'stylesheets/components/panel';
+@import 'stylesheets/components/modal';
+
 @import 'stylesheets/styleguide';
+@import 'stylesheets/components/icon';
