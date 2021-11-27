@@ -2,11 +2,11 @@
   "name": "example_rails6",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.10.1",
+    "@babel/preset-react": "^7.16.0",
     "@rails/actioncable": "^6.0.3-1",
     "@rails/activestorage": "^6.0.3-1",
     "@rails/ujs": "^6.0.3-1",
-    "@rails/webpacker": "5.1.1",
+    "@rails/webpacker": "5.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "core-js": "3",
     "prop-types": "^15.7.2",
