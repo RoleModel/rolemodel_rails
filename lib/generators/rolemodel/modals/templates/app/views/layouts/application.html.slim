@@ -13,7 +13,7 @@ html
       = render 'shared/confirm'
       = render 'shared/modal'
       .panel#panel
-        .panel__close.margin-lg#panel-close #{icon('close')}
+        .panel__close.margin-lg#panel-close = icon('close')
         #panel-content
       .container
         = yield
