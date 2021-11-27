@@ -1,31 +1,72 @@
 .flash {
-  position: relative;
-  padding: var(--space-sm) var(--space-md);
-  margin-bottom: var(--space-md);
-  border: var(--border-width) solid transparent;
-  border-radius: var(--radius);
+  position: absolute;
+  right: var(--space-lg);
+  display: flex;
+  align-items: center;
+  top: var(--space-lg);
+  z-index: 10;
+  width: auto;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-sm);
+  background: var(--color-white);
+  animation: animateMessage 5s normal forwards;
+  box-shadow: var(--elevation-1);
+  border-radius: var(--radius-sm);
+
+  border-left: solid 4px;
+}
+
+@keyframes animateMessage {
+  0% {
+    right: -100%;
+  }
+  1% {
+    right: -100%;
+  }
+  10% {
+    right: var(--space-lg);
+  }
+  70% {
+    right: var(--space-lg);
+  }
+  100% {
+    right: -100%;
+  }
 }
 
 .flash--notice {
-  color: var(--color-notice-text);
-  background-color: var(--color-notice-lighter);
-  border-color: var(--color-notice-light);
+  border-color: var(--color-notice-base);
+  color: var(--color-notice-base);
 }
 
 .flash--info {
-  color: var(--color-info-text);
-  background-color: var(--color-info-lighter);
-  border-color: var(--color-info-light);
+  border-color: var(--color-info-base);
+  color: var(--color-info-base);
 }
 
 .flash--alert {
-  color: var(--color-danger-text);
-  background-color: var(--color-danger-lighter);
-  border-color: var(--color-danger-light);
+  border-color: var(--color-danger-base);
+  color: var(--color-danger-base);
 }
 
 .flash--warning {
-  color: var(--color-warning-text);
-  background-color: var(--color-warning-lighter);
-  border-color: var(--color-warning-light);
+  border-color: var(--color-warning-base);
+  color: var(--color-warning-base);
+}
+
+.flash__message-type {
+  font-weight: bold;
+  color: var(--color-black);
+}
+
+.flash__message {
+  font-size: var(--text-xs);
+  color: var(--color-black);
+}
+
+.flash--demo {
+  position: relative;
+  animation: none;
+  top: 0;
+  right: 0;
 }
