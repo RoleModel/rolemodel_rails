@@ -4,7 +4,7 @@ table.table {
   border-collapse: collapse;
 
   thead {
-    background: var(--neutral-layer-2-background);
+    background: var(--color-surface);
   }
 
   th {
@@ -13,8 +13,8 @@ table.table {
     text-align: left;
     text-transform: uppercase;
 
-    color: var(--neutral-layer-1-text);
-    border-bottom: 1.5px solid var(--neutral-layer-1-border);
+    color: var(--color-on-surface);
+    border-bottom: var(--border-width) solid var(--color-outline);
 
     font-size: var(--text-sm);
     font-weight: 400;
@@ -31,9 +31,17 @@ table.table {
   td {
     padding: 0.75rem var(--space-md);
 
-    color: var(--neutral-layer-2-text);
-    border-bottom: 1.5px solid var(--neutral-layer-1-border);
+    color: var(--color-on-surface);
+    border-bottom: var(--border-width) solid var(--color-outline);
 
     font-size: 0.875rem;
+  }
+}
+
+table.table--no-last-divider {
+  tr:last-child {
+    td {
+      border-bottom: none;
+    }
   }
 }

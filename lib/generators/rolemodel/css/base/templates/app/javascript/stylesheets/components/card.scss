@@ -1,13 +1,30 @@
 .card {
-  border: 1px solid var(--neutral-layer-card-border);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+
   border-radius: var(--radius);
-  padding: var(--space-lg);
-  background: var(--neutral-layer-card);
+
+  overflow: hidden;
 }
 
-.card--no-padding {
-  display: flex;
-  flex-direction: column;
+.card__header, .card__body, .card__footer {
+  padding: var(--space-md);
+}
 
-  padding: 0;
+.card__header {
+  h1, h2, h3, h4, h5, h6 {
+    margin: unset;
+  }
+}
+
+.card--padded {
+  padding: var(--space-md);
+}
+
+.card--rounded {
+  border-radius: 25px;
+}
+
+.card--outlined {
+  border: 1px solid var(--color-outline);
 }
