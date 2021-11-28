@@ -30,7 +30,7 @@
   // Visit https://codyhouse.co/ds/globals/spacing to play around with different ratios
   --space-unit: 1rem;
   --space-xxxs: calc(0.123 * var(--space-unit)); // 2px
-  --space-xxs: calc(0.236 * var(--space-unit)); // 2px
+  --space-xxs: calc(0.236 * var(--space-unit)); // 4px
   --space-xs: calc(0.382 * var(--space-unit)); // 6px
   --space-sm: calc(0.618 * var(--space-unit)); // 10px
   --space-md: calc(1 * var(--space-unit)); // 16px
