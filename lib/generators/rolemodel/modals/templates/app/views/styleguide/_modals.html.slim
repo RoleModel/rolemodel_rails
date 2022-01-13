@@ -1,5 +1,8 @@
-section.section--tables.margin-top-xl
-  h2.styleguide-section__title Modals
-
-  = link_to "Test Confirm", styleguide_path, class: 'btn btn--primary margin-right-md', data: { confirm: 'Are you sure?', confirm_details: "This will delete stuff. This action cannot be undone.", confirm_button: 'Yes, delete it' }
-  = modal_link_to "Modal Test", styleguide_full_path, class: 'btn btn--primary'
+section.card.card--rounded.card--outlined.margin-top-md
+  .card__header.background-primary-lightest
+    h2.styleguide-section__title Modals
+  .card__body
+    .flex.gap-md
+      = link_to "Test Confirm", styleguide_path, class: 'btn btn--primary', data: { confirm: 'Are you sure?', confirm_details: "This will delete stuff. This action cannot be undone.", confirm_button: 'Yes, delete it' }
+      = modal_link_to "Modal Test", styleguide_full_path, class: 'btn btn--primary'
+      = panel_link_to "Panel Test", styleguide_full_path, class: 'btn btn--primary'

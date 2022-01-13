@@ -16,7 +16,7 @@ label {
   padding-bottom: var(--space-xs);
   margin-bottom: 0;
   line-height: 1.5;
-  color: var(--neutral-layer-3-text);
+  color: var(--color-on-surface);
   font-weight: 400;
   font-size: var(--text-sm);
   letter-spacing: 0.4px;
@@ -29,9 +29,9 @@ label {
   padding: var(--space-sm) var(--space-md);
   font-size: var(--text-sm);
   line-height: 1.5;
-  color: var(--color-black);
-  background-color: var(--neutral-layer-1-background);
-  border: var(--border-width) solid var(--neutral-layer-1-border);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  border: var(--border-width) solid var(--color-outline);
   font-weight: 300;
   will-change: border-color, box-shadow;
   border-radius: var(--radius);
@@ -40,7 +40,7 @@ label {
   &:focus {
     color: var(--color-black);
     outline: 0;
-    border-color: var(--neutral-layer-3-border);
+    border-color: var(--color-on-surface);
   }
 }
 
@@ -48,12 +48,12 @@ label {
   height: 2.7rem;
   padding: var(--space-sm) var(--space-md);
   line-height: 1.2;
-  color: var(--color-black);
   outline: 0;
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDI5IDE0IiB3aWR0aD0iMjkiPjxwYXRoIGZpbGw9IiNkMWQxZDEiIGQ9Ik05LjM3NzI3IDMuNjI1bDUuMDgxNTQgNi45MzUyM0wxOS41NDAzNiAzLjYyNSIvPjwvc3ZnPgo=') center right no-repeat;
   background-size: 30px 15px;
-  background-color: var(--neutral-layer-1-background);
-  border: var(--border-width) solid var(--neutral-layer-1-border);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  border: var(--border-width) solid var(--color-outline);
   font-weight: 300;
   font-size: var(--text-sm);
   border-radius: var(--radius);
@@ -64,11 +64,11 @@ label {
 
   &:hover:not(:focus):not(:disabled) {
     cursor: pointer;
-    border-color: var(--neutral-layer-3-border);
+    border-color: var(--color-on-surface);
   }
 
   &:focus {
-    border-color: var(--neutral-layer-3-border);
+    border-color: var(--color-on-surface);
     outline: 0;
   }
 }
@@ -79,36 +79,44 @@ label {
 }
 
 .form__group--checkbox {
-  position: relative;
-  margin: var(--space-md) 0;
+  display: flex;
+  align-items: center;
+  margin: var(--space-xs) 0;
 
   label {
     // Label text
-    color: var(--neutral-layer-2-text);
+    position: relative;
+    color: var(--color-on-surface);
+    font-weight: 500;
     cursor: pointer;
     display: inline;
     line-height: var(--text-md);
-    padding-left: var(--text-xs);
+    margin-left: var(--text-md);
+
+    &.form__label {
+      padding: 0 0 0 var(--space-sm);
+    }
 
     // Box
     &:before, &:after {
       content: "";
       position: absolute;
-      left: 0;
-      top: 0;
+      left: -16px;
+      top: -1px;
     }
 
     &:hover {
       &:before {
-        border-color: var(--color-primary);
+        border-color: var(--color-primary-base);
       }
     }
 
     &:before {
-      width: var(--text-md);
-      height: var(--text-md);
-      background: var(--neutral-layer-1-background);
-      border: 2px solid var(--neutral-layer-1-border);
+      width: 20px;
+      height: 20px;
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      border: var(--border-width) solid var(--color-outline);
       border-radius: var(--space-xxs);
       cursor: pointer;
       transition: background 300ms, border 300ms;
@@ -118,12 +126,14 @@ label {
   // Checkmark
   input[type="checkbox"] {
     width: var(--text-md);
+    height: auto;
+    display: none;
 
     &:checked {
       + label:before {
         // background color of box when checked
-        background: var(--color-primary);
-        border-color: var(--color-primary);
+        background: var(--color-primary-base);
+        border-color: var(--color-primary-base);
       }
 
       + label:after {
@@ -133,11 +143,11 @@ label {
         border: 3px solid var(--color-white);
         border-top-style: none;
         border-right-style: none;
-        left: 5px;
-        top: 6px;
+        left: -11px;
+        top: 4px;
         $checkmark-size: 1.25em - 2 * .25em;
         width: $checkmark-size;
-        height: $checkmark-size / 2;
+        height: calc($checkmark-size /  2);
       }
     }
 
@@ -146,21 +156,21 @@ label {
         cursor: not-allowed;
 
         &:before{
-          border-color: var(--neutral-layer-2-border);
-          background-color: var(--neutral-layer-2-background);
+          border-color: var(--color-on-surface-variant);
+          background-color: var(--color-surface-variant);
           cursor: not-allowed;
         }
 
         &:after {
           // Checkmark
-          border-color: var(--neutral-layer-2-text);
+          border-color: var(--color-on-surface-variant);
         }
       }
 
       &:checked {
         + label:before {
-          border-color: var(--neutral-layer-2-border);
-          background-color: var(--neutral-layer-2-background);
+          border-color: var(--color-on-surface-variant);
+          background-color: var(--color-surface-variant);
           cursor: not-allowed;
         }
       }
@@ -179,22 +189,22 @@ label {
   position: relative;
   margin: 0;
   cursor: pointer;
-  border: 2px solid var(--neutral-layer-1-border);
+  border: var(--border-width) solid var(--color-outline);
   background: var(--color-white);
   transition: background .3s, border-color .3s, box-shadow .2s;
-  border-radius: 50%;
+  border-radius: var(--radius-max);
 
   // Blue circle when checked
   &:checked {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--color-primary-base);
+    border-color: var(--color-primary-base);
   }
 
   // White circle
   &:after {
     width: 19px;
     height: 19px;
-    border-radius: 50%;
+    border-radius: var(--radius-max);
     background: var(--color-white);
     transform: scale(.5);
     opacity: 1;
@@ -208,18 +218,20 @@ label {
 
   // Disabled
   &:disabled {
-    background: var(--neutral-layer-2-background);
-    border-color: var(--neutral-layer-2-border);
+    background-color: var(--color-surface-variant);
+    border-color: var(--color-on-surface-variant);
     cursor: not-allowed;
 
     &:after {
       // hide white circle
       opacity: 0;
+      color: var(--color-on-surface-variant);
+      background-color: var(--color-on-surface-variant);
     }
 
     &:checked {
-      background: var(--neutral-layer-2-background);
-      border-color: var(--neutral-layer-2-border);
+      background-color: var(--color-surface-variant);
+      border-color: var(--color-on-surface-variant);
 
       &:after {
         // show white circle
@@ -236,7 +248,7 @@ label {
   &:hover {
     &:not(:checked) {
       &:not(:disabled) {
-        border-color: var(--color-primary);
+        border-color: var(--color-primary-base);
       }
     }
   }
@@ -258,9 +270,11 @@ label {
 // simple_form styles
 .form__error-summary {
   background-color: var(--color-danger-lighter);
-  border-radius: var(--radius);
+  color: var(--color-on-danger-lighter);
+
   border: 1px solid var(--color-danger-light);
-  color: var(--color-danger-text);
+  border-radius: var(--radius);
+
   margin-bottom: var(--space-lg);
   padding: var(--space-lg);
 
@@ -275,11 +289,14 @@ label {
 .form__error {
   padding: var(--space-xxs) var(--space-xs);
 
-  color: var(--color-danger-text);
-  border-radius: var(--radius-sm);
   background: var(--color-danger-lighter);
+  color: var(--color-on-danger-lighter);
+
+  border-radius: var(--radius-sm);
 
   font-size: var(--text-xs);
+
+  display: inline-block;
 }
 
 .from__input--error {

@@ -1,4 +1,8 @@
 .modal {
+  // Modals
+  --modal-width: 564px;
+  --modal-transition-speed: 300ms;
+
   visibility: hidden;
   display: flex;
   position: fixed;
@@ -23,7 +27,7 @@
   bottom: 0;
   left: 0;
   z-index: 11;
-  background: var(--color-black);
+  background: black;
   visibility: hidden;
   opacity: 0;
   transition: all var(--modal-transition-speed);
@@ -33,7 +37,9 @@
   max-height: 500px;
   width: var(--modal-width);
   padding: var(--space-lg);
-  background: var(--color-white);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+
   border-radius: var(--radius);
   z-index: 12;
   transform: scale(0.7);
@@ -64,4 +70,11 @@
 .modal__close {
   float: right;
   cursor: pointer;
+
+  padding: var(--space-md);
+  border-radius: var(--radius-max);
+
+  &:hover {
+    background: var(--color-surface-variant);
+  }
 }

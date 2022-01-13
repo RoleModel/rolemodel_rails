@@ -13,9 +13,9 @@ html {
 
 body {
   height: inherit;
-
-  color: var(--neutral-layer-app-text);
-  background: var(--neutral-layer-app-background);
+  overflow: hidden; // Needed to prevent flash messages and panels from causing overflow
+  background: var(--color-background);
+  color: var(--color-on-background);
 }
 
 button, input, optgroup, select, textarea {
@@ -26,7 +26,7 @@ button, input, optgroup, select, textarea {
   line-height: inherit;
 }
 
-a {
+a:not(.btn):not(.sidebar-nav__item):not(.navigation-rail__item) {
   color: var(--color-primary);
 
   &:visited {
@@ -80,13 +80,16 @@ small {
 }
 
 .container {
-  max-width: $breakpoint-lg;
+  max-width: $breakpoint-md;
   margin: 0 auto;
   padding: 0 var(--space-lg);
+  width: 100%;
+}
+
+.container--sm {
+  max-width: $breakpoint-sm;
 }
 
 .container--xs {
   max-width: $breakpoint-xs;
-  margin: 0 auto;
-  padding: 0 var(--space-lg);
 }

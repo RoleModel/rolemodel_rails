@@ -6,7 +6,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def create_node_version
-      node_version = '14.15.0'
+      node_version = '16.13.0'
       create_file ".node-version", node_version
       raise "Don't have node version #{node_version} installed. Fix it.\nRun: `nodenv install #{node_version}`" unless system 'node --version'
       raise "Don't have yarn installed. Fix it.\nRun: `npm install -g yarn`" unless system 'yarn --version'
