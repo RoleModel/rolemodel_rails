@@ -117,7 +117,7 @@ button {
 }
 
 .btn--rounded {
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
 }
 
 .btn--active {

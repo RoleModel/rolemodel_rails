@@ -22,7 +22,7 @@
 }
 
 .card--rounded {
-  border-radius: 25px;
+  border-radius: var(--radius-lg);
 }
 
 .card--outlined {

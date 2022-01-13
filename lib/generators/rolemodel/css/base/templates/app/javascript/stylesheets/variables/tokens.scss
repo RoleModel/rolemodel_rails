@@ -2,9 +2,13 @@
 // as needed and override them.
 
 @mixin border-radius {
-  --radius-lg: 8px;
-  --radius: 6px;
-  --radius-sm: 2px;
+  -radius-xs:  2px;
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius:     16px;
+  --radius-lg:  24px;
+  --radius-xl:  48px;
+  --radius-max: 50%;
 }
 
 @mixin text-scales {
