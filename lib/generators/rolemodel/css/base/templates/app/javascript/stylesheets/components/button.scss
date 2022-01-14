@@ -72,8 +72,8 @@ button {
 
 .btn--outline {
   border: var(--border-width) solid var(--color-outline);
-  background: var(--color-surface);
-  color: var(--color-on-surface);
+  background: var(--color-background);
+  color: var(--color-on-background);
 
   &:hover {
     background: var(--color-surface-variant);

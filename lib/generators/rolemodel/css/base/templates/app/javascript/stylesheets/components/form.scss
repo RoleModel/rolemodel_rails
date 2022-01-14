@@ -16,7 +16,7 @@ label {
   padding-bottom: var(--space-xs);
   margin-bottom: 0;
   line-height: 1.5;
-  color: var(--color-on-surface);
+  color: var(--color-on-background);
   font-weight: 400;
   font-size: var(--text-sm);
   letter-spacing: 0.4px;
@@ -29,8 +29,8 @@ label {
   padding: var(--space-sm) var(--space-md);
   font-size: var(--text-sm);
   line-height: 1.5;
-  background-color: var(--color-surface);
-  color: var(--color-on-surface);
+  background-color: var(--color-background);
+  color: var(--color-on-background);
   border: var(--border-width) solid var(--color-outline);
   font-weight: 300;
   will-change: border-color, box-shadow;
@@ -40,7 +40,7 @@ label {
   &:focus {
     color: var(--color-black);
     outline: 0;
-    border-color: var(--color-on-surface);
+    border-color: var(--color-on-background);
   }
 }
 
@@ -51,8 +51,8 @@ label {
   outline: 0;
   background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDI5IDE0IiB3aWR0aD0iMjkiPjxwYXRoIGZpbGw9IiNkMWQxZDEiIGQ9Ik05LjM3NzI3IDMuNjI1bDUuMDgxNTQgNi45MzUyM0wxOS41NDAzNiAzLjYyNSIvPjwvc3ZnPgo=') center right no-repeat;
   background-size: 30px 15px;
-  background-color: var(--color-surface);
-  color: var(--color-on-surface);
+  background-color: var(--color-background);
+  color: var(--color-on-background);
   border: var(--border-width) solid var(--color-outline);
   font-weight: 300;
   font-size: var(--text-sm);
@@ -64,11 +64,11 @@ label {
 
   &:hover:not(:focus):not(:disabled) {
     cursor: pointer;
-    border-color: var(--color-on-surface);
+    border-color: var(--color-on-background);
   }
 
   &:focus {
-    border-color: var(--color-on-surface);
+    border-color: var(--color-on-background);
     outline: 0;
   }
 }
@@ -86,7 +86,7 @@ label {
   label {
     // Label text
     position: relative;
-    color: var(--color-on-surface);
+    color: var(--color-on-background);
     font-weight: 500;
     cursor: pointer;
     display: inline;
@@ -114,8 +114,8 @@ label {
     &:before {
       width: 20px;
       height: 20px;
-      background: var(--color-surface);
-      color: var(--color-on-surface);
+      background: var(--color-background);
+      color: var(--color-on-background);
       border: var(--border-width) solid var(--color-outline);
       border-radius: var(--space-xxs);
       cursor: pointer;
