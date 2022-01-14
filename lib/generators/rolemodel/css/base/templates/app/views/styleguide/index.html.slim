@@ -88,18 +88,18 @@
 
       .margin-top-md
         h4 Neutral
-        .flex.layout-row.gap-md.flex-wrap
-          .swatch.elevation-1 style="background: var(--color-background); color: var(--color-on-background)" Background (50)
-          .swatch.elevation-1 style="background: var(--color-on-background); color: var(--color-background)" On Background (900)
-          .swatch.elevation-1 style="background: var(--color-surface); color: var(--color-on-surface)" Surface (50)
-          .swatch.elevation-1 style="background: var(--color-on-surface); color: var(--color-surface)" On Surface (900)
+        = render 'shared/semantic_color_scale', scale_name: 'neutral'
 
       .margin-top-md
-        h4 Neutral Variant
+        h4 Neutral-Variant
+        = render 'shared/semantic_color_scale', scale_name: 'neutral-variant'
+
+      .margin-top-md
+        h4 Miscellaneous
         .flex.layout-row.gap-md.flex-wrap
-          .swatch.elevation-1 style="background: var(--color-surface-variant); color: var(--color-on-surface-variant)" Surface Variant (50)
-          .swatch.elevation-1 style="background: var(--color-on-surface-variant); color: var(--color-surface-variant)" On Surface Variant (900)
-          .swatch.elevation-1 style="background: var(--color-outline); color: var(--color-surface)" Outline (300)
+          .swatch.elevation-1 style="background: var(--color-background); color: var(--color-on-background)" Background (Neutral 98)
+          .swatch.elevation-1 style="background: var(--color-on-background); color: var(--color-background)" On Background (Neutral 10)
+          .swatch.elevation-1 style="background: var(--color-outline); color: var(--color-background)" Outline (Neutral Variant 80)
 
   section.card.card--rounded.card--outlined.margin-top-md
     .card__header.background-primary-lightest
