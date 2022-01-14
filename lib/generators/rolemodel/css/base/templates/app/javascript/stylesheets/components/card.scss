@@ -22,9 +22,8 @@
 %card {
   position: relative;
   background-color: var(--color-white);
-  border: var(--border-width-sm) solid var(--color-neutral-light);
+  box-shadow: var(--border-card-outline);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-neutral-elevation-md);
   color: var(--color-neutral-darker);
   font-size: var(--text-md);
   line-height: var(--line-height-base);

@@ -16,6 +16,10 @@
   --border-width-sm: 1px;
 }
 
+@mixin border-strokes {
+  --border-card-outline: 0 0 0 1px var(--color-outline);
+}
+
 @mixin text-scales {
   // Visit https://codyhouse.co/ds/globals/typography to play around with different text sizes
   --text-base-size: 1rem;
@@ -68,6 +72,7 @@
 
 :root {
   // Border
+  @include border-strokes;
   @include border-radius;
   @include border-width;
 
