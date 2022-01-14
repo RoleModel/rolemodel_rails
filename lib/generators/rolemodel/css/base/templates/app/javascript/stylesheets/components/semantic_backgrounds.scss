@@ -1,5 +1,5 @@
 // Semantic backgrounds
-$semantic_backgrounds_scales: 'primary', 'secondary', 'tertiary';
+$semantic_backgrounds_scales: 'primary', 'secondary', 'tertiary', 'neutral', 'neutral-variant';
 @each $color in $semantic_backgrounds_scales {
   .background-#{$color}-base {
     background-color: var(--color-#{$color}-base);

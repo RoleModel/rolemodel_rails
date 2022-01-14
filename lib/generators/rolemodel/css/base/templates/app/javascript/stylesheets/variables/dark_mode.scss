@@ -21,7 +21,7 @@
         --color-#{$color}-100: hsl(var(--color-#{$color}-h), var(--color-#{$color}-s), 100%);
       }
 
-      $semantic_color_scales: 'primary', 'secondary', 'tertiary';
+      $semantic_color_scales: 'primary', 'secondary', 'tertiary', 'neutral', 'neutral-variant';
       @each $color in $semantic_color_scales {
         --color-#{$color}-lightest: var(--color-#{$color}-20);
         --color-#{$color}-lighter:  var(--color-#{$color}-30);
@@ -51,7 +51,7 @@
       // Neutral Variant Colors (normal usage)
       --color-surface-variant:    var(--color-neutral-variant-30);
       --color-on-surface-variant: var(--color-neutral-variant-80);
-      --color-outline:            var(--color-neutral-variant-60);
+      --color-outline:            var(--color-neutral-variant-40);
     }
 
     .modal__content {

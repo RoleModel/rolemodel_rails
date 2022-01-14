@@ -5,7 +5,7 @@
   --color-neutral: hsl(var(--color-neutral-h), var(--color-neutral-s), var(--color-neutral-l));
   --color-neutral-variant: hsl(var(--color-neutral-variant-h), var(--color-neutral-variant-s), var(--color-neutral-variant-l));
 
-  $semantic_color_scales: 'primary', 'secondary', 'tertiary';
+  $semantic_color_scales: 'primary', 'secondary', 'tertiary', 'neutral', 'neutral-variant';
   @each $color in $semantic_color_scales {
     --color-#{$color}-lightest: var(--color-#{$color}-95);
     --color-#{$color}-lighter:  var(--color-#{$color}-80);
@@ -35,7 +35,7 @@
   // Neutral Variant Colors (normal usage)
   --color-surface-variant:    var(--color-neutral-variant-90);
   --color-on-surface-variant: var(--color-neutral-variant-30);
-  --color-outline:            var(--color-neutral-variant-50);
+  --color-outline:            var(--color-neutral-variant-80);
 
   // Alert Colors
   $alert_color_scales: ('warning': 'yellow', 'danger': 'red', 'info': 'blue', 'notice': 'green');
