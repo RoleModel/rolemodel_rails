@@ -42,19 +42,15 @@
         --color-on-#{$color}-darkest:  var(--color-#{$color}-10);
       }
 
-      // Neutral Colors (normal usage)
+      // Miscellaneous Colors
       --color-background:    var(--color-neutral-10);
       --color-on-background: var(--color-neutral-90);
-
-      // Neutral Variant Colors (normal usage)
-      --color-surface-variant:    var(--color-neutral-variant-30);
-      --color-on-surface-variant: var(--color-neutral-variant-80);
-      --color-outline:            var(--color-neutral-variant-40);
+      --color-outline:       var(--color-neutral-variant-40);
     }
 
     .modal__content {
-      background: var(--color-surface-variant);
-      color: var(--color-on-surface-variant);
+      background: var(color-neutral-variant-lightest);
+      color: var(color-on-neutral-variant-lightest);
     }
 
     .modal__close {
@@ -64,8 +60,8 @@
     }
 
     .panel {
-      background: var(--color-surface-variant);
-      color: var(--color-on-surface-variant);
+      background: var(color-neutral-variant-lightest);
+      color: var(color-on-neutral-variant-lightest);
     }
 
     .panel__close {

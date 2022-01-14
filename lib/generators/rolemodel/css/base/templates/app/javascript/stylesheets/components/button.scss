@@ -76,8 +76,8 @@ button {
   color: var(--color-on-background);
 
   &:hover {
-    background: var(--color-surface-variant);
-    color: var(--color-on-surface-variant);
+    background: var(--color-neutral-variant-lightest);
+    color: var(--color-on-neutral-variant-lightest);
   }
 
   &.btn--primary {

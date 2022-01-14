@@ -156,21 +156,21 @@ label {
         cursor: not-allowed;
 
         &:before{
-          border-color: var(--color-on-surface-variant);
-          background-color: var(--color-surface-variant);
+          border-color: var(color-on-neutral-variant-lightest);
+          background-color: var(color-neutral-variant-lightest);
           cursor: not-allowed;
         }
 
         &:after {
           // Checkmark
-          border-color: var(--color-on-surface-variant);
+          border-color: var(color-on-neutral-variant-lightest);
         }
       }
 
       &:checked {
         + label:before {
-          border-color: var(--color-on-surface-variant);
-          background-color: var(--color-surface-variant);
+          border-color: var(color-on-neutral-variant-lightest);
+          background-color: var(color-neutral-variant-lightest);
           cursor: not-allowed;
         }
       }
@@ -218,20 +218,20 @@ label {
 
   // Disabled
   &:disabled {
-    background-color: var(--color-surface-variant);
-    border-color: var(--color-on-surface-variant);
+    background-color: var(color-neutral-variant-lightest);
+    border-color: var(color-on-neutral-variant-lightest);
     cursor: not-allowed;
 
     &:after {
       // hide white circle
       opacity: 0;
-      color: var(--color-on-surface-variant);
-      background-color: var(--color-on-surface-variant);
+      color: var(color-on-neutral-variant-lightest);
+      background-color: var(color-on-neutral-variant-lightest);
     }
 
     &:checked {
-      background-color: var(--color-surface-variant);
-      border-color: var(--color-on-surface-variant);
+      background-color: var(color-neutral-variant-lightest);
+      border-color: var(color-on-neutral-variant-lightest);
 
       &:after {
         // show white circle

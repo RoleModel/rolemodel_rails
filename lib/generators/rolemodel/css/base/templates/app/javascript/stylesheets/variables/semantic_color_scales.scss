@@ -26,14 +26,10 @@
     --color-on-#{$color}-darkest:  var(--color-#{$color}-100);
   }
 
-  // Neutral Colors (normal usage)
+  // Miscellaneous Colors
   --color-background:    var(--color-neutral-98);
   --color-on-background: var(--color-neutral-10);
-
-  // Neutral Variant Colors (normal usage)
-  --color-surface-variant:    var(--color-neutral-variant-90);
-  --color-on-surface-variant: var(--color-neutral-variant-30);
-  --color-outline:            var(--color-neutral-variant-80);
+  --color-outline:       var(--color-neutral-variant-80);
 
   // Alert Colors
   $alert_color_scales: ('warning': 'yellow', 'danger': 'red', 'info': 'blue', 'notice': 'green');
