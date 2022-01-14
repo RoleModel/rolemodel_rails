@@ -4,7 +4,7 @@ table.table {
   border-collapse: collapse;
 
   thead {
-    background: var(--color-surface);
+    background: var(--color-background);
   }
 
   th {
@@ -13,7 +13,7 @@ table.table {
     text-align: left;
     text-transform: uppercase;
 
-    color: var(--color-on-surface);
+    color: var(--color-on-background);
     border-bottom: var(--border-width) solid var(--color-outline);
 
     font-size: var(--text-sm);
@@ -31,7 +31,7 @@ table.table {
   td {
     padding: 0.75rem var(--space-md);
 
-    color: var(--color-on-surface);
+    color: var(--color-on-background);
     border-bottom: var(--border-width) solid var(--color-outline);
 
     font-size: 0.875rem;

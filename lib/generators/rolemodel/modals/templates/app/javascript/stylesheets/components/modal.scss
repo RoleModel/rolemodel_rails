@@ -37,8 +37,8 @@
   max-height: 500px;
   width: var(--modal-width);
   padding: var(--space-lg);
-  background: var(--color-surface);
-  color: var(--color-on-surface);
+  background: var(--color-background);
+  color: var(--color-on-background);
 
   border-radius: var(--radius);
   z-index: 12;
@@ -75,6 +75,6 @@
   border-radius: var(--radius-max);
 
   &:hover {
-    background: var(--color-surface-variant);
+    background: var(color-neutral-variant-lightest);
   }
 }
