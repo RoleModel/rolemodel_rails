@@ -15,6 +15,7 @@ Example:
 
     This will modify:
         config/environments/development.rb
+        config/environments/production.rb
 
     This will remove:
         app/views/layouts/mailer.html.erb
