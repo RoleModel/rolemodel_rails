@@ -40,6 +40,38 @@ module Rolemodel
       end
     end
 
+    def add_production_mailer_defaults
+      prepend_to_file 'config/environments/production.rb', "require Rails.root.join('app/mailers/staging_mailer_interceptor')\n"
+
+      inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
+        optimize_indentation <<~'RUBY', 2
+          # Prevent live user emails from being sent out in staging
+          if ENV['WHITELISTED_EMAILS'].present?
+            ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
+          end
+
+          host = ENV['PRODUCTION_HOST']
+
+          # Ensure premailer_rails can point to webpack compiled resources
+          # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
+          config.action_mailer.asset_host = host
+
+          config.action_mailer.default_url_options = { host: host }
+          config.action_mailer.delivery_method = :smtp
+          config.action_mailer.perform_deliveries = true
+          config.action_mailer.smtp_settings = {
+            user_name: 'apikey',
+            password: ENV['SENDGRID_API_KEY'],
+            domain: host,
+            address: 'smtp.sendgrid.net',
+            port: 587,
+            authentication: :plain,
+            enable_starttls_auto: true
+          }
+        RUBY
+      end
+    end
+
     def add_mailer_css
       copy_file 'app/javascript/packs/mailer_stylesheets.scss'
     end
