@@ -2,7 +2,7 @@
   h1 Basic Style Guide Demo
 
   .flex.layout-row.gap-md
-    section.card.card--outlined.margin-top-md
+    section.card.margin-top-md
       .card
         .card__header.background-primary-lightest
           h2.styleguide-section__title Typography
@@ -18,7 +18,7 @@
           .font-xs --text-xs - Heading 6 - 14px
           .font-xxs --text-xxs - 12px
 
-    section.card.card--outlined.margin-top-md
+    section.card.margin-top-md
       .card__header.background-primary-lightest
         h2.styleguide-section__title Spacing Reference
       .card__body
@@ -45,7 +45,7 @@
             .spacing-example style="width: var(--space-xl)"
             span --space-xl (42px)
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Color Scales
       p Usage --color-"scale"-"number". Example --color-secondary-30
@@ -70,7 +70,7 @@
         h4 Neutral Variant
         = render 'shared/color_scale', scale_name: 'neutral-variant', text_color: 'background'
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Semantic Colors
     .card__body
@@ -101,7 +101,7 @@
           .swatch.elevation-1 style="background: var(--color-on-background); color: var(--color-background)" On Background (Neutral 10)
           .swatch.elevation-1 style="background: var(--color-outline); color: var(--color-background)" Outline (Neutral Variant 80)
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Text Colors
       p Badges
@@ -130,7 +130,7 @@
           .swatch style="background: var(--color-notice-#{color})"
             span = "--color-notice-#{color}"
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Cards
     .card__body
@@ -140,21 +140,21 @@
             span Just a Card
           .card__body
             code .card
-        .card.card--outlined
+        .card
           .card__header
             span Outlined Card
           .card__body
-            code .card.card--outlined
+            code .card
         .card.elevation-1
           .card__header
             span Elevated Card
           .card__body
             code .card.elevation-1
-        .card.card--outlined
+        .card
           .card__header
             span Rounded Card
           .card__body
-            code .card.card--outlined
+            code .card
       .flex.layout-row.gap-md.flex-wrap.margin-top-sm
         .card
           .card__header.background-primary-lighter
@@ -175,7 +175,7 @@
               div.margin-left-sm .card__header.background-primary-darker
               div.margin-left-sm .card__body.background-primary-dark
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Elevations
     .card__body
@@ -187,7 +187,7 @@
         .card.card--padded.elevation-4 Elevation 4
         .card.card--padded.elevation-5 Elevation 5
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Button
     .card__body
@@ -216,7 +216,7 @@
         a.btn.btn--outline.btn--tertiary.btn--rounded Tertiary Rounded
         a.btn.btn--outline.btn--tertiary.btn--small Tertiary Small
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Form
     .card__body
@@ -280,7 +280,7 @@
           input.form__radio id="form-radio-disabled-checked" type="radio" name="disabled-radio" value="1" disabled="disabled" checked="checked"
           label.form__label for="form-radio-disabled-checked" Radio Disabled checked
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title flash
     .card__body
@@ -315,7 +315,7 @@
             .flash__message-type Warning
             .flash__message .flash.flash--warning
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Tables
     .card__body
@@ -396,7 +396,7 @@
                 td.text-right
                   a.btn.btn--outline.btn--small Label
 
-  section.card.card--outlined.margin-top-md
+  section.card.margin-top-md
     .card__header.background-primary-lightest
       h2.styleguide-section__title Icons
     .card__body
