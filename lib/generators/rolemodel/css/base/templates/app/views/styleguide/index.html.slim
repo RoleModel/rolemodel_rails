@@ -136,44 +136,40 @@
     .card__body
       .flex.layout-row.gap-md.flex-wrap
         .card
-          .card__header
-            span Just a Card
-          .card__body
+          span Just a Card
+          div
             code .card
-        .card
-          .card__header
-            span Outlined Card
-          .card__body
-            code .card
-        .card.elevation-1
+        .card.card--padded
+          span Padded Card
+          div
+            code .card.card--padded
+        .card.elevation-3
           .card__header
             span Elevated Card
           .card__body
-            code .card.elevation-1
-        .card
-          .card__header
-            span Rounded Card
-          .card__body
-            code .card
-      .flex.layout-row.gap-md.flex-wrap.margin-top-sm
-        .card
-          .card__header.background-primary-lighter
-            h3 Colored with header and body
-          .card__body.background-primary-lightest
-            pre
-              div .card
-              div.margin-left-sm .card__header.background-primary-lighter
-              div.margin-left-sm .card__body.background-primary-lightest
-        .card.elevation-3
-          .card__header.background-primary-darker
-            .flex.justify-between.items-center
-              h3 Styled
-              button.btn.btn--primary = icon('edit')
-          .card__body.background-primary-dark
-            pre
-              div .card.elevation-3
-              div.margin-left-sm .card__header.background-primary-darker
-              div.margin-left-sm .card__body.background-primary-dark
+            code .card.elevation-3
+
+      .card.margin-top-md
+        .card__header.background-primary-lighter
+          h3 Colored with header and body
+        .card__body.background-primary-lightest
+          pre
+            div .card
+            div.margin-left-sm .card__header.background-primary-lighter
+            div.margin-left-sm .card__body.background-primary-lightest
+      .card.elevation-3.margin-top-md
+        .card__header.background-primary-darker
+          .flex.justify-between.items-center
+            h3 Styled
+            button.btn.btn--primary = icon('edit')
+        .card__body.background-primary-dark
+          pre
+            div .card.elevation-3
+            div.margin-left-sm .card__header.background-primary-darker
+            div.margin-left-sm .card__body.background-primary-dark
+            div.margin-left-sm .card__footer.background-primary-base
+        .card__footer.background-primary-base
+          span Footer
 
   section.card.margin-top-md
     .card__header.background-primary-lightest
