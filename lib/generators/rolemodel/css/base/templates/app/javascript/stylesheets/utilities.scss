@@ -389,8 +389,8 @@
 }
 
 // Elevations
-.elevation-1 { box-shadow: var(--elevation-1); }
-.elevation-2 { box-shadow: var(--elevation-2); }
-.elevation-3 { box-shadow: var(--elevation-3); }
-.elevation-4 { box-shadow: var(--elevation-4); }
-.elevation-5 { box-shadow: var(--elevation-5); }
+.elevation-1, .elevation-1.card { box-shadow: var(--elevation-1); }
+.elevation-2, .elevation-2.card { box-shadow: var(--elevation-2); }
+.elevation-3, .elevation-3.card { box-shadow: var(--elevation-3); }
+.elevation-4, .elevation-4.card { box-shadow: var(--elevation-4); }
+.elevation-5, .elevation-5.card { box-shadow: var(--elevation-5); }
