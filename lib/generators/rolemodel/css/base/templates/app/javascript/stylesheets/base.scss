@@ -26,6 +26,18 @@ button, input, optgroup, select, textarea {
   line-height: inherit;
 }
 
+button {
+  margin: 0;
+  border: 0;
+  outline: 0;
+  padding: 0;
+
+  background: none;
+  cursor: pointer;
+
+  color: var(--color-black);
+}
+
 a:not(.btn):not(.sidebar-nav__item):not(.navigation-rail__item) {
   color: var(--color-primary);
 
