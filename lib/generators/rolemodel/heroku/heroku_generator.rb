@@ -16,7 +16,7 @@ module Rolemodel
     end
 
     def enable_log_level_configurability
-      gsub_file('config/environments/production.rb', 'config.log_level = :info', "config.log_level = ENV.fetch('LOG_LEVEL', { 'INFO' })")
+      gsub_file('config/environments/production.rb', 'config.log_level = :info', "config.log_level = ENV.fetch('LOG_LEVEL', 'INFO')")
     end
   end
 end
