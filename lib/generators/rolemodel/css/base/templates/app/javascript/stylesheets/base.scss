@@ -38,7 +38,7 @@ button {
   color: var(--color-black);
 }
 
-a:not(.btn):not(.sidebar-nav__item):not(.navigation-rail__item) {
+a {
   color: var(--color-primary);
 
   &:visited {
