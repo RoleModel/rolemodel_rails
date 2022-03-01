@@ -12,12 +12,11 @@
 }
 
 @mixin border-width {
-  --border-width: 2px;
-  --border-width-sm: 1px;
+  --border-width: 1px;
 }
 
 @mixin border-strokes {
-  --border-card-outline: 0 0 0 var(--border-width-sm) var(--color-outline);
+  --border-card-outline: 0 0 0 var(--border-width) var(--color-outline);
 }
 
 @mixin text-scales {
