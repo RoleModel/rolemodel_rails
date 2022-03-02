@@ -10,7 +10,7 @@
     --color-#{$color}-lightest: var(--color-#{$color}-95);
     --color-#{$color}-lighter:  var(--color-#{$color}-80);
     --color-#{$color}-light:    var(--color-#{$color}-70);
-    --color-#{$color}-hover:     var(--color-#{$color}-50);
+    --color-#{$color}-hover:    var(--color-#{$color}-50);
     --color-#{$color}-base:     var(--color-#{$color}-40);
     --color-#{$color}-dark:     var(--color-#{$color}-30);
     --color-#{$color}-darker:   var(--color-#{$color}-20);
@@ -19,7 +19,7 @@
     --color-on-#{$color}-lightest: var(--color-#{$color}-10);
     --color-on-#{$color}-lighter:  var(--color-#{$color}-10);
     --color-on-#{$color}-light:    var(--color-#{$color}-0);
-    --color-on-#{$color}-hover:     var(--color-#{$color}-0);
+    --color-on-#{$color}-hover:    var(--color-#{$color}-0);
     --color-on-#{$color}-base:     var(--color-#{$color}-100);
     --color-on-#{$color}-dark:     var(--color-#{$color}-90);
     --color-on-#{$color}-darker:   var(--color-#{$color}-95);
