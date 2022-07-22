@@ -1,0 +1,144 @@
+version: v1.0
+name: <%= @project_name %>
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+auto_cancel:
+  running:
+    when: branch != 'main'
+global_job_config:
+  env_vars:
+    - name: RAILS_ENV
+      value: test
+    - name: HONEYBADGER_SOURCE_MAP_DISABLED
+      value: 'true'
+    - name: DATABASE_URL
+      value: 'postgres://postgres:@0.0.0.0/<%= Rails.application.config.database_configuration['test']['database'] %>'
+    - name: GOOGLE_CHROME_BIN
+      value: 'google-chrome'
+    - name: TB_RSPEC_OPTIONS
+      value: '--format RspecJunitFormatter --out tmp/test_results/rspec_junit.xml --format documentation'
+  secrets:
+    - name: rmsbackup_ssh_private_key
+  prologue:
+    commands:
+      - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - chmod 600 ~/.ssh/id_rsa_rmsbackup_ssh_private_key
+      - ssh-add ~/.ssh/id_rsa_rmsbackup_ssh_private_key
+      - sem-version c 8
+      - checkout
+      - sem-service start postgres 14
+      - sem-version ruby $(cat .ruby-version)
+      - sem-version node $(cat .node-version)
+      - gem install bundler --no-document
+      - npm i -g yarn
+      - bundle config set deployment 'true'
+      - bundle config set path 'vendor/bundle'
+      - cache restore gems-$(checksum .ruby-version)-$(checksum Gemfile.lock)
+      - cache restore yarn-cache-$(checksum .node-version)-$(checksum yarn.lock)
+      - cache restore yarn-node-modules-$(checksum .node-version)-$(checksum yarn.lock)
+blocks:
+  - name: Build
+    dependencies: []
+    task:
+      jobs:
+        - name: Install Dependencies
+          commands:
+            - bundle check || bundle install
+            - yarn check || yarn install
+      epilogue:
+        commands:
+          - cache store gems-$(checksum .ruby-version)-$(checksum Gemfile.lock) vendor/bundle
+          - cache store yarn-cache-$(checksum .node-version)-$(checksum yarn.lock) /home/semaphore/.cache/yarn
+          - cache store yarn-node-modules-$(checksum .node-version)-$(checksum yarn.lock) node_modules
+  - name: Ruby/JS/Linting
+    execution_time_limit:
+      minutes: 20
+    dependencies:
+      - Build
+    task:
+      jobs:
+        - name: Ruby Test/JS Tests/Audit/Linting
+          commands:
+            - bundle exec rake db:setup
+            - bundle exec rake db:test:prepare
+            - bundle exec rspec --exclude-pattern "spec/system/**/*_spec.rb" --format RspecJunitFormatter --out tmp/test_results/rspec_junit.xml --format documentation
+            - yarn test_ci
+            - yarn test_shared
+            - bundle exec bundle-audit update
+            - bundle exec bundle-audit check
+            - bundle exec rubocop --fail-level warning --display-only-fail-level-offenses
+            # - yarn run eslint
+            # - bundle exec brakeman
+      epilogue:
+        always:
+          commands:
+            - test-results publish tmp/test_results
+            - curl -fsSL --retry 3 --retry-connrefused https://get.buildpulse.io/test-reporter-linux-amd64 > ./buildpulse-test-reporter
+            - chmod +x ./buildpulse-test-reporter
+            - ./buildpulse-test-reporter submit tmp/test_results/rspec_junit.xml --account-id 4949073 --repository-id 479450215
+        on_fail:
+          commands:
+            - artifact push job log/test.log --expire-in 2w
+  - name: Assets Compile
+    dependencies:
+      - Build
+    execution_time_limit:
+      minutes: 20
+    task:
+      jobs:
+        - name: Webpack Compile and Store Assets
+          commands:
+            - bundle exec rails webpacker:compile
+            - cache store assets-public-$SEMAPHORE_WORKFLOW_ID public
+  - name: System Tests
+    dependencies:
+      - Assets Compile
+    execution_time_limit:
+      minutes: 20
+    task:
+      agent:
+        machine:
+          type: e1-standard-4
+          os_image: ubuntu1804
+      env_vars:
+        - name: TEST_BOOSTERS_RSPEC_TEST_FILE_PATTERN
+          value: spec/system/**/*_spec.rb
+      prologue:
+        commands:
+          - gem install semaphore_test_boosters
+          - bundle exec rails db:setup db:test:prepare
+          - cache restore assets-public-$SEMAPHORE_WORKFLOW_ID
+      jobs:
+        - name: Ruby System Tests
+          parallelism: 2
+          commands:
+            - rspec_booster --job $SEMAPHORE_JOB_INDEX/$SEMAPHORE_JOB_COUNT
+      epilogue:
+        always:
+          commands:
+            - test-results publish tmp/test_results
+            - curl -fsSL --retry 3 --retry-connrefused https://get.buildpulse.io/test-reporter-linux-amd64 > ./buildpulse-test-reporter
+            - chmod +x ./buildpulse-test-reporter
+            - ./buildpulse-test-reporter submit tmp/test_results/rspec_junit.xml --account-id 4949073 --repository-id 479450215
+            - cache delete assets-public-$SEMAPHORE_WORKFLOW_ID
+        on_fail:
+          commands:
+            - artifact push job log/test.log --expire-in 2w
+            - artifact push workflow tmp/capybara --expire-in 2w
+after_pipeline:
+  task:
+    jobs:
+      - name: Publish Results
+        commands:
+          - test-results gen-pipeline-report
+promotions:
+  - name: Deploy Staging
+    pipeline_file: staging-deploy.yml
+    auto_promote_on:
+      - result: passed
+        branch:
+          - master
+  - name: Deploy Production
+    pipeline_file: production-deploy.yml
