@@ -60,6 +60,7 @@ bin/rails g
 ## Generators
 
 * [Github](./lib/generators/rolemodel/github)
+* [Semaphore](./lib/generators/rolemodel/semaphore)
 * [Testing](./lib/generators/rolemodel/testing)
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)

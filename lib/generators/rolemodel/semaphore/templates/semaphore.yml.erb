@@ -64,13 +64,11 @@ blocks:
             - bundle exec rake db:setup
             - bundle exec rake db:test:prepare
             - bundle exec rspec --exclude-pattern "spec/system/**/*_spec.rb" --format RspecJunitFormatter --out tmp/test_results/rspec_junit.xml --format documentation
-            - yarn test_ci
-            - yarn test_shared
             - bundle exec bundle-audit update
             - bundle exec bundle-audit check
             - bundle exec rubocop --fail-level warning --display-only-fail-level-offenses
+            # - yarn test
             # - yarn run eslint
-            # - bundle exec brakeman
       epilogue:
         always:
           commands:
@@ -139,6 +137,6 @@ promotions:
     auto_promote_on:
       - result: passed
         branch:
-          - master
+          - main
   - name: Deploy Production
     pipeline_file: production-deploy.yml
