@@ -6,4 +6,6 @@ Example:
 
   This will create:
     semaphore.yml
-    <!-- TODO: fill in the rest of this file -->
+    heroku-deployment-commands.sh
+    staging-deploy.yml
+    production-deploy.yml

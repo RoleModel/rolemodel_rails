@@ -2,9 +2,10 @@
 
 ## What you get
 
-<!-- TODO: fill in the rest of this file -->
 * semaphore.yml file to run the relevant CI commands
-* heroku-deplyment-commands
+* heroku-deployment-commands.sh file with commands to deploy to heroku
+* staging-deploy.yml file with commands to deploy to staging
+* production-deploy.yml file with commands to deploy to production
 
 This is the basic config needed to use semaphore.
 
