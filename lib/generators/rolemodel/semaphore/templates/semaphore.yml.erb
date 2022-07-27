@@ -17,24 +17,32 @@ global_job_config:
       value: 'postgres://postgres:@0.0.0.0/<%= Rails.application.config.database_configuration['test']['database'] %>'
     - name: GOOGLE_CHROME_BIN
       value: 'google-chrome'
+    # https://github.com/renderedtext/test-boosters#rspec-booster
     - name: TB_RSPEC_OPTIONS
       value: '--format RspecJunitFormatter --out tmp/test_results/rspec_junit.xml --format documentation'
   secrets:
     - name: rmsbackup_ssh_private_key
   prologue:
     commands:
+      # Add keys
       - ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - chmod 600 ~/.ssh/id_rsa_rmsbackup_ssh_private_key
       - ssh-add ~/.ssh/id_rsa_rmsbackup_ssh_private_key
-      - sem-version c 8
+
       - checkout
+
+      # Ruby setup
       - sem-service start postgres 14
       - sem-version ruby $(cat .ruby-version)
-      - sem-version node $(cat .node-version)
       - gem install bundler --no-document
-      - npm i -g yarn
       - bundle config set deployment 'true'
       - bundle config set path 'vendor/bundle'
+
+      # Node setup
+      - sem-version node $(cat .node-version)
+      - npm i -g yarn
+
+      # Cache setup
       - cache restore gems-$(checksum .ruby-version)-$(checksum Gemfile.lock)
       - cache restore yarn-cache-$(checksum .node-version)-$(checksum yarn.lock)
       - cache restore yarn-node-modules-$(checksum .node-version)-$(checksum yarn.lock)
@@ -61,8 +69,7 @@ blocks:
       jobs:
         - name: Ruby Test/JS Tests/Audit/Linting
           commands:
-            - bundle exec rake db:setup
-            - bundle exec rake db:test:prepare
+            - bundle exec rails db:setup db:test:prepare
             - bundle exec rspec --exclude-pattern "spec/system/**/*_spec.rb" --format RspecJunitFormatter --out tmp/test_results/rspec_junit.xml --format documentation
             - bundle exec bundle-audit update
             - bundle exec bundle-audit check
@@ -73,9 +80,6 @@ blocks:
         always:
           commands:
             - test-results publish tmp/test_results
-            - curl -fsSL --retry 3 --retry-connrefused https://get.buildpulse.io/test-reporter-linux-amd64 > ./buildpulse-test-reporter
-            - chmod +x ./buildpulse-test-reporter
-            - ./buildpulse-test-reporter submit tmp/test_results/rspec_junit.xml --account-id 4949073 --repository-id 479450215
         on_fail:
           commands:
             - artifact push job log/test.log --expire-in 2w
@@ -117,9 +121,6 @@ blocks:
         always:
           commands:
             - test-results publish tmp/test_results
-            - curl -fsSL --retry 3 --retry-connrefused https://get.buildpulse.io/test-reporter-linux-amd64 > ./buildpulse-test-reporter
-            - chmod +x ./buildpulse-test-reporter
-            - ./buildpulse-test-reporter submit tmp/test_results/rspec_junit.xml --account-id 4949073 --repository-id 479450215
             - cache delete assets-public-$SEMAPHORE_WORKFLOW_ID
         on_fail:
           commands:

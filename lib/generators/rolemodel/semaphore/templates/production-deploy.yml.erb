@@ -11,7 +11,7 @@ blocks:
         - name: heroku_http_auth
       env_vars:
         - name: HEROKU_APP_NAME
-          value: <%= "#{@project_name}-production" %>
+          value: <%= "#{@heroku_prefix}-production" %>
       jobs:
         - name: 'Push code to Production'
           commands_file: heroku-deployment-commands.sh
