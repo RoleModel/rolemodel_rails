@@ -60,6 +60,7 @@ bin/rails g
 ## Generators
 
 * [Github](./lib/generators/rolemodel/github)
+* [Semaphore](./lib/generators/rolemodel/semaphore)
 * [Testing](./lib/generators/rolemodel/testing)
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
@@ -78,12 +79,12 @@ bin/rails g
 
 ## Development
 
-We use the 2 embeded Rails apps [example](./example) and [example_with_webpacker](./example_with_webpacker) to test the usage of the generators.
+We use the 2 embeded Rails apps [Rails 5 Example](./recreate_rails5_example) and [Rails 6 Example](./recreate_rails6_example) to test the usage of the generators.
 
-`example` is simply a fresh generated Rails app. To recreate it (after Rails version changes, etc) use:
+`recreate_rails6_example` is simply a fresh generated Rails 6 app. To recreate it use:
 
 ```shell
-bin/recreate_example
+bin/recreate_rails6_example
 ```
 
 Because Webpacker has so many moving parts, we want test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:

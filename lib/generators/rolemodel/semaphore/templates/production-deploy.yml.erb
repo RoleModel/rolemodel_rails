@@ -1,0 +1,17 @@
+version: v1.0
+name: Deploy to Production
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Deploy
+    task:
+      secrets:
+        - name: heroku_http_auth
+      env_vars:
+        - name: HEROKU_APP_NAME
+          value: <%= "#{@heroku_prefix}-production" %>
+      jobs:
+        - name: 'Push code to Production'
+          commands_file: heroku-deployment-commands.sh
