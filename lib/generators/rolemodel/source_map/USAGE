@@ -1,0 +1,9 @@
+Description:
+    Adds Rack middleware for serving js source maps
+
+Example:
+    rails generate rolemodel:source_map
+
+    This will create:
+        app/middleware/rolemodel/source_map.rb
+        config/initializers/source_map.rb
