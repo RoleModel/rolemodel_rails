@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class SourceMapGenerator
+  class SourceMapGenerator < Rails::Generators::Base
     def initialize(app, allowed_users_emails = [], **options)
       root = options.delete(:root) || 'maps'
       default_headers = {'Set-Cookie' => 'Same-Site=None', 'Cache-Control' => 'max-age=0;no-cache'}
@@ -25,6 +25,7 @@ module Rolemodel
       (current_user_email = current_user(env)&.email) &&
         (current_user_email.include?('@rolemodelsoftware.com') || @allowed_users_emails.include?(current_user_email))
     end
+
     def current_user(env)
       env['warden'].user
     end
