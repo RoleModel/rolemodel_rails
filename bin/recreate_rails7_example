@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+rm -fr example_rails7
+rails _7.0.4_ new --skip-keeps --skip-git --javascript=webpack --database=postgresql example_rails7
+cd example_rails7
+echo "group :development do
+  gem 'rolemodel_rails', path: '..'
+end" >> Gemfile
+bundle install
+git checkout config/credentials.yml.enc
+git checkout config/master.key
+cd -
