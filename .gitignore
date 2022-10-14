@@ -15,3 +15,4 @@ log
 
 # Ignore generated files in examples
 **/public/packs
+**/app/assets/builds

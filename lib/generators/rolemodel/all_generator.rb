@@ -7,6 +7,7 @@ module Rolemodel
       generate 'rolemodel:semaphore'
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
+      generate 'rolemodel:webpack'
       generate 'rolemodel:webpacker'
       generate 'rolemodel:css:all'
       generate 'rolemodel:testing:all'
