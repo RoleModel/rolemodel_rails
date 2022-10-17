@@ -14,7 +14,7 @@ Sets up Webpacker using curated set of templates maintained in this project. We 
 
 Needed after new versions are released.
 
-In [example_rails5](example_rails5) or  [example_rails6](example_rails6)
+In [example_rails6](example_rails6)
 
 ```
 rails g rolemodel:webpacker:dev

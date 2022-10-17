@@ -84,7 +84,9 @@ bin/rails g
 
 ## Development
 
-We use the 2 embeded Rails apps [Rails 5 Example](./recreate_rails5_example) and [Rails 6 Example](./recreate_rails6_example) to test the usage of the generators.
+Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
+
+We use the embeded Rails apps [Rails 6 Example](./recreate_rails6_example) to test the usage of the generators.
 
 `recreate_rails6_example` is simply a fresh generated Rails 6 app. To recreate it use:
 
