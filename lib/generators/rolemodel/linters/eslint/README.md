@@ -2,4 +2,4 @@
 
 ## What you get
 
-An ESLint installation with a standard .eslintrc.js config.
+An ESLint installation with a standard .eslintrc.cjs config.

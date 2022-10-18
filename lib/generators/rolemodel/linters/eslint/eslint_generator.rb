@@ -9,7 +9,6 @@ module Rolemodel
       def install_eslint
         packages = %w[
           eslint
-          babel-eslint
           eslint-config-airbnb
           eslint-plugin-import
           eslint-import-resolver-webpack
@@ -21,7 +20,15 @@ module Rolemodel
       end
 
       def add_config
-        template '.eslintrc.js', '.eslintrc.js'
+        template '.eslintrc.cjs', '.eslintrc.cjs'
+      end
+
+      def add_eslint_command_to_package_json
+        json = JSON.parse(File.read('package.json'))
+        json['scripts'] = (json['scripts'] || {}).merge(
+          eslint: "eslint .",
+        )
+        File.write('package.json', JSON.pretty_generate(json) + "\n")
       end
     end
   end
