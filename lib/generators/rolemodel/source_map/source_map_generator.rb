@@ -1,7 +1,7 @@
 #frozen_string_literal: true
 
 module Rolemodel
-  class ReadmeGenerator < Rails::Generators::Base
+  class SourceMapGenerator < Rails::Generators::Base
     source_root File.expand_path(__dir__)
 
     def copy_source_map_files
