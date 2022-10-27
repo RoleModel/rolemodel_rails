@@ -10,7 +10,7 @@ Adds Rack middleware for serving js source maps only to allowed users in a produ
     
 * Ensure that app uses Warden::Manager middleware
 * Set ENV['SOURCE_MAPS_ALLOWED_USERS_EMAILS'] to a space separated list of emails
-* If a different bundler from Webpack used, then following config must be applied:
+* Next configs must be applied to a bundling tool (e.g. Webpack):
     * [bundle].js needs to be placed in [RAILS_ROOT]/public/packs/js directory
     * Generate  source maps and append sourceMappingURL=[bundle].js bundled file
     * Relocate source maps out of [RAILS_ROOT]/public/packs/js/ directory to the [RAILS_ROOT]/maps/js directory
