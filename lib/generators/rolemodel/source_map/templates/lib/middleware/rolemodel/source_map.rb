@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class SourceMapGenerator
+  class SourceMap
     def initialize(app, **options)
       root = options.delete(:root) || 'maps'
       default_headers = {'Set-Cookie' => 'Same-Site=None', 'Cache-Control' => 'max-age=0;no-cache'}
