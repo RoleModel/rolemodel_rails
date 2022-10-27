@@ -15,6 +15,7 @@ module Rolemodel
       generate 'rolemodel:saas:all'
       generate 'rolemodel:linters:all'
       generate 'rolemodel:mailers'
+      generate 'rolemodel:source_map'
     end
   end
 end
