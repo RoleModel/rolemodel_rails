@@ -6,4 +6,3 @@ Example:
 
     This will create:
         app/middleware/rolemodel/source_map.rb
-        config/initializers/source_map.rb
