@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require_relative '../../../bundler_helpers'
 
 module Rolemodel
   module Linters
+    # Install Standard rubocop and custom Cop
     class RubocopGenerator < Rails::Generators::Base
       include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
@@ -15,7 +18,8 @@ module Rolemodel
       end
 
       def add_config
-        template '.rubocop.yml', '.rubocop.yml'
+        copy_file '.rubocop.yml'
+        copy_file 'app/cops/form_error_response.rb'
       end
     end
   end
