@@ -6,3 +6,4 @@ Example:
 
     This will create:
         .rubocop.yml
+        app/cops/form_error_response.rb

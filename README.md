@@ -76,6 +76,11 @@ bin/rails g
 * [SaaS](./lib/generators/rolemodel/saas)
   * [Devise](./lib/generators/rolemodel/saas/devise)
 * [Mailers](./lib/generators/rolemodel/mailers)
+* [Linters](./lib/generators/rolemodel/linters)
+  * [Rubocop](./lib/generators/rolemodel/linters/rubocop)
+  * [ESLint](./lib/generators/rolemodel/linters/eslint)
+* [Modals](./lib/generators/rolemodel/modals)
+* [Source Map](./lib/generators/rolemodel/source_map)
 
 ## Development
 
