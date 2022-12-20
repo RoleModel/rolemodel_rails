@@ -1,0 +1,9 @@
+Description:
+    generates EditorConfig and recommends VSCode extensions
+
+Example:
+    rails generate rolemodel:editors
+
+    This will create:
+        .editorconfig
+        .vscode/extensions.json
