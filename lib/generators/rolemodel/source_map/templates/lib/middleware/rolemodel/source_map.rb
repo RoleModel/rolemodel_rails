@@ -12,7 +12,7 @@ module Rolemodel
     end
 
     def call(env)
-      serve? ? @file_server.call(env.tap { |env| env['PATH_INFO'].sub!(/^\/[\w-]+[^\/]/, '') }) : @app.call(env)
+      serve?(env) ? @file_server.call(env.tap { |env| env['PATH_INFO'].sub!(/^\/[\w-]+[^\/]/, '') }) : @app.call(env)
     end
 
     private
