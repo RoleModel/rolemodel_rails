@@ -19,7 +19,7 @@ module Rolemodel
 
       def add_config
         copy_file '.rubocop.yml'
-        copy_file 'app/cops/form_error_response.rb'
+        copy_file 'lib/cops/form_error_response.rb'
       end
     end
   end
