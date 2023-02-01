@@ -1,0 +1,38 @@
+- content_for :breadcrumb do
+  = link_to t('.reports', default: 'Reports'), reports_dashboards_path
+  = icon('chevron_right')
+  = @dashboard.name
+
+- # changed v
+= stylesheet_link_tag "blazer"
+= javascript_include_tag "blazer/application"
+javascript:
+  #{blazer_js_var "rootPath", "/reports/"} // < changed
+- if blazer_maps?
+  = stylesheet_link_tag "https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css", integrity: "sha384-vxzdEt+wZRPNQbhChjmiaFMLWg86IGuq1NGDehJHsD2mphYkxXll/eSs16WWi6Dq", crossorigin: "anonymous"
+  = javascript_include_tag "https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js", integrity: "sha384-CTBEiDLiZJ8gkAQ3fYGoeiRp81/ecNiBkGz11jXFALOZ6++rbnqmdo6OImkmr1MO", crossorigin: "anonymous"
+
+h1= @dashboard.name
+
+- if @bind_vars.any?
+  - # changed v
+  = render partial: "blazer/variables", locals: { action: reports_dashboard_path(@dashboard) }
+
+- @queries.each_with_index do |query, i|
+  .chart-container
+    h4= query.friendly_name
+    -if query.description.present?
+      div= markdown(query.filtered_description.html_safe)
+    .chart id="chart-#{i}"
+      - # changed v
+      p.text-muted= t('.loading', default: 'Loading...')
+
+  javascript:
+    #{blazer_js_var "data", {statement: @statements[i], query_id: query.id, data_source: query.data_source, only_chart: true, cohort_period: params[:cohort_period]}}
+
+    runQuery(data, function (data) {
+      $("#chart-#{i}").html(data)
+      $("#chart-#{i} table").stupidtable(stupidtableCustomSettings)
+    }, function (message) {
+      $("#chart-#{i}").addClass("query-error").html(message)
+    });
