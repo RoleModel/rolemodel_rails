@@ -3,23 +3,20 @@ require 'rails_helper'
 
 RSpec.describe 'Reporting', type: :system, js: true do
   let(:user) { create(:user) }
-  let!(:basic_query) do
-    sql = 'select 1'
-    create :blazer_query, name: 'Basic Report', statement: sql
+  let!(:basic_report) do
+    create :blazer_dashboard, name: 'Basic Report'
   end
 
   before { sign_in user }
 
   context 'Happy Path' do
-    it 'allows a user to select and download a report CSV' do
-      visit reports_path
-      expect(page).to have_current_path(reports_path)
+    it 'allows a user to show a report' do
+      visit reports_dashboards_path
+      expect(page).to have_current_path(reports_dashboards_path)
       expect(page).to have_content('Basic Report')
       click_on 'Show'
-      expect(page).to have_current_path(reports_query_path(basic_query))
-      click_on 'Run'
-      # find(data_test('download-csv-button')).click
-      # expect(page).to have_button()
+      expect(page).to have_current_path(reports_dashboard_path(basic_report))
+      expect(page).to have_content('Basic Report')
     end
   end
 end
