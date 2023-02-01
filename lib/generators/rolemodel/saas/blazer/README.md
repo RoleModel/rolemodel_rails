@@ -8,16 +8,12 @@ Depends on slim
 
 Installs [blazer](https://github.com/ankane/blazer)
 
-<!-- ### Models
-* Adds User model
-* Add Organization model (if needed)
+### Controllers
+* Adds Reports::DashboardController
+* Add Reports::QueriesController
 
 ### Views
-* Current user
-* Sign up, sign in, sign out
-* Add user profile page
-* Invitation page (if requested)
+* Reports list and show
 
 ### Tests
-* Devise test helpers
-* User system test -->
+* Report system test

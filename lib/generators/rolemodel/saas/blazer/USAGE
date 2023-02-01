@@ -3,23 +3,3 @@ Description:
 
 Example:
     rails generate rolemodel:saas:blazer
-
-    <!-- This will create:
-        app/controllers/application_controller.rb
-        app/controllers/users
-        app/models/organization.rb
-        app/models/user.rb
-        app/views/devise
-        config/initializers/devise.rb
-        spec/support/devise.rb
-        spec/system/users_spec.rb
-        spec/factories/organizations.rb
-        spec/factories/users.rb
-        spec/mailers/previews/devise_mailer_preview.rb
-
-    This will modify:
-        config/environments/development.rb
-        config/environments/production.rb
-        config/routes.rb
-        app/models/user.rb
-        db/seeds.rb -->

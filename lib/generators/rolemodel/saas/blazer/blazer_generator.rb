@@ -7,7 +7,7 @@ module Rolemodel
       source_root File.expand_path('templates', __dir__)
 
       def install_blazer
-        gem 'sprockets-rails'
+        gem 'sprockets-rails' unless File.readlines('Gemfile').grep(/sprockets/).any?
         gem 'blazer'
         run_bundle
 
@@ -49,10 +49,6 @@ module Rolemodel
       def add_styles
         copy_file 'app/assets/stylesheets/blazer.css'
         copy_file 'app/assets/stylesheets/selectize.css'
-      end
-
-      def add_javascript
-        # what here?
       end
 
       def add_tests
