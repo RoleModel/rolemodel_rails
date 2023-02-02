@@ -27,7 +27,7 @@ module Rolemodel
         route_info += "    resources :dashboards, only: %i[index show]\n"
         route_info += "    resources :queries, only: [] do\n"
         route_info += "      post :run, on: :collection\n"
-        route_info += "      post :cancel, on: :collection\n"
+        route_info += "      # post :cancel, on: :collection\n"
         route_info += "    end\n"
         route_info += "  end\n"
         route route_info
