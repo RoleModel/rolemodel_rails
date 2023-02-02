@@ -20,6 +20,7 @@ h1= @dashboard.name
       - # changed v (translation added)
       p.text-muted= t('.loading', default: 'Loading...')
 
+  - # changed v (removed statement)
   - data = {query_id: query.id, data_source: query.data_source, variables: variable_params(query), only_chart: true}
   - data.merge!(cohort_period: params[:cohort_period]) if params[:cohort_period]
   javascript:

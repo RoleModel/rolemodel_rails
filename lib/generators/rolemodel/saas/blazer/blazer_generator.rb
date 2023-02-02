@@ -14,6 +14,11 @@ module Rolemodel
         generate 'blazer:install'
       end
 
+      def update_migration
+        filename = Dir.glob('db/migrate/*_install_blazer.rb').first
+        inject_into_file filename, ', foreign_key: { to_table: :users }', after: 't.references :creator'
+      end
+
       def add_routes
         return if File.readlines('config/routes.rb').grep(/blazer/).any?
 
@@ -50,6 +55,7 @@ module Rolemodel
       def add_styles
         copy_file 'app/assets/stylesheets/blazer.css'
         copy_file 'app/assets/stylesheets/selectize.css'
+        append_to_file 'app/assets/config/manifest.js', "\n//= link blazer.css"
       end
 
       def add_tests
