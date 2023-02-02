@@ -1,8 +1,3 @@
-- content_for :breadcrumb do
-  = link_to t('.reports', default: 'Reports'), reports_dashboards_path
-  = icon('chevron_right')
-  = @dashboard.name
-
 - # changed v
 = stylesheet_link_tag "blazer"
 = javascript_include_tag "blazer/application"
@@ -15,20 +10,20 @@ javascript:
 h1= @dashboard.name
 
 - if @bind_vars.any?
-  - # changed v
+  - # changed v (route)
   = render partial: "blazer/variables", locals: { action: reports_dashboard_path(@dashboard) }
 
 - @queries.each_with_index do |query, i|
   .chart-container
     h4= query.friendly_name
-    -if query.description.present?
-      div= markdown(query.filtered_description.html_safe)
     .chart id="chart-#{i}"
-      - # changed v
+      - # changed v (translation added)
       p.text-muted= t('.loading', default: 'Loading...')
 
+  - data = {query_id: query.id, data_source: query.data_source, variables: variable_params(query), only_chart: true}
+  - data.merge!(cohort_period: params[:cohort_period]) if params[:cohort_period]
   javascript:
-    #{blazer_js_var "data", {statement: @statements[i], query_id: query.id, data_source: query.data_source, only_chart: true, cohort_period: params[:cohort_period]}}
+    #{blazer_js_var "data", data }
 
     runQuery(data, function (data) {
       $("#chart-#{i}").html(data)

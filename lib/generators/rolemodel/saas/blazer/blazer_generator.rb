@@ -17,19 +17,20 @@ module Rolemodel
       def add_routes
         return if File.readlines('config/routes.rb').grep(/blazer/).any?
 
-        route_info = "  # authenticate :user, ->(u) { Admin::ReportPolicy.new(u, :report).manage? } do\n"
-        route_info += "  mount Blazer::Engine => '/admin/reports', as: :blazer\n"
-        route_info += '  # end'
-        inject_into_file 'config/routes.rb', route_info, after: /Rails.application.routes.draw do$\n/
-
         # add routes for the report controllers
         route_info = "  namespace :reports do\n"
-        route_info += "    resources :dashboards\n"
-        route_info += "    resources :queries do\n"
+        route_info += "    resources :dashboards, only: %i[index show]\n"
+        route_info += "    resources :queries do, only: []\n"
         route_info += "      post :run, on: :collection\n"
         route_info += "      post :cancel, on: :collection\n"
         route_info += "    end\n"
-        route_info += '  end'
+        route_info += "  end\n"
+        route route_info
+
+        # add routes for the Blazer engine
+        route_info = "  # authenticate :user, ->(u) { Admin::ReportPolicy.new(u, :report).manage? } do\n"
+        route_info += "  mount Blazer::Engine => '/admin/reports', as: :blazer\n"
+        route_info += "  # end\n"
         route route_info
       end
 
