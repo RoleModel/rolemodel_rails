@@ -2,16 +2,16 @@ header.header--index-action
   h1= t('.reports', default: 'Reports')
 
 .table__wrapper
-  - # Since blazer loads its own JS, we can't rely on turbolinks to work
+  - # Since blazer loads its own JS, we can't rely on turbo to work
   table.table
     thead
       tr
         th= t('activerecord.attributes.blazer_dashboard.name', default: 'Name')
-        th width="85px"= t('.actions', default: 'Actions')
+        th= t('.actions', default: 'Actions')
 
     tbody
       - @dashboards.each do |dashboard|
         tr data-test-id="#{dashboard.id}"
           td= dashboard.name
           td.table__actions
-            = link_to t('.show', default: 'Show'), reports_dashboard_path(dashboard)
+            = link_to t('.show', default: 'Show'), reports_dashboard_path(dashboard), data: { turbo: false }
