@@ -2,4 +2,4 @@ Description:
     installs and configures Blazer
 
 Example:
-    rails generate rolemodel:saas:blazer
+    rails generate rolemodel:blazer

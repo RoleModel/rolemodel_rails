@@ -1,7 +1,7 @@
 # Blazer Generator
 
 Depends on the blazer generator
-Depends on [RSpec Generator](../../testing/rspec)
+Depends on [RSpec Generator](../testing/rspec)
 Depends on slim
 Works best with Optics
 * If not using with Optics, update blazer.css to use your own tokens.

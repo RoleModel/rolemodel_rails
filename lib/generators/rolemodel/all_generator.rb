@@ -13,6 +13,7 @@ module Rolemodel
       generate 'rolemodel:simple_form'
       generate 'rolemodel:soft_destroyable'
       generate 'rolemodel:saas:all'
+      generate 'rolemodel:blazer'
       generate 'rolemodel:editors'
       generate 'rolemodel:linters:all'
       generate 'rolemodel:mailers'

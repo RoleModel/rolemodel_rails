@@ -4,6 +4,7 @@
 
 ## What you get
 
+* [Blazer](./blazer)
 * [CSS](./css)
 * [Github](./github)
 * [Heroku](./heroku)
