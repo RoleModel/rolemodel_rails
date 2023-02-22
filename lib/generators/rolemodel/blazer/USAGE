@@ -1,0 +1,5 @@
+Description:
+    installs and configures Blazer
+
+Example:
+    rails generate rolemodel:blazer

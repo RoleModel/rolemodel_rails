@@ -1,0 +1,34 @@
+- # changed v
+= stylesheet_link_tag "blazer"
+= javascript_include_tag "blazer/application"
+javascript:
+  #{blazer_js_var "rootPath", "/reports/"} // < changed
+- if blazer_maps?
+  = stylesheet_link_tag "https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css", integrity: "sha384-vxzdEt+wZRPNQbhChjmiaFMLWg86IGuq1NGDehJHsD2mphYkxXll/eSs16WWi6Dq", crossorigin: "anonymous"
+  = javascript_include_tag "https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js", integrity: "sha384-CTBEiDLiZJ8gkAQ3fYGoeiRp81/ecNiBkGz11jXFALOZ6++rbnqmdo6OImkmr1MO", crossorigin: "anonymous"
+
+h1= @dashboard.name
+
+- if @bind_vars.any?
+  - # changed v (route)
+  = render partial: "blazer/variables", locals: { action: reports_dashboard_path(@dashboard) }
+
+- @queries.each_with_index do |query, i|
+  .chart-container
+    h4= query.friendly_name
+    .chart id="chart-#{i}"
+      - # changed v (translation added)
+      p.text-muted= t('.loading', default: 'Loading...')
+
+  - # changed v (removed statement)
+  - data = {query_id: query.id, data_source: query.data_source, variables: variable_params(query), only_chart: true}
+  - data.merge!(cohort_period: params[:cohort_period]) if params[:cohort_period]
+  javascript:
+    #{blazer_js_var "data", data }
+
+    runQuery(data, function (data) {
+      $("#chart-#{i}").html(data)
+      $("#chart-#{i} table").stupidtable(stupidtableCustomSettings)
+    }, function (message) {
+      $("#chart-#{i}").addClass("query-error").html(message)
+    });

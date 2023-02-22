@@ -12,9 +12,11 @@ module Rolemodel
         end
         run_bundle
 
-        gem_group :test do
-          gem 'capybara'
-          gem 'webdrivers'
+        if File.readlines('Gemfile').grep(/capybara|webdrivers/).none?
+          gem_group :test do
+            gem 'capybara' unless File.readlines('Gemfile').grep(/capybara/).any?
+            gem 'webdrivers' unless File.readlines('Gemfile').grep(/webdrivers/).any?
+          end
         end
         run_bundle
       end

@@ -36,7 +36,7 @@ module Rolemodel
         layouts = [ 'erb', 'slim' ].each do |template_language|
           layout_file = "app/views/layouts/application.html.#{template_language}"
 
-          next unless File.exists? layout_file
+          next unless File.exist? layout_file
           gsub_file layout_file, "stylesheet_link_tag 'application', media: 'all'", "stylesheet_pack_tag 'stylesheets'"
         end
       end

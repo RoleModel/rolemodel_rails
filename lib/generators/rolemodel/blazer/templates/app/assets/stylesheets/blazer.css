@@ -1,0 +1,82 @@
+/*
+ *= require ./selectize
+ *= require_self
+ *= require blazer/daterangepicker
+ */
+
+/* These styles map Blazer's html structure into our look and feel. */
+
+.results-container { /* Copied from .table__wrapper */
+  overflow: auto;
+}
+
+.text-muted {
+  color: var(--rm-color-disabled);
+}
+
+.chart-container { /* Copied from .card */
+  position: relative;
+  border: 1px solid var(--rm-color-contrast-medium);
+  border-radius: var(--rm-radius);
+  padding: var(--rm-space-large);
+  width: 100%;
+  background: var(--rm-color-white);
+  margin-bottom: var(--rm-space-medium);
+}
+
+.btn-success { /* Copied from .btn--rm-primary */
+  background: var(--rm-color-primary-minus-four);
+  color: var(--rm-color-white);
+  &:hover {
+    opacity: 0.7;
+  }
+  &:visited {
+    color: var(--rm-color-white);
+  }
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.form-inline label {
+  margin-bottom: 0;
+}
+
+.selectize-control {
+  margin-right: var(--rm-space-medium);
+}
+
+/* date range picker */
+body .daterangepicker .drp-buttons .btn {
+  font-size: var(--rm-text-small);
+  padding: inherit;
+  margin-top: var(--rm-space-x-small);
+  margin-bottom: var(--rm-space-x-small);
+}
+
+body .daterangepicker .drp-buttons .btn.cancelBtn {
+  box-shadow: var(--rm-border-all) var(--rm-border-color);
+  background: var(--rm-color-white);
+  color: var(--rm-color-neutral-minus-max);
+}
+
+body .daterangepicker .drp-buttons .btn.applyBtn {
+  background: var(--rm-color-primary-minus-four);
+  color: var(--rm-color-white);
+}
+
+body .daterangepicker td.in-range {
+  background: var(--rm-color-primary-plus-four);
+}
+
+body .daterangepicker td.active, body .daterangepicker td.active:hover {
+  background: var(--rm-color-primary-minus-four);
+  color: var(--rm-color-white);
+}
+
+body .daterangepicker .ranges li.active {
+  background: var(--rm-color-primary-minus-four);
+  color: var(--rm-color-white);
+}
