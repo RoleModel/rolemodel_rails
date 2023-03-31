@@ -1,7 +1,8 @@
-turbo-frame id="flash"
+turbo-frame id='flash'
   - flash.each do |type, msg|
     .flash class="flash--#{type}"
-      = icon(icon_name_for_flash(type), classes: 'material-icons--lg', outline: true)
+      = material_icon(icon_name_for_flash(type), classes: 'material-icons--lg')
       .margin-left-md
         .flash__message-type = type.humanize
         .flash__message = msg
+
