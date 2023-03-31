@@ -9,7 +9,6 @@ module Rolemodel
       generate 'rolemodel:readme'
       generate 'rolemodel:webpack'
       generate 'rolemodel:react'
-      generate 'rolemodel:webpacker'
       generate 'rolemodel:css:all'
       generate 'rolemodel:testing:all'
       generate 'rolemodel:simple_form'

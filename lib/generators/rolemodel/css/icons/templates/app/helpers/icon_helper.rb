@@ -1,47 +1,67 @@
-module IconHelper
-  def icon(name, classes: nil, color: nil, hover_text: name)
-    using_custom_icon = custom?(name)
-    contents = using_custom_icon ? custom_content(name) : name
+# frozen_string_literal: true
 
-    tag.span(contents, class: classes(classes, using_custom_icon), style: "color: var(--color-#{color})", title: hover_text)
+# rubocop:disable Metrics/ParameterLists
+
+module IconHelper
+  def material_icon(name, filled: false, size: 'medium', weight: 'normal', emphasis: 'normal', color: nil, classes: nil, hover_text: name)
+    options = {
+      class: classes(false, filled, size, weight, emphasis, classes),
+      title: hover_text
+    }
+
+    options[:style] = "color: var(--op-color-#{color}-base);" if color # primary, neutral, alerts-danger, alerts-warning, alerts-notice, alerts-notice
+
+    tag.span(name, **options)
+  end
+
+  def icon(name, filled: false, size: 'medium', weight: 'normal', emphasis: 'normal', color: nil, classes: nil, hover_text: name)
+    using_custom_icon = custom_icon_path(name).present?
+
+    contents = using_custom_icon ? embedded_svg("icons/#{name}.svg") : name
+
+    options = {
+      class: classes(using_custom_icon, filled, size, weight, emphasis, classes),
+      title: hover_text
+    }
+
+    if color
+      options[:style] = "#{using_custom_icon ? 'fill' : 'color'}: var(--rms-colors-#{color}-base);"
+    end
+
+    tag.span(contents, **options)
+  end
+
+  # Inspired by https://blog.cloud66.com/using-svgs-in-a-rails-stack
+  def embedded_svg(filename, options = {})
+    asset = Rails.application.assets_manifest.find_sources(filename).first
+
+    if asset
+      file = asset.source.force_encoding('UTF-8')
+      doc = Nokogiri::HTML::DocumentFragment.parse file
+      svg = doc.at_css 'svg'
+      svg['class'] = options[:class] if options[:class].present?
+    else
+      doc = "<!-- SVG #{filename} not found -->"
+    end
+
+    # These SVG files can safely be marked html_safe since we created them and they are part of this app's code.
+    raw doc # rubocop:disable Rails/OutputSafety
   end
 
   private
 
-  def classes(classes, using_custom_icon)
-    icon_class = using_custom_icon ? 'custom-icons' : 'material-icons'
+  def classes(using_custom_icon, filled, size, weight, emphasis, additional_classes = nil)
+    shape_class = filled ? 'icon--filled' : 'icon--outlined' # true, false
+    size_class = "icon--#{size}" # normal, large, x-large
+    weight_class = "icon--weight-#{weight}" # light, normal, semi-bold, bold
+    emphasis_class = "icon--#{emphasis}-emphasis" # low, normal, high
 
-    "#{icon_class} #{classes}"
+    base_class = using_custom_icon ? 'custom-icons' : 'material-symbols-outlined'
+    "#{base_class} #{shape_class} #{size_class} #{weight_class} #{emphasis_class} #{additional_classes}"
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def custom_icon_path(name)
-    Webpacker.manifest.lookup("media/images/icons/#{name}.svg")
-  end
-
-  def custom?(name)
-    custom_icon_path(name).present?
-  end
-
-  def custom_content(name)
-    custom_icon_contents = load_svg_from_file_or_dev_server(custom_icon_path(name))
-
-    # These SVG files can safely be marked html_safe since we created them and
-    # they are part of this app's code.
-    custom_icon_contents.html_safe # rubocop:disable Rails/OutputSafety
-  end
-
-  def load_svg_from_file_or_dev_server(custom_icon_path)
-    # Read in SVG file. Needs special handling for the webpack dev server
-    # because that doesn't write out any of the files.
-    if Webpacker.dev_server.running?
-      dev_server = Webpacker.dev_server
-      custom_icon_path.slice!("#{dev_server.protocol}://#{dev_server.host_with_port}")
-      connection = URI.open("#{dev_server.protocol}://#{dev_server.host_with_port}#{custom_icon_path}")
-      contents = connection.read
-      connection.close
-      contents
-    else
-      File.read(File.join(Webpacker.config.public_path, custom_icon_path))
-    end
+    Rails.application.assets_manifest.find_sources("icons/#{name}.svg").first
   end
 end
