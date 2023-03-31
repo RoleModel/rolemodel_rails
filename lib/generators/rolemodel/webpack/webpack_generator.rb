@@ -16,9 +16,9 @@ module Rolemodel
       say 'Add NPM packages for compiling JS and CSS'
       js_packages = %w[
         @honeybadger-io/webpack
+        @honeybadger-io/js
         esbuild
         esbuild-loader
-        honeybadger-js
         webpack
         webpack-cli
       ]
