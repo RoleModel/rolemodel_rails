@@ -4,7 +4,7 @@ IFS=$'\n\t'
 set -vx
 
 rm -fr example_rails7
-rails _7.0.4_ new --skip-keeps --skip-git --javascript=webpack --database=postgresql example_rails7
+rails _7.0.4.3_ new --skip-keeps --skip-git --javascript=webpack --database=postgresql example_rails7
 cd example_rails7
 echo "group :development do
   gem 'rolemodel_rails', path: '..'
