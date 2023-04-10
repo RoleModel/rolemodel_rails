@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title App Name
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = turbo_frame_tag 'modal' do
+      .modal.flex.items-center.justify-center(
+        class=class_names('modal--active' => response.message == 'Unprocessable Entity')
+        data-controller="toggle"
+        data-toggle-perform-on-connect-value=(response.message == 'OK')
+        data-toggle-active-class="modal--active"
+      )
+        .modal__backdrop data-action="click->toggle#perform"
+        .modal__content
+          .modal-nav
+            .modal__close data-action="click->toggle#perform"
+              = icon('close')
+          .modal__body
+            = yield

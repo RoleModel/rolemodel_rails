@@ -7,11 +7,12 @@ html
     = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body.flex
+    = turbo_frame_tag 'modal'
+    = turbo_frame_tag 'panel'
+    = render 'shared/confirm'
     .wrapper--main
       .container
         = render 'shared/flash'
-      = render 'shared/confirm'
-      = render 'shared/modal'
       .panel#panel
         .panel__close.margin-lg#panel-close = icon('close')
         #panel-content
