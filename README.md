@@ -42,7 +42,7 @@ bin/rails g rolemodel:all
 Or run a single generator
 
 ```shell
-bin/rails g rolemodel:webpacker
+bin/rails g rolemodel:webpack
 ```
 
 Or run a category subset
@@ -65,7 +65,7 @@ bin/rails g
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
-* [Webpacker](./lib/generators/rolemodel/webpacker)
+* [Webpack](./lib/generators/rolemodel/webpack)
 * [Optics](./lib/generators/rolemodel/optics)
   * [Base](./lib/generators/rolemodel/optics/base)
   * [Icons](./lib/generators/rolemodel/optics/icons)
@@ -94,10 +94,10 @@ We use the embeded Rails apps [Rails 7 Example](./recreate_rails7_example) to te
 bin/recreate_rails7_example
 ```
 
-Because Webpacker has so many moving parts, we want a test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:
+Because Webpack has so many moving parts, we want a test bed where we can see the full [rolemodel:webpack](./lib/generators/rolemodel/webpack). To recreate it (after a version change, etc) use:
 
 ```shell
-bin/recreate_webpacker_example
+bin/copy_webpack_templates
 ```
 
 ## Contributing

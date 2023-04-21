@@ -2,7 +2,7 @@
 
 require 'fileutils'
 IGNORED_FILES = /(Gemfile|\.keep|yarn\.lock)/
-GENERATOR_TEMPLATE_DIRECTORY = 'lib/generators/rolemodel/webpacker/templates/generated/'
+GENERATOR_TEMPLATE_DIRECTORY = 'lib/generators/rolemodel/webpack/templates/generated/'
 files = %x[ git diff --name-only --staged ].split("\n")
 
 files.each do |file|
