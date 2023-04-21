@@ -1,8 +1,8 @@
 Description:
-    runs the icons css generator
+    runs the icons optics generator
 
 Example:
-    rails generate rolemodel:css:icons
+    rails generate rolemodel:optics:icons
 
     This will create:
         app/helpers/icon_helper.rb

@@ -1,5 +1,0 @@
-Description:
-    runs the base css generator
-
-Example:
-    rails generate rolemodel:css:base

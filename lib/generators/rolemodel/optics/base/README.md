@@ -1,7 +1,7 @@
 # Base CSS Generator
 
 ```
-rails g rolemodel:css:all
+rails g rolemodel:optics:all
 ```
 
 ## What you get

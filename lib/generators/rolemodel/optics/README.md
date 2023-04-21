@@ -1,14 +1,13 @@
-# CSS Generator
+# Optics Generator
 
 [USAGE](./USAGE)
 
 ## Sub Generators
 
-* [Base CSS](./base)
+* [Base Optics](./base)
 * [Icons](./icons)
 
 ## Future Generators
 
-* Slim
 * Simple Form config?
 * Stylelint

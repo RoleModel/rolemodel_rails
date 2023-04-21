@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rolemodel_rails (0.1.0)
+    rolemodel_rails (0.4.0)
 
 GEM
   remote: https://rubygems.org/

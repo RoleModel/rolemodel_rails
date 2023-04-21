@@ -1,5 +1,5 @@
 module Rolemodel
-  module Css
+  module Optics
     class IconsGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 

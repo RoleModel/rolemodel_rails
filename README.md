@@ -66,9 +66,9 @@ bin/rails g
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
 * [Webpacker](./lib/generators/rolemodel/webpacker)
-* [CSS](./lib/generators/rolemodel/css)
-  * [Base](./lib/generators/rolemodel/css/base)
-  * [Icons](./lib/generators/rolemodel/css/icons)
+* [Optics](./lib/generators/rolemodel/optics)
+  * [Base](./lib/generators/rolemodel/optics/base)
+  * [Icons](./lib/generators/rolemodel/optics/icons)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Heroku](./lib/generators/rolemodel/heroku)
 * [SimpleForm](./lib/generators/rolemodel/simple_form)
@@ -86,15 +86,15 @@ bin/rails g
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
 
-We use the embeded Rails apps [Rails 6 Example](./recreate_rails6_example) to test the usage of the generators.
+We use the embeded Rails apps [Rails 7 Example](./recreate_rails7_example) to test the usage of the generators.
 
-`recreate_rails6_example` is simply a fresh generated Rails 6 app. To recreate it use:
+`recreate_rails7_example` is simply a freshly generated Rails 7 app. To recreate it use:
 
 ```shell
-bin/recreate_rails6_example
+bin/recreate_rails7_example
 ```
 
-Because Webpacker has so many moving parts, we want test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:
+Because Webpacker has so many moving parts, we want a test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:
 
 ```shell
 bin/recreate_webpacker_example
