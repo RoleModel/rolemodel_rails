@@ -26,7 +26,7 @@ data attributes other than `turbo-confirm` are optional.  See [turbo-confirm](ht
 Modal: `= link_to "Modal Test", action_which_responds_with_modal_layout_path, class: "btn btn--primary", data: { turbo_frame: "modal" }`
 Panel: `= link_to "Panel Test", action_which_responds_with_panel_layout_path, class: "btn btn--primary", data: { turbo_frame: "panel" }`
 
-Lastly, you'll need to pass in the `layout` keyword arg to `render` (or set the Controller class method) as either `modal` or `panel`, depending on which frame was targeted.
+Lastly, you'll need to pass in the `layout` keyword arg to `render` (or call the controller's class method) with either `modal` or `panel`, depending on which frame is being targeted.
 
 ```ruby
 class SomeController < ApplicationController
