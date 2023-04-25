@@ -13,6 +13,7 @@ html
         data-controller="toggle"
         data-toggle-perform-on-connect-value=(response.message == 'OK')
         data-toggle-active-class="modal--active"
+        data-turbo-cache="false"
       )
         .modal__backdrop data-action="click->toggle#perform"
         .modal__content
