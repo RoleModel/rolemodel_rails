@@ -3,10 +3,10 @@ section.card.margin-top-md
     h2.styleguide-section__title Modals
   .card__body
     .flex.gap-md
-      = button_to "Test Confirm", styleguide_path, class: 'btn btn--primary', data: {\
-        confirm: 'Are you sure you wanna do that?',
+      = button_to "Test Confirm", styleguide_path, method: :get, class: 'btn btn--primary', data: {\
+        turbo_confirm: 'Are you sure you wanna do that?',
         confirm_details: tag.span("This will delete stuff. Like, ") + tag.strong("for real!"),
         confirm_button: 'YOLO!',
       }
-      = link_to "Modal Test", styleguide_modal_path, class: 'btn btn--primary', data: { turbo_frame: 'modal' }
-      = link_to "Panel Test", styleguide_panel_path, class: 'btn btn--primary', data: { turbo_frame: 'panel' }
+      = link_to "Modal Test", styleguide_popup_path('modal'), class: 'btn btn--primary', data: { turbo_frame: 'modal' }
+      = link_to "Panel Test", styleguide_popup_path('panel'), class: 'btn btn--primary', data: { turbo_frame: 'panel' }
