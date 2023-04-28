@@ -12,7 +12,7 @@
 * [Modals](./modals)
 * [README](./readme)
 * [SaaS](./saas)
-* [Semaphore](./semaphore)
+* [CI](./ci)
 * [SimpleForm](./simple_form)
 * [SoftDestroyable](./soft_destroyable)
 * [Source Map](./source_map)

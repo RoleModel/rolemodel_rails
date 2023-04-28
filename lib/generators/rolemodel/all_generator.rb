@@ -4,7 +4,7 @@ module Rolemodel
 
     def run_all_the_generators
       generate 'rolemodel:github'
-      generate 'rolemodel:semaphore'
+      generate 'rolemodel:ci'
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
       generate 'rolemodel:webpacker'

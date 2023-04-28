@@ -2,7 +2,7 @@ Description:
   Sets up our standard semaphore configuration
 
 Example:
-  rails generate rolemodel:semaphore
+  rails generate rolemodel:ci:semaphore
 
   This will create:
     semaphore.yml
