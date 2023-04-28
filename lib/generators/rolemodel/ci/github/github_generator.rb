@@ -1,5 +1,5 @@
 module Rolemodel
-  module CI
+  module Ci
     class GithubGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
 
