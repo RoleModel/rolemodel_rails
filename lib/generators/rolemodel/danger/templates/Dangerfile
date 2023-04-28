@@ -1,30 +1,22 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/SignalException
+# https://evilmartians.com/chronicles/danger-on-rails-make-robots-do-some-code-review-for-you
 
-# Sometimes it's a README fix, or something like that - which isn't relevant for
-# including in a project's CHANGELOG for example
-declared_trivial = github.pr_title.include? '#trivial' # rubocop:disable Lint/UselessAssignment
+# Shared consts
+CHANGED_FILES = (git.added_files + git.modified_files).freeze
+ADDED_FILES = git.added_files.freeze
 
-# Make it more obvious that a PR is a work in progress and shouldn't be merged yet
-warn('PR is classed as Work in Progress') if github.pr_title.include? '[WIP]'
+Dir[File.join(__dir__, ".danger/*.rb")].each do |danger_rule_file|
+  danger_rule = danger_rule_file.gsub(%r{(^./.danger/|.rb)}, "")
+  $stdout.print "- #{danger_rule} "
+  # execute each check using `eval`
+  eval File.read(danger_rule_file), binding, File.expand_path(danger_rule_file) #rubocop:disable Security/Eval
+  $stdout.puts "✅"
+# allow a single check to fail without breaking others
+rescue Exception => e # rubocop:disable Lint/RescueException
+  $stdout.puts "💥"
 
-# Warn when there is a big PR
-warn('Big PR') if git.lines_of_code > 500
-
-# Don't let testing shortcuts get into master by accident
-fail('fdescribe left in tests') if `grep -r fdescribe spec/**/*_spec.rb `.length > 1
-fail('fit left in tests') if `grep -r fit spec/**/*_spec.rb `.length > 1
-fail('focus left in tests') if `grep -r focus spec/**/*_spec.rb `.length > 1
-
-# ESLint
-# eslint.lint
-
-# SlimLint
-slim_lint.lint
-
-# TODOIST
-todoist.warn_for_todos
-todoist.print_todos_table
-
-# rubocop:enable Style/SignalException
+  # make sure the result is a failure if some check failed to execute
+  raise "Danger rule :#{danger_rule} failed with exception: #{e.message}\n" \
+       "Backtrace: \n#{e.backtrace.join("\n")}"
+end

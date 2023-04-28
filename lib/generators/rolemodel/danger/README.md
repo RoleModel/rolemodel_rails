@@ -3,6 +3,7 @@
 ## What you get
 
 * danger.yml file to run danger itself
+* .danger/base.rb file to get basic review PR comments
 * .danger/rubocop.rb file to get rubocop PR comments
 * .danger/eslint.rb file to get eslint PR comments
 * .danger/brakeman.rb file to get brakeman PR comments

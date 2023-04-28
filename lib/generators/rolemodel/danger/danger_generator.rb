@@ -3,14 +3,15 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def create_base_danger_config
-      template 'Dangerfile.erb', 'Dangerfile'
+      copy_file 'Dangerfile', 'Dangerfile'
+      copy_file 'base.rb', '.danger/base.rb'
       gem_group :development, :test do
         gem 'danger'
       end
     end
 
     def create_github_action
-      template 'danger.yml', '.github/workflows/danger.yml'
+      copy_file 'danger.yml', '.github/workflows/danger.yml'
     end
 
     def create_rubocop_config
@@ -21,7 +22,7 @@ module Rolemodel
       gem_group :development, :test do
         gem 'danger-rubocop'
       end
-      template 'rubocop.rb', '.danger/rubocop.rb'
+      copy_file 'rubocop.rb', '.danger/rubocop.rb'
     end
 
     def create_brakeman_config
@@ -31,7 +32,7 @@ module Rolemodel
         gem 'brakeman'
         gem 'danger-brakeman'
       end
-      template 'brakeman.rb', '.danger/brakeman.rb'
+      copy_file 'brakeman.rb', '.danger/brakeman.rb'
     end
   end
 end
