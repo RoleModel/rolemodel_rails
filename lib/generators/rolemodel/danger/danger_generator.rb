@@ -14,7 +14,7 @@ module Rolemodel
     end
 
     def create_rubocop_config
-      unless File.exists?(Rails.root.join('.rubocop.yml'))
+      unless File.exist?(Rails.root.join('.rubocop.yml'))
         return unless yes?('Do you want to install rubocop?')
         generate 'rolemodel:linters:rubocop'
       end

@@ -3,7 +3,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def install_icons
-      generate 'rolemodel:css:base' unless File.exists?(Rails.root.join('app/javascript/packs/stylesheets.scss'))
+      generate 'rolemodel:css:base' unless File.exist?(Rails.root.join('app/javascript/packs/stylesheets.scss'))
       generate 'rolemodel:css:icons'
     end
 
