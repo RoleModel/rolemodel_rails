@@ -6,17 +6,17 @@
 CHANGED_FILES = (git.added_files + git.modified_files).freeze
 ADDED_FILES = git.added_files.freeze
 
-Dir[File.join(__dir__, ".danger/*.rb")].each do |danger_rule_file|
-  danger_rule = danger_rule_file.gsub(%r{(^./.danger/|.rb)}, "")
+Dir[File.join(__dir__, '.danger/*.rb')].each do |danger_rule_file|
+  danger_rule = danger_rule_file.gsub(%r{(^./.danger/|.rb)}, '')
   $stdout.print "- #{danger_rule} "
   # execute each check using `eval`
-  eval File.read(danger_rule_file), binding, File.expand_path(danger_rule_file) #rubocop:disable Security/Eval
-  $stdout.puts "✅"
+  eval File.read(danger_rule_file), binding, File.expand_path(danger_rule_file) # rubocop:disable Security/Eval
+  $stdout.puts '✅'
 # allow a single check to fail without breaking others
 rescue Exception => e # rubocop:disable Lint/RescueException
-  $stdout.puts "💥"
+  $stdout.puts '💥'
 
   # make sure the result is a failure if some check failed to execute
   raise "Danger rule :#{danger_rule} failed with exception: #{e.message}\n" \
-       "Backtrace: \n#{e.backtrace.join("\n")}"
+        "Backtrace: \n#{e.backtrace.join("\n")}"
 end
