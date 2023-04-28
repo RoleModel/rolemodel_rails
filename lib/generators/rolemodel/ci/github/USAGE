@@ -1,0 +1,9 @@
+Description:
+  Sets up our standard github actions configuration
+
+Example:
+  rails generate rolemodel:ci:github
+
+  This will create:
+    rspec.yml
+    jest.yml

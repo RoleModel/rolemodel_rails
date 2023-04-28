@@ -1,0 +1,7 @@
+Description:
+  Sets up a standard CI configuration
+
+Example:
+  rails generate rolemodel:ci
+
+  This will prompt to either run 'rolemodel:ci:semaphore' or 'rolemodel:ci:github'
