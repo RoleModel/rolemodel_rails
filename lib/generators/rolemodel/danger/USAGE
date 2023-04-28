@@ -1,0 +1,9 @@
+Description:
+  Sets up our standard danger configurations
+
+Example:
+  rails generate rolemodel:danger
+
+  This will create:
+    rspec.yml
+    jest.yml
