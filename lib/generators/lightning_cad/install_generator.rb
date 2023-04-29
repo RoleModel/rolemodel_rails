@@ -14,8 +14,6 @@ module LightningCad
         say 'Adding additional javascript dependencies'
 
         dependencies = %w[
-          @honeybadger-io/js@5.3.0
-          @honeybadger-io/webpack@^1.2.0
           @babel/preset-env@7.21.4
           @babel/preset-react@7.18.6
           @babel/plugin-syntax-jsx@7.21.4
@@ -29,8 +27,6 @@ module LightningCad
           import-glob@1.5.0
           react-router-dom@^5.0.1
           react-popper@^1.3.7
-          @hotwired/turbo-rails@7.3.0
-          @hotwired/stimulus@3.2.1
         ]
         run("yarn add #{dependencies.join(" ")}")
       end
@@ -42,7 +38,6 @@ module LightningCad
           @testing-library/jest-dom@^5.16.5
           @testing-library/react@^12.1.2
           @testing-library/user-event@^13.1.8
-          eslint@^6.8.0
           fetch-mock@^9.11.0
           jasmine@^4.6.0
           jest@^29.5.0
@@ -57,10 +52,7 @@ module LightningCad
         run("yarn add --optional three@^0.144.0")
       end
 
-      def remove_importmaps_and_unused_js
-        remove_file 'config/importmap.rb'
-        gsub_file 'app/views/layouts/application.html.erb', '<%= javascript_importmap_tags %>', "<%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>"
-
+      def remove_unused_js
         hello_controller = "\nimport HelloController from './hello_controller.js'\napplication.register('hello', HelloController)\n"
         gsub_file 'app/javascript/controllers/index.js', hello_controller, ''
 
@@ -89,12 +81,6 @@ module LightningCad
       def add_webpack_config
         say 'Adding webpack config'
         copy_file 'webpack.config.js', 'webpack.config.js'
-
-        build_files = <<-TEXT
-          /app/assets/builds/*
-          !/app/assets/builds/.keep
-        TEXT
-        append_to_file '.gitignore', build_files
       end
 
       def setup_javascript_specs
@@ -165,13 +151,6 @@ module LightningCad
         run 'mkdir app/javascript/shared'
         run 'mkdir app/javascript/shared/domain-models'
         run 'touch app/javascript/shared/domain-models/.keep'
-      end
-
-      def add_dev_startup_command
-        say "Adding bin/dev for starting the application"
-        copy_file 'Procfile.dev', 'Procfile.dev'
-        copy_file 'bin/dev', 'bin/dev'
-        run 'chmod +x bin/dev'
       end
     end
   end
