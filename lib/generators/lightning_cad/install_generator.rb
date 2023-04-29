@@ -118,10 +118,6 @@ module LightningCad
           .canvas-area {
             height: calc(100vh - $header-height);
           }
-
-          body, html {
-            margin: 0
-          }
         CSS
 
         append_to_file 'app/assets/stylesheets/application.scss', stylesheets
