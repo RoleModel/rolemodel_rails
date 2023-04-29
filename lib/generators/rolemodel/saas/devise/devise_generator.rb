@@ -21,7 +21,7 @@ module Rolemodel
 
         generate 'devise:install'
         generate :devise, 'user first_name:string last_name:string'
-        generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:string super_admin:boolean'
+        generate :migration, 'add_organization_and_role_to_users organization:belongs_to role:string super_admin:boolean'
         file_name = Dir.glob(Rails.root.join('db/migrate', '*_add_organization_and_role_to_users.rb', )).last
         gsub_file file_name, /:role, :string$/, ":role, :string, default: 'user', null: false"
         gsub_file file_name, /:super_admin, :boolean$/, ':super_admin, :boolean, default: false, null: false'
