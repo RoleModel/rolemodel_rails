@@ -2,60 +2,88 @@ module Rolemodel
   class WebpackGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
 
-    def make_project_use_es_modules
+    NODE_VERSION = '18.15.0'.freeze
+
+    DEV_DEPS = %w[
+      @honeybadger-io/webpack
+      @honeybadger-io/js
+      esbuild
+      esbuild-loader
+      webpack
+      webpack-cli
+    ]
+
+    POSTCSS_PKGS = %w[
+      @csstools/postcss-sass
+      postcss
+      postcss-loader
+      postcss-preset-env
+      postcss-scss
+    ]
+
+    WEBPACK_CSS_PKGS = %w[
+      css-loader
+      css-minimizer-webpack-plugin
+      mini-css-extract-plugin
+      webpack-remove-empty-scripts
+    ]
+
+    def ensure_node_version
+      say "Ensuring Node version #{set_color(NODE_VERSION, :yellow)} is installed via nodenv"
+
+      run 'brew update && brew install nodenv node-build'
+      run "nodenv install #{NODE_VERSION}"
+    end
+
+    def force_node_to_use_es_modules
       say 'Configuring project to use ES Modules instead of CommonJS'
-      json = JSON.parse(File.read('package.json'))
-      json['type'] = 'module'
-      File.write('package.json', JSON.pretty_generate(json) + "\n")
+
+      run 'npm pkg set type=module'
+    end
+
+    def remove_obsolete_javascript_dependencies
+      say 'Removing webpack & webpack-cli from package.json dependencies'
+
+      run 'yarn remove webpack webpack-cli'
     end
 
     def add_npm_packages
-      say 'Move Webpack to devDependencies'
-      run 'yarn remove webpack webpack-cli'
+      say 'Adding new dev dependencies to package.json'
 
-      say 'Add NPM packages for compiling JS and CSS'
-      js_packages = %w[
-        @honeybadger-io/webpack
-        @honeybadger-io/js
-        esbuild
-        esbuild-loader
-        webpack
-        webpack-cli
-      ]
+      dependencies = DEV_DEPS + POSTCSS_PKGS + WEBPACK_CSS_PKGS
+      run "yarn add --dev #{dependencies.join(' ')}"
+    end
 
-      css_packages = [
-        # PostCSS related packages
-        '@csstools/postcss-sass',
-        'postcss',
-        'postcss-loader',
-        'postcss-preset-env',
-        'postcss-scss',
+    def honeybadger_setup
+      say 'Setting up Honeybadger for JS error reporting'
 
-        # Webpack related packages for CSS bundling
-        'css-loader',
-        'css-minimizer-webpack-plugin',
-        'mini-css-extract-plugin',
-        'webpack-remove-empty-scripts'
-      ]
+      append_to_file 'app/javascript/application.js' do
+        <<~JS
+          import Honeybadger from '@honeybadger-io/js'
 
-      all_packages = [*js_packages, *css_packages]
+          if (process.env.RAILS_ENV === 'production') {
+            Honeybadger.configure({
+              apiKey: process.env.HONEYBADGER_API_KEY,
+              environment: process.env.HONEYBADGER_ENV,
+              revision: process.env.SOURCE_VERSION
+            })
+          }
+        JS
+      end
+    end
 
-      run "yarn add --dev #{all_packages.join(' ')}"
+    def replace_css_entrypoint_with_scss
+      say 'Replacing CSS entrypoint file with SCSS version'
+
+      remove_file 'app/assets/stylesheets/application.css'
+      template 'app/assets/stylesheets/application.scss'
     end
 
     def add_webpack_config
-      say 'Copying config files'
+      say 'Copying PostCSS & Webpack config files'
 
-      remove_file 'app/assets/stylesheets/application.css'
-      template 'app/assets/config/manifest.js', 'app/assets/config/manifest.js'
-      template 'app/assets/stylesheets/application.scss', 'app/assets/stylesheets/application.scss'
-
-      template 'app/javascript/application.js', 'app/javascript/application.js'
-      template 'app/javascript/controllers/index.js', 'app/javascript/controllers/index.js'
-
-      template '.node-version', '.node-version'
-      template 'postcss.config.cjs', 'postcss.config.cjs'
-      template 'webpack.config.js', 'webpack.config.js'
+      template 'postcss.config.cjs'
+      template 'webpack.config.js'
     end
   end
 end
