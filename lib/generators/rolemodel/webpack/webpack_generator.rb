@@ -29,10 +29,9 @@ module Rolemodel
     ]
 
     def ensure_node_version
-      say "Ensuring Node version #{set_color(NODE_VERSION, :yellow)} is installed via nodenv"
+      say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}"
 
-      run 'brew update && brew install nodenv node-build'
-      run "nodenv install #{NODE_VERSION}"
+      create_file '.node-version', NODE_VERSION
     end
 
     def force_node_to_use_es_modules

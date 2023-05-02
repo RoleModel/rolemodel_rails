@@ -1,9 +1,6 @@
-require_relative '../../../bundler_helpers'
-
 module Rolemodel
   module Optics
     class BaseGenerator < Rails::Generators::Base
-      include Rolemodel::BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
       def add_optics_package
@@ -11,8 +8,7 @@ module Rolemodel
       end
 
       def add_slim
-        gem 'slim'
-        run_bundle
+        generate 'rolemodel:slim'
       end
 
       def remove_application_erb_file
