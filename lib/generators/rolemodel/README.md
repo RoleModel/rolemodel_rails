@@ -14,6 +14,7 @@
 * [SaaS](./saas)
 * [Semaphore](./semaphore)
 * [SimpleForm](./simple_form)
+* [Slim](./slim)
 * [SoftDestroyable](./soft_destroyable)
 * [Source Map](./source_map)
 * [Testing](./testing)
