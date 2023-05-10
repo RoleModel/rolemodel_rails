@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #
 # Uncomment this and change the path if necessary to include your own
 # components.
@@ -13,8 +14,8 @@ SimpleForm.setup do |config|
   # wrapper, change the order or even add your own to the
   # stack. The options given below are used to wrap the
   # whole input.
-  config.wrappers :default, class: :form__group,
-    hint_class: :field_with_hint, error_class: 'form__input--error', valid_class: :field_without_errors do |b|
+  config.wrappers :default, class: 'form-group',
+                            hint_class: :field_with_hint, error_class: 'form-group--error', valid_class: :field_without_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -54,8 +55,8 @@ SimpleForm.setup do |config|
     ## Inputs
     # b.use :input, class: 'input', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :label_input
-    b.use :hint,  wrap_with: { tag: :span, class: :form__hint }
-    b.use :error, wrap_with: { tag: :span, class: :form__error }
+    b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
+    b.use :error, wrap_with: { tag: :span, class: 'form-error' }
 
     ## full_messages_for
     # If you want to display the full error message for the attribute, you can
@@ -67,13 +68,13 @@ SimpleForm.setup do |config|
   # The default wrapper to be used by the FormBuilder.
   config.default_wrapper = :default
 
-  config.wrappers(:inline_boolean, class: 'form__group--checkbox', hint_class: :field_with_hint,
+  config.wrappers(:inline_boolean, class: 'form-group', hint_class: :field_with_hint,
                                    error_class: :field_with_errors, valid_class: :field_without_errors) do |b|
     b.use :html5
     b.optional :readonly
     b.use :label_input
-    b.use :hint,  wrap_with: { tag: :span, class: :form__hint }
-    b.use :error, wrap_with: { tag: :span, class: :error }
+    b.use :error, wrap_with: { tag: :span, class: 'form-error' }
+    b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
   end
 
   # Define the way to render check boxes / radio buttons with labels.
@@ -94,7 +95,7 @@ SimpleForm.setup do |config|
   config.error_notification_tag = :div
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'form__error-summary'
+  config.error_notification_class = 'form-error-summary'
 
   # Series of attempts to detect a default label method for collection.
   # config.collection_label_methods = [ :to_label, :name, :title, :to_s ]
@@ -119,7 +120,7 @@ SimpleForm.setup do |config|
   # config.label_text = lambda { |label, required, explicit_label| "#{required} #{label}" }
 
   # You can define the class to use on all labels. Default is nil.
-  config.label_class = :form__label
+  config.label_class = 'form-label'
 
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
@@ -169,7 +170,7 @@ SimpleForm.setup do |config|
   # config.cache_discovery = !Rails.env.development?
 
   # Default class for inputs
-  config.input_class = :form__input
+  config.input_class = 'form-control'
 
   # Define the default class of the input wrapper of the boolean input.
   config.boolean_label_class = 'checkbox'
