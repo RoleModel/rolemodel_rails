@@ -6,4 +6,4 @@ rails g rolemodel:optics:all
 
 ## What you get
 
-Pulls in the rolemodel optics design system and adds the slim gem
+Pulls in the RoleModel [Optics](https://docs.optics.rolemodel.design/) design system
