@@ -1,7 +1,0 @@
-#flash
-  - flash.each do |type, msg|
-    .flash class="flash--#{type}"
-      = material_icon(icon_name_for_flash(type), size: 'large')
-      .margin-left-md
-        .flash__message-type = type.humanize
-        .flash__message = msg

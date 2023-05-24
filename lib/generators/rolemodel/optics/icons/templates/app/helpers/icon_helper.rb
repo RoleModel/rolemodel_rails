@@ -3,6 +3,17 @@
 # rubocop:disable Metrics/ParameterLists
 
 module IconHelper
+  def icon_name_for_flash(type)
+    case type
+    when 'notice'
+      'check_circle'
+    when 'alert'
+      'cancel'
+    else
+        type
+    end
+  end
+
   def material_icon(name, filled: false, size: 'medium', weight: 'normal', emphasis: 'normal', color: nil, classes: nil, hover_text: name)
     options = {
       class: classes(false, filled, size, weight, emphasis, classes),

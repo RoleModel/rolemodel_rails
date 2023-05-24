@@ -3,8 +3,16 @@ set -euo pipefail
 IFS=$'\n\t'
 set -vx
 
+if [ -z "$RAILS_VERSION" ]; then
+  RAILS_VERSION='7.0.4.3'
+fi
+
+if ! gem list rails -i -v $RAILS_VERSION --silent; then
+  gem install rails -v $RAILS_VERSION
+fi
+
 rm -fr example_rails7
-rails _7.0.4.3_ new --skip-keeps --skip-git --javascript=webpack --database=postgresql example_rails7
+rails _"$RAILS_VERSION"_ new --skip-keeps --skip-git --skip-jbuilder -j webpack -d postgresql example_rails7
 cd example_rails7
 echo "group :development do
   gem 'rolemodel_rails', path: '..'

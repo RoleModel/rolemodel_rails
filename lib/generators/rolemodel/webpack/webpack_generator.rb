@@ -25,7 +25,6 @@ module Rolemodel
       css-loader
       css-minimizer-webpack-plugin
       mini-css-extract-plugin
-      webpack-remove-empty-scripts
     ]
 
     def ensure_node_version
