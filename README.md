@@ -94,10 +94,11 @@ We use the embeded Rails apps [Rails 7 Example](./recreate_rails7_example) to te
 bin/recreate_rails7_example
 ```
 
-Because Webpack has so many moving parts, we want a test bed where we can see the full [rolemodel:webpack](./lib/generators/rolemodel/webpack). To recreate it (after a version change, etc) use:
+Then, cd into `example_rails7` and run a rolemodel generator to see how it affects a new Rails 7 project. For example:
 
 ```shell
-bin/copy_webpack_templates
+cd example_rails7
+bin/rails g rolemodel:webpack
 ```
 
 ## Contributing
