@@ -220,7 +220,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.5)
   redis (~> 4.0)
-  rolemodel_rails!
+  rolemodel_rails (~> 0.4.0)!
   selenium-webdriver
   sprockets-rails
   stimulus-rails
