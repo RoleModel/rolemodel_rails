@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
+RAILS_VERSION='7.0.5'
+
 set -euo pipefail
 IFS=$'\n\t'
 set -vx
-
-if [ -z "$RAILS_VERSION" ]; then
-  RAILS_VERSION='7.0.4.3'
-fi
 
 if ! gem list rails -i -v $RAILS_VERSION --silent; then
   gem install rails -v $RAILS_VERSION
