@@ -1,0 +1,5 @@
+Description:
+    Sets up React for Rails
+
+Example:
+    rails generate rolemodel:react

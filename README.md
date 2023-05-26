@@ -42,7 +42,7 @@ bin/rails g rolemodel:all
 Or run a single generator
 
 ```shell
-bin/rails g rolemodel:webpacker
+bin/rails g rolemodel:webpack
 ```
 
 Or run a category subset
@@ -65,10 +65,10 @@ bin/rails g
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
-* [Webpacker](./lib/generators/rolemodel/webpacker)
-* [CSS](./lib/generators/rolemodel/css)
-  * [Base](./lib/generators/rolemodel/css/base)
-  * [Icons](./lib/generators/rolemodel/css/icons)
+* [Webpack](./lib/generators/rolemodel/webpack)
+* [Optics](./lib/generators/rolemodel/optics)
+  * [Base](./lib/generators/rolemodel/optics/base)
+  * [Icons](./lib/generators/rolemodel/optics/icons)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Heroku](./lib/generators/rolemodel/heroku)
 * [SimpleForm](./lib/generators/rolemodel/simple_form)
@@ -84,18 +84,21 @@ bin/rails g
 
 ## Development
 
-We use the 2 embeded Rails apps [Rails 5 Example](./recreate_rails5_example) and [Rails 6 Example](./recreate_rails6_example) to test the usage of the generators.
+Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
 
-`recreate_rails6_example` is simply a fresh generated Rails 6 app. To recreate it use:
+We use the embeded Rails apps [Rails 7 Example](./recreate_rails7_example) to test the usage of the generators.
+
+`recreate_rails7_example` is simply a freshly generated Rails 7 app. To recreate it use:
 
 ```shell
-bin/recreate_rails6_example
+bin/recreate_rails7_example
 ```
 
-Because Webpacker has so many moving parts, we want test bed where we can see the full [rolemodel:webpacker](./lib/generators/rolemodel/webpacker). To recreate it (after a version change, etc) use:
+Then, cd into `example_rails7` and run a rolemodel generator to see how it affects a new Rails 7 project. For example:
 
 ```shell
-bin/recreate_webpacker_example
+cd example_rails7
+bin/rails g rolemodel:webpack
 ```
 
 ## Contributing

@@ -4,20 +4,21 @@
 
 ## What you get
 
-* [CSS](./css)
 * [Github](./github)
 * [Heroku](./heroku)
 * [Linters](./linters)
 * [Mailers](./mailers)
 * [Modals](./modals)
+* [Optics](./optics)
 * [README](./readme)
 * [SaaS](./saas)
 * [Semaphore](./semaphore)
 * [SimpleForm](./simple_form)
+* [Slim](./slim)
 * [SoftDestroyable](./soft_destroyable)
 * [Source Map](./source_map)
 * [Testing](./testing)
-* [Webpacker](./webpacker)
+* [Webpack](./webpack)
 
 ## Helpful documentation
 

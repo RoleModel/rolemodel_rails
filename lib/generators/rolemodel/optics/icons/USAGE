@@ -1,0 +1,8 @@
+Description:
+    runs the icons optics generator
+
+Example:
+    rails generate rolemodel:optics:icons
+
+    This will create:
+        app/helpers/icon_helper.rb
