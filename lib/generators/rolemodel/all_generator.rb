@@ -18,6 +18,7 @@ module Rolemodel
       generate 'rolemodel:linters:all'
       generate 'rolemodel:mailers'
       generate 'rolemodel:source_map'
+      generate 'rolemodel:kaminari'
     end
   end
 end

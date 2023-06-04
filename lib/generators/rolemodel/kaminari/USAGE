@@ -1,0 +1,5 @@
+Description:
+  Sets up our standard Kaminari configuration with Optics Pagination style applied
+
+Example:
+  rails generate rolemodel:kaminari

@@ -81,6 +81,7 @@ bin/rails g
   * [ESLint](./lib/generators/rolemodel/linters/eslint)
 * [Modals](./lib/generators/rolemodel/modals)
 * [Source Map](./lib/generators/rolemodel/source_map)
+* [Kaminari](./lib/generators/rolemodel/kaminari)
 
 ## Development
 
