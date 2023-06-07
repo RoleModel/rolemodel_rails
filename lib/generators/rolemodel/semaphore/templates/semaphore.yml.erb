@@ -82,7 +82,7 @@ blocks:
             - test-results publish tmp/test_results
         on_fail:
           commands:
-            - artifact push job log/test.log --expire-in 2w
+            - artifact push job log/test.log
   - name: Assets Compile
     dependencies:
       - Build
@@ -124,8 +124,8 @@ blocks:
             - cache delete assets-public-$SEMAPHORE_WORKFLOW_ID
         on_fail:
           commands:
-            - artifact push job log/test.log --expire-in 2w
-            - artifact push workflow tmp/capybara --expire-in 2w
+            - artifact push job log/test.log
+            - artifact push workflow tmp/capybara
 after_pipeline:
   task:
     jobs:
