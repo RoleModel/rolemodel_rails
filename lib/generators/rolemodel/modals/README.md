@@ -88,4 +88,4 @@ The included modal layout includes *slots* for title content & submit buttons, i
   = f.input :description
 ```
 
-__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.  For further explanation of form Id generation, see the [polymorphic_path docs](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) of simply inspect the form element in your browser.
+__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.  For further explanation of form Id generation, see the [polymorphic_path docs](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) or simply inspect the form element in your browser.

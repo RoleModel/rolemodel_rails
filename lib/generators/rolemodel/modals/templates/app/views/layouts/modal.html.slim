@@ -4,8 +4,8 @@ html
     title App Name
     = csrf_meta_tags
     = csp_meta_tag
-    = stylesheet_pack_tag 'stylesheets', 'data-turbolinks-track': 'reload'
-    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
   body
     = turbo_frame_tag 'modal' do
       .modal.flex.items-center.justify-center(

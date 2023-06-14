@@ -4,9 +4,6 @@ module Rolemodel
   class ModalsGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
 
-    STYLESHEET_ENTRYPOINT = 'app/assets/stylesheets/application.scss'
-    JAVASCRIPT_ENTRYPOINT = 'app/javascript/application.js'
-
     def install_turbo_confirm
       say 'Installing Turbo Confirm package', :green
       run 'yarn add @rolemodel/turbo-confirm'
