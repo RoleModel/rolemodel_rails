@@ -74,7 +74,7 @@ end
 
 ## Layout Content Slots
 
-The included modal layout includes *slots* for title content & submit buttons, in addition to the main content `yield`.  If you're use case is simpler, you may remove these sections.  Otherwise, the following is an example edit template meant to be rendered in the modal layout.
+The included modal layout includes *slots* for title content & submit buttons, in addition to the main content `yield`.  You may, of course remove these sections if they don't match your use-case.  Otherwise, the following is an example edit template meant to be rendered in the modal layout.
 
 ```slim
 = content_for :modal_title do
