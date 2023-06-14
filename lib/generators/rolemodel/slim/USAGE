@@ -1,0 +1,5 @@
+Description:
+    Add Slim gem dependency
+
+Example:
+    rails generate rolemodel:slim

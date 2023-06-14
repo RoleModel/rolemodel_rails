@@ -1,0 +1,5 @@
+Description:
+    runs all the optics generators
+
+Example:
+    rails generate rolemodel:optics:all

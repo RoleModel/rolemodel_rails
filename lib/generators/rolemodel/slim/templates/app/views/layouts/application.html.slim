@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title App Name
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload'
+    meta content="width=device-width, initial-scale=1" name="viewport"
+  body.app-body
+    .app__content
+      = yield

@@ -5,4 +5,4 @@ Example:
     rails generate rolemodel:linters:eslint
 
     This will create:
-        .eslintrc.js
+        .eslintrc.cjs

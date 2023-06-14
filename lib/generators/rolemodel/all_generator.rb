@@ -7,8 +7,9 @@ module Rolemodel
       generate 'rolemodel:semaphore'
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
-      generate 'rolemodel:webpacker'
-      generate 'rolemodel:css:all'
+      generate 'rolemodel:webpack'
+      generate 'rolemodel:react'
+      generate 'rolemodel:optics:all'
       generate 'rolemodel:testing:all'
       generate 'rolemodel:simple_form'
       generate 'rolemodel:soft_destroyable'
@@ -17,6 +18,7 @@ module Rolemodel
       generate 'rolemodel:linters:all'
       generate 'rolemodel:mailers'
       generate 'rolemodel:source_map'
+      generate 'rolemodel:kaminari'
     end
   end
 end

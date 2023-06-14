@@ -1,5 +1,0 @@
-Description:
-    runs all the css generators
-
-Example:
-    rails generate rolemodel:css:all

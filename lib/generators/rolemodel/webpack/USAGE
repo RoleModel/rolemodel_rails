@@ -1,0 +1,5 @@
+Description:
+    Sets up Webpack v5 to compile both JS and CSS
+
+Example:
+    rails generate rolemodel:webpack

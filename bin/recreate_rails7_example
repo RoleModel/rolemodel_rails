@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+RAILS_VERSION='7.0.5'
+
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+if ! gem list rails -i -v $RAILS_VERSION --silent; then
+  gem install rails -v $RAILS_VERSION
+fi
+
+rm -fr example_rails7
+
+rails _"$RAILS_VERSION"_ new --skip-keeps --skip-git --skip-jbuilder -j webpack -d postgresql example_rails7
+
+cd example_rails7
+
+bundle add --group development --path '..' rolemodel_rails
+bundle install
+
+git checkout config/credentials.yml.enc
+git checkout config/master.key
+
+cd -
