@@ -17,7 +17,7 @@ module Rolemodel
     end
 
     def add_ui_components
-      copy_file 'app/helpers/dynamic_link_helper.rb' # TODO: is this still useful?
+      copy_file 'app/helpers/turbo_frame_link_helper.rb'
       addendum = File.read([source_paths.last, '/application_addendum.js'].join)
       append_to_file 'app/javascript/packs/application.js', addendum
       copy_file 'app/javascript/controllers/toggle_controller.js'
