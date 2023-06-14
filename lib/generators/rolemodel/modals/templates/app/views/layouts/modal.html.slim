@@ -16,9 +16,11 @@ html
         data-turbo-cache="false"
       )
         .modal__backdrop data-action="click->toggle#perform"
-        .modal__content
-          .modal-nav
-            .modal__close data-action="click->toggle#perform"
-              = icon('close')
+        .modal__content data-testid="modal-content"
+          .modal__header
+            = yield :modal_title
           .modal__body
             = yield
+          .modal__footer
+            = button_tag( 'Cancel', class: 'btn', data: { action: "toggle#perform" })
+            = yield :modal_actions
