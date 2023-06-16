@@ -6,8 +6,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def install_kaminari
-      gem 'kaminari'
-      run_bundle
+      run 'bundle add kaminari'
 
       generate 'kaminari:config'
     end

@@ -1,11 +1,11 @@
 Description:
-    Add Modal and Panel UI components
+    Add Modal, Panel, and Confirmation components
 
 Example:
     rails generate rolemodel:modals
 
     This will create:
-        css
         helpers
         javascript
+        styles
         views

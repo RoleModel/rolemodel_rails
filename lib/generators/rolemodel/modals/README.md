@@ -2,31 +2,90 @@
 
 ## What you get
 
-* Custom confirms
-* Modal and panel styling
-* Modal and panel view and link helper
-* Modal and panel javascript
+* Custom confirm dialogs via `@rolemodel/turbo-confirm` integration
+* Modal and panel styling ..via `@rolemodel/optics` integration
+* Modal and panel layouts w/ link helpers (or you could just, e.g. `link_to ... data: {turbo_frame: 'modal'}`)
+* frame-missing handler (required for turbo-rails v1.4.0 and above)
+* a very simple stimulus controller `toggle` to help with modal/panel animations.
 
-Adds UI and JavaScript for opening modals and the panel within a Rails view
+## Turbo confirm example
 
-## Example delete confirmation link
-`= link_to "Test Confirm", delete_path(model), class: 'btn btn--primary', data: { confirm: 'Are you sure?', confirm_details: "This will delete #{model.name}. This action cannot be undone.", confirm_button: 'Yes, delete it' }`
+```slim
+  = button_to "Test Confirm", model, method: :delete, data: { \
+    turbo_confirm: "For real?!?",
+    confirm_details: "You're about to delete #{model.name}, forever. 😱",
+    confirm_button: "YOLO!",
+  }
+```
 
-The data attributes needed to make this work
-- `confirm` (required) - Just like rails basic confirm functionality. This will be header text. E.g. "Are you sure?"
-- `confirm_details` (optional, default: nil) - Provides additional details/text to the action the user about to take. E.g. "This will remove everything"
-- `confirm_button` (optional, default: "Yes, I'm sure") - Allows the button text affirming the action to be changed
+data attributes other than `turbo-confirm` are optional.  See [turbo-confirm](https://github.com/RoleModel/turbo-confirm) for more details.
 
-## Example Panel and Modal
-Panel: `= panel_link_to 'Some link', panel_link_path, class: 'btn btn--primary'`
-Modal: `= modal_link_to "Modal Test", new_model_path, class: 'btn btn--primary'`
+## Modal & Panel examples
 
-For both the panel and the modal, you'll want to use the `full_screen` layout provided by the generator in your controller action. This allows the form/content to work if it is directly linked to in the browser rather than opened in a modal or panel
+Modal: (the following 2 examples are equivalent)
+
+* `= link_to 'Modal Test', some_modal_layout_action_path, data: { turbo_frame: 'modal' }`
+* `= modal_link_to 'Modal Test', some_modal_layout_action_path`
+
+Panel: (the following 2 examples are equivalent)
+
+* `= link_to 'Panel Test', some_panel_layout_action_path, data: { turbo_frame: 'panel' }`
+* `= panel_link_to 'Panel Test', some_panel_layout_action_path`
+
+You'll then need to pass the `layout` kwarg when calling `render` with either `modal` or `panel`, depending on which frame is being targeted.  (We recommend against the `layout` controller class method, because it causes *layout fallback* issues when the controller is subclassed.)
+
+e.g.
 
 ```ruby
-class SomeController < ApplicationController
+class SomethingsController < ApplicationController
   def new
-    render layout: 'full_screen'
+    render layout: 'modal'
   end
 end
 ```
+
+## TurboFrame modal & panel forms
+
+There are a couple of important rules when it comes to TurboFrames & forms.
+
+1. In the case of errors, your controller action must respond with `status: :unprocessable_entity` *HTTP status code __422__* in order to re-render your form w/ errors.  This is both a Turbo requirement, as well as the mechanism which prevents the modal or panel from re-animating in.
+2. In the case of success, your controller action must redirect.  This is a Turbo requirement in Rails 7+
+
+e.g.
+
+```ruby
+class SomethingsController < ApplicationController
+  def new
+    @something = authorize Something.new
+    render layout: 'modal'
+  end
+
+  def create
+    @something = authorize Something.new(some_params)
+
+    if @something.save
+      redirect_to @something, notice: 'Something created successfully'
+    else
+      render :new, status: :unprocessable_entity, layout: 'modal'
+    end
+  end
+end
+```
+
+## Layout Content Slots
+
+The included modal layout includes *slots* for title content & submit buttons, in addition to the main content `yield`.  You may, of course remove these sections if they don't match your use-case.  Otherwise, the following is an example edit template meant to be rendered in the modal layout.
+
+```slim
+= content_for :modal_title do
+  h2 Edit the thing
+
+= content_for :modal_actions do
+  = button_tag 'Save', class: 'btn btn--primary', form: dom_id(@thing, :edit)
+
+= simple_form_for @thing do |f|
+  = f.input :name
+  = f.input :description
+```
+
+__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.  For further explanation of form Id generation, see the [polymorphic_path docs](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) or simply inspect the form element in your browser.

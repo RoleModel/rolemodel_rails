@@ -28,60 +28,51 @@ module Rolemodel
     ]
 
     def ensure_node_version
-      say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}"
+      say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}", :green
 
       create_file '.node-version', NODE_VERSION
     end
 
     def force_node_to_use_es_modules
-      say 'Configuring project to use ES Modules instead of CommonJS'
+      say 'Configuring project to use ES Modules instead of CommonJS', :green
 
       run 'npm pkg set type=module'
     end
 
     def remove_obsolete_javascript_dependencies
-      say 'Removing webpack & webpack-cli from package.json dependencies'
+      say 'Removing webpack & webpack-cli from package.json dependencies', :green
 
       run 'yarn remove webpack webpack-cli'
     end
 
     def add_npm_packages
-      say 'Adding new dev dependencies to package.json'
+      say 'Adding new dev dependencies to package.json', :green
 
       dependencies = DEV_DEPS + POSTCSS_PKGS + WEBPACK_CSS_PKGS
       run "yarn add --dev #{dependencies.join(' ')}"
     end
 
     def honeybadger_setup
-      say 'Setting up Honeybadger for JS error reporting'
+      say 'Setting up Honeybadger for JS error reporting', :green
 
-      append_to_file 'app/javascript/application.js' do
-        <<~JS
-          import Honeybadger from '@honeybadger-io/js'
-
-          if (process.env.RAILS_ENV === 'production') {
-            Honeybadger.configure({
-              apiKey: process.env.HONEYBADGER_API_KEY,
-              environment: process.env.HONEYBADGER_ENV,
-              revision: process.env.SOURCE_VERSION
-            })
-          }
-        JS
-      end
+      copy_file 'app/javascript/initializers/honeybadger.js'
+      append_to_file 'app/javascript/application.js', <<~JS
+        import './initializers/honeybadger'
+      JS
     end
 
     def replace_css_entrypoint_with_scss
-      say 'Replacing CSS entrypoint file with SCSS version'
+      say 'Replacing CSS entrypoint file with SCSS version', :green
 
       remove_file 'app/assets/stylesheets/application.css'
-      template 'app/assets/stylesheets/application.scss'
+      copy_file 'app/assets/stylesheets/application.scss'
     end
 
     def add_webpack_config
-      say 'Copying PostCSS & Webpack config files'
+      say 'Copying PostCSS & Webpack config files', :green
 
-      template 'postcss.config.cjs'
-      template 'webpack.config.js'
+      copy_file 'postcss.config.cjs'
+      copy_file 'webpack.config.js'
     end
   end
 end

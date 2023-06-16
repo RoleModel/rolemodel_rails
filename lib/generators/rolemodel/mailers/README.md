@@ -1,6 +1,6 @@
 # Mailer Generator
 
-Depends on css:base
+Depends on optics:base
 
 ## What you get
 

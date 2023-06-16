@@ -6,8 +6,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def add_gem
-      gem 'simple_form'
-      run_bundle
+      run 'bundle add simple_form'
     end
 
     def add_files
