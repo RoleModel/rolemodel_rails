@@ -12,8 +12,7 @@ module Rolemodel
       end
 
       def install_devise
-        gem 'devise'
-        run_bundle
+        run 'bundle add devise'
 
         generate 'devise:install'
         generate :devise, 'user first_name:string last_name:string'
@@ -26,8 +25,7 @@ module Rolemodel
       def add_invitable
         @add_invitations = yes?('Would you like to add user invitations?')
         if @add_invitations
-          gem 'devise_invitable'
-          run_bundle
+          run 'bundle add devise_invitable'
 
           generate 'devise_invitable:install'
           generate :devise_invitable, 'user'

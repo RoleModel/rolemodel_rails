@@ -4,6 +4,8 @@ module Rolemodel
       source_root File.expand_path('templates', __dir__)
 
       def add_view_helper
+        say 'generating icon helper', :green
+
         copy_file 'app/helpers/icon_helper.rb'
       end
     end

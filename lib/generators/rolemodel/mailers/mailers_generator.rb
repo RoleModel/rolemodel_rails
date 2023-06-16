@@ -7,8 +7,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def install_premailer_rails
-      gem 'premailer-rails'
-      run_bundle
+      run 'bundle add premailer-rails'
     end
 
     def add_premailer_rails_config
@@ -73,7 +72,7 @@ module Rolemodel
     end
 
     def add_mailer_css
-      copy_file 'app/javascript/packs/mailer_stylesheets.scss'
+      copy_file 'app/assets/stylesheets/mailer.scss'
     end
 
     def add_mailer_layout

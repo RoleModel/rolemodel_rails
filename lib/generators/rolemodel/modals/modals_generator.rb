@@ -6,22 +6,26 @@ module Rolemodel
 
     def install_turbo_confirm
       say 'Installing Turbo Confirm package', :green
+
       run 'yarn add @rolemodel/turbo-confirm'
     end
 
     def copy_files
-      say 'generating files', :green
+      say 'generating views & link helpers', :green
+
       copy_file 'app/helpers/turbo_frame_link_helper.rb'
-      copy_file 'app/javascript/controllers/toggle_controller.js'
-      copy_file 'app/javascript/initializers/turbo_confirm.js'
-      copy_file 'app/javascript/initializers/frame_missing_handler.js'
-      copy_file 'app/views/layouts/modal.html.slim'
-      copy_file 'app/views/layouts/panel.html.slim'
+      template 'app/views/layouts/modal.html.slim'
+      template 'app/views/layouts/panel.html.slim'
       copy_file 'app/views/shared/_confirm.html.slim'
     end
 
     def amend_javascript_entrypoint
-      say 'importing generated javascript files', :green
+      say 'generating & importing javascript files', :green
+
+      copy_file 'app/javascript/controllers/toggle_controller.js'
+      copy_file 'app/javascript/initializers/turbo_confirm.js'
+      copy_file 'app/javascript/initializers/frame_missing_handler.js'
+
       append_to_file 'app/javascript/application.js', <<~JS
         import './initializers/turbo_confirm'
         import './initializers/frame_missing_handler'
@@ -29,12 +33,17 @@ module Rolemodel
     end
 
     def amend_stylesheet_entrypoint
-      say 'importing stylesheet addons', :green
+      say 'importing Optics stylesheets and defining custom properties', :green
+
       inject_into_file 'app/assets/stylesheets/application.scss', after: "@import '@rolemodel/optics/dist/scss/optics';\n" do
-        optimize_indentation <<~SCSS, 2
+        <<~SCSS
           @import '@rolemodel/optics/dist/scss/addons/rails-modal-and-panel/modal';
           @import '@rolemodel/optics/dist/scss/addons/rails-modal-and-panel/panel';
+        SCSS
+      end
 
+      append_to_file 'app/assets/stylesheets/application.scss', <<~SCSS
+        root {
           // Panel tokens
           --panel-width: 40%;
           --panel-transition-speed: 400ms;
@@ -42,14 +51,15 @@ module Rolemodel
           // Modals tokens
           --modal-width: 564px;
           --modal-transition-speed: 300ms;
-        SCSS
-      end
+        }
+      SCSS
     end
 
     def amend_application_layout
-      say 'altering application layout', :green
+      say 'amending application layout', :green
+
       inject_into_file 'app/views/layouts/application.html.slim', after: /\bbody.*\n/ do
-        optimize_indentation <<~SLIM, 2
+        optimize_indentation <<~SLIM, 4
           = turbo_frame_tag 'modal'
           = turbo_frame_tag 'panel'
           = render 'shared/confirm'
@@ -59,6 +69,7 @@ module Rolemodel
 
     def register_stimulus_controller
       say 'updating stimulus manifest', :green
+
       run 'rails stimulus:manifest:update'
     end
   end
