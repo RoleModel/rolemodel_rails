@@ -10,7 +10,7 @@ import {
   Icon,
   IconFactoryContext,
   MultiPerspectiveProjectEditorView,
-} from '@rolemodel/lightning-cad-ui/index.js'
+} from '@rolemodel/lightning-cad-ui'
 import { Router } from 'react-router-dom'
 import LocalIconFactory from './LocalIconFactory.jsx'
 
@@ -18,7 +18,7 @@ import {
   DrawingEditor,
   VersionedProject,
   Project
-} from '@rolemodel/lightning-cad/drawing-editor/index.js'
+} from '@rolemodel/lightning-cad/drawing-editor'
 
 export default class App extends React.Component {
   static propTypes = {
