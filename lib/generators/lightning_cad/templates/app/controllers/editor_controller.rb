@@ -1,5 +1,5 @@
 class EditorController < ApplicationController
   def editor
-    render layout: :editor
+    render layout: 'editor'
   end
 end
