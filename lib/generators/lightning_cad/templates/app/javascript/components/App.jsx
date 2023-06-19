@@ -10,7 +10,7 @@ import {
   Icon,
   IconFactoryContext,
   MultiPerspectiveProjectEditorView,
-} from '@rolemodel/lightning-cad/drawing-editor-react/index.js'
+} from '@rolemodel/lightning-cad-ui/index.js'
 import { Router } from 'react-router-dom'
 import LocalIconFactory from './LocalIconFactory.jsx'
 

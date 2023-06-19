@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-import { IconFactory } from '@rolemodel/lightning-cad/drawing-editor-react/index.js'
+import { IconFactory } from '@rolemodel/lightning-cad-ui/index.js'
 
 import MaterialIcon from './MaterialIcon.jsx'
 

@@ -5,15 +5,14 @@ module LightningCad
     class InstallGenerator < ::Rails::Generators::Base
       source_root File.expand_path('./templates', __dir__)
 
-      def install_lightning_cad
-        say 'Adding lightning-cad dependency'
-        run('yarn add git+ssh://git@github.com/RoleModel/lightning-cad.git#master')
-      end
-
       def install_yarn_dependencies
-        say 'Adding additional javascript dependencies'
+        say 'Adding lightning-cad dependency'
+        copy_file '.npmrc', '.npmrc'
 
         dependencies = %w[
+          @rolemodel/lightning-cad@^8.0.0
+          @rolemodel/lightning-cad-ui@^0.2.0
+          @rolemodel/optics@^0.4.0
           @babel/preset-env@7.21.4
           @babel/preset-react@7.18.6
           @babel/plugin-syntax-jsx@7.21.4
@@ -27,6 +26,7 @@ module LightningCad
           import-glob@1.5.0
           react-router-dom@^5.0.1
           react-popper@^1.3.7
+          classnames@^2.2.5
         ]
         run("yarn add #{dependencies.join(" ")}")
       end
@@ -113,14 +113,10 @@ module LightningCad
 
       def add_stylesheets
         stylesheets = <<-CSS
-          @import '@rolemodel/lightning-cad/drawing-editor-react/stylesheets/MultiPerspectiveProjectEditorView.scss';
-
-          .canvas-area {
-            height: calc(100vh - $header-height);
-          }
+          @import '@rolemodel/lightning-cad-ui/scss/lightning-cad.scss';
         CSS
 
-        append_to_file 'app/assets/stylesheets/application.scss', stylesheets
+        prepend_to_file 'app/assets/stylesheets/application.scss', stylesheets
       end
 
       def global_configuration
