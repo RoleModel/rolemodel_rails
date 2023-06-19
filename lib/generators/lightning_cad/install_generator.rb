@@ -125,6 +125,7 @@ module LightningCad
 
       def create_controller
         say "Creating Rails controller and view"
+        template 'app/views/layouts/editor.html.slim'
         copy_file 'app/controllers/editor_controller.rb', 'app/controllers/editor_controller.rb'
         copy_file 'app/views/editor/editor.html.slim', 'app/views/editor/editor.html.slim'
         route "get '/editor/*all', to: 'editor#editor'"
