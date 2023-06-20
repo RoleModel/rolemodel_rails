@@ -99,14 +99,12 @@ __note:__ the submit button in the `new.html.slim` version of this template woul
 Alternatively, it's still possible to nest the `content_for` block within the form builder if you need to leverege button text generation, for example.  Though you __must__ still set the `form` attribute explicitly, because the button (or `input[type='submit']` in this case) will ultimately be rendered outside of the `<form></form>` tags. e.g.
 
 ```slim
-
 = simple_form_for @thing do |f|
   = f.input :name
   = f.input :description
 
   = content_for :modal_actions do
     = f.submit form: f.id
-
 ```
 
 For further explanation of form Id generation, see the [Record Identifier](https://api.rubyonrails.org/classes/ActionView/RecordIdentifier.html) and [polymorphic Routes](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) docs, or simply inspect the form element in your browser.
