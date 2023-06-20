@@ -12,6 +12,7 @@
 
 1. This generator does not currently attempt to remove the old RoleModel Modal/Confirm/Panel or MakeFormsRemote javascript files or initialization code.  However, that code needs to be removed for the new process to work correctly.
 2. Remove Rails-UJS from your project. Most likely that means running `yarn remove @rails/ujs` and then deleting the `import` and `start()` statements from application.js.
+3. Ensure your application layout now includes the *empty* `turbo_frame_tag`s for `modal` & `panel` as well as the new confirm partial.  The generator should have done this but it may have failed if your layout is much different than expected.
 
 ## Turbo confirm example
 
