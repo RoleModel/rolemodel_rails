@@ -78,7 +78,7 @@ class SomethingsController < ApplicationController
 end
 ```
 
-## Layout Content Slots
+## Modal header & footer
 
 The included modal layout includes *slots* for title content & submit buttons, in addition to the main content `yield`.  You may, of course remove these sections if they don't match your use-case.  Otherwise, the following is an example edit template meant to be rendered in the modal layout.
 
