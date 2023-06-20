@@ -8,6 +8,11 @@
 * frame-missing handler (required for turbo-rails v1.4.0 and above)
 * a very simple stimulus controller `toggle` to help with modal/panel animations.
 
+## After install (Update Only)
+
+1. This generator does not currently attempt to remove the old RoleModel Modal/Confirm/Panel or MakeFormsRemote javascript files or initialization code.  However, that code needs to be removed for the new process to work correctly.
+2. Remove Rails-UJS from your project. Most likely that means running `yarn remove @rails/ujs` and then deleting the `import` and `start()` statements from application.js.
+
 ## Turbo confirm example
 
 ```slim
@@ -88,4 +93,4 @@ The included modal layout includes *slots* for title content & submit buttons, i
   = f.input :description
 ```
 
-__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.  For further explanation of form Id generation, see the [polymorphic_path docs](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) or simply inspect the form element in your browser.
+__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.  For further explanation of form Id generation, see the [Record Identifier](https://api.rubyonrails.org/classes/ActionView/RecordIdentifier.html) and [polymorphic Routes](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) docs, or simply inspect the form element in your browser.
