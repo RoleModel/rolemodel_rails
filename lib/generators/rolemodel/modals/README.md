@@ -8,6 +8,12 @@
 * frame-missing handler (required for turbo-rails v1.4.0 and above)
 * a very simple stimulus controller `toggle` to help with modal/panel animations.
 
+## After install (Update Only)
+
+1. This generator does not currently attempt to remove the old RoleModel Modal/Confirm/Panel or MakeFormsRemote javascript files or initialization code.  However, that code needs to be removed for the new process to work correctly.
+2. Remove Rails-UJS from your project. Most likely that means running `yarn remove @rails/ujs` and then deleting the `import` and `start()` statements from application.js.
+3. Ensure your application layout now includes the *empty* `turbo_frame_tag`s for `modal` & `panel` as well as the new confirm partial.  The generator should have done this but it may have failed if your layout is much different than expected.
+
 ## Turbo confirm example
 
 ```slim
@@ -72,7 +78,7 @@ class SomethingsController < ApplicationController
 end
 ```
 
-## Layout Content Slots
+## Modal header & footer
 
 The included modal layout includes *slots* for title content & submit buttons, in addition to the main content `yield`.  You may, of course remove these sections if they don't match your use-case.  Otherwise, the following is an example edit template meant to be rendered in the modal layout.
 
@@ -88,4 +94,17 @@ The included modal layout includes *slots* for title content & submit buttons, i
   = f.input :description
 ```
 
-__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.  For further explanation of form Id generation, see the [polymorphic_path docs](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) or simply inspect the form element in your browser.
+__note:__ the submit button in the `new.html.slim` version of this template would be `form: dom_id(@thing)` or simply `form: 'new_thing'`.
+
+Alternatively, it's still possible to nest the `content_for` block within the form builder if you need to leverege button text generation, for example.  Though you __must__ still set the `form` attribute explicitly, because the button (or `input[type='submit']` in this case) will ultimately be rendered outside of the `<form></form>` tags. e.g.
+
+```slim
+= simple_form_for @thing do |f|
+  = f.input :name
+  = f.input :description
+
+  = content_for :modal_actions do
+    = f.submit form: f.id
+```
+
+For further explanation of form Id generation, see the [Record Identifier](https://api.rubyonrails.org/classes/ActionView/RecordIdentifier.html) and [polymorphic Routes](https://api.rubyonrails.org/classes/ActionDispatch/Routing/PolymorphicRoutes.html) docs, or simply inspect the form element in your browser.
