@@ -1,5 +1,3 @@
-
-
 module Rolemodel
   class ModalsGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
@@ -35,24 +33,12 @@ module Rolemodel
     def amend_stylesheet_entrypoint
       say 'importing Optics stylesheets and defining custom properties', :green
 
-      inject_into_file 'app/assets/stylesheets/application.scss', after: "@import '@rolemodel/optics/dist/scss/optics';\n" do
+      inject_into_file 'app/assets/stylesheets/application.scss',
+                       after: "@import '@rolemodel/optics/dist/scss/optics';\n" do
         <<~SCSS
-          @import '@rolemodel/optics/dist/scss/addons/rails-modal-and-panel/modal';
-          @import '@rolemodel/optics/dist/scss/addons/rails-modal-and-panel/panel';
+          @import '@rolemodel/optics/dist/scss/addons/panel';
         SCSS
       end
-
-      append_to_file 'app/assets/stylesheets/application.scss', <<~SCSS
-        root {
-          // Panel tokens
-          --panel-width: 40%;
-          --panel-transition-speed: 400ms;
-
-          // Modals tokens
-          --modal-width: 564px;
-          --modal-transition-speed: 300ms;
-        }
-      SCSS
     end
 
     def amend_application_layout
