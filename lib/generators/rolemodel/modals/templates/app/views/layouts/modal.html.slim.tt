@@ -8,19 +8,23 @@ html
     = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
   body
     = turbo_frame_tag 'modal' do
-      .modal.flex.items-center.justify-center(
-        class=class_names('modal--active' => response.message == 'Unprocessable Entity')
+      .modal-wrapper(
+        class=class_names('modal-wrapper--active' => response.message == 'Unprocessable Entity')
         data-controller="toggle"
         data-toggle-perform-on-connect-value=(response.message == 'OK')
-        data-toggle-active-class="modal--active"
+        data-toggle-active-class="modal-wrapper--active"
         data-turbo-cache="false"
+        data-action="keydown.esc@window->toggle#off"
       )
-        .modal__backdrop data-action="click->toggle#perform"
-        .modal__content data-testid="modal-content"
+        .modal-wrapper__backdrop data-action="click->toggle#off"
+        .modal data-testid="modal-content"
           .modal__header
             = yield :modal_title
+            = button_tag( material_icon('close', size: 'x-large'), class: 'btn btn--no-border btn--icon btn--pill', data: { action: "toggle#off" })
+
           .modal__body
             = yield
+
           .modal__footer
-            = button_tag( 'Cancel', class: 'btn', data: { action: "toggle#perform" })
+            = button_tag( 'Cancel', class: 'btn', data: { action: "toggle#off" })
             = yield :modal_actions
