@@ -1,7 +1,8 @@
 html lang="en"
   head
     meta http-equiv="Content-Type" content="text/html; charset=utf-8"
-    = stylesheet_pack_tag 'mailer_stylesheets', media: 'all'
+    // TODO: This tries to use sassC instead of the webpack dart sass compiler.
+    = stylesheet_link_tag 'mailer', media: 'all'
   body
     .email-container
       .email-header

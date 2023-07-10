@@ -15,7 +15,7 @@ module Rolemodel
     end
 
     def include_postcss_calc
-      inject_into_file 'postcss.config.js', ",\n    require('postcss-calc')", after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
+      inject_into_file 'postcss.config.cjs', ",\n    require('postcss-calc')", after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
     end
 
     def add_action_mailer_asset_host
