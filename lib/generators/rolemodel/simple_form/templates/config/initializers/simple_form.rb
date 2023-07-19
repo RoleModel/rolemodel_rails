@@ -77,7 +77,7 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
   end
 
-  config.wrappers(:toggle_wrapper, class: 'form-group', hint_class: :field_with_hint,
+  config.wrappers(:switch_wrapper, class: 'form-group', hint_class: :field_with_hint,
                                    error_class: :field_with_errors, valid_class: :field_without_errors) do |b|
     b.use :html5
     b.optional :readonly
@@ -86,7 +86,7 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
   end
 
-  config.wrappers(:inline_toggle_wrapper, class: 'form-group form-group--inline', hint_class: :field_with_hint,
+  config.wrappers(:inline_switch_wrapper, class: 'form-group form-group--inline', hint_class: :field_with_hint,
                                           error_class: :field_with_errors, valid_class: :field_without_errors) do |b|
     b.use :html5
     b.optional :readonly
@@ -166,7 +166,7 @@ SimpleForm.setup do |config|
   # type as key and the wrapper that will be used for all inputs with specified type.
   config.wrapper_mappings = {
     boolean: :inline_boolean,
-    toggle_checkbox: :inline_toggle_wrapper
+    switch_checkbox: :inline_switch_wrapper
   }
 
   # Namespaces where SimpleForm should look for custom input classes that
