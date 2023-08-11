@@ -77,6 +77,24 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
   end
 
+  config.wrappers(:switch_wrapper, class: 'form-group', hint_class: :field_with_hint,
+                                   error_class: :field_with_errors, valid_class: :field_without_errors) do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :input
+    b.use :error, wrap_with: { tag: :span, class: 'form-error' }
+    b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
+  end
+
+  config.wrappers(:inline_switch_wrapper, class: 'form-group form-group--inline', hint_class: :field_with_hint,
+                                          error_class: :field_with_errors, valid_class: :field_without_errors) do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :input
+    b.use :error, wrap_with: { tag: :span, class: 'form-error' }
+    b.use :hint,  wrap_with: { tag: :span, class: 'form-hint' }
+  end
+
   # Define the way to render check boxes / radio buttons with labels.
   # Defaults to :nested for bootstrap config.
   #   inline: input + label
@@ -147,7 +165,8 @@ SimpleForm.setup do |config|
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
   config.wrapper_mappings = {
-    boolean: :inline_boolean
+    boolean: :inline_boolean,
+    switch_checkbox: :inline_switch_wrapper
   }
 
   # Namespaces where SimpleForm should look for custom input classes that
