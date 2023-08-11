@@ -10,6 +10,7 @@
 # Usage:
 # <%= f.input :my_field, as: :switch_checkbox %>
 # <%= f.input :my_field, as: :switch_checkbox, small: true %>
+# <%= f.input :my_field, as: :switch_checkbox, disabled: true %>
 # <%= f.input :my_field, as: :switch_checkbox, label_after_input: true %>
 # <%= f.input :my_field, as: :switch_checkbox, wrapper: :switch_wrapper %>
 class SwitchCheckboxInput < SimpleForm::Inputs::BooleanInput
