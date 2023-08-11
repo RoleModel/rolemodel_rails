@@ -18,8 +18,12 @@ class SwitchCheckboxInput < SimpleForm::Inputs::BooleanInput
     merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
     switch_group = template.content_tag(:div, class: "switch #{'switch--small' if options[:small]}") do
-      build_check_box_without_hidden_field(merged_input_options) +
-        label(wrapper_options)
+      if include_hidden?
+        build_check_box(unchecked_value, merged_input_options)
+      else
+        build_check_box_without_hidden_field(merged_input_options)
+      end +
+      label(wrapper_options)
     end
 
     if options[:label_after_input]
