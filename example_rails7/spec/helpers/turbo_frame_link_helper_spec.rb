@@ -21,5 +21,13 @@ RSpec.describe TurboFrameLinkHelper, type: :helper do
         modal_link_to('Click here', 'http://www.example.com', class: 'btn')
       ).to eq '<a class="btn" data-turbo-frame="modal" href="http://www.example.com">Click here</a>'
     end
+
+    it 'accepts a an url, options and a block' do
+      expect(
+        modal_link_to('http://www.example.com', class: 'btn') do
+          'Click here'
+        end
+      ).to eq '<a class="btn" data-turbo-frame="modal" href="http://www.example.com">Click here</a>'
+    end
   end
 end
