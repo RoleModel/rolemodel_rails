@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Example Rails7
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
+  body
+    = turbo_frame_tag 'modal' do
+      .modal.flex.items-center.justify-center(
+        class=class_names('modal--active' => response.message == 'Unprocessable Entity')
+        data-controller="toggle"
+        data-toggle-perform-on-connect-value=(response.message == 'OK')
+        data-toggle-active-class="modal--active"
+        data-turbo-cache="false"
+      )
+        .modal__backdrop data-action="click->toggle#perform"
+        .modal__content data-testid="modal-content"
+          .modal__header
+            = yield :modal_title
+          .modal__body
+            = yield
+          .modal__footer
+            = button_tag( 'Cancel', class: 'btn', data: { action: "toggle#perform" })
+            = yield :modal_actions

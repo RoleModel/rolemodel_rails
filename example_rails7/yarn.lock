@@ -75,6 +75,11 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.5.tgz#bbc11203e0d3d5084002abfcf01d621fdf5f3a9d"
   integrity sha512-SOBA2heB9lTw0VYIx8M/ed7inSf4I9sR8OIlJprhgkfQ3WJtrxPJ6DDATR1Z3RYaIR7HlT2Olj08v1lfGIGuHA==
 
+"@rolemodel/turbo-confirm@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@rolemodel/turbo-confirm/-/turbo-confirm-1.0.0.tgz#cdd05b1bc2ef943fd446a94dac361a5ee1747f77"
+  integrity sha512-r682PLMJbzbvZlS2Bv9yaUFXSO2LKxsoItNZJBJaIqSiz/rkQjCxeHcJxKcAtBV/rwuioZaf1UyLJVvSy7mobQ==
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.4"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.4.tgz#37fc1223f0786c39627068a12e94d6e6fc61de16"

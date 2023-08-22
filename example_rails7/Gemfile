@@ -64,8 +64,9 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "rspec-rails"
   gem "selenium-webdriver"
   gem "webdrivers"
 end
 
-gem "rolemodel_rails", "~> 0.5.0", :group => :development, :path => ".."
+gem "rolemodel_rails", "~> 0.6", :group => :development, :path => ".."
