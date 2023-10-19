@@ -1,24 +1,16 @@
-@import 'stylesheets/vendor/normalize';
-@import 'stylesheets/theme';
-@import 'stylesheets/variables';
-@import 'stylesheets/base';
-@import 'stylesheets/utilities';
-
-@import 'stylesheets/components/button';
-@import 'stylesheets/components/card';
-@import 'stylesheets/components/table';
+@import '@rolemodel/optics/dist/scss/optics';
 
 :root {
-  --neutral-layer-app-background: var(--neutral-layer-1-background);
-  --neutral-layer-app-text: var(--color-black);
-  --text-scale-ratio: 1.15;
+  --neutral-layer-app-background: var(--op-color-background);
+  --neutral-layer-app-text: var(--op-color-on-background);
+  --op-font-scale-unit: 1.15;
 }
 
 .email-container {
   max-width: 600px;
   margin: auto;
-  padding-left: var(--space-xs);
-  padding-right: var(--space-xs);
+  padding-left: var(--op-space-x-small);
+  padding-right: var(--op-space-x-small);
 }
 
 .card {
@@ -26,8 +18,8 @@
 }
 
 .email-header {
-  margin-top: var(--space-lg);
-  margin-bottom: var(--space-lg);
+  margin-top: var(--op-space-large);
+  margin-bottom: var(--op-space-large);
   text-align: center;
 }
 
@@ -37,5 +29,5 @@
 
 .email-footer {
   text-align: center;
-  color: var(--color-neutral-600);
+  color: var(--op-color-on-background-alt);
 }
