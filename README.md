@@ -14,7 +14,7 @@ Attempts to solve the pain of:
 The rolemodel_rails gem expects to be added to an existing Rails project. Typically those are started with:
 
 ```shell
-rails new <app-name> --skip-test --database=postgresql
+rails new <app-name> --javascript=webpack --css=sass --database=postgresql --skip-test
 ```
 
 ## Installation
