@@ -92,7 +92,9 @@ blocks:
       jobs:
         - name: Webpack Compile and Store Assets
           commands:
-            - bundle exec rails webpacker:compile
+            - bundle check || bundle install --without legacy_data_migration
+            - yarn check || yarn install
+            - yarn build
             - cache store assets-public-$SEMAPHORE_WORKFLOW_ID public
   - name: System Tests
     dependencies:
