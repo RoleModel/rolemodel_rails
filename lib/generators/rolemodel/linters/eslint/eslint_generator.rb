@@ -26,7 +26,7 @@ module Rolemodel
       def add_eslint_command_to_package_json
         json = JSON.parse(File.read('package.json'))
         json['scripts'] = (json['scripts'] || {}).merge(
-          eslint: "eslint .",
+          eslint: "eslint 'app/**/*.js' 'spec/**/*.js'",
         )
         File.write('package.json', JSON.pretty_generate(json) + "\n")
       end

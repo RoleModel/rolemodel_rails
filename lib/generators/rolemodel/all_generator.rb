@@ -15,11 +15,12 @@ module Rolemodel
       generate 'rolemodel:simple_form'
       generate 'rolemodel:soft_destroyable'
       generate 'rolemodel:saas:all'
-      generate 'rolemodel:editors'
-      generate 'rolemodel:linters:all'
       generate 'rolemodel:mailers'
+      generate 'rolemodel:linters:all'
+      generate 'rolemodel:modals'
       generate 'rolemodel:source_map'
       generate 'rolemodel:kaminari'
+      generate 'rolemodel:editors'
     end
   end
 end

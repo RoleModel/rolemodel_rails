@@ -3,26 +3,34 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def add_npm_packages
-      run 'yarn add react react-dom'
+      @add_react = yes?('Would you like to add react?')
+
+      if @add_react
+        run 'yarn add react react-dom'
+      end
     end
 
     def add_files
-      say 'Copying files'
+      if @add_react
+        say 'Copying files'
 
-      template 'app/helpers/react_helper.rb', 'app/helpers/react_helper.rb'
+        template 'app/helpers/react_helper.rb', 'app/helpers/react_helper.rb'
 
-      template 'app/javascript/components/HelloReact.jsx', 'app/javascript/components/HelloReact.jsx'
-      template 'app/javascript/controllers/react_controller.js', 'app/javascript/controllers/react_controller.js'
+        template 'app/javascript/components/HelloReact.jsx', 'app/javascript/components/HelloReact.jsx'
+        template 'app/javascript/controllers/react_controller.js', 'app/javascript/controllers/react_controller.js'
+      end
     end
 
     def import_react_controller
-      say 'Importing react_controller.js'
+      if @add_react
+        say 'Importing react_controller.js'
 
-      append_to_file 'app/javascript/controllers/index.js', <<~JS
+        append_to_file 'app/javascript/controllers/index.js', <<~JS
 
-        import ReactController from './react_controller.js'
-        application.register('react', ReactController)
-      JS
+          import ReactController from './react_controller.js'
+          application.register('react', ReactController)
+        JS
+      end
     end
   end
 end

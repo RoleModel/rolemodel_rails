@@ -1,8 +1,36 @@
-@import '@rolemodel/optics/dist/scss/optics';
+// NOTE: Custom fonts and the Material Icons do not currently work in emails.
+// Since those resources are normally pulled from a CDN, emails may struggle with those
+// Since premailer rails tries to inline the styles.
+// In some cases, the email shows as blank since content security policy blocks
+// any remote content in HTML emails.
+
+// Note: Using Optics Selective imports since we don't need all of the styles for emails
+
+// Third party Vendors
+@import 'modern-css-reset/dist/reset';
+
+// Tokens
+@import '@rolemodel/optics/dist/scss/core/tokens';
+
+// Base styles and utilities
+@import '@rolemodel/optics/dist/scss/core/base';
+@import '@rolemodel/optics/dist/scss/core/layout';
+@import '@rolemodel/optics/dist/scss/core/utilities';
+
+// Components
+@import '@rolemodel/optics/dist/scss/components/alert'; // For using the banner style
+@import '@rolemodel/optics/dist/scss/components/avatar';
+@import '@rolemodel/optics/dist/scss/components/badge';
+@import '@rolemodel/optics/dist/scss/components/breadcrumbs';
+@import '@rolemodel/optics/dist/scss/components/button';
+@import '@rolemodel/optics/dist/scss/components/card';
+@import '@rolemodel/optics/dist/scss/components/divider';
+@import '@rolemodel/optics/dist/scss/components/spinner';
+@import '@rolemodel/optics/dist/scss/components/table';
+@import '@rolemodel/optics/dist/scss/components/tag';
+@import '@rolemodel/optics/dist/scss/components/text_pair';
 
 :root {
-  --neutral-layer-app-background: var(--op-color-background);
-  --neutral-layer-app-text: var(--op-color-on-background);
   --op-font-scale-unit: 1.15;
 }
 

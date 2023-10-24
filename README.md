@@ -14,7 +14,13 @@ Attempts to solve the pain of:
 The rolemodel_rails gem expects to be added to an existing Rails project. Typically those are started with:
 
 ```shell
-rails new <app-name> --skip-test --database=postgresql
+rails new <app-name> --javascript=webpack --css=sass --database=postgresql --skip-test
+```
+
+The Devise generator requires your database to exist before running.
+
+```shell
+rails db:create
 ```
 
 ## Installation
@@ -61,16 +67,18 @@ bin/rails g
 
 * [Github](./lib/generators/rolemodel/github)
 * [Semaphore](./lib/generators/rolemodel/semaphore)
+* [Heroku](./lib/generators/rolemodel/heroku)
+* [Readme](./lib/generators/rolemodel/readme)
+* [Webpack](./lib/generators/rolemodel/webpack)
+* [React](./lib/generators/rolemodel/react)
+* [Slim](./lib/generators/rolemodel/slim)
+* [Optics](./lib/generators/rolemodel/optics)
+  * [Base](./lib/generators/rolemodel/optics/base)
+  * [Icons](./lib/generators/rolemodel/optics/icons)
 * [Testing](./lib/generators/rolemodel/testing)
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
-* [Webpack](./lib/generators/rolemodel/webpack)
-* [Optics](./lib/generators/rolemodel/optics)
-  * [Base](./lib/generators/rolemodel/optics/base)
-  * [Icons](./lib/generators/rolemodel/optics/icons)
-* [Readme](./lib/generators/rolemodel/readme)
-* [Heroku](./lib/generators/rolemodel/heroku)
 * [SimpleForm](./lib/generators/rolemodel/simple_form)
 * [SoftDestroyable](./lib/generators/rolemodel/soft_destroyable)
 * [SaaS](./lib/generators/rolemodel/saas)
@@ -82,6 +90,7 @@ bin/rails g
 * [Modals](./lib/generators/rolemodel/modals)
 * [Source Map](./lib/generators/rolemodel/source_map)
 * [Kaminari](./lib/generators/rolemodel/kaminari)
+* [Editors](./lib/generators/rolemodel/editors)
 
 ## Development
 
