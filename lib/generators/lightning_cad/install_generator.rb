@@ -28,7 +28,7 @@ module LightningCad
           react-popper@^1.3.7
           classnames@^2.2.5
         ]
-        run("yarn add #{dependencies.join(" ")}")
+        run "yarn add #{dependencies.join(" ")}"
       end
 
       def install_yarn_dev_dependencies
@@ -37,31 +37,20 @@ module LightningCad
         dev_dependencies = %w[
           jasmine@^4.6.0
         ]
-        run("yarn add --dev #{dev_dependencies.join(" ")}")
+        run "yarn add --dev #{dev_dependencies.join(" ")}"
       end
 
       def install_yarn_optional_dependencies
         say 'Adding optional dependencies'
         say "THREE.js packages are not required if this project does not implement 3D views"
-        run("yarn add --optional three@^0.144.0")
-      end
-
-      def remove_unused_js
-        hello_controller = "\nimport HelloController from './hello_controller.js'\napplication.register('hello', HelloController)\n"
-        gsub_file 'app/javascript/controllers/index.js', hello_controller, ''
-
-        remove_file 'app/javascript/packs/hello_react.jsx'
-        remove_file 'app/javascript/controllers/hello_controller.js'
+        run "yarn add --optional three@^0.144.0"
       end
 
       def add_yarn_tasks
-        say 'Adding package.json test scripts'
+        say 'Adding package.json scripts'
 
-        yarn_scripts = <<-'JS'
-    "test_shared": "NODE_ENV=test NODE_PATH=\"./node_modules:./app/javascript:$NODE_PATH\" jasmine",
-    "build": "webpack --config webpack.config.js",
-        JS
-        inject_into_file 'package.json', yarn_scripts, before: "  \"eslint\": \"eslint"
+        run 'npm pkg set scripts.build="webpack --config webpack.config.js"'
+        run 'npm pkg set scripts.test_shared="NODE_ENV=test NODE_PATH="./node_modules:./app/javascript:$NODE_PATH" jasmine --config=jasmine.json"'
       end
 
       def add_webpack_config
