@@ -10,9 +10,9 @@ module LightningCad
         copy_file '.npmrc', '.npmrc'
 
         dependencies = %w[
-          @rolemodel/lightning-cad@^8.0.0
-          @rolemodel/lightning-cad-ui@^0.2.0
-          @rolemodel/optics@^0.4.0
+          @rolemodel/lightning-cad@^8.2.0
+          @rolemodel/lightning-cad-ui@^0.4.0
+          @rolemodel/optics@^0.5.1
           @babel/preset-env@7.21.4
           @babel/preset-react@7.18.6
           @babel/plugin-syntax-jsx@7.21.4
@@ -35,13 +35,7 @@ module LightningCad
         say 'Adding javascript devDependencies'
 
         dev_dependencies = %w[
-          @testing-library/jest-dom@^5.16.5
-          @testing-library/react@^12.1.2
-          @testing-library/user-event@^13.1.8
-          fetch-mock@^9.11.0
           jasmine@^4.6.0
-          jest@^29.5.0
-          babel-jest@^29.5.0
         ]
         run("yarn add --dev #{dev_dependencies.join(" ")}")
       end
@@ -64,42 +58,15 @@ module LightningCad
         say 'Adding package.json test scripts'
 
         yarn_scripts = <<-'JS'
-    "test": "bundle exec rake javascript_tests",
-    "test_view": "NODE_ENV=test yarn node --experimental-vm-modules $(yarn bin jest --watch)",
-    "test_view_ci": "NODE_ENV=test yarn node --experimental-vm-modules $(yarn bin jest)",
     "test_shared": "NODE_ENV=test NODE_PATH=\"./node_modules:./app/javascript:$NODE_PATH\" jasmine",
     "build": "webpack --config webpack.config.js",
         JS
         inject_into_file 'package.json', yarn_scripts, before: "  \"eslint\": \"eslint"
       end
 
-      def add_jest_config
-        say 'Adding jest config'
-        copy_file 'jest.config.js', 'jest.config.js'
-      end
-
       def add_webpack_config
         say 'Adding webpack config'
         copy_file 'webpack.config.js', 'webpack.config.js'
-      end
-
-      def setup_javascript_specs
-        say "Set up jest/jasmine environment and basic test harness"
-
-        copy_file 'lib/tasks/javascript_tests.rake', 'lib/tasks/javascript_tests.rake'
-
-        copy_file 'spec/javascript/components/.eslintrc.js', 'spec/javascript/components/.eslintrc.js'
-        copy_file 'spec/javascript/components/TestSetup.js', 'spec/javascript/components/TestSetup.js'
-        copy_file 'spec/javascript/components/__mocks__/FilePathMock.js', 'spec/javascript/components/__mocks__/FilePathMock.js'
-        copy_file 'spec/javascript/components/support/matchMedia.js', 'spec/javascript/components/support/matchMedia.js'
-        copy_file 'babel.config.cjs', 'babel.config.cjs'
-
-        copy_file 'spec/javascript/shared/.eslintrc.js', 'spec/javascript/shared/.eslintrc.js'
-        copy_file 'spec/javascript/shared/TestSetup.js', 'spec/javascript/shared/TestSetup.js'
-
-        copy_file 'spec/javascript/shared/testSpec.js', 'spec/javascript/shared/testSpec.js'
-
-        copy_file 'spec/support/jasmine.json', 'spec/support/jasmine.json'
       end
 
       def create_basic_app
