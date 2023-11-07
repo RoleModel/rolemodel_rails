@@ -9,20 +9,23 @@ module LightningCad
         say 'Adding lightning-cad dependency'
         copy_file '.npmrc', '.npmrc'
 
+          # @babel/preset-env@7.21.4
+          # @babel/preset-react@7.18.6
+          # @babel/plugin-syntax-jsx@7.21.4
+          # @babel/core@7.21.4
+
+
+          # already added
+          # react@16.9.0
+          # react-dom@16.9.0
         dependencies = %w[
           @rolemodel/lightning-cad@^8.2.0
           @rolemodel/lightning-cad-ui@^0.4.0
           @rolemodel/optics@^0.5.1
-          @babel/preset-env@7.21.4
-          @babel/preset-react@7.18.6
-          @babel/plugin-syntax-jsx@7.21.4
-          @babel/core@7.21.4
           mobx-react@^6.1.5
           mobx-utils@^5.5.2
           mobx@^5.15.2
           glob@^10.2.2
-          react@16.9.0
-          react-dom@16.9.0
           import-glob@1.5.0
           react-router-dom@^5.0.1
           react-popper@^1.3.7
