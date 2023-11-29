@@ -17,6 +17,12 @@ module LightningCad
         copy_file 'spec/javascript/shared/TestSetup.js', 'spec/javascript/shared/TestSetup.js'
         copy_file 'spec/javascript/shared/testSpec.js', 'spec/javascript/shared/testSpec.js'
       end
+
+      def add_test_initializers
+        say 'Adding test initializers'
+
+        copy_file 'spec/javascript/helpers/initializers.js', 'spec/javascript/helpers/initializers.js'
+      end
     end
   end
 end
