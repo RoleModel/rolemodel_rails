@@ -2,7 +2,7 @@ require 'rails'
 
 module LightningCad
   module Generators
-    class JasmineGenerator < ::Rails::Generators::Base
+    class TestGenerator < ::Rails::Generators::Base
       source_root File.expand_path('./templates', __dir__)
 
       def add_jasmine_tests
