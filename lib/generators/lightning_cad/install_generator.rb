@@ -10,25 +10,14 @@ module LightningCad
         copy_file '.npmrc', '.npmrc'
 
         dependencies = %w[
-          @rolemodel/lightning-cad@^8.2.0
-          @rolemodel/lightning-cad-ui@^0.4.0
-          @rolemodel/optics@^0.5.1
-          mobx-react@^6.1.5
-          mobx-utils@^5.5.2
-          mobx@^5.15.2
-          glob@^10.2.2
-          import-glob@1.5.0
-          react-router-dom@^5.0.1
-          react-popper@^1.3.7
-          classnames@^2.2.5
+          @rolemodel/lightning-cad
+          @rolemodel/lightning-cad-ui
+          @rolemodel/optics
+          glob
+          import-glob
         ]
-        run "yarn add #{dependencies.join(" ")}"
-      end
 
-      def install_yarn_optional_dependencies
-        say 'Adding optional dependencies'
-        say "THREE.js packages are not required if this project does not implement 3D views"
-        run "yarn add --optional three@^0.144.0"
+        run "yarn add #{dependencies.join(" ")}"
       end
 
       def add_jasmine_tests
