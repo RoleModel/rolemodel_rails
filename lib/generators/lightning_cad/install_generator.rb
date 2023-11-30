@@ -11,7 +11,6 @@ module LightningCad
       dependencies = %w[
         @rolemodel/lightning-cad
         @rolemodel/lightning-cad-ui
-        @rolemodel/optics
         glob
         import-glob
       ]
