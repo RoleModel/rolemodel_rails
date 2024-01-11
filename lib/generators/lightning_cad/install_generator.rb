@@ -18,14 +18,10 @@ module LightningCad
       run "yarn add #{dependencies.join(" ")}"
     end
 
-    def add_webpack_config
-      say 'Adding webpack config'
-      copy_file 'webpack.config.js', 'webpack.config.js'
-    end
-
     def create_basic_app
       say "Creating React App Component"
-      copy_file 'app/javascript/controllers/react_controller.js', 'app/javascript/controllers/react_controller.js'
+      insert_into_file 'app/javascript/controllers/react_controller.js', "import App from '../components/App.jsx'\n", after: "import HelloReact from '../components/HelloReact.jsx'\n"
+      insert_into_file 'app/javascript/controllers/react_controller.js', "  App,\n", after: "const registeredComponents = {\n"
       copy_file 'app/javascript/components/MaterialIcon.jsx', 'app/javascript/components/MaterialIcon.jsx'
       copy_file 'app/javascript/components/LocalIconFactory.jsx', 'app/javascript/components/LocalIconFactory.jsx'
       copy_file 'app/javascript/components/App.jsx', 'app/javascript/components/App.jsx'
