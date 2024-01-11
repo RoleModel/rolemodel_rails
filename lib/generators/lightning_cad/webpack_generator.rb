@@ -8,10 +8,10 @@ module LightningCad
       # copy_file 'webpack.config.js', 'webpack.config.js'
       say "Adding experimental features to the config"
 
-      experiments = <<~JS
-        experiments: {
-          topLevelAwait: true
-        },
+      experiments = <<-JS
+  experiments: {
+    topLevelAwait: true
+  },
       JS
 
       insert_into_file 'webpack.config.js', experiments, before: "  output: {"
@@ -55,15 +55,15 @@ module LightningCad
     def add_loaders
       say 'Adding loaders to the config'
 
-      loaders = <<~JS
-              {
-                test: /\.(mjs|cjs|js|jsx)$/,
-                loader: 'import-glob'
-              },
-              {
-                test: /\.scss/,
-                loader: 'import-glob'
-              },
+      loaders = <<-JS
+      {
+        test: /\.(mjs|cjs|js|jsx)$/,
+        loader: 'import-glob'
+      },
+      {
+        test: /\.scss/,
+        loader: 'import-glob'
+      },
       JS
 
       insert_into_file 'webpack.config.js', loaders, after: "rules: [\n"
@@ -72,25 +72,25 @@ module LightningCad
     def update_esbuild_loader
       say 'Updating esbuild loader in the config'
 
-      insert_into_file 'webpack.config.js', "        include: /app\/javascript|@rolemodel\/lightning-cad/,\n", before: "        loader: 'esbuild-loader',"
+      insert_into_file 'webpack.config.js', "        include: /app\\/javascript|@rolemodel\\/lightning-cad/,\n", before: "        loader: 'esbuild-loader',"
       gsub_file 'webpack.config.js', 'es2021', 'esnext'
     end
 
     def add_terser_plugin_options
       say 'Updating the terser plugin options in the config'
 
-      terserPlugin = <<~JS
-              new TerserPlugin({
-                terserOptions: {
-                  keep_classnames: true,
-                  mangle: {
-                    keep_fnames: /^[A-Z]/,
-                  },
-                  compress: {
-                    keep_fnames: false,
-                  }
-                }
-              }),
+      terserPlugin = <<-JS
+      new TerserPlugin({
+        terserOptions: {
+          keep_classnames: true,
+          mangle: {
+            keep_fnames: /^[A-Z]/,
+          },
+          compress: {
+            keep_fnames: false,
+          }
+        }
+      }),
       JS
 
       gsub_file 'webpack.config.js', "      new TerserPlugin(),\n", terserPlugin
