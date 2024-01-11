@@ -18,12 +18,7 @@ module LightningCad
     end
 
     def add_resolve_fallback
-      fallback = <<~JS
-        ,
-            fallback: {
-              module: false
-            }
-      JS
+      fallback = ",\n    fallback: {\n      module: false\n    }"
 
       insert_into_file 'webpack.config.js', fallback, after: "extensions: ['.js', '.jsx']"
     end
