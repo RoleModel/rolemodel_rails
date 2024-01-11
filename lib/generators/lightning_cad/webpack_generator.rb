@@ -25,7 +25,7 @@ module LightningCad
             }
       JS
 
-      insert_into_file 'webpack.config.js', alias_js, after: "extensions: ['.js', '.jsx']"
+      insert_into_file 'webpack.config.js', fallback, after: "extensions: ['.js', '.jsx']"
     end
 
     def add_resolve_aliases
