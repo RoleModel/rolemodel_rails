@@ -8,7 +8,7 @@ module LightningCad
       # copy_file 'webpack.config.js', 'webpack.config.js'
       say "Adding experimental features to the config"
 
-      experiments <<~JS
+      experiments = <<~JS
         experiments: {
           topLevelAwait: true
         },
@@ -19,7 +19,7 @@ module LightningCad
 
     def add_resolve_aliases
       say 'Adding aliases to the config'
-      alias_js <<~JS
+      alias_js = <<~JS
         alias: {
           // lightning-cad uses 'require' to pull in THREE, but three-bvh-csg uses 'import'.
           // Because THREE's package.json has an exports field with different files for
@@ -54,7 +54,7 @@ module LightningCad
     def add_loaders
       say 'Adding loaders to the config'
 
-      loaders <<~JS
+      loaders = <<~JS
         {
           test: /\.(mjs|cjs|js|jsx)$/,
           loader: 'import-glob'
@@ -78,7 +78,7 @@ module LightningCad
     def add_terser_plugin_options
       say 'Updating the terser plugin options in the config'
 
-      terserPlugin <<~JS
+      terserPlugin = <<~JS
         new TerserPlugin({
           terserOptions: {
             keep_classnames: true,
