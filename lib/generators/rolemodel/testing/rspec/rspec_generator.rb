@@ -32,7 +32,7 @@ module Rolemodel
         template 'support/helpers/download_helper.rb', 'spec/support/helpers/download_helper.rb'
         template 'support/helpers/test_element_helper.rb', 'spec/support/helpers/test_element_helper.rb'
         template 'support/helpers.rb', 'spec/support/helpers.rb'
-        append_file '.gitignore', 'spec/examples.txt'
+        append_file '.gitignore', 'spec/examples.txt' if File.exist?('.gitignore')
       end
 
       def modify_existing_files
