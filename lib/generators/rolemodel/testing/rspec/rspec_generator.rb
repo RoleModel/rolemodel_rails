@@ -36,7 +36,7 @@ module Rolemodel
       end
 
       def modify_existing_files
-        # Configure for paralell_spec
+        # Configure for parallel_spec
         gsub_file 'config/database.yml', /database: .*_test$/ do |match|
           "#{match}<%= ENV['TEST_ENV_NUMBER'] %>"
         end
