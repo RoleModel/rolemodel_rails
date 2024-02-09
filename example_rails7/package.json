@@ -1,10 +1,10 @@
 {
   "name": "app",
-  "private": "true",
+  "private": true,
   "dependencies": {
-    "@hotwired/stimulus": "^3.2.1",
-    "@hotwired/turbo-rails": "^7.3.0",
-    "webpack": "^5.87.0",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.2",
+    "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
