@@ -18,3 +18,5 @@ log
 **/app/assets/builds
 
 *.gem
+
+.history

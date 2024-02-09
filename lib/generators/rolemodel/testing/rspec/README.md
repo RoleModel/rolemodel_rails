@@ -42,3 +42,8 @@ it 'saves the form data', :firefox do
   # ...some test
 end
 ```
+
+#### Overriding
+The `CAPYBARA_DRIVER` environment variable can be set to either `js`, `chrome` or `firefox` to override the entire suite.
+This is especially useful for running the entire sweet with headless capybara in CI
+
