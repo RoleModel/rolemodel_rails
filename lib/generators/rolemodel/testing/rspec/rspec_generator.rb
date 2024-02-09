@@ -8,13 +8,15 @@ module Rolemodel
 
       def install_rspec
         gem_group :development, :test do
+          gem 'rspec_junit_formatter'
           gem 'rspec-rails'
+          gem 'turbo_tests'
         end
         run_bundle
 
         gem_group :test do
           gem 'capybara'
-          gem 'webdrivers'
+          gem 'selenium-webdriver'
         end
         run_bundle
       end
@@ -23,12 +25,21 @@ module Rolemodel
         template 'rails_helper.rb', 'spec/rails_helper.rb'
         template 'spec_helper.rb', 'spec/spec_helper.rb'
         template '.rspec', '.rspec'
+        template '.rspec_parallel', '.rspec_parallel'
         template 'support/capybara_drivers.rb', 'spec/support/capybara_drivers.rb'
         template 'support/capybara_testid.rb', 'spec/support/capybara_testid.rb'
+        template 'support/helpers/capybara_helper.rb', 'spec/support/helpers/capybara_helper.rb'
+        template 'support/helpers/download_helper.rb', 'spec/support/helpers/download_helper.rb'
         template 'support/helpers/test_element_helper.rb', 'spec/support/helpers/test_element_helper.rb'
         template 'support/helpers.rb', 'spec/support/helpers.rb'
-        template 'support/webpacker.rb', 'spec/support/webpacker.rb'
-        append_file '.gitignore', 'spec/examples.txt'
+        append_file '.gitignore', 'spec/examples.txt' if File.exist?('.gitignore')
+      end
+
+      def modify_existing_files
+        # Configure for parallel_spec
+        gsub_file 'config/database.yml', /database: .*_test$/ do |match|
+          "#{match}<%= ENV['TEST_ENV_NUMBER'] %>"
+        end
       end
     end
   end
