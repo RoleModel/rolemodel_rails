@@ -47,3 +47,10 @@ end
 The `CAPYBARA_DRIVER` environment variable can be set to either `js`, `chrome` or `firefox` to override the entire suite.
 This is especially useful for running the entire sweet with headless capybara in CI
 
+
+### Parallel Tests
+For parallel testing, we've added `turbo_tests` which is a wrapper around `parallel_spec`.
+
+For uniform output, run `bundle exec turbo_tests`.
+
+In CI run `parallel_spec` and output it to XML files for processing.
