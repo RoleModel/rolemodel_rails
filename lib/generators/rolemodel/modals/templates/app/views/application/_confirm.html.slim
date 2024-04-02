@@ -1,12 +1,12 @@
-#confirm.modal-wrapper.flex.items-center.justify-center
-  .modal-wrapper__backdrop.confirm-cancel
-  .modal.text-center.margin-md.card-padded
-    h3#confirm-title
+#confirm.confirm-dialog-wrapper
+  .confirm-dialog-wrapper__backdrop.confirm-cancel
+  .confirm-dialog
+    #confirm-title.confirm-dialog__header
       | Are you sure?
-    #confirm-body.margin-bottom-lg
+    #confirm-body.confirm-dialog__body
       p This action cannot be undone.
-    .flex.justify-center.items-center.gap-sm
-      button#confirm-cancel.confirm-cancel.btn-primary.btn--outline
+    .confirm-dialog__footer
+      button#confirm-cancel.confirm-cancel.btn
         | Cancel
-      button#confirm-accept.btn-delete
+      button#confirm-accept.btn-destructive
         | Yes, I'm Sure
