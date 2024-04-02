@@ -14,7 +14,7 @@ module Rolemodel
       copy_file 'app/helpers/turbo_frame_link_helper.rb'
       template 'app/views/layouts/modal.html.slim'
       template 'app/views/layouts/panel.html.slim'
-      copy_file 'app/views/shared/_confirm.html.slim'
+      copy_file 'app/views/application/_confirm.html.slim'
     end
 
     def amend_javascript_entrypoint
@@ -48,7 +48,7 @@ module Rolemodel
         optimize_indentation <<~SLIM, 4
           = turbo_frame_tag 'modal'
           = turbo_frame_tag 'panel'
-          = render 'shared/confirm'
+          = render 'confirm'
         SLIM
       end
     end
