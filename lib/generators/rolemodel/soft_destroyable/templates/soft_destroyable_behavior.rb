@@ -79,6 +79,20 @@ RSpec.shared_examples 'a soft destroyable' do |factory_name, **options|
       end
     end
 
+    context 'with dependents that need to be nullified' do
+      it 'nullifies dependents' do
+        destroyable = create_instance
+        relations = described_class.reflect_on_all_associations(:has_many).filter { |association| association.options[:dependent] == :nullify }
+
+        destroyable.soft_destroy!
+
+        relations.each do |relation|
+          empty_association = destroyable.send(relation.name)
+          expect(empty_association).to be_empty
+        end
+      end
+    end
+
     it 'raises errors when they are encountered' do
       destroyable = create_instance
       destroyable.define_singleton_method(:update) do |_arg|
