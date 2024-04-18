@@ -8,7 +8,6 @@ module SoftDestroyable
     scope :only_deleted, -> { where.not(deleted_at: nil) }
     define_model_callbacks :soft_destroy
     define_model_callbacks :restore
-    after_soft_destroy :cascade_soft_destroy_nullify
   end
 
   module ClassMethods
