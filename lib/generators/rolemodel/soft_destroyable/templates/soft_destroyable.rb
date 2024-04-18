@@ -8,6 +8,7 @@ module SoftDestroyable
     scope :only_deleted, -> { where.not(deleted_at: nil) }
     define_model_callbacks :soft_destroy
     define_model_callbacks :restore
+    after_soft_destroy :cascade_soft_destroy_nullify
   end
 
   module ClassMethods
@@ -70,9 +71,23 @@ module SoftDestroyable
     restore(deleted_at) || raise_validation_errors
   end
 
+  def cascade_soft_destroy_nullify
+    associations_to_nullify = has_many_associations.filter { |association| association.options[:dependent] == :nullify }
+    associations_to_nullify.map do |child_association| # Grab the actual ActiveRecord::Association class
+      send(child_association.name).map do |child_record| # call for child records ie. send(:users).map
+        child_record.send("#{self.class.name.underscore}=", nil) # set the parent record to nil ie. organization = nil
+        child_record.save(validate: false) # save without validating, so we don't raise errors on the nil foreign key, like Rails does!
+      end
+    end
+  end
+
   private
 
   def raise_validation_errors
     raise ActiveModel::ValidationError, self
+  end
+
+  def has_many_associations
+    self.class.reflect_on_all_associations(:has_many)
   end
 end
