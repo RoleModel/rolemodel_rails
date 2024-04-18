@@ -79,7 +79,7 @@ RSpec.shared_examples 'a soft destroyable' do |factory_name, **options|
       end
     end
 
-    context 'with dependents that need to be nullified' do
+    context 'with dependents that need to be nullified', if: options[:nullify_dependencies].present? do
       it 'nullifies dependents' do
         destroyable = create_instance
         relations = described_class.reflect_on_all_associations(:has_many).filter { |association| association.options[:dependent] == :nullify }
