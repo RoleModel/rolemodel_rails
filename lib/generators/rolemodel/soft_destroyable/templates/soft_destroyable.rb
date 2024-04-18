@@ -73,10 +73,7 @@ module SoftDestroyable
   def cascade_soft_destroy_nullify
     associations_to_nullify = has_many_associations.filter { |association| association.options[:dependent] == :nullify }
     associations_to_nullify.map do |child_association| # Grab the actual ActiveRecord::Association class
-      send(child_association.name).map do |child_record| # call for child records ie. send(:users).map
-        child_record.send("#{self.class.name.underscore}=", nil) # set the parent record to nil ie. organization = nil
-        child_record.save(validate: false) # save without validating, so we don't raise errors on the nil foreign key, like Rails does!
-      end
+      send(child_association.name).delete_all(:nullify) # nullify the child records, like Rails does!
     end
   end
 
