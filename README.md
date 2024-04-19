@@ -92,6 +92,10 @@ bin/rails g
 * [Kaminari](./lib/generators/rolemodel/kaminari)
 * [Editors](./lib/generators/rolemodel/editors)
 
+### LightningCAD
+
+For LightningCAD apps there are [generators](./lib/generators/lightning_cad) to add the required setup
+
 ## Development
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
