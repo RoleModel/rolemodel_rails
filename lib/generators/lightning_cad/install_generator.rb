@@ -8,12 +8,6 @@ module LightningCad
       say 'Adding lightning-cad dependency'
       copy_file '.npmrc', '.npmrc'
 
-      # dependencies = %w[
-      #   @rolemodel/lightning-cad
-      #   @rolemodel/lightning-cad-ui
-      #   glob
-      #   import-glob
-      # ]
       dependencies = %w[
         @rolemodel/lightning-cad
         @rolemodel/lightning-cad-ui
