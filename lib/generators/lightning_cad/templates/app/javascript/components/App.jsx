@@ -37,7 +37,9 @@ export default class App extends React.Component {
 
     this._project = new VersionedProject(new Project())
 
-    this._drawingEditors = { top: new DrawingEditor(this._project) }
+    const top = new DrawingEditor(this._project)
+    top.toolPalette()
+    this._drawingEditors = { top }
   }
 
   modalRoot() { return this._modalRoot }
