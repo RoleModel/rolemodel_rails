@@ -67,5 +67,13 @@ module LightningCad
       run 'mkdir app/javascript/shared/domain-models'
       run 'touch app/javascript/shared/domain-models/.keep'
     end
+
+    def setup_chrome_cad
+      chrome_cad_setup = <<~JS
+        import { ChromeCADEventEmitter } from '@rolemodel/lightning-cad/drawing-editor'
+        window.__LCAD_CHROME_CAD_EVENT_EMITTER = new ChromeCADEventEmitter()
+      JS
+      append_to_file 'app/javascript/application.js', chrome_cad_setup
+    end
   end
 end
