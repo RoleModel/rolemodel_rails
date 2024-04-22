@@ -26,6 +26,6 @@ Pulls in [LightningCAD](https://github.com/RoleModel/lightning-cad) and sets up 
 
 This will add a route for `/editor` with a blank canvas.
 
-The main entrypoint into the JavaScript code is through the `/app/javascript/components/App.jsx`. In this file a project is created. You can manually add things to that project to see lines or shapes.
+The main entrypoint into the JavaScript code is `/app/javascript/components/App.jsx`. In this file a project is created. You can manually add components like lines or shapes to that project.
 
 After running the generators additional setup is required see [how to setup a LightningCAD app](https://github.com/RoleModel/lightning-cad?tab=readme-ov-file#app-setup) for more details.
