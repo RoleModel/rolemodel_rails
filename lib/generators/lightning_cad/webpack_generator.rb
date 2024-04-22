@@ -5,7 +5,6 @@ module LightningCad
     source_root File.expand_path('./templates', __dir__)
 
     def add_experimental_features
-      # copy_file 'webpack.config.js', 'webpack.config.js'
       say "Adding experimental features to the config"
 
       experiments = <<-JS
