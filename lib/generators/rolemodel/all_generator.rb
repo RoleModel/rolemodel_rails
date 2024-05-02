@@ -19,6 +19,7 @@ module Rolemodel
       generate 'rolemodel:linters:all'
       generate 'rolemodel:modals'
       generate 'rolemodel:source_map'
+      generate 'rolemodel:good_job'
       generate 'rolemodel:kaminari'
       generate 'rolemodel:editors'
     end

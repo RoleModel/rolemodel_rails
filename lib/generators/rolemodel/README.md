@@ -5,6 +5,7 @@
 ## What you get
 
 * [Github](./github)
+* [GoodJob](./good_job)
 * [Heroku](./heroku)
 * [Linters](./linters)
 * [Mailers](./mailers)

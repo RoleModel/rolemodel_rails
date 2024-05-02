@@ -68,4 +68,4 @@ group :test do
   gem "webdrivers"
 end
 
-gem 'rolemodel_rails', '~> 0.7.0', group: :development, path: '..'
+gem 'rolemodel_rails', '~> 0.8.0', group: :development, path: '..'

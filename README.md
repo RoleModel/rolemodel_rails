@@ -90,6 +90,7 @@ bin/rails g
 * [Modals](./lib/generators/rolemodel/modals)
 * [Source Map](./lib/generators/rolemodel/source_map)
 * [Kaminari](./lib/generators/rolemodel/kaminari)
+* [GoodJob](./lib/generators/rolemodel/good_job)
 * [Editors](./lib/generators/rolemodel/editors)
 
 ## Development
