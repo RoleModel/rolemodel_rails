@@ -1,0 +1,5 @@
+Description:
+  Sets up our standard GoodJob configuration
+
+Example:
+  rails generate rolemodel:good_job

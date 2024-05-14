@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rolemodel_rails (0.7.0)
+    rolemodel_rails (0.8.0)
 
 GEM
   remote: https://rubygems.org/
@@ -210,6 +210,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-23
 
 DEPENDENCIES
   bootsnap
@@ -220,7 +221,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.5)
   redis (~> 4.0)
-  rolemodel_rails (~> 0.7.0)!
+  rolemodel_rails (~> 0.8.0)!
   selenium-webdriver
   sprockets-rails
   stimulus-rails
