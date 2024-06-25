@@ -45,8 +45,7 @@ module LightningCad
       // Webpack apparently doesn't support the * in package.imports, so we need to duplicate
       // package.imports here for webpack.
       '#components': path.resolve('app/javascript/components'),
-      '#shared': path.resolve('app/javascript/shared'),
-      '#three': path.resolve('app/javascript/config/extensions/three.js')
+      '#shared': path.resolve('app/javascript/shared')
     },
       JS
 
@@ -68,13 +67,6 @@ module LightningCad
       JS
 
       insert_into_file 'webpack.config.js', loaders, after: "rules: [\n"
-    end
-
-    def update_esbuild_loader
-      say 'Updating esbuild loader in the config'
-
-      insert_into_file 'webpack.config.js', "        include: /app\\/javascript|@rolemodel\\/lightning-cad/,\n", before: "        loader: 'esbuild-loader',"
-      gsub_file 'webpack.config.js', 'es2021', 'esnext'
     end
 
     def add_terser_plugin_options
