@@ -17,16 +17,6 @@ The rolemodel_rails gem expects to be added to an existing Rails project. Typica
 rails new <app-name> --javascript=webpack --css=sass --database=postgresql --skip-test
 ```
 
-The Rspec generators require a railtie rake task to exist before running.
-
-Rspec hooks into `rails test:prepare` which doesn't exist due to using `--skip-test` in the new app generator. To add it back, remove all the imports at the top of `config/application.rb` and replace with:
-
-```ruby
-require_relative "boot"
-
-require "rails/all"
-```
-
 The Devise generator requires your database to exist before running.
 
 ```shell

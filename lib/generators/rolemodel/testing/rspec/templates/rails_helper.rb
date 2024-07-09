@@ -63,7 +63,7 @@ RSpec.configure do |config|
 
   config.before :example, type: :system do
     unless ENV['ASSET_PRECOMPILE_SUCCESSFUL']
-      prep_passed = system 'rails test:prepare'
+      prep_passed = system 'rails spec:prepare'
       ENV['ASSET_PRECOMPILE_SUCCESSFUL'] = 'true'
 
       abort "\nYour assets didn't compile. Exiting WITHOUT running any tests. Review the output above to resolve any errors." unless prep_passed
