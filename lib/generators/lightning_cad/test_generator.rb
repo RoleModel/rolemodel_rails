@@ -8,7 +8,7 @@ module LightningCad
       say 'Adding jasmine'
       run "yarn add --dev jasmine@^5.1.0"
 
-      run 'npm pkg set scripts.test_shared="NODE_ENV=test NODE_PATH="./node_modules:./app/javascript:$NODE_PATH" jasmine --config=jasmine.json"'
+      run 'npm pkg set scripts.test_shared="NODE_OPTIONS=\'--import=./app/javascript/helpers/register_hooks.js\' jasmine --config=jasmine.json"'
 
       copy_file 'jasmine.json', 'jasmine.json'
       copy_file 'spec/javascript/helpers/initializers.js', 'spec/javascript/helpers/initializers.js'
