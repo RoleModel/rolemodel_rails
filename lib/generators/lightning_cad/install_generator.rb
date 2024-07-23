@@ -62,6 +62,8 @@ module LightningCad
       JS
       append_to_file 'app/javascript/application.js', initializer_setup
       copy_file 'app/javascript/config/initializers/smartJSON.js', 'app/javascript/config/initializers/smartJSON.js'
+      copy_file 'app/javascript/helpers/hooks.js', 'app/javascript/helpers/hooks.js'
+      copy_file 'app/javascript/helpers/register_hooks.js', 'app/javascript/helpers/register_hooks.js'
       # To prevent smartJSON from throwing an error
       run 'mkdir app/javascript/shared'
       run 'mkdir app/javascript/shared/domain-models'
