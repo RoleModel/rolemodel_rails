@@ -33,11 +33,30 @@ Layout/ArrayAlignment:
 Layout:
   Severity: refactor
 
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/ArrayAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+
+Layout/SpaceAroundOperators:
+  AllowForAlignment: false
+  EnforcedStyleForExponentOperator: no_space
 
 Lint/UnusedMethodArgument:
   Severity: refactor
@@ -69,3 +88,12 @@ Style/EachWithObject:
 
 Cops/NoChromeTag:
   AutoCorrect: contextual
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
