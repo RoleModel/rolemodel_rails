@@ -28,18 +28,18 @@ module Rolemodel
     end
 
     def create_assets_rake_tasks
-      say 'Enhance precompile task to remove heavy node_modules directory after build.', :green
+      say 'Add assets:minimize_footprint task to remove heavy node_modules directory after build.', :green
 
       create_file 'lib/tasks/assets.rake', <<~RAKE
         # frozen_string_literal: true
-        
+
         namespace :assets do
-          task cleanup: :environment do
-            puts 'Removing node_modules...'
+          desc 'Remove heavy node_modules directory when no longer needed.'
+          task minimize_footprint: :environment do
             FileUtils.rm_rf(Rails.root.join('node_modules'))
           end
         end
-        Rake::Task['assets:precompile'].enhance { Rake::Task['assets:cleanup'].invoke }
+        Rake::Task['assets:precompile'].enhance { Rake::Task['assets:cleanup'].invoke if Rails.env.production? }
       RAKE
     end
   end
