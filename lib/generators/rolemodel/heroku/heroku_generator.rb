@@ -27,10 +27,17 @@ module Rolemodel
       gsub_file('config/environments/production.rb', 'config.log_level = :info', "config.log_level = ENV.fetch('LOG_LEVEL', 'INFO')")
     end
 
-    def create_assets_rake_tasks
+    def create_assets_rake_tasks # rubocop:disable Metrics/MethodLength
+      task_file = 'lib/tasks/assets.rake'
+
+      if yes?('Do you want to disable node_modules cleanup y/n?')
+        remove_file(task_file) if File.exist?(task_file)
+        return
+      end
+
       say 'Add assets:minimize_footprint task to remove heavy node_modules directory after build.', :green
 
-      create_file 'lib/tasks/assets.rake', <<~RAKE
+      create_file task_file, <<~RAKE
         # frozen_string_literal: true
 
         namespace :assets do
@@ -39,6 +46,7 @@ module Rolemodel
             FileUtils.rm_rf(Rails.root.join('node_modules'))
           end
         end
+
         Rake::Task['assets:precompile'].enhance { Rake::Task['assets:cleanup'].invoke if Rails.env.production? }
       RAKE
     end
