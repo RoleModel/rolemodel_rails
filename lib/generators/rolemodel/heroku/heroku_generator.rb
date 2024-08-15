@@ -37,7 +37,12 @@ module Rolemodel
         # In rare cases, you may have a runtime dependency into node_modules directly. If this is the case and you are unable
         # to bundle the dependency, delete this file and the node_modules directory will be included in your production slug.
 
-        Rake::Task['assets:precompile'].enhance { FileUtils.rm_rf(Rails.root.join('node_modules')) if Rails.env.production? }
+        Rake::Task['assets:precompile'].enhance do
+          if Rails.env.production?
+            Rails.logger.info 'Removing node_modules directory to reduce slug size.'
+            FileUtils.rm_rf(Rails.root.join('node_modules'))
+          end
+        end
       RAKE
     end
   end
