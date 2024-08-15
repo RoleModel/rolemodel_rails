@@ -6,7 +6,7 @@ module Rolemodel
       say 'Install app.json file', :green
 
       @project_name = Rails.application.class.try(:parent_name) || Rails.application.class.module_parent_name
-      template 'app.json.erb', 'app.json'
+      template 'app.json'
     end
 
     def install_procfile
