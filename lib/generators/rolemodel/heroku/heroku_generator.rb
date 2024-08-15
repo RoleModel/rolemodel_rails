@@ -39,7 +39,7 @@ module Rolemodel
 
         Rake::Task['assets:precompile'].enhance do
           if Rails.env.production?
-            Rails.logger.info 'Removing node_modules directory to reduce slug size.'
+            puts '----> Removing node_modules directory to reduce slug size.'
             FileUtils.rm_rf(Rails.root.join('node_modules'))
           end
         end
