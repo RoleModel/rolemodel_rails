@@ -1,5 +1,9 @@
 require "bundler/setup"
 require "rolemodel_rails"
+require "rails/all"
+require "rails/generators"
+require "generator_spec"
+require_relative "./support/helpers"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
