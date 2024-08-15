@@ -30,25 +30,15 @@ module Rolemodel
     def create_assets_rake_tasks # rubocop:disable Metrics/MethodLength
       task_file = 'lib/tasks/assets.rake'
 
-      say 'Add assets:minimize_footprint task that removes the node_modules directory.', :green
-
-      create_file task_file, <<~RAKE
-        # frozen_string_literal: true
-
-        namespace :assets do
-          task minimize_footprint: :environment do
-            FileUtils.rm_rf(Rails.root.join('node_modules'))
-          end
-        end
-      RAKE
-
       say '' # Add a newline
-      say 'In production, assets:minimize_footprint can be run right after assets:precompile to significantly reduce slug size.', :yellow
-      say 'If your application requires an asset that is not bundled by Webpack, you may need the node_modules folder to remain.', :yellow
+      say 'In production, the node_modules folder can be removed after assets are compiled to significantly reduce slug size.', :yellow
+      say 'If your application depends on assets that are not bundled by Webpack, you may need the node_modules folder to remain.', :yellow
 
       if no?('Leave node_modules directory in production slug? (y/n)')
-        append_to_file task_file, <<~RAKE
-          Rake::Task['assets:precompile'].enhance { Rake::Task['assets:cleanup'].invoke if Rails.env.production? }
+        say '' # Add a newline
+        say 'Enhancing assets:precompile task to remove node_modules directory during production build.', :green
+        create_file task_file, <<~RAKE
+          Rake::Task['assets:precompile'].enhance { FileUtils.rm_rf(Rails.root.join('node_modules')) if Rails.env.production? }
         RAKE
       end
     end
