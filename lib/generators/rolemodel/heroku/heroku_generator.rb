@@ -28,10 +28,8 @@ module Rolemodel
     end
 
     def create_assets_rake_tasks # rubocop:disable Metrics/MethodLength
-      task_file = 'lib/tasks/assets.rake'
-
       say 'Enhancing assets:precompile task to remove node_modules directory during production build.', :green
-      create_file task_file, <<~RAKE
+      rakefile('assets.rake', <<~RAKE)
         # All runtime asset dependencies should be bundled by Webpack during asset precompilation.
         # Therefore, the node_modules directory can be removed after assets are compiled to significantly reduce slug size.
         # In rare cases, you may have a runtime dependency into node_modules directly. If this is the case and you are unable
