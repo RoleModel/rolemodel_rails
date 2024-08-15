@@ -36,7 +36,6 @@ module Rolemodel
         # frozen_string_literal: true
 
         namespace :assets do
-          desc 'Remove heavy node_modules directory when no longer needed.'
           task minimize_footprint: :environment do
             FileUtils.rm_rf(Rails.root.join('node_modules'))
           end
