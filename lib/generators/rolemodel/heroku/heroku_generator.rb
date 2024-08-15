@@ -30,17 +30,15 @@ module Rolemodel
     def create_assets_rake_tasks # rubocop:disable Metrics/MethodLength
       task_file = 'lib/tasks/assets.rake'
 
-      say '' # Add a newline
-      say 'In production, the node_modules folder can be removed after assets are compiled to significantly reduce slug size.', :yellow
-      say 'If your application depends on assets that are not bundled by Webpack, you may need the node_modules folder to remain.', :yellow
+      say 'Enhancing assets:precompile task to remove node_modules directory during production build.', :green
+      create_file task_file, <<~RAKE
+        # All runtime asset dependencies should be bundled by Webpack during asset precompilation.
+        # Therefore, the node_modules directory can be removed after assets are compiled to significantly reduce slug size.
+        # In rare cases, you may have a runtime dependency into node_modules directly. If this is the case and you are unable
+        # to bundle the dependency, delete this file and the node_modules directory will be included in your production slug.
 
-      if no?('Leave node_modules directory in production slug? (y/n)')
-        say '' # Add a newline
-        say 'Enhancing assets:precompile task to remove node_modules directory during production build.', :green
-        create_file task_file, <<~RAKE
-          Rake::Task['assets:precompile'].enhance { FileUtils.rm_rf(Rails.root.join('node_modules')) if Rails.env.production? }
-        RAKE
-      end
+        Rake::Task['assets:precompile'].enhance { FileUtils.rm_rf(Rails.root.join('node_modules')) if Rails.env.production? }
+      RAKE
     end
   end
 end
