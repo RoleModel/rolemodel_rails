@@ -5,9 +5,9 @@ RSpec.describe Rolemodel::TailoredSelectGenerator, type: :generator do
   destination File.expand_path('tmp/', File.dirname(__FILE__))
 
   before(:all) do
+    ENV["RAILS_LOG_TO_STDOUT"] = "true"
     prepare_test_app
     run_generator
-    sleep 1
   end
 
   after(:all) do
