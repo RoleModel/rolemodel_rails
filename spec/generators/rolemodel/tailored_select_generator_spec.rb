@@ -8,6 +8,7 @@ RSpec.describe Rolemodel::TailoredSelectGenerator, type: :generator do
     ENV["RAILS_LOG_TO_STDOUT"] = "true"
     prepare_test_app
     run_generator
+    sleep 2
   end
 
   after(:all) do
