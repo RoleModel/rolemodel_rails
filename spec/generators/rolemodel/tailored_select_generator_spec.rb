@@ -7,7 +7,6 @@ RSpec.describe Rolemodel::TailoredSelectGenerator, type: :generator do
   before(:all) do
     prepare_test_app
     run_generator
-    sleep 3
   end
 
   after(:all) do
