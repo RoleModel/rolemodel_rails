@@ -15,4 +15,12 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before(:all, type: :generator) do
+    prepare_test_app
+  end
+
+  config.after(:all, type: :generator) do
+    cleanup_test_app
+  end
 end

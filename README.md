@@ -113,6 +113,31 @@ cd example_rails7
 bin/rails g rolemodel:webpack
 ```
 
+## Testing
+
+Generator specs should be added to the [spec](./spec) directory.
+
+Setup & Teardown of the test-dummy app is handled for you, but there are 2 things that each spec needs in order to work correctly.
+
+1. A destination directory for the test-dummy app.
+2. To have your generator run against the test-dummy app.
+
+e.g.
+
+```ruby
+RSpec.describe Rolemodel::MyGenerator, type: :generator do
+  destination File.expand_path('tmp/', File.dirname(__FILE__))
+
+  before { run_generator_against_test_app }
+end
+```
+
+Additional information about testing generators and the available assertions & matchers can be found at the following resources.
+
+* [Rails Guide](https://guides.rubyonrails.org/generators.html#testing-generators)
+* [API Documentation](https://api.rubyonrails.org/classes/Rails/Generators/Testing/Assertions.html)
+* [Generator Spec Gem](https://github.com/stevehodgkiss/generator_spec)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/RoleModel/rolemodel_rails.
