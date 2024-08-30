@@ -94,6 +94,10 @@ bin/rails g
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 
+### LightningCAD
+
+For LightningCAD apps there are [generators](./lib/generators/lightning_cad) to add the required setup
+
 ## Development
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
