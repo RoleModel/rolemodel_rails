@@ -4,14 +4,7 @@ require 'generators/rolemodel/testing/rspec/rspec_generator'
 RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
   destination File.expand_path('tmp/', File.dirname(__FILE__))
 
-  before(:all) do
-    prepare_test_app
-    run_generator
-  end
-
-  after(:all) do
-    cleanup_test_app
-  end
+  before { run_generator_against_test_app }
 
   it 'adds the correct helpers' do
     assert_file 'spec/support/helpers/action_cable_helper.rb'
