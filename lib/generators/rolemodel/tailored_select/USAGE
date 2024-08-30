@@ -1,0 +1,5 @@
+Description:
+  runs the tailored select generator
+
+Example:
+  rails generate rolemodel:tailored_select

@@ -92,6 +92,7 @@ bin/rails g
 * [Kaminari](./lib/generators/rolemodel/kaminari)
 * [GoodJob](./lib/generators/rolemodel/good_job)
 * [Editors](./lib/generators/rolemodel/editors)
+* [Tailored Select](./lib/generators/rolemodel/tailored_select)
 
 ## Development
 
