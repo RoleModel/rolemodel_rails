@@ -13,6 +13,7 @@ html
         class=class_names('panel--active' => response.message == 'Unprocessable Entity')
         data-controller="toggle"
         data-toggle-perform-on-connect-value=(response.message == 'OK')
+        data-toggle-perform-toggle-inert-value
         data-toggle-active-class="panel--active"
         data-turbo-cache="false"
       )
