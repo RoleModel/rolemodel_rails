@@ -13,7 +13,7 @@ module LightningCad
       run 'npm pkg set scripts.test="yarn test:server && yarn test:browser"'
 
       copy_file 'jasmine.json'
-      copy_file 'jp-runner.config.json'
+      copy_file 'jp-runner.config.js'
       copy_file 'spec/javascript/.eslintrc.js'
       copy_file 'spec/javascript/shared/TestSetup.js'
       copy_file 'spec/javascript/browser/TestSetup.js'
