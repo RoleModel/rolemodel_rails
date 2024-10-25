@@ -55,7 +55,14 @@ module LightningCad
     def add_loaders
       say 'Adding loaders to the config'
 
+      copy_file 'config/webpack/loaders/filter-file.js'
+
       loaders = <<-JS
+,
+      {
+        test: /\.jsx?$/,
+        use: path.resolve('./config/webpack/loaders/filter-file.js')
+      },
       {
         test: /\.(mjs|cjs|js|jsx)$/,
         loader: 'import-glob'
@@ -66,7 +73,7 @@ module LightningCad
       },
       JS
 
-      insert_into_file 'webpack.config.js', loaders, after: "rules: [\n"
+      insert_into_file 'webpack.config.js', loaders, after: "'postcss-loader'\n        ]\n      }"
     end
 
     def add_terser_plugin_options
