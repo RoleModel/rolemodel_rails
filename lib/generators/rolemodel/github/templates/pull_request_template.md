@@ -1,7 +1,3 @@
-## Task
-
-[TR #XXX]()
-
 ## Why?
 
 Why were the changes needed? What issues were the changes addressing?
@@ -14,6 +10,10 @@ What changed in this PR?
 * [ ] Change 1
 * [ ] Change 2
 * [ ] ...
+
+## Pre-merge checklist
+
+* [ ] Update relevant READMEs
 
 ## Screenshots
 
