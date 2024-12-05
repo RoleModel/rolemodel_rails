@@ -20,7 +20,7 @@ module Rolemodel
       end
 
       def add_config
-        template '.eslintrc.cjs', '.eslintrc.cjs'
+        template 'eslint.config.js', 'eslint.config.js'
       end
 
       def add_eslint_command_to_package_json
