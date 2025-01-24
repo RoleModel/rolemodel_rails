@@ -39,7 +39,6 @@ Layout/ArgumentAlignment:
 Layout/ArrayAlignment:
   EnforcedStyle: with_fixed_indentation
 
-
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
