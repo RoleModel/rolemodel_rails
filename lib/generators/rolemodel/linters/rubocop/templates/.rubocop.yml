@@ -39,8 +39,6 @@ Layout/ArgumentAlignment:
 Layout/ArrayAlignment:
   EnforcedStyle: with_fixed_indentation
 
-Layout/DotPosition:
-  EnforcedStyle: leading
 
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
