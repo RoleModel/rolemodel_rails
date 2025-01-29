@@ -10,11 +10,11 @@ html
     = turbo_frame_tag 'panel' do
       .panel.flex.items-center.justify-center(
         data-testid='panel'
-        class=class_names('panel--active' => response.message == 'Unprocessable Content' || response.message == 'Unprocessable Entity')
+        class=class_names('panel--active' => response.message.starts_with?('Unprocessable'))
         data-controller="toggle"
         data-toggle-perform-on-connect-value=(response.message == 'OK')
         data-toggle-active-class="panel--active"
-        data-turbo-cache="false"
+        data-turbo-temporary="true"
       )
         .panel__content
           .modal-nav
