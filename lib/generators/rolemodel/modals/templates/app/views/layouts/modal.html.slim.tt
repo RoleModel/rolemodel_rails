@@ -9,12 +9,11 @@ html
   body
     = turbo_frame_tag 'modal' do
       .modal-wrapper(
-        class=class_names('modal-wrapper--active' => response.message == 'Unprocessable Entity')
+        class=class_names('modal-wrapper--active' => response.message.starts_with?('Unprocessable'))
         data-controller="toggle"
         data-toggle-perform-on-connect-value=(response.message == 'OK')
         data-toggle-active-class="modal-wrapper--active"
-        data-turbo-cache="false"
-        data-action="keydown.esc@window->toggle#off"
+        data-turbo-temporary="true"
       )
         .modal-wrapper__backdrop data-action="click->toggle#off"
         .modal data-testid="modal-content"

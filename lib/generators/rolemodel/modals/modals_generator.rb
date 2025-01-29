@@ -23,10 +23,12 @@ module Rolemodel
       copy_file 'app/javascript/controllers/toggle_controller.js'
       copy_file 'app/javascript/initializers/turbo_confirm.js'
       copy_file 'app/javascript/initializers/frame_missing_handler.js'
+      copy_file 'app/javascript/initializers/before_morph_handler.js'
 
       append_to_file 'app/javascript/application.js', <<~JS
-        import './initializers/turbo_confirm'
-        import './initializers/frame_missing_handler'
+        import './initializers/turbo_confirm.js'
+        import './initializers/frame_missing_handler.js'
+        import './initializers/before_morph_handler.js'
       JS
     end
 
