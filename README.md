@@ -93,6 +93,7 @@ bin/rails g
 * [GoodJob](./lib/generators/rolemodel/good_job)
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
+* [Lograge](./lib/generators/rolemodel/lograge)
 
 ## Development
 
