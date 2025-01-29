@@ -5,8 +5,10 @@
 * Custom confirm dialogs via `@rolemodel/turbo-confirm` integration
 * Modal and panel styling ..via `@rolemodel/optics` integration
 * Modal and panel layouts w/ link helpers (or you could just, e.g. `link_to ... data: {turbo_frame: 'modal'}`)
-* frame-missing handler (required for turbo-rails v1.4.0 and above)
-* a very simple stimulus controller `toggle` to help with modal/panel animations.
+* frame-missing handler with Turbo v8 morphing support.
+* Stimulus `toggle` controller to help with modal/panel animations.
+* initializer for turbo-confirm package.
+* some generally useful, global Turbo before-morph handlers.
 
 ## After install (Update Only)
 
@@ -56,6 +58,9 @@ There are a couple of important rules when it comes to TurboFrames & forms.
 
 1. In the case of errors, your controller action must respond with `status: :unprocessable_entity` *HTTP status code __422__* in order to re-render your form w/ errors.  This is both a Turbo requirement, as well as the mechanism which prevents the modal or panel from re-animating in.
 2. In the case of success, your controller action must redirect.  This is a Turbo requirement in Rails 7+
+3. Never use the `layout` class method in your controllers.
+   * If you absolutely must use the `layout` class method, it might be worth considering a re-design in which its no longer necessary.
+   * As a very last resort, you may call the `layout` class method with the symbolized name of a method which conditionally returns false e.g. `'my_special_layout' unless turbo_frame_request?`
 
 e.g.
 
