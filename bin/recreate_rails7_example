@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-RAILS_VERSION='7.0.5'
+RAILS_VERSION='7.1.5.1'
 
 set -euo pipefail
 IFS=$'\n\t'
