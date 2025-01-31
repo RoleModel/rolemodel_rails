@@ -7,13 +7,12 @@ Why were the changes needed? What issues were the changes addressing?
 
 What changed in this PR?
 
-* [ ] Change 1
-* [ ] Change 2
-* [ ] ...
+* [ ] Change1
 
 ## Pre-merge checklist
 
 * [ ] Update relevant READMEs
+* [ ] Update version number in `lib/rolemodel_rails/version.rb`
 
 ## Screenshots
 
