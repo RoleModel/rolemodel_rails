@@ -12,6 +12,7 @@ html
         class=class_names('modal-wrapper--active' => response.message.starts_with?('Unprocessable'))
         data-controller="toggle"
         data-toggle-perform-on-connect-value=(response.message == 'OK')
+        data-toggle-perform-toggle-inert-value
         data-toggle-active-class="modal-wrapper--active"
         data-turbo-temporary="true"
       )
