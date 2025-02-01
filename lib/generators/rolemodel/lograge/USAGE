@@ -1,0 +1,8 @@
+Description:
+    Sets up our standard Lograge configuration
+
+Example:
+    rails generate rolemodel:lograge
+
+    This will create:
+        config/initializers/lograge.rb

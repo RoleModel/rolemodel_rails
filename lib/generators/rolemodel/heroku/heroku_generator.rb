@@ -24,6 +24,11 @@ module Rolemodel
     def enable_log_level_configurability
       say 'Enable log-level adjustment via "LOG_LEVEL" environment variable', :green
 
+      gsub_file(
+        'config/environments/production.rb',
+        'config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")',
+        "config.log_level = ENV.fetch('LOG_LEVEL', 'INFO')"
+      )
       gsub_file('config/environments/production.rb', 'config.log_level = :info', "config.log_level = ENV.fetch('LOG_LEVEL', 'INFO')")
     end
 

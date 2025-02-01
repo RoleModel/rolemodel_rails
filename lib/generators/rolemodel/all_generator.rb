@@ -23,6 +23,7 @@ module Rolemodel
       generate 'rolemodel:kaminari'
       generate 'rolemodel:editors'
       generate 'rolemodel:tailored_select'
+      generate 'rolemodel:lograge'
     end
   end
 end

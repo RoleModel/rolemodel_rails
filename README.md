@@ -14,7 +14,7 @@ Attempts to solve the pain of:
 The rolemodel_rails gem expects to be added to an existing Rails project. Typically those are started with:
 
 ```shell
-rails new <app-name> --javascript=webpack --css=sass --database=postgresql --skip-test
+rails new <app-name> --javascript=webpack --database=postgresql --skip-test
 ```
 
 The Devise generator requires your database to exist before running.
@@ -93,6 +93,7 @@ bin/rails g
 * [GoodJob](./lib/generators/rolemodel/good_job)
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
+* [Lograge](./lib/generators/rolemodel/lograge)
 
 ## Development
 
