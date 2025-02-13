@@ -7,6 +7,7 @@ module Rolemodel
         say 'generating icon helper', :green
 
         copy_file 'app/helpers/icon_helper.rb'
+        directory 'app/icon_builders'
       end
     end
   end
