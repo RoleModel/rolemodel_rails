@@ -35,6 +35,10 @@ class IconBuilder
     new(flash_icons[type.to_sym], **)
   end
 
+  def self.flash_icons
+    raise NotImplementedError
+  end
+
   def build
     options = {
       class: tag_classes.compact_blank.join(' '),
