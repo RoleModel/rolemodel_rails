@@ -31,17 +31,8 @@ class IconBuilder
     @hover_text = hover_text
   end
 
-  def self.from_library(library_name, name, **)
-    library_map = {
-      material: MaterialIconBuilder,
-      phosphor: PhosphorIconBuilder,
-      tabler: TablerIconBuilder,
-      feather: FeatherIconBuilder,
-      lucide: LucideIconBuilder,
-      custom: CustomIconBuilder
-    }
-
-    library_map[library_name].new(name, **)
+  def self.flash_icon(type, **)
+    new(flash_icons[type.to_sym], **)
   end
 
   def build

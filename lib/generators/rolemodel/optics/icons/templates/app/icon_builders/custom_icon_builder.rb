@@ -2,6 +2,13 @@
 
 # CustomIconBuilder is an IconBuilder that allows for custom SVG icons to be used in the application.
 class CustomIconBuilder < IconBuilder
+  def self.flash_icons
+    {
+      notice: 'circle-check',
+      alert: 'circle-x'
+    }
+  end
+
   private
 
   def tag_method

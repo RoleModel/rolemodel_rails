@@ -3,6 +3,13 @@
 # PhosphorIconBuilder is an IconBuilder that allows for Phosphor icons to be used in the application.
 # https://phosphoricons.com/
 class PhosphorIconBuilder < IconBuilder
+  def self.flash_icons
+    {
+      notice: 'check-circle',
+      alert: 'x-circle'
+    }
+  end
+
   private
 
   def tag_method
