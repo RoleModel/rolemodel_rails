@@ -1,0 +1,27 @@
+# frozen_string_literal: true
+
+# Helper method that renders icons from different icon libraries.
+# Usage:
+# = icon('home', size: 'x-large', color: 'primary')
+# = flash_icon('notice', size: 'x-large', color: 'primary')
+#
+# The default library is Material Icons, but can be changed here by pulling
+# in a different builder from RoleModel Rails.
+# Available libraries:
+# - MaterialIconBuilder
+# - PhosphorIconBuilder
+# - TablerIconBuilder
+# - FeatherIconBuilder
+# - LucideIconBuilder
+# - CustomIconBuilder
+module IconHelper
+  # <%= @supported_properties %>
+  def icon(name, **)
+    <%= @chosen_library.classify %>IconBuilder.new(name, **).build
+  end
+
+  # <%= @supported_properties %>
+  def flash_icon(type, **)
+    <%= @chosen_library.classify %>IconBuilder.flash_icon(type, **).build
+  end
+end
