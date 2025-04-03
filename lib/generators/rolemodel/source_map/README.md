@@ -10,4 +10,4 @@ Adds Rack middleware for serving js source maps only to allowed users in a produ
 ## Usage
 
 * Ensure that app uses Warden::Manager middleware
-* Set ENV['SOURCE_MAPS_ALLOWED_USERS_EMAILS'] to a space separated list of emails or update the middleware to allow all super admins
+* Set ENV['SOURCE_MAPS_ALLOWED_USERS_EMAILS'] to a comma-separated list of emails or update the middleware to allow all super admins
