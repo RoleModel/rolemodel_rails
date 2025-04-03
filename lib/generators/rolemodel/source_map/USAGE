@@ -5,4 +5,5 @@ Example:
     rails generate rolemodel:source_map
 
     This will create:
-        app/middleware/rolemodel/source_map.rb
+        lib/middleware/rolemodel/source_map.rb
+        lib/tasks/assets.rake
