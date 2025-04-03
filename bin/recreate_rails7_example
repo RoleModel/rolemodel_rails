@@ -18,7 +18,7 @@ cd example_rails7
 bundle add --group development --path '..' rolemodel_rails
 bundle install
 
-git checkout config/credentials.yml.enc
-git checkout config/master.key
+rm config/credentials.yml.enc
+rm config/master.key
 
 cd -
