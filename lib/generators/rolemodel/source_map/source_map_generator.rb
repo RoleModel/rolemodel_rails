@@ -13,7 +13,7 @@ module Rolemodel
       copy_file 'lib/middleware/rolemodel/source_map.rb'
     end
 
-    def copy_assetes_rake_task
+    def copy_assets_rake_task
       copy_file 'lib/tasks/assets.rake'
     end
   end
