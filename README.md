@@ -99,18 +99,18 @@ bin/rails g
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
 
-We use the embeded Rails apps [Rails 7 Example](./recreate_rails7_example) to test the usage of the generators.
+We use the embeded Rails apps [Rails 8 Example](./recreate_rails8_example) to test the usage of the generators.
 
-`recreate_rails7_example` is simply a freshly generated Rails 7 app. To recreate it use:
+`recreate_rails8_example` is simply a freshly generated Rails 8 app. To recreate it use:
 
 ```shell
-bin/recreate_rails7_example
+bin/recreate_rails8_example
 ```
 
-Then, cd into `example_rails7` and run a rolemodel generator to see how it affects a new Rails 7 project. For example:
+Then, cd into `example_rails8` and run a rolemodel generator to see how it affects a new Rails 8 project. For example:
 
 ```shell
-cd example_rails7
+cd example_rails8
 bin/rails g rolemodel:webpack
 ```
 
