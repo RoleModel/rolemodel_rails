@@ -2,7 +2,7 @@ module Rolemodel
   class WebpackGenerator < Rails::Generators::Base
     source_root File.expand_path('templates', __dir__)
 
-    NODE_VERSION = '18.15.0'.freeze
+    NODE_VERSION = '22.15.0'.freeze
 
     DEV_DEPS = %w[
       @honeybadger-io/webpack
