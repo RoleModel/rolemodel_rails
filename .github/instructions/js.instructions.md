@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*.js'
+applyTo: "**/*.js,**/*.mjs,**/*.cjs"
 ---
 
 - Prefer ESM syntax for JavaScript files, and avoid using CommonJS syntax unless the file is already CommonJS.

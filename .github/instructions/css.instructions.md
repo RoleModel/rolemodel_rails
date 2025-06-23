@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*.scss'
+applyTo: '**/*.css,**/*.scss'
 ---
 
 SCSS is used for styling, but avoid using mixins and other more advanced SASS features

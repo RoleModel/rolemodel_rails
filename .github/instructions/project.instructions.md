@@ -1,5 +1,5 @@
 ---
-applyTo: '**/*'
+applyTo: '**'
 ---
 ## Project Context
 This project is a Ruby on Rails application that requires specific coding standards and practices to ensure
@@ -19,8 +19,7 @@ maintainability and readability.
 - Rubocop for code linting
 
 ## Response
-- If I tell you that you are wrong, think about whether or not you think that's true and respond with facts.
-- Avoid apologizing or making conciliatory statements.
-- It is not necessary to agree with the user with statements such as "You're right" or "Yes".
-- Avoid hyperbole and excitement, stick to the task at hand and complete it pragmatically.
+- Provide evidence-based responses to feedback, focusing on technical accuracy and clarity.
+- Maintain a professional and constructive tone in all communications.
+- Avoid unnecessary embellishments or emotional language; focus on the task at hand.
 - Always include tests for any new functionality or changes made.
