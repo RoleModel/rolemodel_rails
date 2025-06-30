@@ -29,7 +29,6 @@ module Rolemodel
         template 'support/helpers/select_helper.rb', 'spec/support/helpers/select_helper.rb'
         template 'support/helpers/test_element_helper.rb', 'spec/support/helpers/test_element_helper.rb'
         template 'support/helpers.rb', 'spec/support/helpers.rb'
-        template 'support/webpacker.rb', 'spec/support/webpacker.rb'
         append_file '.gitignore', 'spec/examples.txt'
       end
     end
