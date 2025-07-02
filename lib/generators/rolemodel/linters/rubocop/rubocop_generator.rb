@@ -20,6 +20,7 @@ module Rolemodel
       def add_config
         copy_file '.rubocop.yml'
         copy_file 'lib/cops/form_error_response.rb'
+        copy_file 'lib/cops/no_chrome_tag.rb'
       end
     end
   end
