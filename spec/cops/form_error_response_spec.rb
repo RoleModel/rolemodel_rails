@@ -8,8 +8,8 @@ RSpec.describe Cops::FormErrorResponse, :config do
 
   it 'registers an offense when :unprocessable_entity is absent' do
     expect_offense(<<~RUBY)
-      if false
-        # redirect_to
+      if @user.save
+        redirect_to users_url, notice: notice_msg('User successfully updated')
       else
         render :new
         ^^^^^^^^^^^ Use status: :unprocessable_entity for invalid form requests.
@@ -19,8 +19,8 @@ RSpec.describe Cops::FormErrorResponse, :config do
 
   it 'does not register an offense when :unprocessable_entity is present' do
     expect_no_offenses(<<~RUBY)
-      if false
-        # redirect_to
+      if @user.save
+        redirect_to users_url, notice: notice_msg('User successfully updated')
       else
         render :new, status: :unprocessable_entity
       end
