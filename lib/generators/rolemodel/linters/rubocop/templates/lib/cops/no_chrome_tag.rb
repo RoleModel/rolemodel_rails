@@ -3,6 +3,7 @@
 require 'rubocop'
 
 module Cops
+  # Detect occurences of the chrome tag in specs, and warn and remove them.
   class NoChromeTag < RuboCop::Cop::Base
     include RuboCop::Cop::RangeHelp
     extend RuboCop::Cop::AutoCorrector
@@ -10,7 +11,7 @@ module Cops
     MSG = 'The :chrome tag is only for testing, and should not be checked into the repository.'
     RESTRICT_ON_SEND = %i[describe context it feature scenario].freeze
 
-    def on_send(node)
+    def on_send(node) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
       node.arguments.each do |a|
         if a.sym_type? && a.value == :chrome
           range = range_with_surrounding_comma(a.source_range)
