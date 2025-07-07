@@ -15,6 +15,13 @@ RSpec.describe Cops::FormErrorResponse, :config do
         ^^^^^^^^^^^ Use status: :unprocessable_entity for invalid form requests.
       end
     RUBY
+    expect_correction(<<~RUBY)
+      if @user.save
+        redirect_to users_url, notice: notice_msg('User successfully updated')
+      else
+        render :new, status: :unprocessable_entity
+      end
+    RUBY
   end
 
   it 'does not register an offense when :unprocessable_entity is present' do

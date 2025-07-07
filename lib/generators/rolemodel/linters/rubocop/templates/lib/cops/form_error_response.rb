@@ -15,6 +15,8 @@ module Cops
   # Regex
   # This checks the specific matching line to ensure it meets our expectations
   class FormErrorResponse < RuboCop::Cop::Base
+    extend RuboCop::Cop::AutoCorrector
+
     # Match code in the else branch that either: is the only line and looks like `render :something, ...`
     # or is not the first line and looks like the same.
     def_node_matcher :form_error, <<~PATTERN
@@ -32,7 +34,9 @@ module Cops
       form_error(node.else_branch) do |name|
         next if name.to_s.match?(STATUS_PAIR)
 
-        add_offense(name)
+        add_offense(name) do |corrector|
+          corrector.insert_after(name, ', status: :unprocessable_entity')
+        end
       end
     end
   end
