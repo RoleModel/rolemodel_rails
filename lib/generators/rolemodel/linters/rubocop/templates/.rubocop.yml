@@ -1,6 +1,8 @@
 require:
-  - rubocop-rails
   - ./lib/cops/form_error_response.rb
+  - ./lib/cops/no_chrome_tag.rb
+plugins:
+  - rubocop-rails
 
 AllCops:
   Exclude:
