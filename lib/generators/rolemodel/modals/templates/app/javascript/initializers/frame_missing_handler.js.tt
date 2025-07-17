@@ -1,0 +1,10 @@
+document.addEventListener('turbo:frame-missing', (event) => {
+  if (<%= [("process.env.RAILS_ENV === 'production'" if @node_install), "event.target.id === 'modal'", ("event.target.id === 'panel'" if @panel_install)].compact_blank.join(" || ") -%>) {
+    event.preventDefault()
+    /**
+     * A "replace" visit to the page from which the modal or panel was opened is considered
+     * a "Page Refresh" by Turbo. Making it eligible for morphing & scroll preservation.
+     */
+    event.detail.visit(event.detail.response.url, { action: 'replace' })
+  }
+})
