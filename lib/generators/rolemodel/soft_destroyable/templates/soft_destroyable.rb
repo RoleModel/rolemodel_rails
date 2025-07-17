@@ -70,9 +70,20 @@ module SoftDestroyable
     restore(deleted_at) || raise_validation_errors
   end
 
+  def cascade_soft_destroy_nullify
+    associations_to_nullify = has_many_associations.filter { |association| association.options[:dependent] == :nullify }
+    associations_to_nullify.map do |child_association| # Grab the actual ActiveRecord::Association class
+      send(child_association.name).delete_all(:nullify) # nullify the child records, like Rails does!
+    end
+  end
+
   private
 
   def raise_validation_errors
     raise ActiveModel::ValidationError, self
+  end
+
+  def has_many_associations
+    self.class.reflect_on_all_associations(:has_many)
   end
 end
