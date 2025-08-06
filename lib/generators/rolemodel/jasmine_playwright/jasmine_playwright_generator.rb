@@ -19,5 +19,9 @@ module Rolemodel
       say 'Adding new dev dependency to package.json', :green
       run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
     end
+
+    def add_spec_files
+      template 'support/react.mjs', 'spec/javascript/browser/support/react.mjs'
+    end
   end
 end
