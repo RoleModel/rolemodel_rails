@@ -14,6 +14,7 @@ module Rolemodel
 
         gem_group :test do
           gem 'capybara'
+          gem 'capybara-playwright-driver'
           gem 'webdrivers'
           gem 'marsh_grass'
         end
