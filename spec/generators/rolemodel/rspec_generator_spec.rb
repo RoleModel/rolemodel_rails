@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'generators/rolemodel/testing/rspec/rspec_generator'
 
