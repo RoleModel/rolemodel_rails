@@ -1,20 +1,14 @@
 # frozen_string_literal: true
 
 module PlaywrightHelper
-  def self.scope_stack
-    @scope_stack ||= []
-  end
-
+  # Use Playwright's page object
   def pw_page
     page.driver.with_playwright_page do |page|
       return page
     end
   end
 
-  def supports_javascript?
-    Capybara.current_driver != :rack_test
-  end
-
+  # Helper method for taking screenshots in system tests
   def screenshot(filename = nil, directory: 'tmp/screenshots', print_message: true, **options)
     timestamp = Time.current.strftime('%Y-%m-%d_%H-%M-%S')
     description = RSpec.current_example.full_description.tr(' ', '_')
@@ -27,6 +21,10 @@ module PlaywrightHelper
     pw_page.screenshot(path: "#{directory}/#{filename}.png", animations: 'disabled', **options)
 
     puts "Screenshot saved to \e[4;96m#{directory}/#{filename}.png\e[0m" if print_message
+  end
+
+  def self.scope_stack
+    @scope_stack ||= []
   end
 
   def current_scope

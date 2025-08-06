@@ -8,4 +8,5 @@ RSpec.configure do |c|
   c.include SelectHelper, type: :system
   c.include TestElementHelper, type: :system
   c.include PlaywrightHelper, type: :system
+  c.include CapybaraHelper, type: :system
 end

@@ -11,5 +11,6 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
     assert_file 'spec/support/helpers/select_helper.rb'
     assert_file 'spec/support/helpers/test_element_helper.rb'
     assert_file 'spec/support/helpers/playwright_helper.rb'
+    assert_file 'spec/support/helpers/capybara_helper.rb'
   end
 end
