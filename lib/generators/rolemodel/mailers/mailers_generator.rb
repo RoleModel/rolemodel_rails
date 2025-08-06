@@ -1,5 +1,6 @@
-require_relative '../../bundler_helpers'
+# frozen_string_literal: true
 
+require_relative '../../bundler_helpers'
 
 module Rolemodel
   class MailersGenerator < Rails::Generators::Base

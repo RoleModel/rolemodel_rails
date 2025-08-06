@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ExampleApp
   TEMPLATE_APP_PATH = File.expand_path('../../../example_rails8', __dir__)
 

@@ -13,10 +13,10 @@ module Rolemodel
     ].freeze
 
     def add_jasmine_playwright_script
-      package_json_path = Rails.root.join('package.json')
+      package_json_path = Rails.root&.join('package.json')
       command = 'NODE_ENV=test jp-runner --config jp-runner.config.mjs --webpack-config webpack.config.cjs'
 
-      return say 'package.json not found. Please run yarn init first.', :red unless File.exist?(package_json_path)
+      return say 'package.json not found. Please run yarn init first.', :red unless File.exist?(package_json_path.to_s)
 
       package_json = JSON.parse(File.read(package_json_path))
       package_json['scripts'] ||= {}
