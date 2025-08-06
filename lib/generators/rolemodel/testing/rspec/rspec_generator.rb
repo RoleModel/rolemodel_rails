@@ -30,6 +30,7 @@ module Rolemodel
         template 'support/helpers/action_cable_helper.rb', 'spec/support/helpers/action_cable_helper.rb'
         template 'support/helpers/select_helper.rb', 'spec/support/helpers/select_helper.rb'
         template 'support/helpers/test_element_helper.rb', 'spec/support/helpers/test_element_helper.rb'
+        template 'support/helpers/playwright_helper.rb', 'spec/support/helpers/playwright_helper.rb'
         template 'support/helpers.rb', 'spec/support/helpers.rb'
         append_file '.gitignore', 'spec/examples.txt'
       end
