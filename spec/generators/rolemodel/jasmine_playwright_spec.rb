@@ -12,5 +12,6 @@ RSpec.describe Rolemodel::JasminePlaywrightGenerator, type: :generator do
 
   it 'adds the correct files' do
     assert_file '.node-version'
+    assert_file 'spec/javascript/browser/support/react.mjs'
   end
 end
