@@ -24,6 +24,8 @@ module Rolemodel
     def add_spec_files
       template 'support/react.mjs', 'spec/javascript/browser/support/react.mjs'
       template 'example_spec.js', 'spec/javascript/browser/example_spec.js'
+      template 'jp-runner.config.mjs', 'jp-runner.config.mjs'
+      template 'setupTests.js', 'spec/javascript/browser/setupTests.js'
     end
   end
 end
