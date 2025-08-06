@@ -11,6 +11,10 @@ module PlaywrightHelper
     end
   end
 
+  def supports_javascript?
+    Capybara.current_driver != :rack_test
+  end
+
   def screenshot(filename = nil, directory: 'tmp/screenshots', print_message: true, **options)
     timestamp = Time.current.strftime('%Y-%m-%d_%H-%M-%S')
     description = RSpec.current_example.full_description.tr(' ', '_')

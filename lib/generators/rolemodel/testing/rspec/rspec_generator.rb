@@ -21,6 +21,13 @@ module Rolemodel
         run_bundle
       end
 
+      def install_playwright
+        say 'Installing Playwright for system tests', :green
+
+        run 'yarn add playwright'
+        run 'yarn run playwright install'
+      end
+
       def add_spec_files
         template 'rails_helper.rb', 'spec/rails_helper.rb'
         template 'spec_helper.rb', 'spec/spec_helper.rb'
