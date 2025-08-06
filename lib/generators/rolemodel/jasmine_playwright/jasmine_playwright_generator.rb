@@ -7,6 +7,7 @@ module Rolemodel
     DEV_DEPENDENCIES = %w[
       @rolemodel/jasmine-playwright-runner
       playwright
+      lit-html
     ]
 
     def ensure_node_version
@@ -22,6 +23,7 @@ module Rolemodel
 
     def add_spec_files
       template 'support/react.mjs', 'spec/javascript/browser/support/react.mjs'
+      template 'example_spec.js', 'spec/javascript/browser/example_spec.js'
     end
   end
 end
