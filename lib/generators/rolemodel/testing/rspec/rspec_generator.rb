@@ -15,6 +15,7 @@ module Rolemodel
         gem_group :test do
           gem 'capybara'
           gem 'webdrivers'
+          gem 'marsh_grass'
         end
         run_bundle
       end
