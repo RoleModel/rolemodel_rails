@@ -17,7 +17,9 @@ In addition to setting this up, we've added a way to include domain specific tes
 
 ### Capybara Drivers
 
-Simple short hand for using real browsers to drive your tests.
+We have chosen to use the [Playwright Ruby Client](https://playwright-ruby-client.vercel.app/docs/article/getting_started) for running system tests. This is pulled in through the [Capybara Playwright Driver](https://github.com/YusukeIwaki/capybara-playwright-driver) gem.
+
+Below are examples for using real browsers to drive your tests.
 
 #### headless
 
@@ -35,7 +37,7 @@ it 'saves the form data', :chrome do
 end
 ```
 
-#### Firefox - visible browser
+#### Firefox
 
 ```rb
 it 'saves the form data', :firefox do
