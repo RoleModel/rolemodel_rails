@@ -13,7 +13,7 @@ module Rolemodel
         say 'importing stylesheet', :green
 
         prepend_to_file 'app/assets/stylesheets/application.scss', <<~SCSS
-          @import '@rolemodel/optics/dist/scss/optics';
+          @import '@rolemodel/optics/dist/css/optics';
         SCSS
       end
     end

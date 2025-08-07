@@ -1,9 +1,13 @@
+require_relative '../../bundler_helpers'
+
 module Rolemodel
   class SlimGenerator < Rails::Generators::Base
+    include Rolemodel::BundlerHelpers
+
     source_root File.expand_path('templates', __dir__)
 
     def add_slim
-      run 'bundle add slim'
+      bundle_command 'add slim'
     end
 
     def replace_erb_layout

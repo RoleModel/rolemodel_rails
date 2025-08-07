@@ -1,0 +1,9 @@
+Description:
+    Add a Flash partial and a spec matcher for it
+
+Example:
+    rails generate rolemodel:ui_components:flash
+
+    This will create:
+        views
+        test helpers

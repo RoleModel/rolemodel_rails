@@ -1,0 +1,29 @@
+nav.navbar.navbar--primary
+  = link_to root_path, class: "navbar__brand" do
+    = image_tag "logo.png", alt: "Logo", class: "navbar__logo"
+
+  - if user_signed_in?
+    .navbar__content.navbar__content--justify-start
+      button.btn.btn--no-border.btn--active Menu Item 1
+      button.btn.btn--no-border Menu Item 2
+
+    .navbar__content.navbar__content--justify-end
+      .navbar__content
+        sl-dropdown
+          button.btn.btn--no-border.navbar__dropdown-toggle slot="trigger"
+            / = icon('person')
+            = current_user.first_name
+            / = icon('arrow_drop_down')
+
+          sl-menu.navbar__dropdown-menu
+            sl-menu-item
+              = link_to edit_user_registration_path, class: "navbar__dropdown-item--link" do
+                / = icon('person')
+                span Profile
+
+            sl-divider
+
+            sl-menu-item
+              = button_to destroy_user_session_path, method: :delete, class: "navbar__dropdown-item--button" do
+                / = icon('logout')
+                span Sign Out
