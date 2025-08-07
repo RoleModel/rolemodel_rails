@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rolemodel_rails (0.17.0)
+    rolemodel_rails (0.18.0)
 
 GEM
   remote: https://rubygems.org/
@@ -372,7 +372,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
-  rolemodel_rails (~> 0.17.0)!
+  rolemodel_rails (~> 0.18.0)!
   rubocop-rails-omakase
   selenium-webdriver
   solid_cable
