@@ -11,8 +11,14 @@ module Rolemodel
       def install_parallel_tests
         gem_group :development, :test do
           gem 'parallel_tests'
+          gem 'turbo_tests', require: false
+          gem 'rspec_junit_formatter', require: false
         end
         run_bundle
+      end
+
+      def add_rspec_parallel_file
+        template '.rspec_parallel', '.rspec_parallel'
       end
 
       def configure_database_for_parallel_testing

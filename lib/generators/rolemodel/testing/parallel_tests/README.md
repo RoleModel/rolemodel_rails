@@ -8,12 +8,23 @@ This generator configures your Rails application to run RSpec tests in parallel,
 
 ### Gemfile Addition
 
-The generator will add the `parallel_tests` gem to your Gemfile and run bundle install.
+The generator will add the `parallel_tests`, `turbo_tests`, and `rspec_junit_formatter` gems to your Gemfile and run bundle install.
 
 ```rb
 group :development, :test do
   gem 'parallel_tests'
+  gem 'turbo_tests', require: false
+  gem 'rspec_junit_formatter', require: false
 end
+```
+
+### RSpec Configuration
+The generator will create a `.rspec_parallel` file in your Rails root directory.
+
+```
+--format RspecJunitFormatter --out tmp/rspec-<%= ENV['TEST_ENV_NUMBER'] %>.xml
+--format ParallelTests::RSpec::RuntimeLogger --out tmp/turbo_rspec_runtime.log
+--format ParallelTests::RSpec::FailuresLogger
 ```
 
 ### Database Configuration

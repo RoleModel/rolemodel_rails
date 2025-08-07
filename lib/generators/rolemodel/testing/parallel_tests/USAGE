@@ -6,4 +6,7 @@ Example:
 
     This will add:
         parallel_tests to your Gemfile
+        turbo_tests to your Gemfile for a nicer testing experience
+        rspec_junit_formatter for test reporting
+        .rspec_parallel file for RSpec configuration
         database.yml configuration for parallel testing
