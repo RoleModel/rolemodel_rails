@@ -1,5 +1,5 @@
 .app__login
-  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'card card--login' }) do |f|
+  = simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { class: 'card card--login' }) do |f|
     .card__header
       h2 = t "devise.invitations.new.header"
     .card__body
