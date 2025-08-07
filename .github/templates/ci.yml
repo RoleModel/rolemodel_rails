@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+  RAILS_ENV: test
+  POSTGRES_USER: root
+  POSTGRES_PASSWORD: password
+
+jobs:
+  compile_assets:
+    name: Compile assets
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 5
+    outputs:
+      cache-hit: ${{ steps.check-asset-cache.outputs.cache-hit }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: RoleModel/actions/compile-assets@v2
+        id: check-asset-cache
+
+  non-system-test:
+    name: Linting & Ruby Non-System Tests
+    runs-on: blacksmith-8vcpu-ubuntu-2404
+    timeout-minutes: 5
+    needs: compile_assets
+    if: always() && (needs.compile_assets.outputs.cache-hit == 'true' || (needs.compile_assets.result == 'success'))
+
+    services:
+      postgres:
+        image: postgres:17
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: password
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run shared flow
+        uses: RoleModel/actions/linting-and-non-system-tests@v2
+
+  system-test:
+    name: Ruby System Tests
+    runs-on: blacksmith-16vcpu-ubuntu-2404
+    timeout-minutes: 10
+    if: always() && (needs.compile_assets.outputs.cache-hit == 'true' || (needs.compile_assets.result == 'success'))
+    needs: compile_assets
+
+    services:
+      postgres:
+        image: postgres:17
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: password
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup vips
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y libvips
+
+      - name: Run shared flow
+        uses: RoleModel/actions/system-tests@v2
+

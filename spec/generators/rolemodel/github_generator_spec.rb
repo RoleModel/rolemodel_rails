@@ -7,6 +7,7 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
   destination File.expand_path('tmp/', File.dirname(__FILE__))
 
   before do
+    expect(Thor::LineEditor).to receive(:readline).and_return('a') # prompt for overriding ci.yml
     run_generator_against_test_app
   end
 
@@ -20,5 +21,17 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
     assert_file '.github/instructions/project.instructions.md'
     assert_file '.github/instructions/ruby.instructions.md'
     assert_file '.github/instructions/slim.instructions.md'
+  end
+
+  it 'creates ci.yml and updates the database.yml' do
+    assert_file '.github/workflows/ci.yml' do |content|
+      expect(content).to include('Linting & Ruby Non-System Tests')
+    end
+
+    assert_file 'config/database.yml' do |content|
+      expect(content).to include('  username: <%= ENV.fetch("POSTGRES_USER") %>')
+      expect(content).to include('  password: <%= ENV.fetch("POSTGRES_PASSWORD") { nil } %>')
+      expect(content).to include('  host: localhost')
+    end
   end
 end

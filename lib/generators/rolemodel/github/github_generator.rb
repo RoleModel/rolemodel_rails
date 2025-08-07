@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rolemodel
   class GithubGenerator < Rails::Generators::Base
     # Source root is the project-level .github directory
@@ -15,11 +17,27 @@ module Rolemodel
     end
 
     def install_copilot_instructions
-      template 'instructions/css.instructions.md', '.github/instructions/css.instructions.md'
-      template 'instructions/js.instructions.md', '.github/instructions/js.instructions.md'
-      template 'instructions/project.instructions.md', '.github/instructions/project.instructions.md'
-      template 'instructions/ruby.instructions.md', '.github/instructions/ruby.instructions.md'
-      template 'instructions/slim.instructions.md', '.github/instructions/slim.instructions.md'
+      copy_file 'instructions/css.instructions.md', '.github/instructions/css.instructions.md'
+      copy_file 'instructions/js.instructions.md', '.github/instructions/js.instructions.md'
+      copy_file 'instructions/project.instructions.md', '.github/instructions/project.instructions.md'
+      copy_file 'instructions/ruby.instructions.md', '.github/instructions/ruby.instructions.md'
+      copy_file 'instructions/slim.instructions.md', '.github/instructions/slim.instructions.md'
+    end
+
+    def install_ci_yml
+      copy_file 'templates/ci.yml', '.github/workflows/ci.yml'
+    end
+
+    def update_database_yml_for_ci
+      insert_into_file 'config/database.yml', after: /database: .*_test.*\n/ do
+        optimize_indentation <<~YML, 2
+          <% if ENV.has_key?("POSTGRES_USER") %>
+          username: <%= ENV.fetch("POSTGRES_USER") %>
+          password: <%= ENV.fetch("POSTGRES_PASSWORD") { nil } %>
+          host: localhost
+          <% end %>
+        YML
+      end
     end
   end
 end

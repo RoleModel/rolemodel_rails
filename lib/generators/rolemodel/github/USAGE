@@ -6,3 +6,4 @@ Example:
 
     This will create:
         .github/pull_request_template.md
+        .github/workflows/ci.yml
