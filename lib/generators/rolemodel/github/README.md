@@ -1,6 +1,14 @@
 # Github Generator
 
+## Prerequisites
+You will need the parallel_tests generator to run the CI tests.
+
 ## What you get
+
+### ci.yml
+A sensible default `ci.yml` to get you started with Github Actions. This will run linters, model tests, and system tests.
+
+Along with the `ci.yml`, your `database.yml` will be modified to be able to be run in GHA.
 
 ### Pull Request Template
 
