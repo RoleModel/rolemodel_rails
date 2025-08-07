@@ -17,7 +17,7 @@ env:
 jobs:
   compile_assets:
     name: Compile assets
-    runs-on: blacksmith-4vcpu-ubuntu-2204
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     timeout-minutes: 5
     outputs:
       cache-hit: ${{ steps.check-asset-cache.outputs.cache-hit }}
@@ -30,14 +30,14 @@ jobs:
 
   non-system-test:
     name: Linting & Ruby Non-System Tests
-    runs-on: blacksmith-8vcpu-ubuntu-2204
+    runs-on: blacksmith-8vcpu-ubuntu-2404
     timeout-minutes: 5
     needs: compile_assets
     if: always() && (needs.compile_assets.outputs.cache-hit == 'true' || (needs.compile_assets.result == 'success'))
 
     services:
       postgres:
-        image: postgres:16
+        image: postgres:17
         ports:
           - "5432:5432"
         env:
@@ -53,14 +53,14 @@ jobs:
 
   system-test:
     name: Ruby System Tests
-    runs-on: blacksmith-16vcpu-ubuntu-2204
+    runs-on: blacksmith-16vcpu-ubuntu-2404
     timeout-minutes: 10
     if: always() && (needs.compile_assets.outputs.cache-hit == 'true' || (needs.compile_assets.result == 'success'))
     needs: compile_assets
 
     services:
       postgres:
-        image: postgres:16
+        image: postgres:17
         ports:
           - "5432:5432"
         env:
