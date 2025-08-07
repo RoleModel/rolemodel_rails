@@ -1,10 +1,10 @@
-h2= t(".resend_confirmation_instructions", default: "Resend confirmation instructions")
-= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, required: true, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email)
-  .actions
-    = f.submit t(".resend_confirmation_instructions", default: "Resend confirmation instructions")
-= render "devise/shared/links"
+.app__login
+  = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: 'card card--login' }) do |f|
+    .card__header
+      = image_tag asset_path('logo.png') # TODO: Replace with your own logo
+    .card__body
+      = f.input :email, required: true, autofocus: true, autocomplete: "email", input_html: { value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) }
+    .card__footer
+      = render "devise/shared/links"
+      div
+        = f.submit t(".resend_confirmation_instructions", default: "Resend confirmation instructions"), class: "btn btn--primary"

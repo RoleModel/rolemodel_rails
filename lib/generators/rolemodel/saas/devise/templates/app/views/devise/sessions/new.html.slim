@@ -1,12 +1,13 @@
-.flex.flex-col.items-center
-  h2.margin-top-lg= t(".sign_in", default: "Log in")
-  .card.container--xs.margin-top-md
-    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+.app__login
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'card card--login' }) do |f|
+    .card__header
+      = image_tag asset_path('logo.png') # TODO: Replace with your own logo
+    .card__body
       = f.input :email, required: true, autofocus: true, autocomplete: "email"
       = f.input :password, required: true, autocomplete: "current-password"
       - if devise_mapping.rememberable?
         = f.input :remember_me, as: :boolean
-      .actions
-        = f.submit t(".sign_in", default: "Log in"), class: "btn btn--primary"
-    .margin-top-md
+    .card__footer
       = render "devise/shared/links"
+      div
+        = f.submit t(".sign_in", default: "Log in"), class: "btn btn--primary"

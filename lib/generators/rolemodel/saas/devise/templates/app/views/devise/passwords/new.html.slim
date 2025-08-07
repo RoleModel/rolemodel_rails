@@ -1,10 +1,10 @@
-h2= t(".forgot_your_password", default: "Forgot your password?")
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    br
-    = f.email_field :email, required: true, autofocus: true, autocomplete: "email"
-  .actions
-    = f.submit t(".send_me_reset_password_instructions", default: "Send me reset password instructions")
-= render "devise/shared/links"
+.app__login
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'card card--login' }) do |f|
+    .card__header
+      = image_tag asset_path('logo.png') # TODO: Replace with your own logo
+    .card__body
+      = f.input :email, required: true, autofocus: true, autocomplete: "email"
+    .card__footer
+      = render "devise/shared/links"
+      div
+        = f.submit t(".send_me_reset_password_instructions", default: "Send me reset password instructions"), class: "btn btn--primary"

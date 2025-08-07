@@ -1,0 +1,30 @@
+.app__login {
+  margin: calc(2 * var(--op-space-4x-large)) auto auto;
+  padding-inline: var(--op-space-large);
+  width: 100%;
+  max-width: calc(116 * var(--op-size-unit));
+}
+
+/* This could also be its own card variant */
+.card--login {
+  .card__header {
+    display: flex;
+    justify-content: center;
+  }
+
+  .card__header img {
+    width: calc(23 * var(--op-size-unit));
+  }
+
+  .card__body {
+    padding-block: 0;
+  }
+
+  .card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--op-space-x-small);
+  }
+}

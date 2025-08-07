@@ -1,19 +1,12 @@
-h2= t(".change_your_password", default: "Change your password")
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  = f.hidden_field :reset_password_token
-  .field
-    = f.label :password, t(".new_password", default: "New password")
-    br
-    - if @minimum_password_length
-      em
-        = t("devise.shared.minimum_password_length", count: @minimum_password_length, default: "(%{count} characters minimum)")
-      br
-    = f.password_field :password, required: true, autofocus: true, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation, t(".confirm_new_password", default: "Confirm new password")
-    br
-    = f.password_field :password_confirmation, required: true, autocomplete: "new-password"
-  .actions
-    = f.submit t(".change_my_password", default: "Change my password")
-= render "devise/shared/links"
+.app__login
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'card card--login' }) do |f|
+    .card__header
+      = image_tag asset_path('logo.png') # TODO: Replace with your own logo
+    .card__body
+      = f.hidden_field :reset_password_token
+      = f.input :password, label: t(".new_password", default: "New password"), required: true, autofocus: true, autocomplete: "new-password", hint: (@minimum_password_length ? t("devise.shared.minimum_password_length", count: @minimum_password_length, default: "(%{count} characters minimum)") : nil)
+      = f.input :password_confirmation, label: t(".confirm_new_password", default: "Confirm new password"), required: true, autocomplete: "new-password"
+    .card__footer
+      = render "devise/shared/links"
+      div
+        = f.submit t(".change_my_password", default: "Change my password"), class: "btn btn--primary"

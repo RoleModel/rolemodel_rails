@@ -152,6 +152,17 @@ module Rolemodel
       def add_devise_mailer_preview
         copy_file 'spec/mailers/previews/devise_mailer_preview.rb'
       end
+
+      def add_login_styles
+        say 'importing login stylesheet', :green
+        copy_file 'app/assets/stylesheets/login.css'
+
+        return unless File.exist?(File.join(destination_root, 'app/assets/stylesheets/application.scss'))
+
+        append_to_file 'app/assets/stylesheets/application.scss', <<~SCSS
+          @import 'login';
+        SCSS
+      end
     end
   end
 end
