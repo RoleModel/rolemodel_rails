@@ -15,6 +15,10 @@ module Rolemodel
         run_bundle
       end
 
+      def add_rspec_parallel_file
+        template '.rspec_parallel', '.rspec_parallel'
+      end
+
       def configure_database_for_parallel_testing
         say_status :update, 'Updating database.yml for parallel testing', :blue
 
