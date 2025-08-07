@@ -1,21 +1,14 @@
-h2
-  = t "devise.invitations.new.header"
-= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :first_name
-    br
-    = f.text_field :first_name, required: true, autofocus: true, autocomplete: "first_name"
-  .field
-    = f.label :last_name
-    br
-    = f.text_field :last_name, required: true, autocomplete: "last_name"
-  - resource.class.invite_key_fields.each do |field|
-    .field
-      = f.label field
-      br
-      = f.text_field field, required: true
-  - if @organization
-    = f.hidden_field :organization_id, @organization.id
-  .actions
-    = f.submit t("devise.invitations.new.submit_button")
+.app__login
+  = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'card card--login' }) do |f|
+    .card__header
+      h2 = t "devise.invitations.new.header"
+    .card__body
+      = f.input :first_name, required: true, autofocus: true, autocomplete: "first_name"
+      = f.input :last_name, required: true, autocomplete: "last_name"
+      - resource.class.invite_key_fields.each do |field|
+        = f.input field, required: true
+      - if @organization
+        = f.hidden_field :organization_id, @organization.id
+    .card__footer
+      div
+        = f.submit t("devise.invitations.new.submit_button"), class: 'btn btn--primary'
