@@ -14,7 +14,7 @@ RSpec.describe Rolemodel::SourceMapGenerator, type: :generator do
     assert_file 'lib/middleware/rolemodel/source_map.rb'
     assert_file 'config/environments/production.rb' do |content|
       expect(content).to include("require_relative Rails.root.join('lib/middleware/rolemodel/source_map.rb')")
-      expect(content).to include('config.middleware.insert_after Warden::Manager, Rolemodel::SourceMap')
+      expect(content).to include('config.middleware.insert_after Warden::Manager, Middleware::Rolemodel::SourceMap')
     end
   end
 end
