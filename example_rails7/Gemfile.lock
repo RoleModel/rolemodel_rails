@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rolemodel_rails (0.17.0)
+    rolemodel_rails (0.18.0)
 
 GEM
   remote: https://rubygems.org/
@@ -315,7 +315,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)
-  rolemodel_rails (~> 0.17.0)!
+  rolemodel_rails (~> 0.18.0)!
   rubocop-rails-omakase
   selenium-webdriver
   sprockets-rails
