@@ -79,6 +79,7 @@ bin/rails g
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
+  * [Parallel Test](./lib/generators/rolemodel/testing/parallel_tests)
 * [SimpleForm](./lib/generators/rolemodel/simple_form)
 * [SoftDestroyable](./lib/generators/rolemodel/soft_destroyable)
 * [SaaS](./lib/generators/rolemodel/saas)
