@@ -1,0 +1,5 @@
+Description:
+    runs all the UI Components generators
+
+Example:
+    rails generate rolemodel:ui_components:all

@@ -1,0 +1,10 @@
+Description:
+    Add Navbar and Shoelace components necessary for it
+
+Example:
+    rails generate rolemodel:ui_components:navbar
+
+    This will create:
+        javascript
+        styles
+        views

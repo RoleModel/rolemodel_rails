@@ -2,7 +2,7 @@ Description:
     Add Modal, Panel, and Confirmation components
 
 Example:
-    rails generate rolemodel:modals
+    rails generate rolemodel:ui_components:modals
 
     This will create:
         helpers
