@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'generators/rolemodel/jasmine_playwright/jasmine_playwright_generator'
+require 'generators/rolemodel/testing/jasmine_playwright/jasmine_playwright_generator'
 
-RSpec.describe Rolemodel::JasminePlaywrightGenerator, type: :generator do
+RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
   destination File.expand_path('tmp/', File.dirname(__FILE__))
 
   before do
