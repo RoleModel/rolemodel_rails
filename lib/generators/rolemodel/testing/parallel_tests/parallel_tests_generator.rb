@@ -18,11 +18,9 @@ module Rolemodel
       def configure_database_for_parallel_testing
         say_status :update, 'Updating database.yml for parallel testing', :blue
 
-        database_config = File.read('config/database.yml')
-        app_name = database_config.match(/database:.(.*)_test/)[1]
-        new_database_config = "database: #{app_name}_test<%= ENV['TEST_ENV_NUMBER'] %>"
+        # If there is, append the TEST_ENV_NUMBER to it
+        gsub_file 'config/database.yml', /(test:.*\n\s+database:.*_test)/m, "\\1<%= ENV['TEST_ENV_NUMBER'] %>"
 
-        gsub_file 'config/database.yml', /database:.*_test/, new_database_config
         say_status :update, 'Updated database configuration successfully', :green
       end
 
