@@ -4,5 +4,6 @@
 
 ## What you get
 
+* [Flash](./flash)
 * [Modals](./modals)
 * [Navbar](./navbar)
