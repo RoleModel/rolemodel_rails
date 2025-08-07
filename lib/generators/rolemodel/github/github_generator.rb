@@ -25,7 +25,7 @@ module Rolemodel
     end
 
     def install_ci_yml
-      copy_file 'workflows/template_ci.yml', '.github/workflows/ci.yml'
+      copy_file 'templates/ci.yml', '.github/workflows/ci.yml'
     end
 
     def update_database_yml_for_ci
