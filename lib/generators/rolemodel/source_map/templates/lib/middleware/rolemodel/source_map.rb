@@ -1,43 +1,45 @@
 # frozen_string_literal: true
 
-module Rolemodel
-  class SourceMap
-    def initialize(app, **options)
-      root = options.delete(:root) || 'maps'
-      default_headers = {'Set-Cookie' => 'Same-Site=None', 'Cache-Control' => 'max-age=0;no-cache'}
-      custom_headers = default_headers.merge(options.delete(:headers) || {})
-      @app = app
-      @allowed_users_emails = ENV.fetch('SOURCE_MAPS_ALLOWED_USERS_EMAILS', '').split(',')
-      @file_server = Rack::Files.new(root, custom_headers)
-    end
-
-    def call(env)
-      if allowed_sourcemap?(env)
-        @file_server.call(env.tap { |env| env['PATH_INFO'].sub!(/^\/[\w-]+[^\/]/, '') })
-      else
-        @app.call(env)
+module Middleware
+  module Rolemodel
+    class SourceMap
+      def initialize(app, **options)
+        root = options.delete(:root) || 'maps'
+        default_headers = { 'Set-Cookie' => 'Same-Site=None', 'Cache-Control' => 'max-age=0;no-cache' }
+        custom_headers = default_headers.merge(options.delete(:headers) || {})
+        @app = app
+        @allowed_users_emails = ENV.fetch('SOURCE_MAPS_ALLOWED_USERS_EMAILS', '').split(',')
+        @file_server = Rack::Files.new(root, custom_headers)
       end
-    end
 
-    private
+      def call(env)
+        if allowed_sourcemap?(env)
+          @file_server.call(env.tap { |env| env['PATH_INFO'].sub!(%r{^/[\w-]+[^/]}, '') })
+        else
+          @app.call(env)
+        end
+      end
 
-    def allowed_sourcemap?(env)
-      return false unless env['PATH_INFO'].end_with?('.map')
+      private
 
-      permit_user?(env)
-    end
+      def allowed_sourcemap?(env)
+        return false unless env['PATH_INFO'].end_with?('.map')
 
-    def permit_user?(env)
-      # Alternatively, allow sourcemaps for all super admins
-      # current_user(env)&.super_admin?
-      current_user_email = current_user(env)&.email
-      return false if current_user_email.blank?
+        permit_user?(env)
+      end
 
-      @allowed_users_emails.include?(current_user_email)
-    end
+      def permit_user?(env)
+        # Alternatively, allow sourcemaps for all super admins
+        # current_user(env)&.super_admin?
+        current_user_email = current_user(env)&.email
+        return false if current_user_email.blank?
 
-    def current_user(env)
-      env['warden']&.user
+        @allowed_users_emails.include?(current_user_email)
+      end
+
+      def current_user(env)
+        env['warden']&.user
+      end
     end
   end
 end
