@@ -1,0 +1,9 @@
+Description:
+    generates configuration for running RSpec tests in parallel
+
+Example:
+    rails generate rolemodel:testing:parallel_rspec
+
+    This will add:
+        parallel_tests to your Gemfile
+        database.yml configuration for parallel testing
