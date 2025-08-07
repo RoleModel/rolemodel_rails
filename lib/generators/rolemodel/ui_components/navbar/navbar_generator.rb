@@ -11,14 +11,12 @@ module Rolemodel
         copy_file 'app/views/layouts/_navbar.html.slim'
       end
 
-      def insert_navbar_after_flash_or_body
+      def insert_navbar_before_content
         say 'Inserting Navbar render tag', :green
 
-        insert_after = /\bbody.*\n/
-        insert_after = %r{render 'layouts/flash'\n} if File.exist?('app/views/layouts/_flash.html.slim')
-
-        insert_into_file 'app/views/layouts/application.html.slim', after: insert_after do
+        insert_into_file 'app/views/layouts/application.html.slim', before: /\s+\.app__content/ do
           optimize_indentation <<~SLIM, 4
+
             = render 'layouts/navbar'
           SLIM
         end

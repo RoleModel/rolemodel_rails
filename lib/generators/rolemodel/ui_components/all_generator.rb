@@ -7,7 +7,7 @@ module Rolemodel
         # no guaranteed order to this list with Dir.glob
         Dir.glob(Pathname(File.expand_path('.', __dir__)).join('*', '*generator.rb')).each do |generator|
           name = File.basename(generator, '_generator.rb')
-          generate "rolemodel:saas:#{name}"
+          generate "rolemodel:ui_components:#{name}"
         end
       end
     end
