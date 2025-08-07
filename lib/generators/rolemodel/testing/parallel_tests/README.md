@@ -13,7 +13,8 @@ The generator will add the `parallel_tests` and `turbo_tests` gems to your Gemfi
 ```rb
 group :development, :test do
   gem 'parallel_tests'
-  gem 'turbo_tests'
+  gem 'turbo_tests', require: false
+  gem 'rspec_junit_formatter', require: false
 end
 ```
 

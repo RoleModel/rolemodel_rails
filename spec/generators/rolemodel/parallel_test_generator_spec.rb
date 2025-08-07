@@ -9,7 +9,8 @@ RSpec.describe Rolemodel::Testing::ParallelTestsGenerator, type: :generator do
   it 'adds the gems, adds .rspec_parallel, and edits the database.yml' do
     assert_file 'Gemfile' do |content|
       expect(content).to include('gem "parallel_tests"')
-      expect(content).to include('gem "turbo_tests"')
+      expect(content).to include('gem "turbo_tests", require: false')
+      expect(content).to include('gem "rspec_junit_formatter", require: false')
     end
 
     assert_file '.rspec_parallel'
