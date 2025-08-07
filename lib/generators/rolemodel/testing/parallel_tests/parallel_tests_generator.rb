@@ -11,6 +11,7 @@ module Rolemodel
       def install_parallel_tests
         gem_group :development, :test do
           gem 'parallel_tests'
+          gem 'turbo_tests'
         end
         run_bundle
       end
