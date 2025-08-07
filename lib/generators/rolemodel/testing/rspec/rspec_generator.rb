@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../../bundler_helpers'
 
 module Rolemodel
@@ -14,9 +16,19 @@ module Rolemodel
 
         gem_group :test do
           gem 'capybara'
+          gem 'capybara-playwright-driver'
+          gem 'marsh_grass'
+          gem 'pry'
           gem 'webdrivers'
         end
         run_bundle
+      end
+
+      def install_playwright
+        say 'Installing Playwright for system tests', :green
+
+        run 'yarn add playwright'
+        run 'yarn run playwright install'
       end
 
       def add_spec_files
@@ -26,6 +38,8 @@ module Rolemodel
         template 'support/capybara_drivers.rb', 'spec/support/capybara_drivers.rb'
         template 'support/capybara_testid.rb', 'spec/support/capybara_testid.rb'
         template 'support/helpers/action_cable_helper.rb', 'spec/support/helpers/action_cable_helper.rb'
+        template 'support/helpers/capybara_helper.rb', 'spec/support/helpers/capybara_helper.rb'
+        template 'support/helpers/playwright_helper.rb', 'spec/support/helpers/playwright_helper.rb'
         template 'support/helpers/select_helper.rb', 'spec/support/helpers/select_helper.rb'
         template 'support/helpers/test_element_helper.rb', 'spec/support/helpers/test_element_helper.rb'
         template 'support/helpers.rb', 'spec/support/helpers.rb'

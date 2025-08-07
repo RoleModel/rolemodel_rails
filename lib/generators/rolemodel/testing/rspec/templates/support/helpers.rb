@@ -5,6 +5,8 @@ Dir[Rails.root.join('spec', 'support', 'helpers', '**', '*.rb')].each { |f| requ
 RSpec.configure do |c|
   # for example, given you have a spec/support/helpers/login_helpers.rb
   c.include ActionCableHelper, type: :system
+  c.include CapybaraHelper, type: :system
+  c.include PlaywrightHelper, type: :system
   c.include SelectHelper, type: :system
   c.include TestElementHelper, type: :system
 end

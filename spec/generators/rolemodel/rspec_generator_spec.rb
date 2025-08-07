@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'generators/rolemodel/testing/rspec/rspec_generator'
 
@@ -8,6 +10,8 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
 
   it 'adds the correct helpers' do
     assert_file 'spec/support/helpers/action_cable_helper.rb'
+    assert_file 'spec/support/helpers/capybara_helper.rb'
+    assert_file 'spec/support/helpers/playwright_helper.rb'
     assert_file 'spec/support/helpers/select_helper.rb'
     assert_file 'spec/support/helpers/test_element_helper.rb'
   end
