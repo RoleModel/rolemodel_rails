@@ -1,3 +1,49 @@
+# frozen_string_literal: true
+
+# Update the link_or_button selector so that we can use `click_on` with gc-menu-item
+Capybara.modify_selector(:link_or_button) do
+  label 'link or button'
+
+  xpath do |locator, **options|
+    %i[link button].map do |selector|
+      expression_for(selector, locator, **options)
+    end.reduce(:union)
+  end
+end
+
+module LoadStateWaitingLogic
+  module_function
+
+  def add_wait_for_load_state(method_names)
+    method_names.each do |method_name|
+      define_method(method_name) do |*args, **kwargs, &block|
+        super(*args, **kwargs, &block).tap do
+          return unless CapybaraHelper.supports_javascript?
+
+          pw_page.wait_for_load_state(state: 'networkidle')
+        end
+      end
+    end
+  end
+end
+
+module LoadStateWaiter
+  include LoadStateWaitingLogic
+
+  INTERACTIVE_METHODS = %i[choose check uncheck select fill_in].freeze
+  LoadStateWaitingLogic.add_wait_for_load_state(INTERACTIVE_METHODS)
+end
+
+module ElementLoadStateWaiter
+  include LoadStateWaitingLogic
+
+  INTERACTIVE_METHODS = %i[send_keys click select].freeze
+  LoadStateWaitingLogic.add_wait_for_load_state(INTERACTIVE_METHODS)
+end
+
+Capybara::Node::Actions.prepend(LoadStateWaiter)
+Capybara::Node::Element.prepend(ElementLoadStateWaiter)
+
 module CapybaraHelper
   TIMEOUT = 10
 
