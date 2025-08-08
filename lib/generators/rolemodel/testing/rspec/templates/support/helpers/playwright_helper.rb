@@ -16,7 +16,7 @@ module PlaywrightHelper
 
     FileUtils.mkdir_p(directory)
 
-    pw_page.locator('body').evaluate 'element => element.classList.add("full-page-screenshot")' if options[:fullPage]
+    pw_page.locator('body').evaluate("element => element.style.overflow = 'visible'") if options[:fullPage]
 
     pw_page.screenshot(path: "#{directory}/#{filename}.png", animations: 'disabled', **options)
 
