@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExampleApp
-  TEMPLATE_APP_PATH = File.expand_path('../../../example_rails8', __dir__)
+  TEMPLATE_APP_PATH = File.expand_path Dir.glob('./example_rails?').max # Always test against the most recent example app
 
   def prepare_test_app
     FileUtils.cp_r(TEMPLATE_APP_PATH, destination_root)
