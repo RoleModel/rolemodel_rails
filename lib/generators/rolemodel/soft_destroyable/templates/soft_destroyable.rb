@@ -39,6 +39,10 @@ module SoftDestroyable
     end
   end
 
+  def assign_attributes(attrs)
+    super(attrs[:_soft_destroy].present? ? attrs.slice(:_soft_destroy) : attrs)
+  end
+
   def soft_destroyed?
     deleted_at.present?
   end

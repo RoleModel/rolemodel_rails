@@ -41,6 +41,20 @@ RSpec.shared_examples 'a soft destroyable' do |factory_name, **options|
     end
   end
 
+  describe '#assign_attributes' do
+    it 'ignores other attributes when _soft_destroy is present' do
+      destroyable = create_instance
+      destroyable.assign_attributes(updated_at: Time.current, _soft_destroy: '1')
+      expect(destroyable.changes).to_not include(:updated_at)
+    end
+
+    it 'includes all attributes when _soft_destroy is not present' do
+      destroyable = create_instance
+      destroyable.assign_attributes(updated_at: Time.current)
+      expect(destroyable.changes).to include(:updated_at)
+    end
+  end
+
   describe '#soft_destroy!' do
     it 'sets deleted_at' do
       # given
