@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+require 'thor'
+
+class NewGenerator < Thor::Group
+  include Thor::Actions
+
+  argument :name, type: :string
+  argument :description, type: :string, default: 'A new generator for RoleModel'
+
+  def self.source_root
+    File.expand_path('lib/generators/templates')
+  end
+
+  def self.destination_root
+    File.expand_path('lib/generators/rolemodel')
+  end
+
+  def generate_generator_files
+    directory 'generator', "#{name}"
+  end
+
+  def generate_generator_spec
+    # TODO: stub out spec file in proper location
+  end
+end
+
+NewGenerator.start
