@@ -19,7 +19,7 @@ There are a couple of important rules when it comes to TurboFrames & forms.
 
 1. In the case of errors, your controller action must respond with `status: :unprocessable_content` *HTTP status code __422__* in order to re-render your form w/ errors.  This is both a Turbo requirement, as well as the mechanism which prevents the modal or panel from re-animating in.
 2. In the case of success, your controller action should redirect. This request should automatically inherit the turbo-frame layout, which is *missing* the targeted `modal` or `panel` turbo-frame and will therefore trigger the included `turbo:frame-missing` event handler.
-3. Never use the `layout` class method in your controllers. The *RoleModel Modal pattern* relies on Turbo-Rails' layout mechanics, which are overridden by the layout class method (even in an ancestor controller). If your design requires multiple layouts, you have a 2 options:
+3. Never use the `layout` class method in your controllers. The *RoleModel Modal pattern* relies on Turbo-Rails' layout mechanics, which are overridden by the layout class method (even in an ancestor controller). If your design requires multiple layouts, you have 2 options:
    * :star: PREFERRED :star: Create a new subclass of ApplicationController and name it after your alternate layout. Subclasses of *layout only controllers* gracefully inherit their namesake layout without breaking Turbo. :tada:
    * You may call the `layout` class method with the symbolized name of a method which conditionally returns false e.g. `'my_special_layout' unless turbo_frame_request?`
 
