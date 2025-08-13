@@ -4,7 +4,7 @@ module Rolemodel
   class GithubGenerator < Rails::Generators::Base
     # Source root is the project-level .github directory
     # This allows us to use the same templates for both the generated app and this gem
-    source_root File.expand_path('../../../../.github', __dir__)
+    source_root File.expand_path('.github')
 
     def install_pull_request_template
       template 'pull_request_template.md', '.github/pull_request_template.md'

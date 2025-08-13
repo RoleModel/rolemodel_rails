@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'generators/rolemodel/ui_components/modals/modals_generator'
 
 RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
+  destination File.expand_path('../tmp/', File.dirname(__FILE__))
 
   before { run_generator_against_test_app }
 

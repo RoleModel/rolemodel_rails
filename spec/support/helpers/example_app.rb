@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ExampleApp
-  TEMPLATE_APP_PATH = File.expand_path('../../../example_rails8', __dir__)
+  TEMPLATE_APP_PATH = File.expand_path Dir.glob('./example_rails?').max # Always test against the most recent example app
 
   def prepare_test_app
     FileUtils.cp_r(TEMPLATE_APP_PATH, destination_root)
@@ -18,8 +18,8 @@ module ExampleApp
 
   def clean_test_gemfile
     gemfile_path = File.join(destination_root, 'Gemfile')
-    content = File.read(gemfile_path)
-    new_content = content.gsub(/gem ['"]rolemodel_rails.*$/, '')
-    File.write(gemfile_path, new_content)
+    gemfile = File.open(gemfile_path)
+
+    File.write(gemfile_path, gemfile.grep_v(/rolemodel_rails/).join)
   end
 end

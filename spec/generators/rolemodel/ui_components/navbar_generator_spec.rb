@@ -4,7 +4,8 @@ require 'spec_helper'
 require 'generators/rolemodel/ui_components/navbar/navbar_generator'
 
 RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
+  destination File.expand_path('../tmp/', File.dirname(__FILE__))
+
   let(:run_flash_generator_first) { false }
   let(:run_modal_generator_first) { false }
 
@@ -43,7 +44,7 @@ RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
 
     it 'places the render below flash and modals' do
       assert_file 'app/views/layouts/application.html.slim' do |content|
-        flash_index = content.index("= render 'layouts/flash'")
+        flash_index = content.index("= render 'flash'")
         modal_index = content.index("turbo_frame_tag 'modal'")
         navbar_index = content.index("= render 'layouts/navbar'")
 

@@ -7,7 +7,7 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
   destination File.expand_path('tmp/', File.dirname(__FILE__))
 
   before do
-    expect(Thor::LineEditor).to receive(:readline).and_return('a') # prompt for overriding ci.yml
+    respond_to_prompt with: 'a' # prompt for overriding ci.yml
     run_generator_against_test_app
   end
 
