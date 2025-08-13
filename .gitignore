@@ -10,7 +10,7 @@
 # rspec failure tracking
 .rspec_status
 node_modules
-tmp
+*/**/tmp
 log
 
 # Ignore generated files in examples

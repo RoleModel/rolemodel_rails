@@ -16,11 +16,11 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.before(:all, type: :generator) do
+  config.before(:each, type: :generator) do
     prepare_test_app
   end
 
-  config.after(:all, type: :generator) do
+  config.after(:each, type: :generator) do
     cleanup_test_app
   end
 end

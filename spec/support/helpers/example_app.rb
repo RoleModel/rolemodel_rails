@@ -18,8 +18,8 @@ module ExampleApp
 
   def clean_test_gemfile
     gemfile_path = File.join(destination_root, 'Gemfile')
-    content = File.read(gemfile_path)
-    new_content = content.gsub(/gem ['"]rolemodel_rails.*$/, '')
-    File.write(gemfile_path, new_content)
+    gemfile = File.open(gemfile_path)
+
+    File.write(gemfile_path, gemfile.grep_v(/rolemodel_rails/).join)
   end
 end
