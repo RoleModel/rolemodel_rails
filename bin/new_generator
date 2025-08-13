@@ -11,12 +11,8 @@ class NewGenerator < Thor::Group
     File.expand_path('lib/generators/templates')
   end
 
-  def self.destination_root
-    File.expand_path('lib/generators/rolemodel')
-  end
-
   def generate_generator_files
-    directory 'generator', "#{name}"
+    directory 'generator', "lib/generators/rolemodel/#{name}"
   end
 
   def generate_generator_spec
