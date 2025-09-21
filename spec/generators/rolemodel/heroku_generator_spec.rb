@@ -1,9 +1,6 @@
 require 'spec_helper'
-require 'generators/rolemodel/heroku/heroku_generator'
 
 RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
-
   before { run_generator_against_test_app }
 
   it 'generates app.json' do

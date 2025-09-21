@@ -1,15 +1,14 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
-require 'generators/rolemodel/ui_components/flash/flash_generator'
 
 RSpec.describe Rolemodel::UiComponents::FlashGenerator, type: :generator do
-  destination File.expand_path('../tmp/', File.dirname(__FILE__))
+  destination File.expand_path('../../tmp', File.dirname(__FILE__))
 
   before do
-    FileUtils.cd(destination_root) do
-      args = [['--force'], { behavior: :invoke, destination_root: destination_root }]
-      Rails::Generators.invoke('rolemodel:slim', *args)
+    capture(:stdout) do
+      FileUtils.cd(destination_root) do
+        args = [['--force'], { behavior: :invoke, destination_root: destination_root }]
+        Rails::Generators.invoke('rolemodel:slim', *args)
+      end
     end
     run_generator_against_test_app
   end

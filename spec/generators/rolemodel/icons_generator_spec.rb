@@ -1,11 +1,6 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
-require 'generators/rolemodel/optics/icons/icons_generator'
 
 RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
-
   before do
     respond_to_prompt with: 'phosphor' # choose an icon library
     run_generator_against_test_app

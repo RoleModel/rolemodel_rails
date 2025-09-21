@@ -1,21 +1,20 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
-require 'generators/rolemodel/ui_components/navbar/navbar_generator'
 
 RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
-  destination File.expand_path('../tmp/', File.dirname(__FILE__))
+  destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
   let(:run_flash_generator_first) { false }
   let(:run_modal_generator_first) { false }
 
   before do
-    FileUtils.cd(destination_root) do
-      args = [['--force'], { behavior: :invoke, destination_root: destination_root }]
-      Rails::Generators.invoke('rolemodel:slim', *args)
-      Rails::Generators.invoke('rolemodel:webpack', *args)
-      Rails::Generators.invoke('rolemodel:ui_components:flash', *args) if run_flash_generator_first
-      Rails::Generators.invoke('rolemodel:ui_components:modals', *args) if run_modal_generator_first
+    capture(:stdout) do
+      FileUtils.cd(destination_root) do
+        args = [['--force'], { behavior: :invoke, destination_root: destination_root }]
+        Rails::Generators.invoke('rolemodel:slim', *args)
+        Rails::Generators.invoke('rolemodel:webpack', *args)
+        Rails::Generators.invoke('rolemodel:ui_components:flash', *args) if run_flash_generator_first
+        Rails::Generators.invoke('rolemodel:ui_components:modals', *args) if run_modal_generator_first
+      end
     end
     run_generator_against_test_app
   end

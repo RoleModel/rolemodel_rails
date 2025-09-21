@@ -1,35 +1,37 @@
 # frozen_string_literal: true
+require_relative '../../../replace_content_helper'
 
 module Rolemodel
   module Testing
     class JasminePlaywrightGenerator < Rails::Generators::Base
+      include Rolemodel::ReplaceContentHelper
       source_root File.expand_path('templates', __dir__)
 
       NODE_VERSION = '22.15.0'
 
+      TEST_COMMAND = 'NODE_ENV=test jp-runner --config jp-runner.config.mjs --webpack-config webpack.config.cjs'
+
+      # TODO: Yarn can't find this package: @rolemodel/jasmine-playwright-runner
       DEV_DEPENDENCIES = %w[
-        @rolemodel/jasmine-playwright-runner
         playwright
         lit-html
       ].freeze
 
       def add_jasmine_playwright_script
-        say 'Adding jasmine:playwright script to package.json', :green
-        package_json_path = Rails.root&.join('package.json')
-        command = 'NODE_ENV=test jp-runner --config jp-runner.config.mjs --webpack-config webpack.config.cjs'
+        raise 'package.json not found. Please run yarn init first.' unless File.exist?(File.expand_path('package.json', destination_root))
 
-        return say 'package.json not found. Please run yarn init first.', :red unless File.exist?(package_json_path.to_s)
-
-        package_json = JSON.parse(File.read(package_json_path))
-        package_json['scripts'] ||= {}
-        package_json['scripts']['test:browser'] = command
-        File.write(package_json_path, JSON.generate(package_json))
+        replace_content('package.json') do |json|
+          hash = JSON.parse(json)
+          hash['scripts'] ||= {}
+          hash['scripts']['test:browser'] = TEST_COMMAND
+          JSON.pretty_generate(hash)
+        end
       end
 
       def ensure_node_version
         say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}", :green
 
-        create_file '.node-version', NODE_VERSION
+        create_file '.node-version', NODE_VERSION, force: true
       end
 
       def add_npm_packages
