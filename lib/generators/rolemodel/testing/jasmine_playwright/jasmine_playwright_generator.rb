@@ -24,7 +24,7 @@ module Rolemodel
         run 'yarn init' unless File.exist?(File.expand_path('package.json', destination_root))
       end
 
-      def add_jasmine_playwright_script
+      def add_browser_test_script
         say 'Adding yarn test:browser command', :green
 
         replace_content('package.json') do |json|
