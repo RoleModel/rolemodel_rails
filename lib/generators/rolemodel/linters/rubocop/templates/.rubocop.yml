@@ -66,3 +66,6 @@ Style:
 # It is ok to use inject at times
 Style/EachWithObject:
   Enabled: false
+
+Cops/NoChromeTag:
+  AutoCorrect: contextual
