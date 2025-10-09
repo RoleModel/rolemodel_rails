@@ -1,11 +1,6 @@
-# frozen_string_literal: true
-
 require 'spec_helper'
-require 'generators/rolemodel/github/github_generator'
 
 RSpec.describe Rolemodel::GithubGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
-
   before do
     respond_to_prompt with: 'a' # prompt for overriding ci.yml
     run_generator_against_test_app

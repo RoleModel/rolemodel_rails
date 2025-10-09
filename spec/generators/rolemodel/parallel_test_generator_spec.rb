@@ -1,9 +1,6 @@
 require 'spec_helper'
-require 'generators/rolemodel/testing/parallel_tests/parallel_tests_generator'
 
 RSpec.describe Rolemodel::Testing::ParallelTestsGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
-
   before { run_generator_against_test_app }
 
   it 'adds the gems, adds .rspec_parallel, and edits the database.yml' do

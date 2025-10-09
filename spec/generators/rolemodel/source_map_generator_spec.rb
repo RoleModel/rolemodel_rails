@@ -1,9 +1,6 @@
 require 'spec_helper'
-require 'generators/rolemodel/source_map/source_map_generator'
 
 RSpec.describe Rolemodel::SourceMapGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
-
   before { run_generator_against_test_app }
 
   it 'enhances assets rake tasks to manage sourcemaps' do

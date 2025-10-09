@@ -5,6 +5,8 @@ require "rails/generators"
 require "generator_spec"
 require_relative "./support/helpers"
 
+Dir[File.expand_path('lib/generators/rolemodel/**/*_generator.rb', Dir.pwd)].each { require it }
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
