@@ -123,18 +123,23 @@ bin/rails g rolemodel:webpack
 
 Generator specs should be added to the [spec](./spec) directory.
 
-Setup & Teardown of the test-dummy app is handled for you, but there are 2 things that each spec needs in order to work correctly.
-
-1. A destination directory for the test-dummy app.
-2. To have your generator run against the test-dummy app.
+Setup & Teardown of the test-dummy app is handled for you.  All you need to do is run the provided helper method:
 
 e.g.
 
 ```ruby
 RSpec.describe Rolemodel::MyGenerator, type: :generator do
-  destination File.expand_path('tmp/', File.dirname(__FILE__))
-
   before { run_generator_against_test_app }
+end
+```
+
+You may also provide command line arguments to the helper method as an array:
+
+e.g.
+
+```ruby
+RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
+  before { run_generator_against_test_app(['--github-package-token=123']) }
 end
 ```
 
