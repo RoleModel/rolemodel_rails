@@ -7,7 +7,6 @@ module Rolemodel
       source_root File.expand_path('templates', __dir__)
       class_option :github_package_token, type: :string, default: ENV['GITHUB_PACKAGES_TOKEN'], desc: 'GitHub Packages token with access to @rolemodel packages'
 
-      NODE_VERSION = '22.15.0'
       TEST_COMMAND = 'NODE_ENV=test jp-runner --config jp-runner.config.mjs --webpack-config webpack.config.cjs'
       DEV_DEPENDENCIES = %w[
         @rolemodel/jasmine-playwright-runner
