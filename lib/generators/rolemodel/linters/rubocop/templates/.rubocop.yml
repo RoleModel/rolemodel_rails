@@ -14,22 +14,13 @@ AllCops:
     - tmp/**/*
   NewCops: enable
 
-Metrics:
-  Severity: refactor
+# Cops
 
-# RSpec tests and rake tasks are expected to have
-# large blocks, so exclude them from this cop.
-Metrics/BlockLength:
-  Exclude:
-    - 'Rakefile'
-    - '**/*.rake'
-    - 'spec/**/*.rb'
+Cops/NoChromeTag:
+  AutoCorrect: contextual
 
-# Hard to make this pass always and want to keep flexibility
-Layout/ArrayAlignment:
-  Enabled: false
+# Layout
 
-# Best Practices for readability
 Layout:
   Severity: refactor
 
@@ -55,6 +46,14 @@ Layout/SpaceAroundOperators:
   AllowForAlignment: false
   EnforcedStyleForExponentOperator: no_space
 
+# Lint
+
+Lint/Loop:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: false
+
 Lint/UnusedMethodArgument:
   Severity: refactor
   AutoCorrect: false
@@ -70,21 +69,26 @@ Lint/UselessAssignment:
 Lint/UnderscorePrefixedVariableName:
   Enabled: false
 
-Lint/Loop:
-  Enabled: false
+# Metrics
 
-Lint/SuppressedException:
-  Enabled: false
+Metrics:
+  Severity: refactor
+
+# RSpec tests and rake tasks are expected to have
+# large blocks, so exclude them from this cop.
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+# Style
 
 Style:
   Severity: refactor
 
-# It is ok to use inject at times
 Style/EachWithObject:
   Enabled: false
-
-Cops/NoChromeTag:
-  AutoCorrect: contextual
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: consistent_comma
