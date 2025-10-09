@@ -3,12 +3,11 @@ require 'spec_helper'
 RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
   before { run_generator_against_test_app(['--github-package-token=123']) }
 
-  let(:node_version) { Rolemodel::Testing::JasminePlaywrightGenerator::NODE_VERSION }
   let(:test_script_content) { Rolemodel::Testing::JasminePlaywrightGenerator::TEST_COMMAND }
 
   it 'sets the node version' do
     assert_file '.node-version' do |content|
-      expect(content).to eq(node_version)
+      expect(content).to eq Rolemodel::NODE_VERSION
     end
   end
 

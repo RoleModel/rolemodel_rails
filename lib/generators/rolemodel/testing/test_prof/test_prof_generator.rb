@@ -1,9 +1,9 @@
-require_relative '../../../bundler_helpers'
+# frozen_string_literal: true
 
 module Rolemodel
   module Testing
     class TestProfGenerator < Rails::Generators::Base
-      include Rolemodel::BundlerHelpers
+      include BundlerHelpers
       def install_test_prof
         gem_group :test do
           gem 'test-prof'

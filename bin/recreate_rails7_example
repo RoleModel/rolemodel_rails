@@ -15,7 +15,7 @@ rails _"$RAILS_VERSION"_ new --skip-keeps --skip-git --skip-jbuilder -j webpack 
 
 cd example_rails7
 
-bundle add --group development --path '..' rolemodel_rails
+bundle add --group development --path '..' --version '> 0.20' rolemodel_rails
 bundle install
 
 rm config/credentials.yml.enc

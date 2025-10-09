@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../../bundler_helpers'
-
 module Rolemodel
   class MailersGenerator < Rails::Generators::Base
-    include Rolemodel::BundlerHelpers
+    include BundlerHelpers
     source_root File.expand_path('templates', __dir__)
 
     def install_premailer_rails

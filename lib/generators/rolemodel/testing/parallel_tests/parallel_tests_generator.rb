@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../../bundler_helpers'
-
 module Rolemodel
   module Testing
     class ParallelTestsGenerator < Rails::Generators::Base # rubocop:disable Style/Documentation
-      include Rolemodel::BundlerHelpers
+      include BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
       def install_parallel_tests
