@@ -1,8 +1,8 @@
-require_relative '../../bundler_helpers'
+# frozen_string_literal: true
 
 module Rolemodel
   class SimpleFormGenerator < Rails::Generators::Base
-    include Rolemodel::BundlerHelpers
+    include BundlerHelpers
     source_root File.expand_path('templates', __dir__)
 
     def add_gem

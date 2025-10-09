@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../../bundler_helpers'
-
 module Rolemodel
   module Testing
     class RspecGenerator < Rails::Generators::Base
-      include Rolemodel::BundlerHelpers
+      include BundlerHelpers
       source_root File.expand_path('templates', __dir__)
 
       def install_rspec
@@ -15,7 +13,6 @@ module Rolemodel
         run_bundle
 
         gem_group :test do
-          gem 'capybara'
           gem 'capybara-playwright-driver'
           gem 'marsh_grass'
           gem 'pry'
@@ -27,7 +24,7 @@ module Rolemodel
       def install_playwright
         say 'Installing Playwright for system tests', :green
 
-        run 'yarn add playwright'
+        run 'yarn add --dev playwright'
         run 'yarn run playwright install'
       end
 

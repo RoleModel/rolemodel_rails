@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-require_relative '../../../replace_content_helper'
 
 module Rolemodel
   module Testing
     class JasminePlaywrightGenerator < Rails::Generators::Base
-      include Rolemodel::ReplaceContentHelper
+      include ReplaceContentHelper
       source_root File.expand_path('templates', __dir__)
       class_option :github_package_token, type: :string, default: ENV['GITHUB_PACKAGES_TOKEN'], desc: 'GitHub Packages token with access to @rolemodel packages'
 
