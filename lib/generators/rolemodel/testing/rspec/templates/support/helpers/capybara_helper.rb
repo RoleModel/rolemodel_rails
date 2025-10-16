@@ -20,7 +20,9 @@ module LoadStateWaitingLogic
         super(*args, **kwargs, &block).tap do
           return unless CapybaraHelper.supports_javascript?
 
-          pw_page.wait_for_load_state(state: 'networkidle')
+          Capybara.page.driver.with_playwright_page do |page|
+            page.wait_for_load_state(state: 'networkidle')
+          end
         end
       end
     end
