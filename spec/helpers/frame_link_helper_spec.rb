@@ -123,8 +123,10 @@ RSpec.describe TurboFrameLinkHelper, type: :helper do
       end
 
       it 'generates the correct top link HTML' do
+        content = tag.div(text[:input], **classes[:input])
+
         expect(
-          link_to_top(tag.div(text[:input], **classes[:input]), path[:input])
+          link_to_top(content, path[:input])
         ).to eq(
           "<a #{turbo_frame[:top]} #{path[:output]}><div #{classes[:output]}>#{text[:output]}</div></a>"
         )
