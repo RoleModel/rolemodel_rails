@@ -26,7 +26,7 @@ RSpec.describe TurboFrameLinkHelper, type: :helper do
         )
       end
 
-      it 'generates the correct panel and top link HTML' do
+      it 'generates the correct panel link HTML' do
         options = data[:input].merge(disabled[:input])
 
         expect(
