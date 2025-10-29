@@ -11,9 +11,9 @@ module TurboFrameLinkHelper
     link_to_frame('_top', ...)
   end
 
-  def link_to_frame(frame, *attrs, &)
+  def link_to_frame(turbo_frame, *attrs, &)
     options = attrs.extract_options!
-    data = options.delete(:data){ {} }.reverse_merge({turbo_frame: frame})
+    data = options.delete(:data){ {} }.reverse_merge({ turbo_frame: })
 
     link_to(*attrs, options.merge(data:), &)
   end
