@@ -11,13 +11,10 @@ module TurboFrameLinkHelper
     link_to_frame('_top', ...)
   end
 
-  def link_to_frame(frame, name, url, options = {}, &)
-    data_option = { data: options.fetch(:data, {}).reverse_merge({ turbo_frame: frame }) }
+  def link_to_frame(frame, *attrs, &)
+    options = attrs.extract_options!
+    data = options.delete(:data){ {} }.reverse_merge({turbo_frame: frame})
 
-    if block_given?
-      link_to(name, (url || {}).merge(data_option), &)
-    else
-      link_to(name, url, options.merge(data_option))
-    end
+    link_to(*attrs, options.merge(data:), &)
   end
 end
