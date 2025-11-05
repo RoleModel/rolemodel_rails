@@ -32,9 +32,7 @@ class SegmentedControlInput < SimpleForm::Inputs::CollectionRadioButtonsInput
   end
 
   def input_html_classes
-    classes = super
-    classes.push('segmented-control__input')
-    classes
+    super.push('segmented-control__input')
   end
 
   private
