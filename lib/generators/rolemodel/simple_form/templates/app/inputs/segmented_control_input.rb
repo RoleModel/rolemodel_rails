@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# SegmentedControlInput is a custom input type for SimpleForm that renders a radio group as an optics segmented control
+# SegmentedControlInput is a custom input type for SimpleForm that renders a radio group as an optics (v2.2.0+) segmented control
 #
 # Options:
 #   :size (:small, :medium, :large) - renders the control at different sizes

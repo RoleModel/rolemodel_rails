@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# SwitchCheckboxInput is a custom input type for SimpleForm that renders a checkbox as a switch control
+# SwitchCheckboxInput is a custom input type for SimpleForm that renders a checkbox as an optics (v0.5.0+) switch control
 #
 # Options:
 #   :small - renders a smaller switch control
