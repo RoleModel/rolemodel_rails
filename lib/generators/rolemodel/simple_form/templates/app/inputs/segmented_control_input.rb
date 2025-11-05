@@ -43,7 +43,7 @@ class SegmentedControlInput < SimpleForm::Inputs::CollectionRadioButtonsInput
     class_names(
       'segmented-control',
       options[:class],
-      "segmented-control--#{options[:size] || 'large'}": options[:size].present?,
+      "segmented-control--#{options[:size]}": options[:size].present?,
       'segmented-control--full-width': options[:full_width].present?
     )
   end
