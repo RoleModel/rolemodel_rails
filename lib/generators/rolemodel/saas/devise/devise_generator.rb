@@ -15,7 +15,7 @@ module Rolemodel
         # Devise tries to install bcrypt, but it fails because the bundle command
         # is run using the wrong platform causing the native extension to fail.
         # Using clean env fixes this.
-        Bundler.with_clean_env do
+        Bundler.with_unbundled_env do
           run 'bundle add devise'
         end
 
