@@ -1,7 +1,8 @@
 .app__login
   = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post, class: 'card card--login' }) do |f|
     .card__header
-      = image_tag asset_path('logo.png') # TODO: Replace with your own logo
+      / TODO: Replace with your own logo
+      = image_tag asset_path('/logo.png')
     .card__body
       = f.input :email, autofocus: true, autocomplete: "email"
     .card__footer
