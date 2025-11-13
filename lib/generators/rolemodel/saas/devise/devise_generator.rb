@@ -111,7 +111,7 @@ module Rolemodel
         inject_into_file 'app/models/user.rb', after: /devise\s+:.*\n.*\n/ do
           optimize_indentation <<~'RUBY', 2
 
-            enum role: { user: 'user', admin: 'admin' }
+            enum :role, { user: 'user', admin: 'admin' }
 
             belongs_to :organization, inverse_of: :users
             accepts_nested_attributes_for :organization
