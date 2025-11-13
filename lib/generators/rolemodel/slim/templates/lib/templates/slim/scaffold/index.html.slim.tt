@@ -1,0 +1,13 @@
+- content_for :title, "<%= human_name.pluralize %>"
+
+header.content-header
+  .content-header__details
+    h1.content-header__title <%= human_name.pluralize %>
+
+  .content-header__aside
+    = link_to <%= new_helper(type: :path) %>, class: 'btn btn--primary' do
+      = icon('add')
+      | New <%= human_name.downcase %>
+
+.flex.flex-col.gap-md#<%= plural_table_name %>
+  = render @<%= plural_table_name %>

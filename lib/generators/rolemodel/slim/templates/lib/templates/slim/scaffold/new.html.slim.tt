@@ -1,0 +1,13 @@
+- content_for :title, "New <%= human_name.downcase %>"
+
+nav.breadcrumbs.breadcrumbs--large.margin-y-md
+  = link_to "<%= human_name.pluralize %>", <%= index_helper(type: :path) %>, class: "breadcrumbs__link"
+  .breadcrumbs__separator = icon('chevron_right')
+  span.breadcrumbs__text New <%= human_name.downcase %>
+
+.card
+  .card__header
+     h1 New <%= human_name.downcase %>
+  .divider
+  .card__body
+    = render "form", <%= singular_table_name %>: @<%= singular_table_name %>

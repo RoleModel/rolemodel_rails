@@ -1,6 +1,6 @@
 nav.navbar.navbar--primary
   = link_to root_path, class: "navbar__brand" do
-    = image_tag "logo.png", alt: "Logo", class: "navbar__logo"
+    = image_tag "/logo.png", alt: "Logo", class: "navbar__logo"
 
   - if user_signed_in?
     .navbar__content.navbar__content--justify-start

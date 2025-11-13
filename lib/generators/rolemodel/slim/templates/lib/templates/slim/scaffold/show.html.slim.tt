@@ -1,0 +1,33 @@
+nav.breadcrumbs.breadcrumbs--large.margin-y-md
+  = link_to "<%= human_name.pluralize %>", <%= index_helper(type: :path) %>, class: "breadcrumbs__link"
+  .breadcrumbs__separator = icon('chevron_right')
+  span.breadcrumbs__text = @<%= singular_table_name %>.name
+
+header.content-header
+  .content-header__details
+    h1.content-header__title = @<%= singular_table_name %>.name
+
+  .content-header__aside
+    = link_to <%= edit_helper(type: :path) %>, class: 'btn btn--icon' do
+      = icon('edit')
+      span.sr-only Edit <%= human_name.downcase %>
+
+    = button_to @<%= singular_table_name %>, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn--destructive btn--icon", method: :delete do
+      = icon('delete')
+      span.sr-only Destroy this <%= human_name.downcase %>
+
+.flex.flex-col.gap-md
+<% attributes.reject(&:password_digest?).each do |attribute| -%>
+  .text-pair.text-pair--inline
+    span.text-pair__title <%= attribute.human_name %>:
+    span.text-pair__subtitle
+<% if attribute.attachment? -%>
+      = link_to @<%= singular_name %>.<%= attribute.column_name %>.filename, <%= singular_name %>.<%= attribute.column_name %> if <%= singular_name %>.<%= attribute.column_name %>.attached?
+<% elsif attribute.attachments? -%>
+      <%% @<%= singular_name %>.<%= attribute.column_name %>.each do |<%= attribute.singular_name %>| %>
+        div = link_to <%= attribute.singular_name %>.filename, <%= attribute.singular_name %>
+      <%% end %>
+<% else -%>
+      = @<%= singular_name %>.<%= attribute.column_name %>
+<% end -%>
+<% end -%>
