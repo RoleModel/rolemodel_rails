@@ -25,11 +25,5 @@ module Rolemodel
         copy_file tt, tt.relative_path_from(self.class.source_root)
       end
     end
-
-    protected
-
-    def available_views
-      %w[index edit show new _form]
-    end
   end
 end
