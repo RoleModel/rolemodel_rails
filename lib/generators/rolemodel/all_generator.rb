@@ -22,7 +22,7 @@ module Rolemodel
       generate 'rolemodel:good_job'
       generate 'rolemodel:kaminari'
       generate 'rolemodel:editors'
-      generate 'rolemodel:tailored_select'
+      # generate 'rolemodel:tailored_select' # Not production ready
       generate 'rolemodel:lograge'
     end
   end
