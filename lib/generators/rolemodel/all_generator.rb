@@ -17,7 +17,7 @@ module Rolemodel
       generate 'rolemodel:saas:all'
       generate 'rolemodel:mailers'
       generate 'rolemodel:linters:all'
-      generate 'rolemodel:modals'
+      generate 'rolemodel:ui_components:all'
       generate 'rolemodel:source_map'
       generate 'rolemodel:good_job'
       generate 'rolemodel:kaminari'
