@@ -15,7 +15,12 @@ module Rolemodel
       directory 'app/inputs'
       copy_file 'config/initializers/simple_form.rb'
       copy_file 'config/locales/simple_form.en.yml'
-      copy_file 'lib/templates/slim/scaffold/_form.html.slim'
+
+      # Because directory 'lib/templates/slim/scaffold' will try to parse the
+      # template files rather than just copy them.
+      Pathname.new(self.class.source_root).glob('lib/templates/slim/scaffold/*.tt').each do |tt|
+        copy_file tt, tt.relative_path_from(self.class.source_root)
+      end
     end
   end
 end
