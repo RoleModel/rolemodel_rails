@@ -7,7 +7,7 @@ module Rolemodel
 
     def add_gem
       Bundler.with_unbundled_env do
-        run 'bundle add simple_form'
+        bundle_command 'add simple_form'
       end
     end
 

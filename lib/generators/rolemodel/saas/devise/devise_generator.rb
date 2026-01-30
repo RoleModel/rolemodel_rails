@@ -8,40 +8,40 @@ module Rolemodel
 
       def add_organization
         generate :model, 'organization name:string' unless File.exist?(Rails.root.join('app/models/organization.rb'))
-        inject_into_file 'app/models/organization.rb', "  has_many :users, inverse_of: :organization\n", after: "ApplicationRecord\n"
+        inject_into_file 'app/models/organization.rb', "  has_many :users, inverse_of: :organization\n",
+                         after: "ApplicationRecord\n"
       end
 
       def install_devise
         # Devise tries to install bcrypt, but it fails because the bundle command
         # is run using the wrong platform causing the native extension to fail.
         # Using clean env fixes this.
-        Bundler.with_unbundled_env do
-          run 'bundle add devise'
-        end
+        bundle_command 'add devise'
 
         generate 'devise:install'
         generate :devise, 'user first_name:string last_name:string'
-        generate :migration, 'add_organization_and_role_to_users organization_id:bigint:index role:string super_admin:boolean'
-        file_name = Dir.glob(Rails.root.join('db/migrate', '*_add_organization_and_role_to_users.rb', )).last
+        generate :migration,
+                 'add_organization_and_role_to_users organization_id:bigint:index role:string super_admin:boolean'
+        file_name = Dir.glob(Rails.root.join('db/migrate', '*_add_organization_and_role_to_users.rb')).last
         gsub_file file_name, /:role, :string$/, ":role, :string, default: 'user', null: false"
         gsub_file file_name, /:super_admin, :boolean$/, ':super_admin, :boolean, default: false, null: false'
       end
 
       def add_invitable
         @add_invitations = yes?('Would you like to add user invitations?')
-        if @add_invitations
-          run 'bundle add devise_invitable'
+        return unless @add_invitations
 
-          generate 'devise_invitable:install'
-          generate :devise_invitable, 'user'
-        end
+        bundle_command 'add devise_invitable'
+
+        generate 'devise_invitable:install'
+        generate :devise_invitable, 'user'
       end
 
       def add_routes
         route_info = ", controllers: {\n"
         route_info += "    invitations: 'users/invitations',\n" if @add_invitations
         route_info += "    registrations: 'users/registrations',\n"
-        route_info += "  }"
+        route_info += '  }'
         inject_into_file 'config/routes.rb', route_info, after: /devise_for :users$/
 
         route_info = "namespace :admin do\n"
@@ -52,10 +52,10 @@ module Rolemodel
         else
           route_info += "  resources :users\n"
         end
-        route_info += "end"
+        route_info += 'end'
         route route_info
 
-        route 'root to: "admin/users#index"' unless File.readlines("config/routes.rb").grep(/root\sto/).any?
+        route 'root to: "admin/users#index"' unless File.readlines('config/routes.rb').grep(/root\sto/).any?
       end
 
       def add_modified_files
@@ -80,7 +80,8 @@ module Rolemodel
 
       def modify_existing_files
         unless File.exist?(Rails.root.join('config/initializers/premailer_rails.rb'))
-          inject_into_file 'config/environments/development.rb', after: "config.action_mailer.perform_caching = false\n" do
+          inject_into_file 'config/environments/development.rb',
+                           after: "config.action_mailer.perform_caching = false\n" do
             optimize_indentation <<~'RUBY', 2
 
               # Default mailing host suggested by Devise installation instructions
@@ -102,10 +103,12 @@ module Rolemodel
         end
 
         # Update Devise email_regexp to something more useful
-        gsub_file 'config/initializers/devise.rb', '/\A[^@\s]+@[^@\s]+\z/', '/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i'
+        gsub_file 'config/initializers/devise.rb', '/\A[^@\s]+@[^@\s]+\z/',
+                  '/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i'
         # Turn Devise validate_on_invite on by default
         if @add_invitations
-          gsub_file 'config/initializers/devise.rb', '# config.validate_on_invite = true', 'config.validate_on_invite = true'
+          gsub_file 'config/initializers/devise.rb', '# config.validate_on_invite = true',
+                    'config.validate_on_invite = true'
         end
 
         inject_into_file 'app/models/user.rb', after: /devise\s+:.*\n.*\n/ do
@@ -146,7 +149,8 @@ module Rolemodel
       end
 
       def define_devise_mailer_layout
-        gsub_file 'config/initializers/devise.rb', "# config.parent_mailer = 'ActionMailer::Base'", "config.parent_mailer = 'ApplicationMailer'"
+        gsub_file 'config/initializers/devise.rb', "# config.parent_mailer = 'ActionMailer::Base'",
+                  "config.parent_mailer = 'ApplicationMailer'"
       end
 
       def add_devise_mailer_preview

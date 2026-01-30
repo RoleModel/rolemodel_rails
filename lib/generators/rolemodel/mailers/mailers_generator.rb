@@ -6,7 +6,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def install_premailer_rails
-      run 'bundle add premailer-rails'
+      bundle_command 'add premailer-rails'
     end
 
     def add_premailer_rails_config
@@ -14,12 +14,14 @@ module Rolemodel
     end
 
     def include_postcss_calc
-      inject_into_file 'postcss.config.cjs', ",\n    require('postcss-calc')", after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
+      inject_into_file 'postcss.config.cjs', ",\n    require('postcss-calc')",
+                       after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
     end
 
     def add_action_mailer_asset_host
       unless File.exist?(Rails.root.join('config/initializers/devise.rb'))
-        inject_into_file 'config/environments/development.rb', after: "config.action_mailer.perform_caching = false\n" do
+        inject_into_file 'config/environments/development.rb',
+                         after: "config.action_mailer.perform_caching = false\n" do
           optimize_indentation <<~'RUBY', 2
 
             # Default mailing host suggested by Devise installation instructions
@@ -28,7 +30,8 @@ module Rolemodel
         end
       end
 
-      inject_into_file 'config/environments/development.rb', after: "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }\n" do
+      inject_into_file 'config/environments/development.rb',
+                       after: "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }\n" do
         optimize_indentation <<~'RUBY', 2
 
           # Ensure premailer_rails can point to webpack compiled resources
@@ -39,7 +42,8 @@ module Rolemodel
     end
 
     def add_production_mailer_defaults
-      prepend_to_file 'config/environments/production.rb', "require Rails.root.join('app/mailers/staging_mailer_interceptor')\n"
+      prepend_to_file 'config/environments/production.rb',
+                      "require Rails.root.join('app/mailers/staging_mailer_interceptor')\n"
 
       inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
         optimize_indentation <<~'RUBY', 2
