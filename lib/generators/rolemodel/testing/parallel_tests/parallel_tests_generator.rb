@@ -30,7 +30,7 @@ module Rolemodel
 
       def setup_parallel_test_databases
         say_status :setup, 'Setting up parallel test databases...', :blue
-        run 'bundle exec rake parallel:setup'
+        bundle_command 'exec rake parallel:setup'
       end
 
       def display_post_install_message
