@@ -6,28 +6,32 @@ module Rolemodel
     class IconsGenerator < Rolemodel::BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
-      SUPPORTED_LIBRARIES = {
+      SUPPORTED_LIBRARIES = HashWithIndifferentAccess.new(
         material: 'filled, size, weight, emphasis, additional_classes, color, hover_text',
         phosphor: 'duotone, filled, size, weight, additional_classes, color, hover_text',
         tabler: 'filled, size, additional_classes, color, hover_text',
         feather: 'size, additional_classes, color, hover_text',
         lucide: 'size, additional_classes, color, hover_text',
         custom: 'filled, size, weight, emphasis, additional_classes, color, hover_text'
-      }.freeze
+      ).freeze
+
+      source_root File.expand_path('templates', __dir__)
+      class_option :icon_library, type: :string, default: SUPPORTED_LIBRARIES.keys.first,
+                                  desc: "The icon library to use (#{SUPPORTED_LIBRARIES.keys.join(', ')})"
+
+      def remove_existing_icon_helper_and_builders
+        remove_dir 'app/icon_builders'
+        remove_file 'app/helpers/icon_helper.rb'
+      end
 
       def add_view_helper
-        say 'generating icon helper', :green
+        say 'Generating IconHelper Module', :green
 
-        @chosen_library = ask(
-          'What icon library would you like to add?',
-          default: SUPPORTED_LIBRARIES.keys.first.to_s,
-          limited_to: SUPPORTED_LIBRARIES.keys.map(&:to_s)
-        )
+        @chosen_library = options['icon_library']
+        @supported_properties = SUPPORTED_LIBRARIES.fetch(@chosen_library)
 
-        @supported_properties = SUPPORTED_LIBRARIES[@chosen_library.to_sym]
-
-        copy_file 'app/icon_builders/icon_builder.rb'
-        copy_file "app/icon_builders/#{@chosen_library}_icon_builder.rb"
+        template 'app/icon_builders/icon_builder.rb'
+        template "app/icon_builders/#{@chosen_library}_icon_builder.rb"
         template 'app/helpers/icon_helper.rb'
       end
     end
