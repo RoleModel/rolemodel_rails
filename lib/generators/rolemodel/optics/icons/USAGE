@@ -1,8 +1,11 @@
 Description:
-    runs the icons optics generator
+    runs the Optics Icon Generator
 
 Example:
-    rails generate rolemodel:optics:icons
+    bin/rails generate rolemodel:optics:icons --icon-library=tabler
 
-    This will create:
-        app/helpers/icon_helper.rb
+  This will create:
+    app/helpers/icon_helper.rb
+
+  Which provides a simple view helper for rendering Icons:
+    = button_to icon('trash'), @post, method: :destroy

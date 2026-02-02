@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
-# Helper method that renders icons from different icon libraries.
-# Usage:
-# = icon('home', size: 'x-large', color: 'primary')
-# = flash_icon('notice', size: 'x-large', color: 'primary')
+# Helper method that renders icons from your icon library of choice.
 #
-# The default library is Material Icons, but can be changed here by pulling
-# in a different builder from RoleModel Rails.
-# Available libraries:
-# - MaterialIconBuilder
-# - PhosphorIconBuilder
-# - TablerIconBuilder
-# - FeatherIconBuilder
-# - LucideIconBuilder
-# - CustomIconBuilder
+# Usage:
+#   = icon('home', size: 'x-large', color: 'primary')
+#   = flash_icon('notice', size: 'x-large', color: 'primary')
+#
+# The chosen icon library is <%= @chosen_library %>. This can be
+# changed by rerunning the generator with a different --icon-library option.
+#
+# Run `bin/rails g rolemodel:optics:icons --help` for an up-to-date list of available libraries.
+#
 module IconHelper
   # <%= @supported_properties %>
   def icon(name, **)
