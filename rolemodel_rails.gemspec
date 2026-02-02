@@ -10,11 +10,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ['RoleModel Software Inc']
   spec.email         = ['it-support@rolemodelsoftware.com']
 
-  spec.summary       = 'Rails generator for RoleModel Software Rails initial project setup.'
-  spec.description   = 'Rails generator for RoleModel Software Rails initial project setup.'
+  spec.summary       = 'Rails generators for RoleModel Software project setup.'
+  spec.description   = 'Rails generators for RoleModel Software project setup.'
   spec.homepage      = ''
   spec.license       = 'MIT'
 
+  # TODO: Why don't we publish this??
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
@@ -31,11 +32,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 2.3'
+  spec.add_dependency 'rails', '> 7.1'
+
+  spec.add_development_dependency 'bundler', '~> 4'
   spec.add_development_dependency 'generator_spec', '~> 0.10'
-  spec.add_development_dependency 'rake', '~> 13.0'
-  spec.add_development_dependency 'rspec', '~> 3.11'
+  spec.add_development_dependency 'rake', '~> 13'
+  spec.add_development_dependency 'rspec', '~> 3'
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rails'
+  spec.add_development_dependency 'benchmark'
 end
