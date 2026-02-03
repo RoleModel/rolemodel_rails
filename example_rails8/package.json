@@ -1,8 +1,9 @@
 {
   "name": "app",
   "private": true,
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
   "devDependencies": {
-    "webpack": "^5.102.1",
+    "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
   },
   "scripts": {
@@ -10,6 +11,6 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.18"
+    "@hotwired/turbo-rails": "^8.0.23"
   }
 }

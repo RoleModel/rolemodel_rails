@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+RAILS_VERSION=`gem search ^rails$ --remote | grep -oE 'rails \((\d\.[0-9]+\.[0-9]+)\)' | head -1 | cut -d' ' -f2 | tr -d '()'`
+MAJOR_VERSION_NUMBER=${RAILS_VERSION%%.*}
+
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+if ! gem list rails -i -v $RAILS_VERSION --silent; then
+  gem install rails -v $RAILS_VERSION
+fi
+
+rm -fr example_rails$MAJOR_VERSION_NUMBER
+
+rails _"$RAILS_VERSION"_ new --skip-keeps --skip-git --skip-jbuilder -j webpack -d postgresql example_rails$MAJOR_VERSION_NUMBER
+
+cd example_rails$MAJOR_VERSION_NUMBER
+
+bundle add --group development --path '..' --version '> 0.20' rolemodel_rails
+bundle install
+
+rm config/credentials.yml.enc
+rm config/master.key
+
+cd -
