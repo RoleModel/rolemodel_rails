@@ -8,8 +8,10 @@ require 'thor'
 class VersionBumper < Thor::Group
   include Thor::Actions
 
-  class_option :patch, type: :boolean, default: false, desc: 'Bump patch version instead of minor version'
-  class_option :major, type: :boolean, default: false, desc: 'Bump major version instead of minor version'
+  class_exclusive do
+    class_option :patch, type: :boolean, lazy_default: false, desc: 'Bump patch version instead of minor version'
+    class_option :major, type: :boolean, lazy_default: false, desc: 'Bump major version instead of minor version'
+  end
 
   source_root File.expand_path('../', __FILE__)
 
