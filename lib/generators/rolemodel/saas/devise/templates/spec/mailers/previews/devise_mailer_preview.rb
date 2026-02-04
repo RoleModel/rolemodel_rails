@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 # mailers/previews/devise_mailer_preview.rb
 class DeviseMailerPreview < ActionMailer::Preview
-
   def email_changed
     Devise::Mailer.email_changed(User.first)
   end

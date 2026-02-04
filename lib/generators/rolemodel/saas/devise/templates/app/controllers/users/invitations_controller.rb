@@ -56,7 +56,7 @@ class Users::InvitationsController < Devise::InvitationsController
   def invite_params
     super.tap do |hash|
       # if current_user.admin? && !current_user.super_admin?
-        hash[:organization_id] = current_user.organization_id
+      hash[:organization_id] = current_user.organization_id
       # end
     end
   end

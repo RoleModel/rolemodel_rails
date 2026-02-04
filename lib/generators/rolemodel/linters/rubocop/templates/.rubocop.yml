@@ -67,5 +67,8 @@ Style:
 Style/EachWithObject:
   Enabled: false
 
+Style/Documentation:
+  Enabled: false
+
 Cops/NoChromeTag:
   AutoCorrect: contextual
