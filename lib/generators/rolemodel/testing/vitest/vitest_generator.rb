@@ -14,7 +14,7 @@ module Rolemodel
         @vitest/ui
       ].freeze
 
-      def updating_test_script
+      def update_test_script
         say 'Update yarn test command', :green
 
         replace_content('package.json') do |json|
