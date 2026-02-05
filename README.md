@@ -78,6 +78,7 @@ bin/rails g
 * [Testing](./lib/generators/rolemodel/testing)
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Jasmine Playwright](./lib/generators/rolemodel/testing/jasmine_playwright)
+  * [ViTest](./lib/generators/rolemodel/testing/vitest)
   * [Factory Bot](./lib/generators/rolemodel/testing/factory_bot)
   * [Test Prof](./lib/generators/rolemodel/testing/test_prof)
   * [Parallel Test](./lib/generators/rolemodel/testing/parallel_tests)
