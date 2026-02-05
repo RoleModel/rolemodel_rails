@@ -34,9 +34,9 @@ module Rolemodel
       def add_spec_config_files
         say 'Adding Vitest configuration files', :green
 
-        template 'example.spec.js', 'spec/javascript/example.spec.js'
-        template 'vitest.config.js', 'vitest.config.js'
-        template 'test-setup.js', 'spec/javascript/test-setup.js'
+        template 'spec/javascript/example.spec.js'
+        template 'vitest.config.js'
+        template 'spec/javascript/test-setup.js'
       end
     end
   end
