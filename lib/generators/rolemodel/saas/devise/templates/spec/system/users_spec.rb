@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Users', type: :system do
+RSpec.describe 'Users', type: :system do # rubocop:disable Metrics/BlockLength
   describe 'Signing up' do
     let(:user) { build(:user) }
 
@@ -60,22 +62,22 @@ RSpec.describe 'Users', type: :system do
     end
   end
 
-  describe 'Editing account info' do
+  describe 'Editing account info' do # rubocop:disable Metrics/BlockLength
     let(:password) { 'password123' }
-    let!(:user) {
+    let!(:user) do
       create(
         :user,
         password: password,
         password_confirmation: password
       )
-    }
-    let(:new_user_info) {
+    end
+    let(:new_user_info) do
       {
         first_name: 'New',
         last_name: 'Name',
         email: 'new_email@example.com'
       }
-    }
+    end
 
     before do
       sign_in user

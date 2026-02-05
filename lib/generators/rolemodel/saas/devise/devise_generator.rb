@@ -76,6 +76,7 @@ module Rolemodel
         copy_file 'spec/system/users_spec.rb'
         copy_file 'spec/factories/organizations.rb'
         copy_file 'spec/factories/users.rb'
+        copy_file 'spec/models/user_spec.rb'
       end
 
       def modify_existing_files
