@@ -6,8 +6,3 @@
 
 * [Base Optics](./base)
 * [Icons](./icons)
-
-## Future Generators
-
-* Simple Form config?
-* Stylelint

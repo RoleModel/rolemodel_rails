@@ -1,0 +1,5 @@
+Description:
+  Setup Javascript testing with ViTest
+
+Example:
+  rails generate rolemodel:testing:vitest
