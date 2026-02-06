@@ -11,23 +11,16 @@ Gem::Specification.new do |spec|
   spec.email         = ['it-support@rolemodelsoftware.com']
 
   spec.summary       = 'Rails generators for RoleModel Software project setup.'
-  spec.description   = 'Rails generators for RoleModel Software project setup.'
-  spec.homepage      = ''
+  spec.description   = 'A collection of Rails generators to set up a Rails project with the recommended configuration for RoleModel Software projects.'
+  spec.homepage      = 'https://github.com/RoleModel/rolemodel_rails'
   spec.license       = 'MIT'
-
-  # TODO: Why don't we publish this??
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "Set to 'http://mygemserver.com'"
-  else
-    raise 'RubyGems 2.0 or newer is required to protect against ' \
-      'public gem pushes.'
-  end
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features|example)/})
   end
+
+  spec.required_ruby_version = '>= 3.4'
+
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
