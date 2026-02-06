@@ -20,7 +20,7 @@ class VersionBumper < Thor::Group
   end
 
   def update_lockfile
-    run 'bundle exec bundle install'
+    run_clean_bundle_install
   end
 
   def build_gem
@@ -30,7 +30,7 @@ class VersionBumper < Thor::Group
   def update_current_example_app
     Rake::FileList.new('example_rails*').each do |example_path|
       inside(example_path) do
-        run 'bundle exec bundle install'
+        run_clean_bundle_install
       end
     end
   end
@@ -57,6 +57,12 @@ class VersionBumper < Thor::Group
         RolemodelRails::VERSION
       end
     )
+  end
+
+  def run_clean_bundle_install
+    Bundler.with_original_env do
+      run "#{Gem.bin_path("bundler", "bundle")} install --quiet"
+    end
   end
 end
 
