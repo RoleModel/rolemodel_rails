@@ -108,7 +108,9 @@ Install the versions of Node and Ruby specified in `.node-version` and `.ruby-ve
 We use the embeded Rails apps (`example_rails*`) to test generators against. They reference the rolemodel_rails gem by local path,
 so you can navigate into one of them and run your generator for immediate feedback while developing.
 
-Before submitting a PR, run `bin/bump_version` for good Gem hygiene and to ensure everything continues to stay up-to-date.
+> [!IMPORTANT]
+> Before submitting a PR, run `bin/bump_version` to ensure the Gem builds successfully & that everything continues to stay in sync & up-to-date.<br /><br />
+> For very small changes & bug fixes, prefer `bin/bump_version --patch`.
 
 ## Testing
 
