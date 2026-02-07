@@ -12,7 +12,7 @@ What changed in this PR?
 ## Pre-merge checklist
 
 * [ ] Update relevant READMEs
-* [ ] Update version number in `lib/rolemodel_rails/version.rb`
+* [ ] Run `bin/bump_version` or `bin/bump_version --patch`
 
 ## Screenshots
 
