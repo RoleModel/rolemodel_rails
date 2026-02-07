@@ -25,16 +25,11 @@ module Rolemodel
       def add_browser_test_script
         say 'Adding yarn test:browser command', :green
 
-        replace_content('package.json') do |json|
-          hash = JSON.parse(json)
-          hash['scripts'] ||= {}
-          hash['scripts']['test:browser'] = TEST_COMMAND
-          JSON.pretty_generate(hash)
-        end
+        add_package_json_script 'test:browser', TEST_COMMAND
       end
 
       def set_node_version
-        say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}", :green
+        say "Setting local Node version to #{set_color(NODE_VERSION, :yellow)}", :green
 
         create_file '.node-version', NODE_VERSION, force: true
       end
@@ -48,9 +43,9 @@ module Rolemodel
       def add_spec_config_files
         say 'Adding Jasmine Playwright configuration files', :green
 
-        template 'example_spec.js', 'spec/javascript/browser/example_spec.js'
-        template 'jp-runner.config.mjs', 'jp-runner.config.mjs'
-        template 'setupTests.js', 'spec/javascript/browser/setupTests.js'
+        template 'spec/javascript/browser/example_spec.js'
+        template 'jp-runner.config.mjs'
+        template 'spec/javascript/browser/setupTests.js'
       end
     end
   end

@@ -26,12 +26,7 @@ module Rolemodel
       end
 
       def add_eslint_command_to_package_json
-        replace_content('package.json') do |json|
-          hash = JSON.parse(json)
-          hash['scripts'] ||= {}
-          hash['scripts']['eslint'] = ESLINT_COMMAND
-          JSON.pretty_generate(hash) + "\n"
-        end
+        add_package_json_script 'eslint', ESLINT_COMMAND
       end
     end
   end

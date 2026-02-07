@@ -17,12 +17,7 @@ module Rolemodel
       def update_test_script
         say 'Update yarn test command', :green
 
-        replace_content('package.json') do |json|
-          hash = JSON.parse(json)
-          hash['scripts'] ||= {}
-          hash['scripts']['test'] = TEST_COMMAND
-          JSON.pretty_generate(hash)
-        end
+        add_package_json_script 'test', TEST_COMMAND
       end
 
       def add_dev_dependencies
