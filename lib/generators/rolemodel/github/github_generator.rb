@@ -17,11 +17,29 @@ module Rolemodel
     end
 
     def install_copilot_instructions
-      copy_file 'instructions/css.instructions.md', '.github/instructions/css.instructions.md'
+      copy_file 'copilot-instructions.md', '.github/copilot-instructions.md'
       copy_file 'instructions/js.instructions.md', '.github/instructions/js.instructions.md'
-      copy_file 'instructions/project.instructions.md', '.github/instructions/project.instructions.md'
-      copy_file 'instructions/ruby.instructions.md', '.github/instructions/ruby.instructions.md'
+      copy_file 'instructions/ruby_model.instructions.md', '.github/instructions/ruby_model.instructions.md'
       copy_file 'instructions/slim.instructions.md', '.github/instructions/slim.instructions.md'
+    end
+
+    def install_copilot_skills
+      copy_skill 'bem-structure'
+      copy_skill 'controller-patterns'
+      copy_skill 'dynamic-nested-attributes'
+      copy_skill 'form-auto-save'
+      copy_skill 'frontend-patterns'
+      copy_skill 'json-typed-attributes'
+
+      copy_skill 'optics-context'
+      copy_file 'skills/optics-context/assets/components.json', '.github/skills/optics-context/assets/components.json'
+      copy_file 'skills/optics-context/assets/tokens.json', '.github/skills/optics-context/assets/tokens.json'
+
+      copy_skill 'routing-patterns'
+      copy_skill 'stimulus-controllers'
+      copy_skill 'testing-patterns'
+      copy_skill 'theming-context'
+      copy_skill 'turbo-fetch'
     end
 
     def install_ci_yml
@@ -38,6 +56,12 @@ module Rolemodel
           <% end %>
         YML
       end
+    end
+
+    private
+
+    def copy_skill(name)
+      copy_file "skills/#{name}/SKILL.md", ".github/skills/#{name}/SKILL.md"
     end
   end
 end

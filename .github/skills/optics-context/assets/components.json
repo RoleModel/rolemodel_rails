@@ -1,0 +1,502 @@
+{
+  "optics_component_classes": {
+    "meta": {
+      "description": "Complete list of Optics Design System CSS component classes. This does not include app specific overrides or app components.",
+      "source_files": [
+        "node_modules/@rolemodel/optics/dist/css/components/accordion.css",
+        "node_modules/@rolemodel/optics/dist/css/components/alert.css",
+        "node_modules/@rolemodel/optics/dist/css/components/avatar.css",
+        "node_modules/@rolemodel/optics/dist/css/components/badge.css",
+        "node_modules/@rolemodel/optics/dist/css/components/breadcrumbs.css",
+        "node_modules/@rolemodel/optics/dist/css/components/button.css",
+        "node_modules/@rolemodel/optics/dist/css/components/button_group.css",
+        "node_modules/@rolemodel/optics/dist/css/components/card.css",
+        "node_modules/@rolemodel/optics/dist/css/components/confirm-dialog.css",
+        "node_modules/@rolemodel/optics/dist/css/components/content-header.css",
+        "node_modules/@rolemodel/optics/dist/css/components/divider.css",
+        "node_modules/@rolemodel/optics/dist/css/components/form.css",
+        "node_modules/@rolemodel/optics/dist/css/components/icon.css",
+        "node_modules/@rolemodel/optics/dist/css/components/modal.css",
+        "node_modules/@rolemodel/optics/dist/css/components/navbar.css",
+        "node_modules/@rolemodel/optics/dist/css/components/pagination.css",
+        "node_modules/@rolemodel/optics/dist/css/components/segmented-control.css",
+        "node_modules/@rolemodel/optics/dist/css/components/side_panel.css",
+        "node_modules/@rolemodel/optics/dist/css/components/sidebar.css",
+        "node_modules/@rolemodel/optics/dist/css/components/spinner.css",
+        "node_modules/@rolemodel/optics/dist/css/components/switch.css",
+        "node_modules/@rolemodel/optics/dist/css/components/tab.css",
+        "node_modules/@rolemodel/optics/dist/css/components/table.css",
+        "node_modules/@rolemodel/optics/dist/css/components/tag.css",
+        "node_modules/@rolemodel/optics/dist/css/components/text_pair.css",
+        "node_modules/@rolemodel/optics/dist/css/components/tooltip.css"
+      ],
+      "total_components": 26,
+      "total_classes": 253,
+      "components": {
+        "accordion": 4,
+        "alert": 13,
+        "avatar": 5,
+        "badge": 10,
+        "breadcrumbs": 5,
+        "button": 15,
+        "button_group": 4,
+        "card": 11,
+        "confirm_dialog": 7,
+        "content_header": 6,
+        "divider": 8,
+        "form": 14,
+        "icon": 16,
+        "modal": 8,
+        "navbar": 10,
+        "pagination": 5,
+        "segmented_control": 8,
+        "side_panel": 31,
+        "sidebar": 15,
+        "spinner": 5,
+        "switch": 3,
+        "tab": 6,
+        "table": 13,
+        "tag": 9,
+        "text_pair": 16,
+        "tooltip": 6
+      },
+      "notes": {
+        "base_classes": "Primary component classes that define the core component styling",
+        "modifiers": "Modifier classes that change the appearance or behavior of components",
+        "elements": "Sub-element classes that style specific parts within a component",
+        "attributes": "Data attributes used for component functionality (like tooltips)"
+      }
+    },
+    "accordion": {
+      "base": [
+        "accordion"
+      ],
+      "modifiers": [
+        "accordion--disable-animation"
+      ],
+      "elements": [
+        "accordion__label",
+        "accordion__marker"
+      ]
+    },
+    "alert": {
+      "base": [
+        "alert"
+      ],
+      "modifiers": [
+        "alert--alert",
+        "alert--danger",
+        "alert--filled",
+        "alert--flash",
+        "alert--info",
+        "alert--muted",
+        "alert--notice",
+        "alert--warning"
+      ],
+      "elements": [
+        "alert__description",
+        "alert__icon",
+        "alert__messages",
+        "alert__title"
+      ]
+    },
+    "avatar": {
+      "base": [
+        "avatar"
+      ],
+      "modifiers": [
+        "avatar--disabled",
+        "avatar--large",
+        "avatar--medium",
+        "avatar--small"
+      ]
+    },
+    "badge": {
+      "base": [
+        "badge",
+        "material-symbols-outlined"
+      ],
+      "modifiers": [
+        "badge--danger",
+        "badge--info",
+        "badge--notice",
+        "badge--notification-left",
+        "badge--notification-right",
+        "badge--pill",
+        "badge--primary",
+        "badge--warning"
+      ]
+    },
+    "breadcrumbs": {
+      "base": [
+        "breadcrumbs"
+      ],
+      "modifiers": [
+        "breadcrumbs--large",
+        "breadcrumbs--small"
+      ],
+      "elements": [
+        "breadcrumbs__link",
+        "breadcrumbs__text"
+      ]
+    },
+    "button": {
+      "base": [
+        "btn"
+      ],
+      "modifiers": [
+        "btn--active",
+        "btn--delete",
+        "btn--destructive",
+        "btn--disabled",
+        "btn--icon",
+        "btn--icon-with-label",
+        "btn--large",
+        "btn--medium",
+        "btn--no-border",
+        "btn--pill",
+        "btn--primary",
+        "btn--small",
+        "btn--warning",
+        "btn--with-badge"
+      ]
+    },
+    "button_group": {
+      "base": [
+        "btn",
+        "btn-group",
+        "btn-group-toolbar"
+      ],
+      "modifiers": [
+        "btn--active"
+      ]
+    },
+    "card": {
+      "base": [
+        "card"
+      ],
+      "modifiers": [
+        "card--condensed",
+        "card--padded",
+        "card--shadow-large",
+        "card--shadow-medium",
+        "card--shadow-small",
+        "card--shadow-x-large",
+        "card--shadow-x-small"
+      ],
+      "elements": [
+        "card__body",
+        "card__footer",
+        "card__header"
+      ]
+    },
+    "confirm_dialog": {
+      "base": [
+        "confirm-dialog",
+        "confirm-dialog-wrapper"
+      ],
+      "modifiers": [
+        "confirm-dialog-wrapper--active"
+      ],
+      "elements": [
+        "confirm-dialog-wrapper__backdrop",
+        "confirm-dialog__body",
+        "confirm-dialog__footer",
+        "confirm-dialog__header"
+      ]
+    },
+    "content_header": {
+      "base": [
+        "content-header"
+      ],
+      "elements": [
+        "content-header__aside",
+        "content-header__context",
+        "content-header__details",
+        "content-header__subline",
+        "content-header__title"
+      ]
+    },
+    "divider": {
+      "base": [
+        "divider"
+      ],
+      "modifiers": [
+        "divider--large",
+        "divider--medium",
+        "divider--small",
+        "divider--spacing-large",
+        "divider--spacing-medium",
+        "divider--spacing-small",
+        "divider--vertical"
+      ]
+    },
+    "form": {
+      "base": [
+        "form-control",
+        "form-error",
+        "form-error-summary",
+        "form-group",
+        "form-hint",
+        "form-label",
+        "segmented-control",
+        "switch"
+      ],
+      "modifiers": [
+        "form-control--large",
+        "form-control--medium",
+        "form-control--no-border",
+        "form-control--small",
+        "form-group--error",
+        "form-group--inline"
+      ]
+    },
+    "icon": {
+      "base": [
+        "custom-icons",
+        "icon",
+        "material-symbols-outlined"
+      ],
+      "modifiers": [
+        "icon--filled",
+        "icon--high-emphasis",
+        "icon--large",
+        "icon--low-emphasis",
+        "icon--medium",
+        "icon--normal-emphasis",
+        "icon--outlined",
+        "icon--small",
+        "icon--weight-bold",
+        "icon--weight-light",
+        "icon--weight-normal",
+        "icon--weight-semi-bold",
+        "icon--x-large"
+      ]
+    },
+    "modal": {
+      "base": [
+        "modal",
+        "modal-wrapper"
+      ],
+      "modifiers": [
+        "modal--closing",
+        "modal-wrapper--active"
+      ],
+      "elements": [
+        "modal-wrapper__backdrop",
+        "modal__body",
+        "modal__footer",
+        "modal__header"
+      ]
+    },
+    "navbar": {
+      "base": [
+        "navbar"
+      ],
+      "modifiers": [
+        "navbar--primary",
+        "navbar__content--justify-center",
+        "navbar__content--justify-end",
+        "navbar__content--justify-start"
+      ],
+      "elements": [
+        "navbar__brand",
+        "navbar__content",
+        "navbar__content--justify-center",
+        "navbar__content--justify-end",
+        "navbar__content--justify-start"
+      ]
+    },
+    "pagination": {
+      "base": [
+        "form-control",
+        "form-group",
+        "form-label",
+        "pagination"
+      ],
+      "elements": [
+        "pagination__divider"
+      ]
+    },
+    "segmented_control": {
+      "base": [
+        "icon",
+        "segmented-control"
+      ],
+      "modifiers": [
+        "segmented-control--full-width",
+        "segmented-control--large",
+        "segmented-control--medium",
+        "segmented-control--small"
+      ],
+      "elements": [
+        "segmented-control__input",
+        "segmented-control__label"
+      ]
+    },
+    "side_panel": {
+      "base": [
+        "side-panel"
+      ],
+      "modifiers": [
+        "side-panel--border-left",
+        "side-panel--border-right",
+        "side-panel__body--padded",
+        "side-panel__body--padded-x",
+        "side-panel__body--padded-y",
+        "side-panel__footer--padded",
+        "side-panel__footer--padded-x",
+        "side-panel__footer--padded-y",
+        "side-panel__header--padded",
+        "side-panel__header--padded-x",
+        "side-panel__header--padded-y",
+        "side-panel__section--padded",
+        "side-panel__section--padded-x",
+        "side-panel__section--padded-y"
+      ],
+      "elements": [
+        "side-panel__body",
+        "side-panel__body--padded",
+        "side-panel__body--padded-x",
+        "side-panel__body--padded-y",
+        "side-panel__footer",
+        "side-panel__footer--padded",
+        "side-panel__footer--padded-x",
+        "side-panel__footer--padded-y",
+        "side-panel__header",
+        "side-panel__header--padded",
+        "side-panel__header--padded-x",
+        "side-panel__header--padded-y",
+        "side-panel__section",
+        "side-panel__section--padded",
+        "side-panel__section--padded-x",
+        "side-panel__section--padded-y"
+      ]
+    },
+    "sidebar": {
+      "base": [
+        "material-symbols-outlined",
+        "sidebar"
+      ],
+      "modifiers": [
+        "sidebar--compact",
+        "sidebar--drawer",
+        "sidebar--padded",
+        "sidebar--primary",
+        "sidebar--rail",
+        "sidebar__content--center",
+        "sidebar__content--end",
+        "sidebar__content--start"
+      ],
+      "elements": [
+        "sidebar__brand",
+        "sidebar__content",
+        "sidebar__content--center",
+        "sidebar__content--end",
+        "sidebar__content--start"
+      ]
+    },
+    "spinner": {
+      "base": [
+        "spinner"
+      ],
+      "modifiers": [
+        "spinner--large",
+        "spinner--medium",
+        "spinner--small",
+        "spinner--x-small"
+      ]
+    },
+    "switch": {
+      "base": [
+        "switch"
+      ],
+      "modifiers": [
+        "switch--large",
+        "switch--small"
+      ]
+    },
+    "tab": {
+      "base": [
+        "tab",
+        "tab-group"
+      ],
+      "modifiers": [
+        "tab--active",
+        "tab--disabled",
+        "tab--large",
+        "tab--small"
+      ]
+    },
+    "table": {
+      "base": [
+        "table"
+      ],
+      "modifiers": [
+        "table--auto-layout",
+        "table--comfortable-density",
+        "table--compact-density",
+        "table--container",
+        "table--danger",
+        "table--default-density",
+        "table--even-striped",
+        "table--fixed-layout",
+        "table--odd-striped",
+        "table--primary",
+        "table--sticky-footer",
+        "table--sticky-header"
+      ]
+    },
+    "tag": {
+      "base": [
+        "tag"
+      ],
+      "modifiers": [
+        "btn--icon",
+        "tag--danger",
+        "tag--info",
+        "tag--notice",
+        "tag--primary",
+        "tag--read-only",
+        "tag--warning"
+      ],
+      "elements": [
+        "tag__label"
+      ]
+    },
+    "text_pair": {
+      "base": [
+        "text-pair"
+      ],
+      "modifiers": [
+        "text-pair--inline",
+        "text-pair__subtitle--large",
+        "text-pair__subtitle--medium",
+        "text-pair__subtitle--small",
+        "text-pair__title--large",
+        "text-pair__title--medium",
+        "text-pair__title--small"
+      ],
+      "elements": [
+        "text-pair__subtitle",
+        "text-pair__subtitle--large",
+        "text-pair__subtitle--medium",
+        "text-pair__subtitle--small",
+        "text-pair__title",
+        "text-pair__title--large",
+        "text-pair__title--medium",
+        "text-pair__title--small"
+      ]
+    },
+    "tooltip": {
+      "attributes": [
+        "[data-tooltip-position='bottom']",
+        "[data-tooltip-position='left']",
+        "[data-tooltip-position='right']",
+        "[data-tooltip-position='top']",
+        "[data-tooltip-position]",
+        "[data-tooltip-text]"
+      ]
+    }
+  }
+}
