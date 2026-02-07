@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+require 'thor'
+require 'active_support/core_ext/string/inflections'
+
+class NewGenerator < Thor::Group
+  include Thor::Actions
+
+  argument :name, type: :string
+  argument :description, type: :string, default: 'A new generator for RoleModel'
+
+  def generate_generator_files
+    directory 'generator', "lib/generators/rolemodel/#{name.underscore}"
+  end
+
+  def generate_generator_spec
+    directory 'generator_spec', "spec/generators/rolemodel/#{module_name.underscore}"
+  end
+
+  def bump_version_number
+    in_root do
+      run 'bin/bump_version'
+    end
+  end
+
+private
+
+  def module_name = name.camelize.deconstantize
+  def class_name = name.camelize.demodulize + 'Generator'
+  def filename = class_name.underscore
+  def command_name = ['rolemodel', *name.split('/').map(&:underscore)].join(':')
+
+  class << self
+    def banner
+      <<~BANNER
+        bin/new_generator [NAMESPACE/]NAME [DESCRIPTION]
+
+        Example:
+          bin/new_generator ui_components/breadcrumbs 'Less Crumby Navigation Links'
+      BANNER
+    end
+
+    def desc = 'New Generator Scaffold'
+    def source_root = File.expand_path('lib/generators/templates')
+  end
+end
+
+NewGenerator.start

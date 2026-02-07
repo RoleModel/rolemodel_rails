@@ -105,6 +105,16 @@ bin/rails g
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
 
+## Adding new Generators
+
+Run `bin/new_generator` passing the **name** you want to use and a **description**.  Consult the list of existing [Generators](#generators) in case your new generator belongs in one of the existing groups (folders).
+
+e.g.
+
+```shell
+bin/new_generator testing/fantasitic_specs 'A Fantastic Testing Framework'
+```
+
 We use the embeded Rails apps (`example_rails*`) to test generators against. They reference the rolemodel_rails gem by local path,
 so you can navigate into one of them and run your generator for immediate feedback while developing.
 

@@ -12,7 +12,7 @@ module Rolemodel
 
     def remove_rolemodel_rails_version_check
       gsub_file '.github/pull_request_template.md',
-                "* [ ] Update version number in `lib/rolemodel_rails/version.rb`\n",
+                "* [ ] Run `bin/bump_version` or `bin/bump_version --patch`\n",
                 ''
     end
 

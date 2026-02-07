@@ -1,0 +1,11 @@
+# <%= class_name.titleize %>
+
+<%= description %>
+
+## Prerequisites
+
+  - ...
+
+## What you get
+
+  - ...

@@ -1,0 +1,5 @@
+Description:
+  <%= description %>
+
+Example:
+  rails generate <%= command_name %>
