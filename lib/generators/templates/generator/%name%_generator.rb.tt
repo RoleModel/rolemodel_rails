@@ -1,9 +1,0 @@
-module Rolemodel
-  class <%= name %>Generator < Rails::Generators::Base
-    source_root File.expand_path('templates', __dir__)
-
-    def generate_stuff
-      say 'generating stuff', :green
-    end
-  end
-end

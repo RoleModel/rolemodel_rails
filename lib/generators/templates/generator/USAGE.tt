@@ -1,5 +1,5 @@
 Description:
-    <%= description %>
+  <%= description %>
 
 Example:
-    rails generate rolemodel:<%= name %>
+  rails generate <%= command_name %>

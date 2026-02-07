@@ -1,4 +1,4 @@
-# <%= name %> Generator
+# <%= class_name.titleize %>
 
 <%= description %>
 
