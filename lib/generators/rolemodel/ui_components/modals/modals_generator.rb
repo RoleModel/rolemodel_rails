@@ -2,7 +2,7 @@ module Rolemodel
   module UiComponents
     class ModalsGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
-      class_option :panel, type: :boolean, default: false, desc: 'Include panel layout and related styles'
+      class_option :panels, type: :boolean, default: false, desc: 'Include RoleModel Panel Setup'
 
       def turbo_confirm
         say 'Installing Turbo Confirm package', :green
@@ -44,7 +44,7 @@ module Rolemodel
       end
 
       def to_panel_or_not_to_panel
-        if options.panel?
+        if options.panels?
           say 'Setting Up RoleModel Panel', :green
 
           inject_into_file 'app/views/layouts/application.html.slim', after: /\bturbo_frame_tag 'modal'\n/ do

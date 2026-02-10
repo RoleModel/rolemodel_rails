@@ -4,12 +4,7 @@ RSpec.describe Rolemodel::UiComponents::FlashGenerator, type: :generator do
   destination File.expand_path('../../tmp', File.dirname(__FILE__))
 
   before do
-    capture(:stdout) do
-      FileUtils.cd(destination_root) do
-        args = [['--force'], { behavior: :invoke, destination_root: destination_root }]
-        Rails::Generators.invoke('rolemodel:slim', *args)
-      end
-    end
+    run_generator_against_test_app generator: ::Rolemodel::SlimGenerator
     run_generator_against_test_app
   end
 

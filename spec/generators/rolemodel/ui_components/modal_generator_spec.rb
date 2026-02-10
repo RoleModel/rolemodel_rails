@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
+  destination File.expand_path('../../tmp/', File.dirname(__FILE__))
+
   before do
     run_generator_against_test_app(generator: ::Rolemodel::SlimGenerator)
     run_generator_against_test_app(generator: ::Rolemodel::WebpackGenerator)
@@ -35,7 +37,7 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
     end
   end
 
-  describe 'default options (--no-panel)' do
+  describe 'default options (--no-panels)' do
     it 'adds modal layout only' do
       assert_file 'app/views/layouts/modal.html.slim'
       assert_no_file 'app/views/layouts/panel.html.slim'
@@ -49,7 +51,9 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
     end
   end
 
-  describe 'with --panel option' do
+  describe 'with --panels option' do
+    let(:command_line_options) { ['--panels'] }
+
     it 'adds modal & panel layouts' do
       assert_file 'app/views/layouts/modal.html.slim'
       assert_file 'app/views/layouts/panel.html.slim'
