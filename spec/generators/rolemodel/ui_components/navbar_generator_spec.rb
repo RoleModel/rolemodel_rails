@@ -10,8 +10,8 @@ RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
     run_generator_against_test_app generator: ::Rolemodel::SlimGenerator
     run_generator_against_test_app generator: ::Rolemodel::WebpackGenerator
     run_generator_against_test_app generator: ::Rolemodel::Optics::BaseGenerator
-    run_generator_against_test_app generator: ::Rolemodel::UiComponents::FlashGenerator
-    run_generator_against_test_app generator: ::Rolemodel::UiComponents::ModalsGenerator
+    run_generator_against_test_app(generator: ::Rolemodel::UiComponents::FlashGenerator) if run_flash_generator_first
+    run_generator_against_test_app(generator: ::Rolemodel::UiComponents::ModalsGenerator) if run_modal_generator_first
     run_generator_against_test_app
   end
 
