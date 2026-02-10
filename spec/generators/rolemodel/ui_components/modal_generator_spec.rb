@@ -27,12 +27,10 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
     end
   end
 
-  it 'adds the confirmation & shared head partials' do
+  it 'adds confirmation partials' do
     assert_file 'app/views/application/_confirm.html.slim'
-    assert_file 'app/views/application/_head.html.slim'
 
     assert_file 'app/views/layouts/application.html.slim' do |content|
-      expect(content).to match(/\s+head = render 'head'$/)
       expect(content).to match(/\s+= render 'confirm'$/)
     end
   end
@@ -43,7 +41,7 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
       assert_no_file 'app/views/layouts/panel.html.slim'
     end
 
-    it 'updates application layout with modal turbo-frame' do
+    it 'updates application layout with modal turbo-frame only' do
       assert_file 'app/views/layouts/application.html.slim' do |content|
         expect(content).to match(/\s+= turbo_frame_tag 'modal'$/)
         expect(content).not_to match(/\s+= turbo_frame_tag 'panel'$/)
