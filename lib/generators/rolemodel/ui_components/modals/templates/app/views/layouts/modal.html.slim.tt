@@ -1,12 +1,7 @@
 doctype html
 html
-  head
-    title <%= Rails.application.class.name.deconstantize.titleize %>
-    = csrf_meta_tags
-    = csp_meta_tag
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
-  body
+  head = render 'head'
+  body.app_body
     = turbo_frame_tag 'modal' do
       .modal-wrapper(
         class=class_names('modal-wrapper--active' => response.message.starts_with?('Unprocessable'))
@@ -19,12 +14,13 @@ html
         .modal-wrapper__backdrop data-action="click->toggle#off"
         .modal data-testid="modal-content"
           .modal__header
-            = yield :modal_title
-            = button_tag( material_icon('close', size: 'x-large'), class: 'btn btn--no-border btn--icon btn--pill', data: { action: "toggle#off" })
+            = yield :modal_header
+            = button_tag( icon('close', size: 'x-large'), type: 'button',
+              class: 'btn btn--no-border btn--icon btn--pill', data: { action: "toggle#off" })
 
           .modal__body
             = yield
 
           .modal__footer
-            = button_tag( 'Cancel', class: 'btn', data: { action: "toggle#off" })
-            = yield :modal_actions
+            = button_tag( 'Cancel', class: 'btn', type: 'button', data: { action: "toggle#off" })
+            = yield :modal_footer
