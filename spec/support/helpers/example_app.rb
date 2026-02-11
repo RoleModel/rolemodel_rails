@@ -10,10 +10,14 @@ module ExampleApp
     clean_test_gemfile
   end
 
+  # run_generator already captures stdout
+  # capturing stderr does not prevent tests from failing,
+  # but does keep the test output clean and easy to read
   def run_generator_against_test_app(*args, generator: described_class)
     self.generator_class = generator
-    FileUtils.cd(destination_root) { run_generator(*args) }
-    self.generator_class = described_class
+    capture(:stderr) do
+      FileUtils.cd(destination_root) { run_generator(*args) }
+    end
   end
 
   def cleanup_test_app

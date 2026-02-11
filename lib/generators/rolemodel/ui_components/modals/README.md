@@ -3,15 +3,19 @@
 ## Prerequisites
 
 * `rolmodel:slim`
+* `rolemodel:webpack`
 * `rolemodel:optics:base`
+* `rolemodel:optics:icons` - not to run, but by runtime expects an `icon` helper to exist
 
 ## What you get
 
 * Custom confirm dialogs via `@rolemodel/turbo-confirm` integration
-* Modal and panel layouts w/ link helpers & Optics styling.
-* frame-missing handler with Turbo v8 morphing support.
-* Stimulus `toggle` controller to help with modal/panel animations.
+* RoleModel Modal pattern integration. See Notes below for usage documentation.
+* RoleModel Panel pattern integration, if run with the `--panels` flag.
 * some generally useful, global Turbo before-morph handlers.
+
+> [!IMPORTANT]
+> This generator does not provide RoleModel Panel integration, unless run with the `--panels` flag.
 
 ## Important Notes
 
@@ -62,10 +66,10 @@ For a detailed explanation of the RoleModal Modal pattern, see this blog post: [
 The included modal layout includes *slots* for title content & submit buttons, in addition to the main content `yield`.  You may, of course remove these sections if they don't match your use-case.  Otherwise, the following is an example edit template meant to be rendered in the modal layout.
 
 ```slim
-= content_for :modal_title do
+= content_for :modal_header do
   h2 Edit the thing
 
-= content_for :modal_actions do
+= content_for :modal_footer do
   = button_tag 'Save', class: 'btn btn--primary', form: dom_id(@thing, :edit)
 
 = simple_form_for @thing do |f|
@@ -82,7 +86,7 @@ Alternatively, it's still possible to nest the `content_for` block within the fo
   = f.input :name
   = f.input :description
 
-  = content_for :modal_actions do
+  = content_for :modal_footer do
     = f.submit form: f.id
 ```
 
