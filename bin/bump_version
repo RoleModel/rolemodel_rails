@@ -11,6 +11,7 @@ class VersionBumper < Thor::Group
   class_exclusive do
     class_option :patch, type: :boolean, lazy_default: false, desc: 'Bump patch version instead of minor version'
     class_option :major, type: :boolean, lazy_default: false, desc: 'Bump major version instead of minor version'
+    class_option :version, type: :string, desc: 'Bump to a specific version (overrides patch and major options)'
   end
 
   source_root File.expand_path('../', __FILE__)
@@ -43,18 +44,19 @@ class VersionBumper < Thor::Group
 
   def new_version_string
     @new_version_string ||= begin
-      nv = current_version.bump
-      nv = nv.bump if options[:major]
+      nv = current_version
+      nv = nv.bump unless options.version?
+      nv = nv.bump if options.major?
       nv.segments.fill(0, nv.segments.size, 3 - nv.segments.size).join('.')
     end
   end
 
   def current_version
     Gem::Version.new(
-      if options[:patch]
+      if options.patch?
         RolemodelRails::VERSION + '.0'
       else
-        RolemodelRails::VERSION
+        options[:version] || RolemodelRails::VERSION
       end
     )
   end
@@ -63,6 +65,11 @@ class VersionBumper < Thor::Group
     Bundler.with_original_env do
       run "#{Gem.bin_path("bundler", "bundle")} install --quiet"
     end
+  end
+
+  class << self
+    def banner = 'bin/bump_version [--patch|--major|--version VERSION]'
+    def desc = 'Update Gem Version & Sync Example Apps'
   end
 end
 
