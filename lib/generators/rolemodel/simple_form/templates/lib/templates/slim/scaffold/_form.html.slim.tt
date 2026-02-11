@@ -1,12 +1,12 @@
--# locals: (<%= singular_table_name %>:)
+-# locals: (<%%= singular_table_name %>:)
 
-= simple_form_for(@<%= singular_table_name %>) do |f|
+= simple_form_for(@<%%= singular_table_name %>) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-<%- attributes.each do |attribute| -%>
-  = f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %>
-<%- end -%>
+<%%- attributes.each do |attribute| -%>
+  = f.<%%= attribute.reference? ? :association : :input %> :<%%= attribute.name %>
+<%%- end -%>
 
   .flex.justify-end
     = f.button :submit

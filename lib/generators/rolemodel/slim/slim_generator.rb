@@ -13,17 +13,13 @@ module Rolemodel
       bundle_command 'add slim-rails'
     end
 
-    def replace_erb_layout
+    def remove_erb_layout
       remove_file 'app/views/layouts/application.html.erb'
-      template 'app/views/layouts/application.html.slim'
     end
 
     def copy_templates
-      # Because directory 'lib/templates/slim/scaffold' will try to parse the
-      # template files rather than just copy them.
-      Pathname.new(self.class.source_root).glob('lib/templates/slim/scaffold/*.tt').each do |tt|
-        copy_file tt, tt.relative_path_from(self.class.source_root)
-      end
+      directory 'app/views'
+      directory 'lib/templates/slim/scaffold'
     end
   end
 end

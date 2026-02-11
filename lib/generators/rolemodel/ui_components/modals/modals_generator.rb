@@ -2,29 +2,28 @@ module Rolemodel
   module UiComponents
     class ModalsGenerator < Rails::Generators::Base
       source_root File.expand_path('templates', __dir__)
+      class_option :panels, type: :boolean, default: false, desc: 'Include RoleModel Panel Setup'
 
-      def install_turbo_confirm
+      def turbo_confirm
         say 'Installing Turbo Confirm package', :green
 
         run 'yarn add @rolemodel/turbo-confirm'
       end
 
-      def copy_files
-        say 'generating views & link helpers', :green
+      def helpers_and_views
+        say 'generating views & helpers', :green
 
         copy_file 'app/helpers/turbo_frame_link_helper.rb'
-        template 'app/views/layouts/modal.html.slim'
-        template 'app/views/layouts/panel.html.slim'
-        copy_file 'app/views/application/_confirm.html.slim'
+
+        directory 'app/views/application'
+        directory 'app/views/layouts'
       end
 
-      def amend_javascript_entrypoint
+      def javascript_entrypoint
         say 'generating & importing javascript files', :green
 
-        copy_file 'app/javascript/controllers/toggle_controller.js'
-        copy_file 'app/javascript/initializers/turbo_confirm.js'
-        copy_file 'app/javascript/initializers/frame_missing_handler.js'
-        copy_file 'app/javascript/initializers/before_morph_handler.js'
+        directory 'app/javascript/controllers'
+        directory 'app/javascript/initializers'
 
         append_to_file 'app/javascript/application.js', <<~JS
           import './initializers/turbo_confirm.js'
@@ -33,26 +32,35 @@ module Rolemodel
         JS
       end
 
-      def amend_stylesheet_entrypoint
-        say 'importing Optics stylesheets and defining custom properties', :green
-
-        inject_into_file 'app/assets/stylesheets/application.scss',
-                         after: "@import '@rolemodel/optics/dist/css/optics';\n" do
-          <<~SCSS
-            @import '@rolemodel/optics/dist/css/addons/panel';
-          SCSS
-        end
-      end
-
-      def amend_application_layout
-        say 'amending application layout', :green
+      def inject_into_layout
+        say 'updating application layout', :green
 
         inject_into_file 'app/views/layouts/application.html.slim', after: /\bbody.*\n/ do
           optimize_indentation <<~SLIM, 4
             = turbo_frame_tag 'modal'
-            = turbo_frame_tag 'panel'
             = render 'confirm'
           SLIM
+        end
+      end
+
+      def to_panel_or_not_to_panel
+        if options.panels?
+          say 'Setting Up RoleModel Panel', :green
+
+          inject_into_file 'app/views/layouts/application.html.slim', after: /\bturbo_frame_tag 'modal'\n/ do
+            optimize_indentation <<~SLIM, 4
+              = turbo_frame_tag 'panel'
+            SLIM
+          end
+
+          inject_into_file 'app/assets/stylesheets/application.scss',
+                          after: "@import '@rolemodel/optics/dist/css/optics';\n" do
+            <<~SCSS
+              @import '@rolemodel/optics/dist/css/addons/panel';
+            SCSS
+          end
+        else
+          remove_file 'app/views/layouts/panel.html.slim'
         end
       end
 

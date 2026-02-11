@@ -1,10 +1,10 @@
--# locals: (<%= singular_table_name %>:)
+-# locals: (<%%= singular_table_name %>:)
 
-.card.card--padded id=dom_id(<%= singular_name %>)
+.card.card--padded id=dom_id(<%%= singular_name %>)
   .flex.items-center.justify-between
     .text-pair
-      span.text-pair__title = <%= singular_table_name %>.name
+      span.text-pair__title = <%%= singular_table_name %>.name
 
-    = link_to <%= singular_name %>, class: "btn btn--small btn--icon btn--pill btn--no-border" do
+    = link_to <%%= singular_name %>, class: "btn btn--small btn--icon btn--pill btn--no-border" do
       = icon('chevron_right')
-      span.sr-only View <%= human_name.downcase %>
+      span.sr-only View <%%= human_name.downcase %>

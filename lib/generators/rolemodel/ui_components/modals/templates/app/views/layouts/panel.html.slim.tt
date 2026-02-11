@@ -1,12 +1,7 @@
 doctype html
 html
-  head
-    title <%= Rails.application.class.name.deconstantize.titleize %>
-    = csrf_meta_tags
-    = csp_meta_tag
-    = stylesheet_link_tag 'application'
-    = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
-  body
+  head = render 'head'
+  body.app_body
     = turbo_frame_tag 'panel' do
       .panel.flex.items-center.justify-center(
         data-testid='panel'
@@ -19,7 +14,8 @@ html
       )
         .panel__content
           .modal-nav
-            .panel__close data-action="click->toggle#perform"
-              = icon('close')
+            = yield :panel_header
+            = button_tag( icon('close', size: 'x-large'), type: 'button',
+              class: 'btn btn--no-border btn--icon btn--pill panel__close', data: { action: "toggle#off" })
           .panel__body
             = yield

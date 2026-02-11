@@ -7,15 +7,11 @@ RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
   let(:run_modal_generator_first) { false }
 
   before do
-    capture(:stdout) do
-      FileUtils.cd(destination_root) do
-        args = [['--force'], { behavior: :invoke, destination_root: destination_root }]
-        Rails::Generators.invoke('rolemodel:slim', *args)
-        Rails::Generators.invoke('rolemodel:webpack', *args)
-        Rails::Generators.invoke('rolemodel:ui_components:flash', *args) if run_flash_generator_first
-        Rails::Generators.invoke('rolemodel:ui_components:modals', *args) if run_modal_generator_first
-      end
-    end
+    run_generator_against_test_app generator: ::Rolemodel::SlimGenerator
+    run_generator_against_test_app generator: ::Rolemodel::WebpackGenerator
+    run_generator_against_test_app generator: ::Rolemodel::Optics::BaseGenerator
+    run_generator_against_test_app(generator: ::Rolemodel::UiComponents::FlashGenerator) if run_flash_generator_first
+    run_generator_against_test_app(generator: ::Rolemodel::UiComponents::ModalsGenerator) if run_modal_generator_first
     run_generator_against_test_app
   end
 

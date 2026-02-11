@@ -15,4 +15,11 @@ RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
     assert_file 'app/inputs/switch_checkbox_input.rb'
     assert_file 'app/inputs/tailored_select_input.rb'
   end
+
+  it 'generates slim scaffold templates for simple form' do
+    assert_file 'lib/templates/slim/scaffold/_form.html.slim' do |content|
+      expect(content).to include("<%=")
+      expect(content).not_to include("<%%=")
+    end
+  end
 end

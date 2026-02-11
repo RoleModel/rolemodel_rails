@@ -1,7 +1,16 @@
 require 'spec_helper'
 
 RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  destination File.expand_path('../../tmp/', File.dirname(__FILE__))
+
+  before do
+    run_generator_against_test_app(generator: ::Rolemodel::SlimGenerator)
+    run_generator_against_test_app(generator: ::Rolemodel::WebpackGenerator)
+    run_generator_against_test_app(generator: ::Rolemodel::Optics::BaseGenerator)
+    run_generator_against_test_app(command_line_options)
+  end
+
+  let(:command_line_options) { [] }
 
   it 'adds the correct javascript files' do
     assert_file 'app/javascript/controllers/toggle_controller.js'
@@ -10,7 +19,7 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
     assert_file 'app/javascript/initializers/before_morph_handler.js'
   end
 
-  it 'correctly appends to the application.js file' do
+  it 'imports initializers into application.js' do
     assert_file 'app/javascript/application.js' do |content|
       expect(content).to include("import './initializers/turbo_confirm.js'")
       expect(content).to include("import './initializers/frame_missing_handler.js'")
@@ -18,9 +27,41 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
     end
   end
 
-  it 'correctly adds view templates' do
-    assert_file 'app/views/layouts/modal.html.slim'
-    assert_file 'app/views/layouts/panel.html.slim'
+  it 'adds confirmation partials' do
     assert_file 'app/views/application/_confirm.html.slim'
+
+    assert_file 'app/views/layouts/application.html.slim' do |content|
+      expect(content).to match(/\s+= render 'confirm'$/)
+    end
+  end
+
+  describe 'default options (--no-panels)' do
+    it 'adds modal layout only' do
+      assert_file 'app/views/layouts/modal.html.slim'
+      assert_no_file 'app/views/layouts/panel.html.slim'
+    end
+
+    it 'updates application layout with modal turbo-frame only' do
+      assert_file 'app/views/layouts/application.html.slim' do |content|
+        expect(content).to match(/\s+= turbo_frame_tag 'modal'$/)
+        expect(content).not_to match(/\s+= turbo_frame_tag 'panel'$/)
+      end
+    end
+  end
+
+  describe 'with --panels option' do
+    let(:command_line_options) { ['--panels'] }
+
+    it 'adds modal & panel layouts' do
+      assert_file 'app/views/layouts/modal.html.slim'
+      assert_file 'app/views/layouts/panel.html.slim'
+    end
+
+    it 'updates application layout with modal & panel turbo-frames' do
+      assert_file 'app/views/layouts/application.html.slim' do |content|
+        expect(content).to match(/\s+= turbo_frame_tag 'modal'$/)
+        expect(content).to match(/\s+= turbo_frame_tag 'panel'$/)
+      end
+    end
   end
 end
