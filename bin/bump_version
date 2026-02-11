@@ -68,13 +68,8 @@ class VersionBumper < Thor::Group
   end
 
   class << self
-    def banner
-      <<~BANNER
-        bin/bump_version [--patch|--major|--version VERSION]
-      BANNER
-    end
-
-    def desc = 'Advance the gem version, build the gem, and update example apps'
+    def banner = 'bin/bump_version [--patch|--major|--version VERSION]'
+    def desc = 'Update Gem Version & Sync Example Apps'
   end
 end
 
