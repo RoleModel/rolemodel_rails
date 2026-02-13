@@ -1,6 +1,6 @@
 module Rolemodel
   module Optics
-    class BaseGenerator < BaseGenerator
+    class BaseGenerator < Rolemodel::BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def add_optics_package
