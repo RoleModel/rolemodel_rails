@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class SimpleFormGenerator < Rails::Generators::Base
-    include BundlerHelpers
+  class SimpleFormGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def add_gem

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::Testing::VitestGenerator, type: :generator do
   before { run_generator_against_test_app }
 

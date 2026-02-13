@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class GoodJobGenerator < Rails::Generators::Base
-    include BundlerHelpers
+  class GoodJobGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def install_good_job

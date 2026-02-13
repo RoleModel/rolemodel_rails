@@ -1,6 +1,6 @@
 module Rolemodel
   module Optics
-    class AllGenerator < Rails::Generators::Base
+    class AllGenerator < Rolemodel::BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def run_all_the_generators

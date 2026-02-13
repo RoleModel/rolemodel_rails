@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class TailoredSelectGenerator < Rails::Generators::Base
+  class TailoredSelectGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def add_tailored_select_package

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class SourceMapGenerator < Rails::Generators::Base
+  class SourceMapGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def inject_config_for_production

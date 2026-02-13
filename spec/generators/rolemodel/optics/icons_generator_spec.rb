@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
   before do
     respond_to_prompt with: 'phosphor' # choose an icon library

@@ -2,8 +2,7 @@
 
 module Rolemodel
   module Saas
-    class DeviseGenerator < Rails::Generators::Base
-      include BundlerHelpers
+    class DeviseGenerator < BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def add_organization

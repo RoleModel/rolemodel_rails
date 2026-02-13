@@ -1,5 +1,5 @@
 module Rolemodel
-  class HerokuGenerator < Rails::Generators::Base
+  class HerokuGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def install_app_json
