@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 

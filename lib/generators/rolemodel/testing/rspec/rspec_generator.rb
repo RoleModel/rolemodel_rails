@@ -2,8 +2,7 @@
 
 module Rolemodel
   module Testing
-    class RspecGenerator < Rails::Generators::Base
-      include BundlerHelpers
+    class RspecGenerator < ApplicationGenerator
       source_root File.expand_path('templates', __dir__)
 
       def install_rspec

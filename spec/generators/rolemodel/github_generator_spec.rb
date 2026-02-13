@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::GithubGenerator, type: :generator do
   before do
     respond_to_prompt with: 'a' # prompt for overriding ci.yml

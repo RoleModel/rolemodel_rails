@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
   before do
     run_generator_against_test_app(['--github-package-token=123'])

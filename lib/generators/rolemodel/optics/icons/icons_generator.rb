@@ -3,7 +3,7 @@
 module Rolemodel
   module Optics
     # Generates the icon helper and icon builders for the chosen icon library
-    class IconsGenerator < Rails::Generators::Base
+    class IconsGenerator < ApplicationGenerator
       source_root File.expand_path('templates', __dir__)
 
       SUPPORTED_LIBRARIES = {

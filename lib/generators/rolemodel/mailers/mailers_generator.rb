@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class MailersGenerator < Rails::Generators::Base
-    include BundlerHelpers
+  class MailersGenerator < ApplicationGenerator
     source_root File.expand_path('templates', __dir__)
 
     def install_premailer_rails

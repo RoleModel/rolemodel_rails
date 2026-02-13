@@ -4,7 +4,7 @@ require_relative 'vscode_helpers'
 
 module Rolemodel
   # Add standard editorconfig and any extensions to enable it
-  class EditorsGenerator < Rails::Generators::Base
+  class EditorsGenerator < ApplicationGenerator
     include Rolemodel::VSCodeHelpers
 
     # This is bringing in the root from this gem, so we only modify

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class KaminariGenerator < Rails::Generators::Base
-    include BundlerHelpers
+  class KaminariGenerator < ApplicationGenerator
     source_root File.expand_path('templates', __dir__)
 
     def install_kaminari

@@ -1,5 +1,5 @@
 module Rolemodel
-  class SemaphoreGenerator < Rails::Generators::Base
+  class SemaphoreGenerator < ApplicationGenerator
     source_root File.expand_path('templates', __dir__)
 
     def create_base_semaphore_config

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 

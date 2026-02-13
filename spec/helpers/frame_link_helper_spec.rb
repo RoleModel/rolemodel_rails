@@ -1,5 +1,4 @@
-require 'spec_helper'
-require 'action_view/helpers'
+require 'action_view'
 require 'generators/rolemodel/ui_components/modals/templates/app/helpers/turbo_frame_link_helper.rb'
 
 RSpec.describe TurboFrameLinkHelper, type: :helper do

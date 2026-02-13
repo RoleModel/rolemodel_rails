@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
   before { run_generator_against_test_app }
 
