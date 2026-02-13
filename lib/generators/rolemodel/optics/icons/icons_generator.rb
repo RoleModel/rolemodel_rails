@@ -22,17 +22,22 @@ module Rolemodel
       end
 
       def add_view_helper
-        @chosen_library   = options['icon_library']
-        @chosen_library ||= ask(
-          'What icon library would you like to add?',
-          default: SUPPORTED_LIBRARIES.keys.first.to_s,
-          limited_to: SUPPORTED_LIBRARIES.keys.map(&:to_s)
-        )
+        @chosen_library = chosen_icon_library
         @supported_properties = SUPPORTED_LIBRARIES.fetch(@chosen_library)
 
         template 'app/icon_builders/icon_builder.rb'
         template "app/icon_builders/#{@chosen_library}_icon_builder.rb"
         template 'app/helpers/icon_helper.rb'
+      end
+
+    private
+
+      def chosen_icon_library
+        return options['icon_library'] if options.icon_library?
+
+        ask('What icon library would you like to add?',
+            default: SUPPORTED_LIBRARIES.keys.first.to_s,
+            limited_to: SUPPORTED_LIBRARIES.keys.map(&:to_s))
       end
     end
   end
