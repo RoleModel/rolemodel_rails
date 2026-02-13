@@ -2,7 +2,7 @@
 
 module Rolemodel
   module UiComponents
-    class FlashGenerator < ApplicationGenerator
+    class FlashGenerator < BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def generate_files

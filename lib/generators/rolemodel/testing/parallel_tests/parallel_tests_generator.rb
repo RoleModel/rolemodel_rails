@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Testing
-    class ParallelTestsGenerator < ApplicationGenerator # rubocop:disable Style/Documentation
+    class ParallelTestsGenerator < BaseGenerator # rubocop:disable Style/Documentation
       source_root File.expand_path('templates', __dir__)
 
       def install_parallel_tests

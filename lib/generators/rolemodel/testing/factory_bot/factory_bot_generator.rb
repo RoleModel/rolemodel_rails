@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Testing
-    class FactoryBotGenerator < ApplicationGenerator
+    class FactoryBotGenerator < BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def install_factory_bot_rails

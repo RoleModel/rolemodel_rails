@@ -1,5 +1,5 @@
 module Rolemodel
-  class ReadmeGenerator < ApplicationGenerator
+  class ReadmeGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def install_readme

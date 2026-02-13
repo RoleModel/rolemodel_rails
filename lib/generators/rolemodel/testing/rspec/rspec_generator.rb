@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Testing
-    class RspecGenerator < ApplicationGenerator
+    class RspecGenerator < BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def install_rspec

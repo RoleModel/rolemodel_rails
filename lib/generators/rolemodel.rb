@@ -7,7 +7,7 @@ module Rolemodel
   RUBY_VERSION = Pathname.pwd.join('.ruby-version').read.strip
   NODE_VERSION = Pathname.pwd.join('.node-version').read.strip
 
-  class ApplicationGenerator < Rails::Generators::Base
+  class BaseGenerator < Rails::Generators::Base
     include Rails::Generators::BundleHelper
     include ReplaceContentHelper
 

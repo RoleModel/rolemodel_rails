@@ -1,6 +1,6 @@
 module Rolemodel
   module Linters
-    class AllGenerator < ApplicationGenerator
+    class AllGenerator < BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def run_all_the_generators

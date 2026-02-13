@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Testing
-    class TestProfGenerator < ApplicationGenerator
+    class TestProfGenerator < BaseGenerator
       def install_test_prof
         gem_group :test do
           gem 'test-prof'

@@ -3,7 +3,7 @@
 module Rolemodel
   module Linters
     # Install the standard rubocop and a custom cop
-    class RubocopGenerator < ApplicationGenerator
+    class RubocopGenerator < BaseGenerator
       source_root File.expand_path('templates', __dir__)
 
       def install_rubocop

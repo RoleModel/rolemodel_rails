@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class GithubGenerator < ApplicationGenerator
+  class GithubGenerator < BaseGenerator
     # Source root is the project-level .github directory
     # This allows us to use the same templates for both the generated app and this gem
     source_root File.expand_path('.github')

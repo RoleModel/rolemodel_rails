@@ -1,5 +1,5 @@
 module Rolemodel
-  class SoftDestroyableGenerator < ApplicationGenerator
+  class SoftDestroyableGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
     def add_concern
