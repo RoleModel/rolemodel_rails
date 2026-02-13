@@ -1,8 +1,8 @@
 Description:
-    runs the icons optics generator
+  Generates a ViewHelper Integrated With The Icon Provider of Your Choice
 
 Example:
-    rails generate rolemodel:optics:icons
+  bin/rails generate rolemodel:optics:icons --feather
 
-    This will create:
-        app/helpers/icon_helper.rb
+  And then in a slim template/partial:
+    = button_to icon('delete'), @post, method: :delete

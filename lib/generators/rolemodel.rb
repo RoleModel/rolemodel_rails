@@ -1,5 +1,6 @@
 require 'rails'
 require 'pathname'
+require 'rails/generators'
 require 'rails/generators/bundle_helper'
 require_relative 'rolemodel/replace_content_helper'
 
