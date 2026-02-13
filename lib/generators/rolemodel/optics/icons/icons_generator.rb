@@ -14,7 +14,11 @@ module Rolemodel
       ).freeze
 
       source_root File.expand_path('templates', __dir__)
-      class_option :icon_library, type: :string, desc: "The icon library to use (#{SUPPORTED_LIBRARIES.keys.join(', ')})"
+      class_exclusive do
+        SUPPORTED_LIBRARIES.keys.each do |library|
+          class_option library, type: :boolean, lazy_default: false, desc: "Use #{library} icon library"
+        end
+      end
 
       def remove_existing_icon_helper_and_builders
         remove_dir 'app/icon_builders'
@@ -22,7 +26,7 @@ module Rolemodel
       end
 
       def add_view_helper
-        @chosen_library = chosen_icon_library
+        @chosen_library = capture_user_selection
         @supported_properties = SUPPORTED_LIBRARIES.fetch(@chosen_library)
 
         template 'app/icon_builders/icon_builder.rb'
@@ -32,12 +36,12 @@ module Rolemodel
 
     private
 
-      def chosen_icon_library
-        return options['icon_library'] if options.icon_library?
-
-        ask('What icon library would you like to add?',
-            default: SUPPORTED_LIBRARIES.keys.first.to_s,
-            limited_to: SUPPORTED_LIBRARIES.keys.map(&:to_s))
+      def capture_user_selection
+        options.except(*%i[skip_namespace skip_collision_check]).invert[true] || ask(
+          'What icon library would you like to add?',
+          default: SUPPORTED_LIBRARIES.keys.first.to_s,
+          limited_to: SUPPORTED_LIBRARIES.keys.map(&:to_s)
+        )
       end
     end
   end

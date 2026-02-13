@@ -13,7 +13,7 @@ RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
   end
 
   context 'selecting an alternate icon library via command line option' do
-    before { run_generator_against_test_app(['--icon-library=phosphor']) }
+    before { run_generator_against_test_app(['--phosphor']) }
 
     it 'adds the correct helper and builders' do
       assert_file 'app/helpers/icon_helper.rb'
@@ -26,7 +26,7 @@ RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
     it 'removes existing helper and builders before adding new ones' do
       assert_no_file 'app/helpers/icon_helper.rb'
 
-      run_generator_against_test_app(['--icon-library=tabler'])
+      run_generator_against_test_app(['--tabler'])
       assert_file 'app/helpers/icon_helper.rb'
       assert_file 'app/icon_builders/tabler_icon_builder.rb'
 
