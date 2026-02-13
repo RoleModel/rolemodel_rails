@@ -4,8 +4,6 @@ module Rolemodel
   module Optics
     # Generates the icon helper and icon builders for the chosen icon library
     class IconsGenerator < Rolemodel::BaseGenerator
-      source_root File.expand_path('templates', __dir__)
-
       SUPPORTED_LIBRARIES = HashWithIndifferentAccess.new(
         material: 'filled, size, weight, emphasis, additional_classes, color, hover_text',
         phosphor: 'duotone, filled, size, weight, additional_classes, color, hover_text',
@@ -24,7 +22,7 @@ module Rolemodel
       end
 
       def add_view_helper
-        @chosen_library = options['icon_library']
+        @chosen_library   = options['icon_library']
         @chosen_library ||= ask(
           'What icon library would you like to add?',
           default: SUPPORTED_LIBRARIES.keys.first.to_s,
