@@ -11,6 +11,7 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
   let(:command_line_options) { [] }
 
   it 'adds the correct javascript files' do
+    assert_file 'app/javascript/controllers/morph_controller.js'
     assert_file 'app/javascript/controllers/toggle_controller.js'
     assert_file 'app/javascript/initializers/turbo_confirm.js'
     assert_file 'app/javascript/initializers/frame_missing_handler.js'
