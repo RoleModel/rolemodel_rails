@@ -58,17 +58,17 @@ module PlaywrightHelper
 
       %w[button link gc-menu-item summary].each do |tag|
         loc = scope.get_by_role(tag).get_by_text(text)
-        loc = scope.get_by_role(tag).get_by_text(text, exact: true) if loc.count > 1
-        loc = scope.locator(tag).get_by_text(text) unless loc.count == 1
-        locator = loc if loc.count == 1
+        loc = scope.get_by_role(tag).get_by_text(text, exact: true) if loc.count > 1 # rubocop:disable Style/CollectionQuerying
+        loc = scope.locator(tag).get_by_text(text) unless loc.count == 1 # rubocop:disable Style/CollectionQuerying
+        locator = loc if loc.count == 1 # rubocop:disable Style/CollectionQuerying
         break if locator.present?
       end
 
       locator = scope.get_by_text(text, exact: true) if locator.blank?
 
-      raise "No element matching text: '#{text}'" if locator.count < 1
+      raise "No element matching text: '#{text}'" if locator.count < 1 # rubocop:disable Style/CollectionQuerying
 
-      if locator.count > 1
+      if locator.count > 1 # rubocop:disable Style/CollectionQuerying
         raise "Multiple elements matching text: '#{text}'" unless args[:match] == :first
 
         result = locator.first.click
