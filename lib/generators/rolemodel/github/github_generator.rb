@@ -2,30 +2,23 @@
 
 module Rolemodel
   class GithubGenerator < BaseGenerator
-    # Source root is the project-level .github directory
-    # This allows us to use the same templates for both the generated app and this gem
-    source_root File.expand_path('.github')
+    # Files which are both used by the gem source and copied to the target app without modification
+    # are placed in the `.github` folder at the top level of this repository. This folder is then
+    # symlinked to the `templates` folder relative to this generator so they can still be copied over.
+    # Any files which are significantly different or not used by the gem source are just in `templates`.
+    source_root File.expand_path('templates', __dir__)
 
-    def install_pull_request_template
+    def install_github_config
+      directory 'instructions', '.github/instructions'
+      directory 'workflows', '.github/workflows'
       template 'pull_request_template.md', '.github/pull_request_template.md'
     end
 
-    def remove_rolemodel_rails_version_check
-      gsub_file '.github/pull_request_template.md',
-                "* [ ] Run `bin/bump_version` or `bin/bump_version --patch`\n",
-                ''
-    end
+    def install_dependabot_and_codeowners
+      copy_file 'dependabot.yml', '.github/dependabot.yml'
+      copy_file 'CODEOWNERS', '.github/CODEOWNERS'
 
-    def install_copilot_instructions
-      copy_file 'instructions/css.instructions.md', '.github/instructions/css.instructions.md'
-      copy_file 'instructions/js.instructions.md', '.github/instructions/js.instructions.md'
-      copy_file 'instructions/project.instructions.md', '.github/instructions/project.instructions.md'
-      copy_file 'instructions/ruby.instructions.md', '.github/instructions/ruby.instructions.md'
-      copy_file 'instructions/slim.instructions.md', '.github/instructions/slim.instructions.md'
-    end
-
-    def install_ci_yml
-      copy_file 'templates/ci.yml', '.github/workflows/ci.yml'
+      say 'Dependabot config added. Please edit CODEOWNERS to assign appropriate reviewers for your project.'
     end
 
     def update_database_yml_for_ci

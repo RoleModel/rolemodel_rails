@@ -27,4 +27,23 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
       expect(content).to include('  host: localhost')
     end
   end
+
+  it 'creates dependabot.yml' do
+    assert_file '.github/dependabot.yml' do |content|
+      expect(content).to include('version: 2')
+      expect(content).to include('package-ecosystem: bundler')
+      expect(content).to include('directory: /')
+      expect(content).to include('schedule:')
+      expect(content).to include('interval: weekly')
+      expect(content).to include('day: monday')
+    end
+  end
+
+  it 'creates CODEOWNERS' do
+    assert_file '.github/CODEOWNERS' do |content|
+      expect(content).to include('# Dependabot / Dependency reviewers:')
+      expect(content).to include('# yarn.lock')
+      expect(content).to include('# Gemfile.lock')
+    end
+  end
 end
