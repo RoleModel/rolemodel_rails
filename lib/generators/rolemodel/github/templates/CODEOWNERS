@@ -1,8 +1,8 @@
 # This file is used by Dependabot (and more broadly GitHub) to determine who needs to review
 # pull requests which contain changes to specific files. Specifically, the setup below allows
 # for the dependabot PRs to automatically assign (and notify) the Craftsman and Support Dev.
-# Please change the usernames below to the appropriate reviewers for your project!
 
 # Dependabot / Dependency reviewers:
+# TODO: Update and uncomment the following lines.
 # yarn.lock @craftsman @supportdev
 # Gemfile.lock @craftsman @supportdev
