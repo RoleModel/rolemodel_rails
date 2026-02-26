@@ -18,7 +18,7 @@ module Rolemodel
       copy_file 'dependabot.yml', '.github/dependabot.yml'
       copy_file 'CODEOWNERS', '.github/CODEOWNERS'
 
-      say 'Dependabot config added. Please edit CODEOWNERS to assign appropriate reviewers for your project.'
+      say '👉 See CODEOWNERS file for important instructions.', %i[bold red on_blue]
     end
 
     def update_database_yml_for_ci
