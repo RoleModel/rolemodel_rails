@@ -1,0 +1,87 @@
+version: 2
+registries:
+  ruby-github:
+    type: rubygems-server
+    url: https://rubygems.pkg.github.com/RoleModel
+    token: ${{ secrets.ROLEMODEL_PACKAGE_REPO_READ_TOKEN }}
+
+updates:
+  - package-ecosystem: bundler
+    insecure-external-code-execution: allow
+    registries:
+      - ruby-github
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    # Ignore specific dependencies or update types which may cause issues. For example:
+    # ignore:
+    #   - dependency-name: 'some-gem'
+    #   - update-types: ['version-update:semver-major']
+    groups:
+      production-security:
+        dependency-type: production
+        applies-to: security-updates
+      production-major-updates:
+        dependency-type: production
+        applies-to: version-updates
+        update-types:
+          - major
+      production-minor-updates:
+        dependency-type: production
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+      development-security:
+        dependency-type: development
+        applies-to: security-updates
+      development-major-updates:
+        dependency-type: development
+        applies-to: version-updates
+        update-types:
+          - major
+      development-minor-updates:
+        dependency-type: development
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    # Ignore specific dependencies or update types which may cause issues. For example:
+    # ignore:
+    #   - dependency-name: 'some-package'
+    #   - update-types: ['version-update:semver-major']
+    groups:
+      production-security:
+        dependency-type: production
+        applies-to: security-updates
+      production-major-updates:
+        dependency-type: production
+        applies-to: version-updates
+        update-types:
+          - major
+      production-minor-updates:
+        dependency-type: production
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
+      development-security:
+        dependency-type: development
+        applies-to: security-updates
+      development-major-updates:
+        dependency-type: development
+        applies-to: version-updates
+        update-types:
+          - major
+      development-minor-updates:
+        dependency-type: development
+        applies-to: version-updates
+        update-types:
+          - minor
+          - patch
