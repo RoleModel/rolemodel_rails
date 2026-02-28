@@ -18,7 +18,7 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
 
   it 'creates ci.yml and updates the database.yml' do
     assert_file '.github/workflows/ci.yml' do |content|
-      expect(content).to include('Linting & Ruby Non-System Tests')
+      expect(content).to include('Linting, Security, & Ruby Tests')
     end
 
     assert_file 'config/database.yml' do |content|
