@@ -2,7 +2,6 @@ require 'rails'
 require 'bundler/setup'
 require 'generator_spec'
 require 'rolemodel-rails'
-require_relative 'rails/setup'
 require_relative 'support/helpers'
 
 require 'generators/rolemodel/base_generator'
