@@ -1,5 +1,5 @@
-RSpec.describe RolemodelRails do
+RSpec.describe Rolemodel do
   it "has a version number" do
-    expect(RolemodelRails::VERSION).not_to be nil
+    expect(Rolemodel::VERSION).not_to be nil
   end
 end
