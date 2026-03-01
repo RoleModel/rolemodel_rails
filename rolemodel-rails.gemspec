@@ -1,17 +1,13 @@
-# frozen_string_literal: true
-
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rolemodel_rails/version'
+require_relative 'lib/rolemodel/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'rolemodel_rails'
-  spec.version       = RolemodelRails::VERSION
+  spec.name        = 'rolemodel-rails'
+  spec.version       = Rolemodel::VERSION
   spec.authors       = ['RoleModel Software Inc']
   spec.email         = ['it-support@rolemodelsoftware.com']
 
-  spec.summary       = 'Rails generators for RoleModel Software project setup.'
-  spec.description   = 'A collection of Rails generators to set up a Rails project with the recommended configuration for RoleModel Software projects.'
+  spec.summary       = 'The RoleModel Way of building Rails apps.'
+  spec.description   = 'A collection of executable best practices for common aspects of Rails application development.'
   spec.homepage      = 'https://github.com/RoleModel/rolemodel_rails'
   spec.license       = 'MIT'
 

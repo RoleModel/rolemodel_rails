@@ -11,7 +11,7 @@ Attempts to solve the pain of:
 
 ## Precondition
 
-The rolemodel_rails gem expects to be added to an existing Rails project. Typically those are started with:
+The rolemodel-rails gem expects to be added to an existing Rails project. Typically those are started with:
 
 ```shell
 rails new <app-name> --javascript=webpack --database=postgresql --skip-test
@@ -29,7 +29,7 @@ Add this line to your application's Gemfile:
 
 ```ruby
 group :development do
-  gem 'rolemodel_rails', github: 'RoleModel/rolemodel_rails'
+  gem 'rolemodel-rails', github: 'RoleModel/rolemodel_rails'
 end
 ```
 
@@ -115,7 +115,7 @@ e.g.
 bin/new_generator testing/fantasitic_specs 'A Fantastic Testing Framework'
 ```
 
-We use the embeded Rails apps (`example_rails*`) to test generators against. They reference the rolemodel_rails gem by local path,
+We use the embeded Rails apps (`example_rails*`) to test generators against. They reference the rolemodel-rails gem by local path,
 so you can navigate into one of them and run your generator for immediate feedback while developing.
 
 > [!IMPORTANT]
