@@ -28,6 +28,6 @@ module ExampleApp
     gemfile_path = File.join(destination_root, 'Gemfile')
     gemfile = File.open(gemfile_path)
 
-    File.write(gemfile_path, gemfile.grep_v(/rolemodel_rails/).join)
+    File.write(gemfile_path, gemfile.grep_v(/rolemodel-rails/).join)
   end
 end

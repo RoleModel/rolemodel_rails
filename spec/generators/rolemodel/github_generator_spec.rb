@@ -6,7 +6,7 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
 
   it 'creates github pull request template' do
     assert_file '.github/pull_request_template.md' do |content|
-      expect(content).not_to include('Update version number in `lib/rolemodel_rails/version.rb`')
+      expect(content).not_to include('Update version number in `lib/rolemodel/version.rb`')
     end
 
     assert_file '.github/instructions/css.instructions.md'
