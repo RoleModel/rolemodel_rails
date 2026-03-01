@@ -401,7 +401,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.2)
-  rolemodel_rails (> 0.20)!
+  rolemodel-rails (> 0.20)!
   rubocop-rails-omakase
   selenium-webdriver
   solid_cable

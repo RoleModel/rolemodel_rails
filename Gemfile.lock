@@ -257,7 +257,7 @@ DEPENDENCIES
   bundler (~> 4)
   generator_spec (~> 0.10)
   rake (~> 13)
-  rolemodel_rails!
+  rolemodel-rails!
   rspec (~> 3)
   rspec_junit_formatter
   rubocop
