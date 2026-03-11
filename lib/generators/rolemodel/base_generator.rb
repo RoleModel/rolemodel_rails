@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails/generators/base'
 require 'rails/generators/bundle_helper'
 require_relative 'replace_content_helper'
