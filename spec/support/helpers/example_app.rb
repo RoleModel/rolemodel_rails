@@ -26,8 +26,7 @@ module ExampleApp
 
   def clean_test_gemfile
     gemfile_path = File.join(destination_root, 'Gemfile')
-    gemfile = File.open(gemfile_path)
 
-    File.write(gemfile_path, gemfile.grep_v(/rolemodel-rails/).join)
+    File.write(gemfile_path, File.readlines(gemfile_path).grep_v(/rolemodel-rails/).join)
   end
 end
