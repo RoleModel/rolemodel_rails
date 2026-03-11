@@ -1,7 +1,7 @@
 require_relative 'lib/rolemodel/version'
 
 Gem::Specification.new do |spec|
-  spec.name        = 'rolemodel-rails'
+  spec.name          = 'rolemodel-rails'
   spec.version       = Rolemodel::VERSION
   spec.authors       = ['RoleModel Software Inc']
   spec.email         = ['it-support@rolemodelsoftware.com']
