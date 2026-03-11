@@ -62,5 +62,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "rolemodel-rails", "> 0.20", group: :development, path: ".."
