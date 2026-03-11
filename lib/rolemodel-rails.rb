@@ -6,10 +6,4 @@ module Rolemodel
 end
 
 require 'rolemodel/version'
-
-begin
-  require 'rails/engine'
-rescue LoadError
-end
-
-require 'rolemodel/engine' if defined?(Rails::Engine)
+require 'rolemodel/engine'
