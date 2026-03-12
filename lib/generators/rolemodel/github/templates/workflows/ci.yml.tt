@@ -11,7 +11,7 @@ concurrency:
 env:
   CI: true
   RAILS_ENV: test
-  POSTGRES_USER: root
+  POSTGRES_USER: postgres
   POSTGRES_PASSWORD: password
 
 jobs:
@@ -70,7 +70,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      # Uncomment this if your app require VIPS for processing ActiveStorage variant images in system tests.
+      # Uncomment the following if your app require VIPS for processing ActiveStorage variant images in system tests.
       # - name: Setup vips
       #   run: |
       #       sudo apt-get update

@@ -23,12 +23,12 @@ module Rolemodel
 
     def install_github_config
       directory 'instructions', '.github/instructions'
-      directory 'workflows', '.github/workflows'
+      directory 'workflows', '.github/workflows', force: true
       template 'pull_request_template.md', '.github/pull_request_template.md'
     end
 
     def install_dependabot_and_codeowners
-      copy_file 'dependabot.yml', '.github/dependabot.yml'
+      copy_file 'dependabot.yml', '.github/dependabot.yml', force: true
       copy_file 'CODEOWNERS', '.github/CODEOWNERS'
 
       say '👉 See CODEOWNERS file for important instructions.', %i[bold red on_blue]

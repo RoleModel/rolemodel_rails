@@ -10,15 +10,15 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
     TAGS
   end
 
-  let(:command_options) { ['--force'] }
+  let(:command_options) { [] }
 
   before do
     allow_any_instance_of(described_class).to receive(:`).and_return(tags_fixture)
     run_generator_against_test_app(command_options)
   end
 
-  describe 'user chooses --no-playwright option' do
-    let(:command_options) { ['--force', '--no-playwright'] }
+  describe 'provided the --skip-playwright option' do
+    let(:command_options) { ['--skip-playwright'] }
 
     it 'sets webdriver to selenium in ci.yml' do
       assert_file '.github/workflows/ci.yml' do |content|
