@@ -1,7 +1,13 @@
+# frozen_string_literal: true
+
+require 'rails'
 require 'bundler/setup'
 require 'generator_spec'
+require 'rolemodel-rails'
 require_relative 'support/helpers'
-require 'generators/rolemodel'
+
+require 'generators/rolemodel/base_generator'
+Dir[File.expand_path('lib/generators/**/*_generator.rb')].each { require it }
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
