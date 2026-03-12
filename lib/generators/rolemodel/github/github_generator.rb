@@ -13,8 +13,8 @@ module Rolemodel
                  desc: 'Request Playwright Setup in CI workflow for system tests?'
 
     def set_rm_actions_version
-      tags = `git ls-remote --tags #{GITHUB_ACTIONS_REPO}`
-      @rm_actions_version = tags.scan(%r{refs/tags/(v\d+)\s*$}).flatten.max
+      tags = `git ls-remote --tags #{GITHUB_ACTIONS_REPO}` rescue 'refs/tags/v3'
+      @rm_actions_version = tags.scan(%r{refs/tags/v(\d+)\s*$}).flatten.max_by(&:to_i)
     end
 
     def set_webdriver

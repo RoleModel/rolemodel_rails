@@ -1,4 +1,5 @@
 RSpec.describe Rolemodel::GithubGenerator, type: :generator do
+  let(:command_options) { [] }
   let(:tags_fixture) do
     <<~TAGS
       cc20cd16985dd6a9813c9ac5119f5a78fd1565b8	refs/tags/alpha
@@ -10,15 +11,13 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
     TAGS
   end
 
-  let(:command_options) { [] }
-
   before do
     allow_any_instance_of(described_class).to receive(:`).and_return(tags_fixture)
     run_generator_against_test_app(command_options)
   end
 
-  describe 'provided the --skip-playwright option' do
-    let(:command_options) { ['--skip-playwright'] }
+  describe 'provided the --no-playwright option' do
+    let(:command_options) { ['--no-playwright'] }
 
     it 'sets webdriver to selenium in ci.yml' do
       assert_file '.github/workflows/ci.yml' do |content|

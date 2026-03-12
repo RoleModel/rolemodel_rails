@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 3
     steps:
       - uses: actions/checkout@v6
-      - uses: RoleModel/actions/project-stats@<%= @rm_actions_version %>
+      - uses: RoleModel/actions/project-stats@v<%= @rm_actions_version %>
 
   compile-assets:
     name: Compile Assets
@@ -29,7 +29,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
-      - uses: RoleModel/actions/compile-assets@<%= @rm_actions_version %>
+      - uses: RoleModel/actions/compile-assets@v<%= @rm_actions_version %>
         id: check-asset-cache
 
   non-system-test:
@@ -51,7 +51,7 @@ jobs:
       - run: bin/bundler-audit
       - run: bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error
       - run: bundle exec rubocop --format github
-      - uses: RoleModel/actions/linting-and-non-system-tests@<%= @rm_actions_version %>
+      - uses: RoleModel/actions/linting-and-non-system-tests@v<%= @rm_actions_version %>
         with:
           needs-compiled-assets: false
 
@@ -75,7 +75,7 @@ jobs:
       #   run: |
       #       sudo apt-get update
       #       sudo apt-get install -y libvips
-      - uses: RoleModel/actions/system-tests@<%= @rm_actions_version %>
+      - uses: RoleModel/actions/system-tests@v<%= @rm_actions_version %>
         with:
           web-driver: <%= @webdriver %>
           # failure-screenshot-dir: tmp/screenshots
