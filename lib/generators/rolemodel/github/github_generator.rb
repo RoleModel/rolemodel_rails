@@ -2,11 +2,24 @@
 
 module Rolemodel
   class GithubGenerator < BaseGenerator
+    GITHUB_ACTIONS_REPO = 'https://github.com/RoleModel/actions.git'
     # Files which are both used by the gem source and copied to the target app without modification
     # are placed in the `.github` folder at the top level of this repository. This folder is then
     # symlinked to the `templates` folder relative to this generator so they can still be copied over.
     # Any files which are significantly different or not used by the gem source are just in `templates`.
     source_root File.expand_path('templates', __dir__)
+
+    class_option :playwright, type: :boolean, default: true,
+                 desc: 'Request Playwright Setup in CI workflow for system tests?'
+
+    def set_rm_actions_version
+      tags = `git ls-remote --tags #{GITHUB_ACTIONS_REPO}`
+      @rm_actions_version = tags.scan(%r{refs/tags/(v\d+)\s*$}).flatten.max
+    end
+
+    def set_webdriver
+      @webdriver = options.playwright? ? 'playwright' : 'selenium'
+    end
 
     def install_github_config
       directory 'instructions', '.github/instructions'

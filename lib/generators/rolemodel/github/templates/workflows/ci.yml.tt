@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  CI: true
+  RAILS_ENV: test
+  POSTGRES_USER: root
+  POSTGRES_PASSWORD: password
+
+jobs:
+  project-stats:
+    name: Project Stats
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+      - uses: RoleModel/actions/project-stats@<%= @rm_actions_version %>
+
+  compile-assets:
+    name: Compile Assets
+    runs-on: blacksmith-8vcpu-ubuntu-2404
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: RoleModel/actions/compile-assets@<%= @rm_actions_version %>
+        id: check-asset-cache
+
+  non-system-test:
+    name: Linting & Ruby Non-System Tests
+    runs-on: blacksmith-4vcpu-ubuntu-2404
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:17
+        ports: [ "5432:5432" ]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with: { bundler-cache: true }
+      - run: bin/bundler-audit
+      - run: bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error
+      - run: bundle exec rubocop --format github
+      - uses: RoleModel/actions/linting-and-non-system-tests@<%= @rm_actions_version %>
+        with:
+          needs-compiled-assets: false
+
+  system-test:
+    name: Ruby System Tests
+    runs-on: blacksmith-8vcpu-ubuntu-2404
+    timeout-minutes: 15
+    needs: compile-assets
+    services:
+      postgres:
+        image: postgres:17
+        ports: [ "5432:5432" ]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+
+    steps:
+      - uses: actions/checkout@v6
+      # Uncomment this if your app require VIPS for processing ActiveStorage variant images in system tests.
+      # - name: Setup vips
+      #   run: |
+      #       sudo apt-get update
+      #       sudo apt-get install -y libvips
+      - uses: RoleModel/actions/system-tests@<%= @rm_actions_version %>
+        with:
+          web-driver: <%= @webdriver %>
+          # failure-screenshot-dir: tmp/screenshots
