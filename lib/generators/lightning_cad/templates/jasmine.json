@@ -1,0 +1,6 @@
+{
+  "spec_dir": "spec/javascript",
+  "spec_files": ["shared/**/*[sS]pec.js", "server/**/*[sS]pec.js"],
+  "helpers": ["./shared/TestSetup.js", "./server/TestSetup.js"],
+  "stopSpecOnExpectationFailure": true
+}
