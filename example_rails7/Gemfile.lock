@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rolemodel_rails (0.27.0)
+    rolemodel_rails (0.27.1)
       rails (> 7.1)
 
 GEM
