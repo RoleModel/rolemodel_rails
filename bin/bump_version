@@ -54,9 +54,9 @@ class VersionBumper < Thor::Group
   def current_version
     Gem::Version.new(
       if options.patch?
-        RolemodelRails::VERSION + '.0'
+        Rolemodel::VERSION + '.0'
       else
-        options[:version] || RolemodelRails::VERSION
+        options[:version] || Rolemodel::VERSION
       end
     )
   end
