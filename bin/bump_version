@@ -21,13 +21,19 @@ class VersionBumper < Thor::Group
   end
 
   def update_lockfile
-    Bundler.with_original_env do
-      run "#{Gem.bin_path("bundler", "bundle")} install --quiet"
-    end
+    run_clean_bundle_install
   end
 
   def build_gem
     run 'gem build rolemodel-rails.gemspec'
+  end
+
+  def update_current_example_app
+    Rake::FileList.new('example_rails*').each do |example_path|
+      inside(example_path) do
+        run_clean_bundle_install
+      end
+    end
   end
 
   def echo_new_version
@@ -53,6 +59,12 @@ class VersionBumper < Thor::Group
         options[:version] || RolemodelRails::VERSION
       end
     )
+  end
+
+  def run_clean_bundle_install
+    Bundler.with_original_env do
+      run "#{Gem.bin_path("bundler", "bundle")} install --quiet"
+    end
   end
 
   class << self

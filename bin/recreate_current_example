@@ -1,25 +1,27 @@
-#!/usr/bin/env bash
-RAILS_VERSION=`gem search ^rails$ --remote | grep -oE 'rails \((\d\.[0-9]+\.[0-9]+)\)' | head -1 | cut -d' ' -f2 | tr -d '()'`
-MAJOR_VERSION_NUMBER=${RAILS_VERSION%%.*}
+#!/usr/bin/env ruby
 
-set -euo pipefail
-IFS=$'\n\t'
-set -vx
+RAILS_VERSION = ARGV[0] || '8.1.2'
 
-if ! gem list rails -i -v $RAILS_VERSION --silent; then
-  gem install rails -v $RAILS_VERSION
-fi
+require_relative 'dummy_app_builder'
+RAILS_MAJOR_VERSION_NUMBER = Gem::Version.new(RAILS_VERSION).segments.first
 
-rm -fr example_rails$MAJOR_VERSION_NUMBER
+class RecreateCurrentExample < Rails::Generators::AppBase
+  source_root File.expand_path('templates', __dir__)
 
-rails _"$RAILS_VERSION"_ new --skip-keeps --skip-git --skip-jbuilder -j webpack -d postgresql example_rails$MAJOR_VERSION_NUMBER
+  def recreate_example
+    shell.mute do
+      build(:generate_test_dummy)
+      build(:test_dummy_config)
+    end
+  end
 
-cd example_rails$MAJOR_VERSION_NUMBER
+private
 
-bundle add --group development --path '..' --version '> 0.20' rolemodel-rails
-bundle install
+  def dummy_path
+    @dummy_path ||= "./example_rails#{RAILS_MAJOR_VERSION_NUMBER}"
+  end
 
-rm config/credentials.yml.enc
-rm config/master.key
+  def get_builder_class = BuilderClass
+end
 
-cd -
+RecreateCurrentExample.start(["--app-path=example_rails#{RAILS_MAJOR_VERSION_NUMBER}"])

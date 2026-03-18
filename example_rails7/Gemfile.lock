@@ -135,6 +135,7 @@ GEM
     marcel (1.1.0)
     matrix (0.4.3)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.9)
     minitest (5.27.0)
     msgpack (1.8.0)
     net-imap (0.5.12)
@@ -147,6 +148,9 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
+    nokogiri (1.18.10)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     nokogiri (1.18.10-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.10-aarch64-linux-musl)
@@ -329,6 +333,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)
+  rolemodel-rails (> 0.20)!
   rubocop-rails-omakase
   selenium-webdriver
   sprockets-rails
@@ -338,4 +343,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.7.2
+  4.0.5
