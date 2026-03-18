@@ -13,6 +13,7 @@ class BuilderClass < Rails::AppBuilder
     invoke Rails::Generators::AppGenerator, [ File.expand_path(dummy_path) ], {
       dummy_app: true,
       force: true,
+      database: 'postgresql',
       javascript: 'webpack',
       skip_bootsnap: true,
       skip_brakeman: true,
