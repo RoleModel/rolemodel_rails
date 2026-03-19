@@ -28,9 +28,7 @@ rails db:create
 Add this line to your application's Gemfile:
 
 ```ruby
-group :development do
-  gem 'rolemodel-rails', github: 'RoleModel/rolemodel_rails'
-end
+gem 'rolemodel-rails', group: :development
 ```
 
 And then execute:
@@ -143,6 +141,19 @@ e.g.
 ```ruby
 RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
   before { run_generator_against_test_app(['--github-package-token=123']) }
+end
+```
+
+If the generator you're testing depends on being run after another generator, you should run that one first.
+
+e.g.
+
+```ruby
+RSpec.describe Rolemodel::MyGenerator, type: :generator do
+  before do
+    run_generator_against_test_app(generator: ::Rolemodel::PrereqGenerator)
+    run_generator_against_test_app
+  end
 end
 ```
 
