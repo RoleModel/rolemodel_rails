@@ -113,7 +113,7 @@ e.g.
 bin/new_generator testing/fantasitic_specs 'A Fantastic Testing Framework'
 ```
 
-We use the embeded Rails apps (`example_rails*`) to test generators against. They reference the rolemodel-rails gem by local path,
+We use the embeded Rails apps (`example_rails_current` & `example_rails_legacy`) to test generators against. They reference the rolemodel-rails gem by local path,
 so you can navigate into one of them and run your generator for immediate feedback while developing.
 
 > [!IMPORTANT]

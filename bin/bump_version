@@ -29,7 +29,7 @@ class VersionBumper < Thor::Group
   end
 
   def update_current_example_app
-    Rake::FileList.new('example_rails*').each do |example_path|
+    Rake::FileList.new('example_rails_*').each do |example_path|
       inside(example_path) do
         run_clean_bundle_install
       end

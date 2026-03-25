@@ -54,4 +54,4 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "rolemodel-rails", "> 0.20", group: :development, path: ".."
+gem "rolemodel-rails", ">= 1.0", group: :development, path: ".."

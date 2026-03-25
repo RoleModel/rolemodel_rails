@@ -3,7 +3,6 @@
 RAILS_VERSION = ARGV[0] || '8.1.2'
 
 require_relative 'dummy_app_builder'
-RAILS_MAJOR_VERSION_NUMBER = Gem::Version.new(RAILS_VERSION).segments.first
 
 class RecreateCurrentExample < Rails::Generators::AppBase
   source_root File.expand_path('templates', __dir__)
@@ -18,10 +17,10 @@ class RecreateCurrentExample < Rails::Generators::AppBase
 private
 
   def dummy_path
-    @dummy_path ||= "./example_rails#{RAILS_MAJOR_VERSION_NUMBER}"
+    @dummy_path ||= "./example_rails_current"
   end
 
   def get_builder_class = BuilderClass
 end
 
-RecreateCurrentExample.start(["--app-path=example_rails#{RAILS_MAJOR_VERSION_NUMBER}"])
+RecreateCurrentExample.start(["--app-path=example_rails_current"])

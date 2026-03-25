@@ -2,7 +2,7 @@
 
 module ExampleApp
   # Always test against the most recent example app
-  TEMPLATE_APP_PATH = File.expand_path Dir.glob('./example_rails?').max
+  TEMPLATE_APP_PATH = File.expand_path('./example_rails_current')
 
   def prepare_test_app
     self.destination_root ||= File.expand_path('spec/tmp')
