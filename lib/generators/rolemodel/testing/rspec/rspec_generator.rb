@@ -15,7 +15,6 @@ module Rolemodel
           gem 'capybara-playwright-driver'
           gem 'marsh_grass'
           gem 'pry'
-          gem 'webdrivers'
         end
         run_bundle
       end
