@@ -47,5 +47,3 @@ Capybara.server = :puma, { Silent: true }
 
 # try to remove any potential for parallel tests to conflict
 Capybara.threadsafe = true
-
-Webdrivers.cache_time = 24.hours.to_i
