@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
-require 'rolemodel_rails/version'
+require 'rolemodel/version'
 require 'rake/file_list'
 require 'thor'
 
@@ -17,7 +17,7 @@ class VersionBumper < Thor::Group
   source_root File.expand_path('../', __FILE__)
 
   def bump_version
-    gsub_file 'lib/rolemodel_rails/version.rb', /^  VERSION = .*/, "  VERSION = '#{new_version_string}'"
+    gsub_file 'lib/rolemodel/version.rb', /^  VERSION = .*/, "  VERSION = '#{new_version_string}'"
   end
 
   def update_lockfile
@@ -25,11 +25,11 @@ class VersionBumper < Thor::Group
   end
 
   def build_gem
-    run 'gem build rolemodel_rails.gemspec'
+    run 'gem build rolemodel-rails.gemspec'
   end
 
   def update_current_example_app
-    Rake::FileList.new('example_rails*').each do |example_path|
+    Rake::FileList.new('example_rails_*').each do |example_path|
       inside(example_path) do
         run_clean_bundle_install
       end
@@ -54,9 +54,9 @@ class VersionBumper < Thor::Group
   def current_version
     Gem::Version.new(
       if options.patch?
-        RolemodelRails::VERSION + '.0'
+        Rolemodel::VERSION + '.0'
       else
-        options[:version] || RolemodelRails::VERSION
+        options[:version] || Rolemodel::VERSION
       end
     )
   end

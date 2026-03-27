@@ -1,9 +1,9 @@
-name: "CI"
+name: CI
 on:
   push:
-    branches: ["master"]
+    branches: [ master ]
   pull_request:
-    branches: ["master"]
+    branches: [ master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -12,26 +12,18 @@ concurrency:
 jobs:
   run_specs:
     name: Rspec
-    runs-on: ubuntu-latest
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     timeout-minutes: 10
     env:
       CI: true
       RAILS_ENV: test
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Run specs
-        run: bundle exec rspec --format documentation --format RspecJunitFormatter --out tmp/rspec.xml
-
-      - name: Publish Rspec Test Results
-        uses: mikepenz/action-junit-report@v4
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with: { bundler-cache: true }
+      - run: bundle exec rspec --format documentation --format RspecJunitFormatter --out tmp/rspec.xml
+      - uses: mikepenz/action-junit-report@v6
         if: success() || failure()
         with:
           check_name: Rspec Test Results
