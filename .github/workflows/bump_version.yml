@@ -1,4 +1,4 @@
-name: Bump Version & Publish a Github Release
+name: Bump Version & Publish a GitHub Release
 
 on:
   workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
         id: bump_version
         run: |
           set -euo pipefail
-          bin/bump_version ${{ github.event.inputs.bump-type }}
+          bin/bump_version ${{ github.event.inputs['bump-type'] }}
 
           version="$(ruby -e "require './lib/rolemodel/version'; puts Rolemodel::VERSION")"
           tag_name="v${version}"
@@ -36,7 +36,6 @@ jobs:
 
           git add .
           git commit -m "${tag_name}"
+          git tag "${tag_name}"
 
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-
-          echo "tag_name=${tag_name}" >> "$GITHUB_OUTPUT"
+          git push origin "HEAD:${GITHUB_REF_NAME}" --follow-tags
