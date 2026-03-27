@@ -12,7 +12,10 @@ What changed in this PR?
 ## Pre-merge checklist
 
 * [ ] Update relevant READMEs
-* [ ] Run `bin/bump_version` or `bin/bump_version --patch`
+
+## Notes
+
+Please don't commit version changes within your PR.  Versioning is managed through the Github Workflow.
 
 ## Screenshots
 

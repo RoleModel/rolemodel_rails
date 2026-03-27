@@ -1,20 +1,26 @@
-name: Publish gem to rubygems.org
+name: Create GitHub Release & Publish gem to rubygems.org
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
 
 permissions:
-  contents: read
+  contents: write
+  id-token: write
 
 jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub release
+        run: |
+          tag_name="$(git describe --tags --abbrev=0)"
+          gh release create "${tag_name}" --verify-tag --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   push:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      id-token: write
-
     steps:
       - uses: actions/checkout@v6
         with: { persist-credentials: false }
