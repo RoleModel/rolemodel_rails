@@ -15,7 +15,7 @@ What changed in this PR?
 
 ## Notes
 
-Please don't commit version changes within your PR.  Versioning is managed through the Github Workflow.
+Please don't commit version changes within your PR.  Versioning is managed through the GitHub Workflow.
 
 ## Screenshots
 
