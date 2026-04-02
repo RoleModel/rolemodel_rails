@@ -1,0 +1,13 @@
+- content_for :page_title do
+  = 'Almanac - Error Authorizing Application'
+
+main.doorkeeper role="main"
+  .doorkeeper__card.card.card--padded.card--shadow-medium
+    .doorkeeper__brand
+      = image_tag 'rolemodel-logo.svg', alt: 'RoleModel', class: 'doorkeeper__logo'
+      h1.doorkeeper__title= t('doorkeeper.authorizations.error.title')
+
+    .doorkeeper__error.alert.alert--danger role="alert"
+      .alert__messages
+        p.doorkeeper__error-description.alert__description
+          = (local_assigns[:error_response] ? error_response : @pre_auth.error_response).body[:error_description]
