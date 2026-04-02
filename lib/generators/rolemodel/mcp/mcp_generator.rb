@@ -24,8 +24,8 @@ module Rolemodel
       copy_file 'app/controllers/doorkeeper/base_controller.rb'
 
       copy_file 'app/views/layouts/doorkeeper.html.slim'
-      copy_file 'app/views/doorkeeper/authorizations/new.html.slim'
-      copy_file 'app/views/doorkeeper/authorizations/error.html.slim'
+      template 'app/views/doorkeeper/authorizations/new.html.slim'
+      template 'app/views/doorkeeper/authorizations/error.html.slim'
 
       copy_file 'app/assets/stylesheets/components/doorkeeper.css'
 

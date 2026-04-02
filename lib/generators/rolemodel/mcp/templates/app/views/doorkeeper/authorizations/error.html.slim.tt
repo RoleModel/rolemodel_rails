@@ -1,10 +1,10 @@
 - content_for :page_title do
-  = 'Almanac - Error Authorizing Application'
+  = '<%= application_name.titleize %> - Error Authorizing Application'
 
 main.doorkeeper role="main"
   .doorkeeper__card.card.card--padded.card--shadow-medium
     .doorkeeper__brand
-      = image_tag 'rolemodel-logo.svg', alt: 'RoleModel', class: 'doorkeeper__logo'
+      = image_tag 'logo.svg', alt: '<%= application_name.titleize %>', class: 'doorkeeper__logo'
       h1.doorkeeper__title= t('doorkeeper.authorizations.error.title')
 
     .doorkeeper__error.alert.alert--danger role="alert"

@@ -26,8 +26,12 @@ RSpec.describe Rolemodel::MCPGenerator, type: :generator do
     assert_file 'config/initializers/doorkeeper.rb'
     assert_file 'config/locales/doorkeeper.en.yml'
     assert_file 'app/views/layouts/doorkeeper.html.slim'
-    assert_file 'app/views/doorkeeper/authorizations/new.html.slim'
-    assert_file 'app/views/doorkeeper/authorizations/error.html.slim'
+    assert_file 'app/views/doorkeeper/authorizations/new.html.slim' do |content|
+      expect(content).to include('Example Rails Current - Authorize Application')
+    end
+    assert_file 'app/views/doorkeeper/authorizations/error.html.slim' do |content|
+      expect(content).to include('Example Rails Current - Error Authorizing Application')
+    end
     assert_file 'app/controllers/doorkeeper/base_controller.rb'
     assert_file 'app/assets/stylesheets/components/doorkeeper.css'
 
