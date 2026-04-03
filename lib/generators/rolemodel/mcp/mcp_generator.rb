@@ -6,7 +6,7 @@ module Rolemodel
 
     def install_mcp
       bundle_command 'add mcp'
-      template 'app/controllers/mcp_controller.rb.tt'
+      template 'app/controllers/mcp_controller.rb'
       copy_file 'spec/requests/mcp_controller_spec.rb'
 
       route <<~RUBY
@@ -16,6 +16,7 @@ module Rolemodel
 
     def add_sample_mcp_resource
       copy_file 'app/mcp/resources/docs/SAMPLE_DOC.md'
+      copy_file 'app/mcp/resources/handlers/handler.rb'
       copy_file 'app/mcp/resources/handlers/docs.rb'
     end
 
@@ -37,8 +38,8 @@ module Rolemodel
       copy_file 'app/controllers/doorkeeper/base_controller.rb'
 
       copy_file 'app/views/layouts/doorkeeper.html.slim'
-      template 'app/views/doorkeeper/authorizations/new.html.slim.tt'
-      template 'app/views/doorkeeper/authorizations/error.html.slim.tt'
+      template 'app/views/doorkeeper/authorizations/new.html.slim'
+      template 'app/views/doorkeeper/authorizations/error.html.slim'
 
       copy_file 'app/assets/stylesheets/components/doorkeeper.css'
 
