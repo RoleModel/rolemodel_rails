@@ -51,42 +51,36 @@ class MCPController < ApplicationController
     server
   end
 
-  # def handle_resources(server) # rubocop:disable Metrics/MethodLength
-  #   handlers = [
-  #     Resources::Handlers::Database,
-  #     Resources::Handlers::Docs,
-  #     Resources::Handlers::BlazerQuery,
-  #     Resources::Handlers::BlazerDocs,
-  #   ]
+  def handle_resources(server) # rubocop:disable Metrics/MethodLength
+    handlers = [
+      Resources::Handlers::Docs
+    ]
 
-  #   server.resources_read_handler do |params|
-  #     uri = params[:uri].to_s
-  #     handler = handlers.find { |h| h.handles?(uri) }
+    server.resources_read_handler do |params|
+      uri = params[:uri].to_s
+      handler = handlers.find { |h| h.handles?(uri) }
 
-  #     unless handler
-  #       raise MCP::Server::RequestHandlerError.new(
-  #         "Unable to serve resource for URI: #{uri}. Supported schemas: #{handlers.map(&:schema).join(', ')}",
-  #         params,
-  #         error_type: :invalid_params
-  #       )
-  #     end
+      unless handler
+        raise MCP::Server::RequestHandlerError.new(
+          "Unable to serve resource for URI: #{uri}. Supported schemas: #{handlers.map(&:schema).join(', ')}",
+          params,
+          error_type: :invalid_params
+        )
+      end
 
-  #     handler.call(params, server_context)
-  #   end
-  # end
+      handler.call(params, server_context)
+    end
+  end
 
   def mcp_server_config # rubocop:disable Metrics/MethodLength
     {
       name: '<%= application_name.underscore %>_mcp',
       version: '1.0.0',
-      tools: [],
-      prompts: [],
+      tools: [Tools::Sample],
+      prompts: [Prompts::Sample],
       server_context:,
       resources: [
-        # *Resources::Handlers::Database.resource_list,
-        # *Resources::Handlers::Docs.resource_list,
-        # *Resources::Handlers::BlazerQuery.resource_list(server_context[:current_user]),
-        # *Resources::Handlers::BlazerDocs.resource_list,
+        *Resources::Handlers::Docs.resource_list,
       ],
     }
   end

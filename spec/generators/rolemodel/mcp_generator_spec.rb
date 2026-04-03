@@ -19,6 +19,13 @@ RSpec.describe Rolemodel::MCPGenerator, type: :generator do
     end
   end
 
+  it 'adds sample MCP resource, tool, and prompt' do
+    assert_file 'app/mcp/resources/docs/SAMPLE_DOC.md'
+    assert_file 'app/mcp/resources/handlers/docs.rb'
+    assert_file 'app/mcp/prompts/sample.rb'
+    assert_file 'app/mcp/tools/sample.rb'
+  end
+
   it 'adds doorkeeper' do
     assert_file 'Gemfile' do |content|
       expect(content).to include('gem "doorkeeper"')
