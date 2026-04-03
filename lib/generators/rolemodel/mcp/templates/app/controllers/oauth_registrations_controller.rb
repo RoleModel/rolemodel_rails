@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OauthRegistrationsController < ApplicationController
-  skip_before_action :authenticate_oauth, raise: false
+  skip_before_action :authenticate_user!
   skip_forgery_protection
 
   def create
