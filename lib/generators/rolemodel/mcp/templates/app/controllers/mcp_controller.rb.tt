@@ -1,0 +1,91 @@
+# frozen_string_literal: true
+
+class MCPController < ApplicationController
+  # skip_before_action :authenticate_user!
+  skip_forgery_protection
+
+  before_action :authorize_mcp
+  before_action :set_current_user
+
+  def handle
+    server = build_server
+    transport = MCP::Server::Transports::StreamableHTTPTransport.new(server, stateless: true)
+    server.transport = transport
+
+    status, response_headers, body = transport.handle_request(request)
+    respond_with(status, response_headers, body)
+  end
+
+  private
+
+  def respond_with(status, headers, body)
+    headers.each { |key, value| response.set_header(key, value) }
+    response.status = status
+    self.response_body = body
+  end
+
+  def authorize_mcp
+    doorkeeper_authorize! :mcp
+    set_mcp_resource_metadata_header if response.status == 401
+  end
+
+  def set_current_user
+    @current_user = User.find_by(id: doorkeeper_token&.resource_owner_id)
+    unauthorized_request if @current_user.blank?
+  end
+
+  def unauthorized_request
+    set_mcp_resource_metadata_header
+    render json: { error: 'Unauthorized' }, status: :unauthorized
+  end
+
+  def set_mcp_resource_metadata_header
+    metadata = %(resource_metadata="#{request.base_url}/.well-known/oauth-protected-resource")
+    response.set_header('WWW-Authenticate', %(Bearer realm="<%= application_name.titleize %>", #{metadata}))
+  end
+
+  def build_server
+    server = MCP::Server.new(**mcp_server_config)
+    handle_resources(server)
+
+    server
+  end
+
+  def handle_resources(server) # rubocop:disable Metrics/MethodLength
+    controllers = [
+      Resources::DocsController
+    ]
+
+    server.resources_read_handler do |params|
+      uri = params[:uri].to_s
+      controller = controllers.find { |h| h.serves?(uri) }
+
+      unless controller
+        raise MCP::Server::RequestHandlerError.new(
+          "Unable to serve resource for URI: #{uri}. Supported schemas: #{controllers.map(&:schema).join(', ')}",
+          params,
+          error_type: :invalid_params
+        )
+      end
+
+      controller.call(params, server_context)
+    end
+  end
+
+  def mcp_server_config # rubocop:disable Metrics/MethodLength
+    {
+      name: '<%= application_name.underscore %>_mcp',
+      version: '1.0.0',
+      tools: [Tools::Sample],
+      prompts: [Prompts::Sample],
+      server_context:,
+      resources: [
+        *Resources::DocsController.resource_list,
+      ],
+    }
+  end
+
+  def server_context
+    @server_context ||= { current_user: @current_user }
+  end
+end

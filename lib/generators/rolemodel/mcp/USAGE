@@ -1,0 +1,8 @@
+Description:
+    Sets up RoleModel MCP support and any required application wiring for the MCP endpoint.
+
+Example:
+    rails generate rolemodel:mcp
+
+    This generator adds the files and route updates needed to enable RoleModel MCP
+    in your Rails application.

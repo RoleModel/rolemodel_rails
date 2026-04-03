@@ -12,6 +12,8 @@ gem 'propshaft'
 gem 'puma'
 gem 'stimulus-rails'
 gem 'turbo-rails'
+gem 'doorkeeper'
+gem 'mcp'
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 gem 'debug', '>= 1.0.0'

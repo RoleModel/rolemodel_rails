@@ -1,0 +1,41 @@
+- content_for :page_title do
+  = '<%= application_name.titleize %> - Authorize Application'
+
+main.doorkeeper role="main"
+  .doorkeeper__card.card.card--padded.card--shadow-medium
+    .doorkeeper__brand
+      = image_tag 'logo.svg', alt: '<%= application_name.titleize %>', class: 'doorkeeper__logo'
+      h1.doorkeeper__title= t('.title')
+
+    p.doorkeeper__prompt
+      == t('.prompt', client_name: content_tag(:strong, @pre_auth.client.name, class: 'doorkeeper__client-name'))
+
+    - if @pre_auth.scopes.count > 0
+      #oauth-permissions.doorkeeper__permissions
+        p.doorkeeper__permissions-label= t('.able_to') + ":"
+        ul.doorkeeper__scope-list
+          - @pre_auth.scopes.each do |scope|
+            li.doorkeeper__scope-item= t scope, scope: [:doorkeeper, :scopes]
+
+    .doorkeeper__actions
+      = form_tag oauth_authorization_path, method: :post, class: 'doorkeeper__form', data: { turbo: false } do
+        = hidden_field_tag :client_id, @pre_auth.client.uid, id: nil
+        = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri, id: nil
+        = hidden_field_tag :state, @pre_auth.state, id: nil
+        = hidden_field_tag :response_type, @pre_auth.response_type, id: nil
+        = hidden_field_tag :response_mode, @pre_auth.response_mode, id: nil
+        = hidden_field_tag :scope, @pre_auth.scope, id: nil
+        = hidden_field_tag :code_challenge, @pre_auth.code_challenge, id: nil
+        = hidden_field_tag :code_challenge_method, @pre_auth.code_challenge_method, id: nil
+        = submit_tag t('doorkeeper.authorizations.buttons.authorize'), class: 'btn btn--primary doorkeeper__button'
+
+      = form_tag oauth_authorization_path, method: :delete, class: 'doorkeeper__form' do
+        = hidden_field_tag :client_id, @pre_auth.client.uid, id: nil
+        = hidden_field_tag :redirect_uri, @pre_auth.redirect_uri, id: nil
+        = hidden_field_tag :state, @pre_auth.state, id: nil
+        = hidden_field_tag :response_type, @pre_auth.response_type, id: nil
+        = hidden_field_tag :response_mode, @pre_auth.response_mode, id: nil
+        = hidden_field_tag :scope, @pre_auth.scope, id: nil
+        = hidden_field_tag :code_challenge, @pre_auth.code_challenge, id: nil
+        = hidden_field_tag :code_challenge_method, @pre_auth.code_challenge_method, id: nil
+        = submit_tag t('doorkeeper.authorizations.buttons.deny'), class: 'btn btn--destructive doorkeeper__button'
