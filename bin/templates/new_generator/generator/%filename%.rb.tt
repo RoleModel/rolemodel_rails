@@ -1,0 +1,9 @@
+<% wrap_in_modules do %>
+class <%= class_name %> < ::Rolemodel::BaseGenerator
+  source_root File.expand_path('templates', __dir__)
+
+  def generate_stuff
+    say 'generating stuff', :green
+  end
+end
+<% end %>

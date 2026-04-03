@@ -5,7 +5,7 @@ RAILS_VERSION = '8.1.3'
 require_relative 'dummy_app_builder'
 
 class RecreateCurrentExample < Rails::Generators::AppBase
-  source_root File.expand_path('templates', __dir__)
+  source_root File.expand_path('templates/dummy_app', __dir__)
 
   def recreate_example
     shell.mute do
@@ -16,11 +16,7 @@ class RecreateCurrentExample < Rails::Generators::AppBase
 
 private
 
-  def dummy_path
-    @dummy_path ||= "./example_rails_current"
-  end
-
   def get_builder_class = BuilderClass
 end
 
-RecreateCurrentExample.start(["--app-path=example_rails_current"])
+RecreateCurrentExample.start(["example_rails_current"])

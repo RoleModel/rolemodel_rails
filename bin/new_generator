@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'thor'
-require 'active_support/core_ext/string/inflections'
+require 'active_support'
+require 'active_support/core_ext'
 
 class NewGenerator < Thor::Group
   include Thor::Actions
@@ -16,18 +17,24 @@ class NewGenerator < Thor::Group
     directory 'generator_spec', "spec/generators/rolemodel/#{module_name.underscore}"
   end
 
-  def bump_version_number
-    in_root do
-      run 'bin/bump_version'
-    end
-  end
-
 private
 
   def module_name = name.camelize.deconstantize
   def class_name = name.camelize.demodulize + 'Generator'
   def filename = class_name.underscore
   def command_name = ['rolemodel', *name.split('/').map(&:underscore)].join(':')
+
+  def modules
+    @modules ||= name.camelize.split("::")[0...-1].push('Rolemodel')
+  end
+
+  def wrap_in_modules(&)
+    modules.reverse.each_with_index do |mod, index|
+      concat "#{'  ' * index}module #{mod}\n"
+    end
+    (capture(&).strip + "\n").each_line { concat '  ' * modules.size + it }
+    modules.size.times.reverse_each { concat '  ' * it + "end\n" }
+  end
 
   class << self
     def banner
@@ -40,7 +47,7 @@ private
     end
 
     def desc = 'New Generator Scaffold'
-    def source_root = File.expand_path('lib/generators/templates')
+    def source_root = File.expand_path('templates/new_generator', __dir__)
   end
 end
 
