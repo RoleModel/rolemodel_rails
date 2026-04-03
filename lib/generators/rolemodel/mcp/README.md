@@ -6,7 +6,7 @@ Install boilerplate for your very own MCP server.
 
 ### Doorkeeper
 
-Oauth 2.1-enabled flow with dynamic application registration.
+OAuth 2.1-enabled flow with dynamic application registration.
 
 ### MCP
 
