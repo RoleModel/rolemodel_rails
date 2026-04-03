@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class WellKnownController < ApplicationController
-  skip_before_action :authenticate_user!
+  # skip_before_action :authenticate_user!
   before_action :set_base_url
 
   def oauth_protected_resource
