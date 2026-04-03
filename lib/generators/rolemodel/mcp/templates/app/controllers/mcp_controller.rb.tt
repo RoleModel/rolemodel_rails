@@ -52,23 +52,23 @@ class MCPController < ApplicationController
   end
 
   def handle_resources(server) # rubocop:disable Metrics/MethodLength
-    handlers = [
-      Resources::Handlers::Docs
+    controllers = [
+      Resources::DocsController
     ]
 
     server.resources_read_handler do |params|
       uri = params[:uri].to_s
-      handler = handlers.find { |h| h.handles?(uri) }
+      controller = controllers.find { |h| h.serves?(uri) }
 
-      unless handler
+      unless controller
         raise MCP::Server::RequestHandlerError.new(
-          "Unable to serve resource for URI: #{uri}. Supported schemas: #{handlers.map(&:schema).join(', ')}",
+          "Unable to serve resource for URI: #{uri}. Supported schemas: #{controllers.map(&:schema).join(', ')}",
           params,
           error_type: :invalid_params
         )
       end
 
-      handler.call(params, server_context)
+      controller.call(params, server_context)
     end
   end
 
@@ -80,7 +80,7 @@ class MCPController < ApplicationController
       prompts: [Prompts::Sample],
       server_context:,
       resources: [
-        *Resources::Handlers::Docs.resource_list,
+        *Resources::DocsController.resource_list,
       ],
     }
   end

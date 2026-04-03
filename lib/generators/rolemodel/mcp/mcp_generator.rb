@@ -5,7 +5,6 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def update_inflections
-      STDERR.puts "Adding 'MCP' acronym to inflections..." # rubocop:disable Rails/I18nLocaleTexts
       inflections_path = File.join(destination_root, 'config/initializers/inflections.rb')
       block_start = "\nActiveSupport::Inflector.inflections(:en) do |inflect|\n"
 
@@ -24,7 +23,6 @@ module Rolemodel
     end
 
     def install_mcp
-      STDERR.puts "Adding 'mcp' gem to Gemfile..." # rubocop:disable Rails/I18nLocaleTexts
       bundle_command 'add mcp'
       template 'app/controllers/mcp_controller.rb'
       copy_file 'spec/requests/mcp_controller_spec.rb'
@@ -35,34 +33,30 @@ module Rolemodel
     end
 
     def add_sample_mcp_resource
-      STDERR.puts "Adding sample MCP resource, prompt, and tool..." # rubocop:disable Rails/I18nLocaleTexts
+      copy_file 'app/mcp/resources/controller.rb'
+      copy_file 'spec/mcp/resources/controller_spec.rb'
+
       copy_file 'app/mcp/resources/docs/SAMPLE_DOC.md'
-      copy_file 'app/mcp/resources/handlers/handler.rb'
-      copy_file 'app/mcp/resources/handlers/docs.rb'
+      copy_file 'app/mcp/resources/docs_controller.rb'
+      copy_file 'spec/mcp/resources/docs_controller_spec.rb'
     end
 
     def add_sample_mcp_prompt
-      STDERR.puts "Adding sample MCP prompt..." # rubocop:disable Rails/I18nLocaleTexts
       copy_file 'app/mcp/prompts/sample.rb'
+      copy_file 'spec/mcp/prompts/sample_spec.rb'
     end
 
     def add_sample_mcp_tool
-      STDERR.puts "Adding sample MCP tool..." # rubocop:disable Rails/I18nLocaleTexts
       copy_file 'app/mcp/tools/sample.rb'
+      copy_file 'spec/mcp/tools/sample_spec.rb'
     end
 
     def install_doorkeeper
-      STDERR.puts "Adding 'doorkeeper' gem..." # rubocop:disable Rails/I18nLocaleTexts
-      STDERR.puts File.read(File.join(destination_root, 'Gemfile')) # rubocop:disable Rails/I18nLocaleTexts
-      STDERR.puts File.read(File.join(destination_root, 'Gemfile.lock')) # rubocop:disable Rails/I18nLocaleTexts
       bundle_command 'add doorkeeper'
-      STDERR.puts "Installing 'doorkeeper'..." # rubocop:disable Rails/I18nLocaleTexts
       generate 'doorkeeper:install'
-      STDERR.puts "Installed 'doorkeeper'." # rubocop:disable Rails/I18nLocaleTexts
     end
 
     def configure_doorkeeper
-      STDERR.puts "Configuring Doorkeeper routes, views, and styles..." # rubocop:disable Rails/I18nLocaleTexts
       copy_file 'config/initializers/doorkeeper.rb', force: true
       copy_file 'app/controllers/doorkeeper/base_controller.rb'
 
@@ -76,7 +70,6 @@ module Rolemodel
     end
 
     def apply_doorkeeper_css
-      STDERR.puts "Applying Doorkeeper CSS to application stylesheet..." # rubocop:disable Rails/I18nLocaleTexts
       css_manifest = if File.exist?(File.join(destination_root, 'app/assets/stylesheets/application.scss'))
         'app/assets/stylesheets/application.scss'
       else
@@ -91,7 +84,6 @@ module Rolemodel
     end
 
     def add_oauth_dynamic_registrations
-      STDERR.puts "Adding OAuth dynamic registration controller and route..." # rubocop:disable Rails/I18nLocaleTexts
       copy_file 'app/controllers/oauth_registrations_controller.rb'
       copy_file 'spec/requests/oauth_registrations_controller_spec.rb'
       route <<~RUBY
@@ -100,7 +92,6 @@ module Rolemodel
     end
 
     def add_well_known_route
-      STDERR.puts "Adding .well-known routes and controller..." # rubocop:disable Rails/I18nLocaleTexts
       copy_file 'app/controllers/well_known_controller.rb'
       copy_file 'spec/requests/well_known_controller_spec.rb'
       route <<~RUBY

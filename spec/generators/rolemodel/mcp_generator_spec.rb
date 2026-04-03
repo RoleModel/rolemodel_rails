@@ -21,10 +21,14 @@ RSpec.describe Rolemodel::MCPGenerator, type: :generator do
 
   it 'adds sample MCP resource, tool, and prompt' do
     assert_file 'app/mcp/resources/docs/SAMPLE_DOC.md'
-    assert_file 'app/mcp/resources/handlers/handler.rb'
-    assert_file 'app/mcp/resources/handlers/docs.rb'
+    assert_file 'app/mcp/resources/controller.rb'
+    assert_file 'spec/mcp/resources/controller_spec.rb'
+    assert_file 'app/mcp/resources/docs_controller.rb'
+    assert_file 'spec/mcp/resources/docs_controller_spec.rb'
     assert_file 'app/mcp/prompts/sample.rb'
+    assert_file 'spec/mcp/prompts/sample_spec.rb'
     assert_file 'app/mcp/tools/sample.rb'
+    assert_file 'spec/mcp/tools/sample_spec.rb'
   end
 
   it 'adds doorkeeper' do
