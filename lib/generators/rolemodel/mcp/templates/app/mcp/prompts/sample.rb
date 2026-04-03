@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
 module Prompts
-  class SamplePrompt < MCP::Prompt
+  class SamplePrompt < ::MCP::Prompt
     prompt_name 'sample_prompt'
     title 'Sample Prompt'
     description 'Sample prompt description'
 
     class << self
       def template(_args, _server_context: nil)
-        MCP::Prompt::Result.new(
+        ::MCP::Prompt::Result.new(
           description: 'Sample prompt result description',
           messages: [
-            MCP::Prompt::Message.new(
+            ::MCP::Prompt::Message.new(
               role: 'assistant',
-              content: MCP::Content::Text.new(instructions_text),
+              content: ::MCP::Content::Text.new(instructions_text),
             ),
           ],
         )

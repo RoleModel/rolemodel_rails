@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Tools
-  class Sample < MCP::Tool
+  class Sample < ::MCP::Tool
     tool_name 'sample_tool'
     title 'Sample Tool'
     description 'Sample tool description'
@@ -23,7 +23,7 @@ module Tools
       def call(name:, server_context:)
         payload = payload_for(name)
 
-        MCP::Tool::Response.new(
+        ::MCP::Tool::Response.new(
           [{ type: 'text', text: payload.to_json }],
           structured_content: { sample: payload },
         )

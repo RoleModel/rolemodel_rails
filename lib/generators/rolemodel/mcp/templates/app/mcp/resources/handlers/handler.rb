@@ -30,7 +30,7 @@ module Resources
           handler = new(params[:uri].sub(schema, ''), server_context)
 
           unless handler.valid?
-            raise MCP::Server::RequestHandlerError.new(
+            raise ::MCP::Server::RequestHandlerError.new(
               handler.errors.full_messages.join(', '),
               params,
               error_type: :invalid_params

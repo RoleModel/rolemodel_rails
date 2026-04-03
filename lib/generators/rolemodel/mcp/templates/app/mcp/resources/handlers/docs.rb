@@ -22,7 +22,7 @@ module Resources
 
       def self.resource_list
         [
-          MCP::Resource.new(
+          ::MCP::Resource.new(
             uri: 'docs://SAMPLE_DOC.md',
             name: 'sample_doc',
             title: 'Sample Resource',
