@@ -4,6 +4,10 @@ module Rolemodel
   class MCPGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
+    def install_mcp
+      bundle_command 'add mcp'
+    end
+
     def update_inflections
       inflections_path = File.join(destination_root, 'config/initializers/inflections.rb')
       block_start = "\nActiveSupport::Inflector.inflections(:en) do |inflect|\n"
@@ -22,8 +26,7 @@ module Rolemodel
       end
     end
 
-    def install_mcp
-      bundle_command 'add mcp'
+    def add_mcp_controller
       template 'app/controllers/mcp_controller.rb'
       copy_file 'spec/requests/mcp_controller_spec.rb'
 
