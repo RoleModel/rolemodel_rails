@@ -53,6 +53,8 @@ module Rolemodel
 
     def install_doorkeeper
       STDERR.puts "Adding 'doorkeeper' gem..." # rubocop:disable Rails/I18nLocaleTexts
+      STDERR.puts File.read(File.join(destination_root, 'Gemfile')) # rubocop:disable Rails/I18nLocaleTexts
+      STDERR.puts File.read(File.join(destination_root, 'Gemfile.lock')) # rubocop:disable Rails/I18nLocaleTexts
       bundle_command 'add doorkeeper'
       STDERR.puts "Installing 'doorkeeper'..." # rubocop:disable Rails/I18nLocaleTexts
       generate 'doorkeeper:install'
