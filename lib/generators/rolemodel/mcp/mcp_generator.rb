@@ -4,6 +4,24 @@ module Rolemodel
   class MCPGenerator < BaseGenerator
     source_root File.expand_path('templates', __dir__)
 
+    def update_inflections
+      inflections_path = File.join(destination_root, 'config/initializers/inflections.rb')
+      block_start = "\nActiveSupport::Inflector.inflections(:en) do |inflect|\n"
+
+      return if File.read(inflections_path).include?("inflect.acronym 'MCP'")
+
+      if File.read(inflections_path).include?(block_start)
+        inject_into_file inflections_path, "  inflect.acronym 'MCP'\n", after: block_start
+      else
+        append_to_file inflections_path, <<~RUBY
+
+          ActiveSupport::Inflector.inflections(:en) do |inflect|
+            inflect.acronym 'MCP'
+          end
+        RUBY
+      end
+    end
+
     def install_mcp
       bundle_command 'add mcp'
       template 'app/controllers/mcp_controller.rb'
@@ -75,24 +93,6 @@ module Rolemodel
         get '/.well-known/oauth-protected-resource', to: 'well_known#oauth_protected_resource'
         get '/.well-known/oauth-authorization-server', to: 'well_known#oauth_authorization_server'
       RUBY
-    end
-
-    def update_inflections
-      inflections_path = File.join(destination_root, 'config/initializers/inflections.rb')
-      block_start = "\nActiveSupport::Inflector.inflections(:en) do |inflect|\n"
-
-      return if File.read(inflections_path).include?("inflect.acronym 'MCP'")
-
-      if File.read(inflections_path).include?(block_start)
-        inject_into_file inflections_path, "  inflect.acronym 'MCP'\n", after: block_start
-      else
-        append_to_file inflections_path, <<~RUBY
-
-          ActiveSupport::Inflector.inflections(:en) do |inflect|
-            inflect.acronym 'MCP'
-          end
-        RUBY
-      end
     end
 
     private
