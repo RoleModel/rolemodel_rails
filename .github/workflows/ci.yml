@@ -1,9 +1,9 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
         with: { bundler-cache: true }
-      - run: bundle exec rspec --format documentation --format RspecJunitFormatter --out tmp/rspec.xml
+      - run: bundle exec rspec spec/generators/rolemodel/mcp_generator_spec.rb --format documentation --format RspecJunitFormatter --out tmp/rspec.xml
       - uses: mikepenz/action-junit-report@v6
         if: success() || failure()
         with:

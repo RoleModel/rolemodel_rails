@@ -52,9 +52,11 @@ module Rolemodel
     end
 
     def install_doorkeeper
-      STDERR.puts "Adding 'doorkeeper' gem and installing..." # rubocop:disable Rails/I18nLocaleTexts
+      STDERR.puts "Adding 'doorkeeper' gem..." # rubocop:disable Rails/I18nLocaleTexts
       bundle_command 'add doorkeeper'
+      STDERR.puts "Installing 'doorkeeper'..." # rubocop:disable Rails/I18nLocaleTexts
       generate 'doorkeeper:install'
+      STDERR.puts "Installed 'doorkeeper'." # rubocop:disable Rails/I18nLocaleTexts
     end
 
     def configure_doorkeeper
