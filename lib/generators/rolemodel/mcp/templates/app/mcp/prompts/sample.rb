@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Prompts
-  class SamplePrompt < ::MCP::Prompt
+  class Sample < ::MCP::Prompt
     prompt_name 'sample_prompt'
     title 'Sample Prompt'
     description 'Sample prompt description'
