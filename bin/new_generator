@@ -25,11 +25,11 @@ private
   def command_name = ['rolemodel', *name.split('/').map(&:underscore)].join(':')
 
   def modules
-    @modules ||= name.camelize.split("::")[0...-1].push('Rolemodel')
+    @modules ||= name.camelize.split("::")[0...-1].unshift('Rolemodel')
   end
 
   def wrap_in_modules(&)
-    modules.reverse.each_with_index do |mod, index|
+    modules.each_with_index do |mod, index|
       concat "#{'  ' * index}module #{mod}\n"
     end
     (capture(&).strip + "\n").each_line { concat '  ' * modules.size + it }
