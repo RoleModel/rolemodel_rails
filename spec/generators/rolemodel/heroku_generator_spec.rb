@@ -3,7 +3,7 @@ RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
 
   it 'generates app.json' do
     assert_file 'app.json' do |content|
-      expect(content).to include('"name": ""') # erb replacement is happening, though application name is nil
+      expect(content).to include('"name": "ExampleRailsCurrent"')
     end
   end
 

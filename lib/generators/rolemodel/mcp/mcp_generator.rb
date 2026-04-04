@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class MCPGenerator < GeneratorBase
+  class McpGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     def update_inflections
@@ -53,6 +53,7 @@ module Rolemodel
 
     def install_doorkeeper
       bundle_command 'add doorkeeper'
+      run_bundle
       generate 'doorkeeper:install'
     end
 
@@ -103,7 +104,7 @@ module Rolemodel
     private
 
     def application_name
-      Rails.application.class.try(:parent_name) || Rails.application.class.module_parent_name
+      Rails.application.name
     end
   end
 end

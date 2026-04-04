@@ -1,8 +1,5 @@
-RSpec.describe Rolemodel::MCPGenerator, type: :generator do
-  before do
-    require_relative '../../tmp/config/application' # Needed for the mcp_controller template to get the application name
-    run_generator_against_test_app
-  end
+RSpec.describe Rolemodel::McpGenerator, type: :generator do
+  before { run_generator_against_test_app }
 
   it 'adds the MCP controller' do
     assert_file 'app/controllers/mcp_controller.rb' do |content|

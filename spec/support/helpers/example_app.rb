@@ -8,6 +8,7 @@ module ExampleApp
     self.destination_root ||= File.expand_path('spec/tmp')
     cleanup_test_app
     FileUtils.cp_r(TEMPLATE_APP_PATH, destination_root)
+    require File.expand_path('config/application', destination_root)
   end
 
   def cleanup_test_app
