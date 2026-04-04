@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class MCPGenerator < BaseGenerator
+  class MCPGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     def update_inflections
