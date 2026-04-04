@@ -1,5 +1,5 @@
 <% wrap_in_modules do %>
-class <%= class_name %> < ::Rolemodel::BaseGenerator
+class <%= class_name %> < ::Rolemodel::GeneratorBase
   source_root File.expand_path('templates', __dir__)
 
   def generate_stuff

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class KaminariGenerator < BaseGenerator
+  class KaminariGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     def install_kaminari

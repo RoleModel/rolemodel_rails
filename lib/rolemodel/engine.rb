@@ -2,8 +2,10 @@
 
 module Rolemodel
   class Engine < ::Rails::Engine
+    require_relative 'generator_base'
+
     generators do
-      require 'generators/rolemodel/base_generator'
+      require 'generators/rolemodel/all_generator'
     end
   end
 end

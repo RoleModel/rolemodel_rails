@@ -1,5 +1,5 @@
 module Rolemodel
-  class WebpackGenerator < BaseGenerator
+  class WebpackGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     DEV_DEPS = %w[

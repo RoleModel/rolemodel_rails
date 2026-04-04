@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Linters
-    class EslintGenerator < BaseGenerator
+    class EslintGenerator < GeneratorBase
       include ReplaceContentHelper
       source_root File.expand_path('templates', __dir__)
 

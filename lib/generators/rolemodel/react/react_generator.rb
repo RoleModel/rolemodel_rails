@@ -1,5 +1,5 @@
 module Rolemodel
-  class ReactGenerator < BaseGenerator
+  class ReactGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     def add_npm_packages

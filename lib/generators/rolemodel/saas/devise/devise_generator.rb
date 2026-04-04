@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Saas
-    class DeviseGenerator < BaseGenerator
+    class DeviseGenerator < GeneratorBase
       source_root File.expand_path('templates', __dir__)
 
       def add_organization
