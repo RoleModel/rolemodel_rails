@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class GithubGenerator < BaseGenerator
+  class GithubGenerator < GeneratorBase
     GITHUB_ACTIONS_REPO = 'https://github.com/RoleModel/actions.git'
     # Files which are both used by the gem source and copied to the target app without modification
     # are placed in the `.github` folder at the top level of this repository. This folder is then

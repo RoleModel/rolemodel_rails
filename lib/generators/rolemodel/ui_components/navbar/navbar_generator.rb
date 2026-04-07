@@ -2,7 +2,7 @@
 
 module Rolemodel
   module UiComponents
-    class NavbarGenerator < BaseGenerator
+    class NavbarGenerator < GeneratorBase
       source_root File.expand_path('templates', __dir__)
 
       def copy_navbar_files

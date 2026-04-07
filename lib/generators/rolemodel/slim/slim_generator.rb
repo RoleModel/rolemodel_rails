@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class SlimGenerator < BaseGenerator
+  class SlimGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     def add_slim

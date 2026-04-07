@@ -1,6 +1,6 @@
 module Rolemodel
   module UiComponents
-    class ModalsGenerator < BaseGenerator
+    class ModalsGenerator < GeneratorBase
       source_root File.expand_path('templates', __dir__)
       class_option :panels, type: :boolean, default: false, desc: 'Include RoleModel Panel Setup'
 

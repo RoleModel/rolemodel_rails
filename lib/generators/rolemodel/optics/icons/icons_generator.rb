@@ -3,7 +3,7 @@
 module Rolemodel
   module Optics
     # Generates the icon helper and icon builders for the chosen icon library
-    class IconsGenerator < Rolemodel::BaseGenerator
+    class IconsGenerator < Rolemodel::GeneratorBase
       SUPPORTED_LIBRARIES = HashWithIndifferentAccess.new(
         material: 'filled, size, weight, emphasis, additional_classes, color, hover_text',
         phosphor: 'duotone, filled, size, weight, additional_classes, color, hover_text',

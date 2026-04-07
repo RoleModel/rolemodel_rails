@@ -6,7 +6,6 @@ require 'generator_spec'
 require 'rolemodel-rails'
 require_relative 'support/helpers'
 
-require 'generators/rolemodel/base_generator'
 Dir[File.expand_path('lib/generators/**/*_generator.rb')].each { require it }
 
 RSpec.configure do |config|

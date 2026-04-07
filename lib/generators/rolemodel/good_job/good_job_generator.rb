@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Rolemodel
-  class GoodJobGenerator < BaseGenerator
+  class GoodJobGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
     def install_good_job

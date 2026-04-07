@@ -2,7 +2,7 @@
 
 module Rolemodel
   module Testing
-    class VitestGenerator < BaseGenerator
+    class VitestGenerator < GeneratorBase
       include ReplaceContentHelper
       source_root File.expand_path('templates', __dir__)
 

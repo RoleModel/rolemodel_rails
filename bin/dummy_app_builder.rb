@@ -10,7 +10,7 @@ class BuilderClass < Rails::AppBuilder
   def node_version = nil
 
   def generate_test_dummy
-    invoke Rails::Generators::AppGenerator, [ File.expand_path(dummy_path) ], {
+    invoke Rails::Generators::AppGenerator, [ File.expand_path(app_path) ], {
       dummy_app: true,
       force: true,
       database: 'postgresql',
@@ -30,6 +30,6 @@ class BuilderClass < Rails::AppBuilder
   end
 
   def test_dummy_config
-    template 'boot.rb', "#{dummy_path}/config/boot.rb", force: true
+    directory 'config', "#{app_path}/config", force: true
   end
 end
