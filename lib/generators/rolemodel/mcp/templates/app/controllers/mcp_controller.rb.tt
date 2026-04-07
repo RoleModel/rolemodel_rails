@@ -7,7 +7,10 @@ class MCPController < ApplicationController
   before_action :authorize_mcp
   before_action :set_current_user
 
+  rescue_from ActionPolicy::Unauthorized, with: :unauthorized_request
+
   def handle
+    authorize!
     server = build_server
     transport = MCP::Server::Transports::StreamableHTTPTransport.new(server, stateless: true)
     server.transport = transport

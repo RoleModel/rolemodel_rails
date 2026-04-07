@@ -8,6 +8,9 @@ RSpec.describe Rolemodel::McpGenerator, type: :generator do
     end
     assert_file 'spec/requests/mcp_controller_spec.rb'
 
+    assert_file 'app/policies/mcp_policy.rb'
+    assert_file 'spec/policies/mcp_policy_spec.rb'
+
     assert_file 'config/routes.rb' do |content|
       expect(content).to include("match '/mcp', to: 'mcp#handle', via: %i[get post delete]")
     end

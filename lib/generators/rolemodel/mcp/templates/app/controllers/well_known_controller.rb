@@ -2,6 +2,7 @@
 
 class WellKnownController < ApplicationController
   # skip_before_action :authenticate_user!
+  # skip_verify_authorized
   before_action :set_base_url
 
   def oauth_protected_resource

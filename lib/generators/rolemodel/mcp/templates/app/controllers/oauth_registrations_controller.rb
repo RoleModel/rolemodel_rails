@@ -2,6 +2,7 @@
 
 class OauthRegistrationsController < ApplicationController
   # skip_before_action :authenticate_user!
+  # skip_verify_authorized
   skip_forgery_protection
 
   def create

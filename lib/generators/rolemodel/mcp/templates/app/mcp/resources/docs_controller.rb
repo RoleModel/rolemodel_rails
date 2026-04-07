@@ -3,7 +3,7 @@
 module Resources
   class DocsController < Controller
     FILES = {
-      'SAMPLE_DOC.md' => Rails.root.join('app/mcp/resources/docs/blazer-documentation.md'),
+      'SAMPLE_DOC.md' => Rails.root.join('app/mcp/resources/docs/SAMPLE_DOC.md'),
     }.freeze
 
     mime_type 'text/markdown'

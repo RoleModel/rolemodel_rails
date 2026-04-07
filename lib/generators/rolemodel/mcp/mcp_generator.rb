@@ -26,6 +26,8 @@ module Rolemodel
       bundle_command 'add mcp'
       template 'app/controllers/mcp_controller.rb'
       copy_file 'spec/requests/mcp_controller_spec.rb'
+      copy_file 'app/policies/mcp_policy.rb'
+      copy_file 'spec/policies/mcp_policy_spec.rb'
 
       route <<~RUBY
         match '/mcp', to: 'mcp#handle', via: %i[get post delete]
@@ -55,6 +57,7 @@ module Rolemodel
       bundle_command 'add doorkeeper'
       run_bundle
       generate 'doorkeeper:install'
+      generate 'doorkeeper:migration'
     end
 
     def configure_doorkeeper
