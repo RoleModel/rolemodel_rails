@@ -24,10 +24,6 @@ class VersionBumper < Thor::Group
     run_clean_bundle_install
   end
 
-  def build_gem
-    run 'gem build rolemodel-rails.gemspec'
-  end
-
   def update_current_example_app
     Rake::FileList.new('example_rails_*').each do |example_path|
       inside(example_path) do
