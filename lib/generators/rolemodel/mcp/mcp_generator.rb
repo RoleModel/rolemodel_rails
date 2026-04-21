@@ -35,12 +35,12 @@ module Rolemodel
     end
 
     def add_sample_mcp_resource
-      copy_file 'app/mcp/resources/controller.rb'
-      copy_file 'spec/mcp/resources/controller_spec.rb'
+      copy_file 'app/mcp/resources/handler.rb'
+      copy_file 'spec/mcp/resources/handler_spec.rb'
 
       copy_file 'app/mcp/resources/docs/SAMPLE_DOC.md'
-      copy_file 'app/mcp/resources/docs_controller.rb'
-      copy_file 'spec/mcp/resources/docs_controller_spec.rb'
+      copy_file 'app/mcp/resources/docs_handler.rb'
+      copy_file 'spec/mcp/resources/docs_handler_spec.rb'
     end
 
     def add_sample_mcp_prompt
@@ -75,10 +75,10 @@ module Rolemodel
 
     def apply_doorkeeper_css
       css_manifest = if File.exist?(File.join(destination_root, 'app/assets/stylesheets/application.scss'))
-        'app/assets/stylesheets/application.scss'
-      else
-        'app/assets/stylesheets/application.css'
-      end
+                       'app/assets/stylesheets/application.scss'
+                     else
+                       'app/assets/stylesheets/application.css'
+                     end
 
       return if File.read(File.join(destination_root, css_manifest)).include?("@import 'components/doorkeeper.css';")
 

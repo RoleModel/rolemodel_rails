@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Resources
-  class Controller
+  class Handler
     include ActiveModel::Attributes
     include ActiveModel::API
 
     attribute :server_context
     attribute :path, :string
 
-    validates :path, presence: { message: 'is required' } # rubocop:disable Rails/I18nLocaleTexts
+    validates :path, presence: { message: 'is required' }
 
     class << self
       def mime_type(mime_type = nil)
@@ -26,17 +26,17 @@ module Resources
       end
 
       def call(params, server_context)
-        controller = new(params[:uri].sub(schema, ''), server_context)
+        handler = new(params[:uri].sub(schema, ''), server_context)
 
-        unless controller.valid?
+        unless handler.valid?
           raise ::MCP::Server::RequestHandlerError.new(
-            controller.errors.full_messages.join(', '),
+            handler.errors.full_messages.join(', '),
             params,
             error_type: :invalid_params
           )
         end
 
-        [{ uri: params[:uri], mimeType: mime_type, text: controller.serve }]
+        [{ uri: params[:uri], mimeType: mime_type, text: handler.serve }]
       end
     end
 
