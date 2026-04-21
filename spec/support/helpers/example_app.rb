@@ -20,8 +20,8 @@ module ExampleApp
   # but does keep the test output clean and easy to read
   def run_generator_against_test_app(*args, generator: described_class)
     self.generator_class = generator
-    capture(:stderr) do
-      FileUtils.cd(destination_root) { run_generator(*args) }
-    end
+    FileUtils.cd(destination_root) { run_generator(*args) }
+    # capture(:stderr) do
+    # end
   end
 end

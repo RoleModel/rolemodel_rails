@@ -98,6 +98,7 @@ bin/rails g
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
+* [MCP](./lib/generators/rolemodel/mcp)
 
 ## Development
 
