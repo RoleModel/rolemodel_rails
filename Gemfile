@@ -14,6 +14,7 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 
 # TODO: figure out why these need to be here for the specs to run
+gem 'devise'
 gem 'doorkeeper'
 gem 'mcp'
 
