@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 class MCPController < ApplicationController
-  # skip_before_action :authenticate_user!
+  <%- if devise? %>skip_before_action :authenticate_user!<% end %>
   skip_forgery_protection
 
   before_action :authorize_mcp
   before_action :set_current_user
 
+  <%- if action_policy? %>
   rescue_from ActionPolicy::Unauthorized, with: :unauthorized_request
+  <%- elsif pundit? %>
+  rescue_from Pundit::NotAuthorizedError, with: :unauthorized_request
+  <% end %>
 
   def handle
     authorize!

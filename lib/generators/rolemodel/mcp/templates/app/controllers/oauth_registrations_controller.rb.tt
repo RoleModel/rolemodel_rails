@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class OauthRegistrationsController < ApplicationController
-  # skip_before_action :authenticate_user!
-  # skip_verify_authorized
+  <%- if devise? %>skip_before_action :authenticate_user!<% end %>
+  <%- if action_policy? %>skip_verify_authorized<% end %>
+  <%- if pundit? %>skip_after_action :verify_authorized<% end %>
   skip_forgery_protection
 
   def create

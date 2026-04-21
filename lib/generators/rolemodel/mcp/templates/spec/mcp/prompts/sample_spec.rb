@@ -9,7 +9,7 @@ RSpec.describe Prompts::Sample do
     it 'has the correct description' do
       expect(result.messages.length).to eq(1)
       expect(result.messages.first.role).to eq('assistant')
-      expect(result.description).to include('Sample prompt result description.')
+      expect(result.description).to include('Sample prompt result description')
     end
   end
 end

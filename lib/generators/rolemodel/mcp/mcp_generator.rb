@@ -4,7 +4,23 @@ module Rolemodel
   class McpGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
-    def update_inflections
+    def ask_policy_choice
+      @chosen_policy_library = ask(
+        'What authorization library do you use?',
+        default: 'action_policy',
+        limited_to: %w[pundit action_policy]
+      )
+    end
+
+    def ask_devise
+      @uses_devise = ask(
+        'Do you use Devise for authentication?',
+        default: 'yes',
+        limited_to: %w[yes no]
+      ) == 'yes'
+    end
+
+    def update_inflections # rubocop:disable Metrics/MethodLength
       inflections_path = File.join(destination_root, 'config/initializers/inflections.rb')
       block_start = "\nActiveSupport::Inflector.inflections(:en) do |inflect|\n"
 
@@ -27,7 +43,7 @@ module Rolemodel
       template 'app/controllers/mcp_controller.rb'
       copy_file 'spec/requests/mcp_controller_spec.rb'
       copy_file 'app/policies/mcp_policy.rb'
-      copy_file 'spec/policies/mcp_policy_spec.rb'
+      template 'spec/policies/mcp_policy_spec.rb'
 
       route <<~RUBY
         match '/mcp', to: 'mcp#handle', via: %i[get post delete]
@@ -88,7 +104,7 @@ module Rolemodel
     end
 
     def add_oauth_dynamic_registrations
-      copy_file 'app/controllers/oauth_registrations_controller.rb'
+      template 'app/controllers/oauth_registrations_controller.rb'
       copy_file 'spec/requests/oauth_registrations_controller_spec.rb'
       route <<~RUBY
         post '/oauth/register', to: 'oauth_registrations#create'
@@ -96,7 +112,7 @@ module Rolemodel
     end
 
     def add_well_known_route
-      copy_file 'app/controllers/well_known_controller.rb'
+      template 'app/controllers/well_known_controller.rb'
       copy_file 'spec/requests/well_known_controller_spec.rb'
       route <<~RUBY
         get '/.well-known/oauth-protected-resource', to: 'well_known#oauth_protected_resource'
@@ -108,6 +124,18 @@ module Rolemodel
 
     def application_name
       Rails.application.name
+    end
+
+    def pundit?
+      @chosen_policy_library == 'pundit'
+    end
+
+    def action_policy?
+      @chosen_policy_library == 'action_policy'
+    end
+
+    def devise?
+      @uses_devise
     end
   end
 end

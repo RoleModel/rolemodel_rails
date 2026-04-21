@@ -1,0 +1,31 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe MCPPolicy do
+  let(:user) { create :client }
+  let(:record) { :mcp }
+  <%- if action_policy? %>
+  let(:context) { { user: user } }
+
+  describe_rule :handle? do
+    succeed 'when logged in'
+
+    failed 'when anonymous' do
+      let(:user) { nil }
+    end
+  end
+  <% elsif pundit? %>
+  subject { described_class }
+
+  permissions :handle? do
+    it 'allows access when logged in' do
+      expect(subject).to permit(user, record)
+    end
+
+    it 'denies access when anonymous' do
+      expect(subject).not_to permit(nil, record)
+    end
+  end
+  <% end %>
+end
