@@ -20,18 +20,11 @@ module Rolemodel
         end
       end
 
-      def remove_existing_icon_helper_and_builders
-        remove_dir 'app/icon_builders'
-        remove_file 'app/helpers/icon_helper.rb'
-      end
-
       def add_view_helper
         @chosen_library = capture_user_selection
         @supported_properties = SUPPORTED_LIBRARIES.fetch(@chosen_library)
 
-        template 'app/icon_builders/icon_builder.rb'
-        template "app/icon_builders/#{@chosen_library}_icon_builder.rb"
-        template 'app/helpers/icon_helper.rb'
+        template 'app/helpers/icon_helper.rb', force: true
       end
 
     private

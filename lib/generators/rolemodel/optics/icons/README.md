@@ -4,4 +4,4 @@
 
 ## What you get
 
-Adds icon helper for handling material icons and custom icons
+Adds icon helper for handling icon generation using the provider of your choice.
