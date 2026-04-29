@@ -57,4 +57,24 @@ RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
       end
     end
   end
+
+  context 'installing builders' do
+    before do
+      run_generator_against_test_app(['--phosphor', '--install-builders'])
+    end
+
+    it 'copies the base IconBuilder and the chosen library builder to the app lib directory' do
+      assert_file 'lib/rolemodel/optics/icon_builder.rb'
+      assert_file 'lib/rolemodel/optics/phosphor_icon_builder.rb'
+    end
+  end
+
+  context 'not installing builders (default)' do
+    before { run_generator_against_test_app(['--phosphor']) }
+
+    it 'does not copy any builder files to the app lib directory' do
+      assert_no_file 'lib/rolemodel/optics/icon_builder.rb'
+      assert_no_file 'lib/rolemodel/optics/phosphor_icon_builder.rb'
+    end
+  end
 end
