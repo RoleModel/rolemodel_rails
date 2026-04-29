@@ -2,7 +2,7 @@
 
 # FeatherIconBuilder is an IconBuilder that allows for Feather icons to be used in the application.
 # https://feathericons.com/
-class FeatherIconBuilder < IconBuilder
+class Rolemodel::Optics::FeatherIconBuilder < Rolemodel::Optics::IconBuilder
   def self.flash_icons
     {
       notice: 'check-circle',
