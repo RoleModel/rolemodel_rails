@@ -2,7 +2,7 @@
 
 # LucideIconBuilder is an IconBuilder that allows for Lucide icons to be used in the application.
 # https://lucide.dev/icons/
-class LucideIconBuilder < IconBuilder
+class Rolemodel::Optics::LucideIconBuilder < Rolemodel::Optics::IconBuilder
   def self.flash_icons
     {
       notice: 'circle-check',

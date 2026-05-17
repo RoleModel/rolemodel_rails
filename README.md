@@ -28,12 +28,15 @@ rails db:create
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rolemodel-rails', group: :development
+gem 'rolemodel-rails'
 ```
+
+> [!IMPORTANT]
+> We used to recommend putting rolemodel-rails in the development gem group. This is no longer supported, because some Rolemodel namespaced utility modules and classes are expected to be available at runtime.
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 ## Usage
 
@@ -115,10 +118,6 @@ bin/new_generator testing/fantasitic_specs 'A Fantastic Testing Framework'
 
 We use the embeded Rails apps (`example_rails_current` & `example_rails_legacy`) to test generators against. They reference the rolemodel-rails gem by local path,
 so you can navigate into one of them and run your generator for immediate feedback while developing.
-
-> [!IMPORTANT]
-> Before submitting a PR, run `bin/bump_version` to ensure the Gem builds successfully & that everything continues to stay in sync & up-to-date.<br /><br />
-> For very small changes & bug fixes, prefer `bin/bump_version --patch`.
 
 ## Testing
 
