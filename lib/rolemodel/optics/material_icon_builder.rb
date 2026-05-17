@@ -2,7 +2,7 @@
 
 # MaterialIconBuilder is an IconBuilder that allows for Material icons to be used in the application.
 # https://fonts.google.com/icons
-class MaterialIconBuilder < IconBuilder
+class Rolemodel::Optics::MaterialIconBuilder < Rolemodel::Optics::IconBuilder
   def self.flash_icons
     {
       notice: 'check_circle',

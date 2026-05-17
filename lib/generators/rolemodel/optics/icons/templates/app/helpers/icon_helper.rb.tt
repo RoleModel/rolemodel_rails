@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rolemodel/optics'
+
 # Helper method that renders icons from your icon library of choice.
 #
 # Usage:
@@ -14,11 +16,11 @@
 module IconHelper
   # <%= @supported_properties %>
   def icon(name, **)
-    <%= @chosen_library.classify %>IconBuilder.new(name, **).build
+    Rolemodel::Optics::<%= @chosen_library.classify %>IconBuilder.new(name, **).build
   end
 
   # <%= @supported_properties %>
   def flash_icon(type, **)
-    <%= @chosen_library.classify %>IconBuilder.flash_icon(type, **).build
+    Rolemodel::Optics::<%= @chosen_library.classify %>IconBuilder.flash_icon(type, **).build
   end
 end

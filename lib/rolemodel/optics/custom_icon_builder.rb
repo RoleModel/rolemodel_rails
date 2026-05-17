@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # CustomIconBuilder is an IconBuilder that allows for custom SVG icons to be used in the application.
-class CustomIconBuilder < IconBuilder
+class Rolemodel::Optics::CustomIconBuilder < Rolemodel::Optics::IconBuilder
   def self.flash_icons
     {
       notice: 'circle-check',

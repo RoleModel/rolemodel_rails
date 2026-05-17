@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class IconBuilder
+class Rolemodel::Optics::IconBuilder
   include ActionView::Helpers::TagHelper
 
   attr_reader :name, :filled, :size, :weight, :emphasis, :duotone, :additional_classes, :color, :hover_text
