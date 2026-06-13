@@ -24,7 +24,6 @@ module Rolemodel
       generate 'rolemodel:editors'
       # generate 'rolemodel:tailored_select' # Not production ready
       generate 'rolemodel:lograge'
-      generate 'rolemodel:mcp'
     end
   end
 end
