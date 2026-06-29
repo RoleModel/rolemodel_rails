@@ -9,6 +9,6 @@
 * [TestProf](./test_prof)
 * [ParallelTests](./parallel_tests)
 
-include `--js-runner` flag to also install the private RoleModel Package
+Include the `--js-runner` flag (off by default) to also install the private `@rolemodel/jasmine-playwright-runner` package.
 
 * [JasminePlaywright](./jasmine_playwright)
