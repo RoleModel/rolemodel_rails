@@ -20,7 +20,7 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
   end
 
   describe 'with marsh_grass option' do
-    before { run_generator_against_test_app %w[--marsh_grass] }
+    before { run_generator_against_test_app %w[--marsh-grass] }
 
     it 'adds the additional gems' do
       assert_file 'Gemfile' do |content|
