@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'rails', '> 7.1'
+  spec.add_dependency 'benchmark'
 
   spec.add_development_dependency 'bundler', '~> 4'
   spec.add_development_dependency 'generator_spec', '~> 0.10'

@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
-class IconBuilder
+class Rolemodel::Optics::IconBuilder
   include ActionView::Helpers::TagHelper
 
   attr_reader :name, :filled, :size, :weight, :emphasis, :duotone, :additional_classes, :color, :hover_text
+  alias title hover_text
 
   DEFAULT_SIZE = 'medium'
   DEFAULT_WEIGHT = 'normal'
   DEFAULT_EMPHASIS = 'normal'
 
+  # TODO: consider Data.define a custom options object if all of these parameters are indeed necessary.
   def initialize( # rubocop:disable Metrics/ParameterLists
     name,
     filled: false,
@@ -42,32 +44,21 @@ class IconBuilder
   def build
     options = {
       class: tag_classes.compact_blank.join(' '),
-      title: hover_text
-    }
-
-    if color.present?
+      title: hover_text,
       # color: primary, neutral, alerts-notice, alerts-warning, alerts-danger, alerts-info
-      options[:style] = "#{color_attribute}: var(--op-color-#{color}-base);"
-    end
+      style: ("#{color_attribute}: var(--op-color-#{color}-base);" if color.present?)
+    }.compact_blank
 
-    tag.send(tag_method, tag_contents, **options)
+    tag.public_send(tag_method, tag_contents, **options)
   end
 
   private
-
-  def tag_method
-    raise NotImplementedError
-  end
-
-  def tag_contents
-    ''
-  end
 
   def tag_classes
     ['icon', size == DEFAULT_SIZE ? '' : "icon--#{size}", additional_classes]
   end
 
-  def color_attribute
-    'color'
-  end
+  def color_attribute = 'color'
+  def tag_contents = ''
+  def tag_method = :i
 end
