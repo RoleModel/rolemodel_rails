@@ -15,7 +15,7 @@ module Rolemodel
       ].freeze
 
       def fail_without_github_token
-        raise 'a --github_package_token option or GITHUB_PACKAGES_TOKEN environment variable is required' if options[:github_package_token].blank?
+        raise Thor::InvocationError.new('a --github_package_token option or GITHUB_PACKAGES_TOKEN environment variable is required') if options[:github_package_token].blank?
       end
 
       def yarn_init_unless_package_json_exists
