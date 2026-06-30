@@ -29,7 +29,7 @@ it 'saves the form data', :js do
 end
 ```
 
-#### Chrome - visible browser
+#### Chrome - visible browser (For debugging only - do not commit headful system specs)
 
 ```rb
 it 'saves the form data', :chrome do
