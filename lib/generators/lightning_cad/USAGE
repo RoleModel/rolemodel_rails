@@ -1,0 +1,15 @@
+Description:
+    This generator requires JavaScript setup including webpack, react, and eslint
+
+    Install:
+        Installs required dependencies
+        Generates a demo editor
+
+    Webpack:
+        Modifies the webpack config to work better for LightningCAD apps
+
+    Test:
+        Installs jasmine and adds the test setup required for LightningCAD models
+
+Example:
+    bin/rails generate lightning-cad:all
