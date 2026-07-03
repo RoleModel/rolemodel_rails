@@ -53,11 +53,11 @@ module Rolemodel
             SLIM
           end
 
-          inject_into_file 'app/assets/stylesheets/application.scss',
-                          after: "@import '@rolemodel/optics/dist/css/optics';\n" do
-            <<~SCSS
-              @import '@rolemodel/optics/dist/css/addons/panel';
-            SCSS
+          inject_into_file 'app/assets/stylesheets/application.css',
+                          after: "@import '@rolemodel/optics/dist/css/optics.css';\n" do
+            <<~CSS
+              @import '@rolemodel/optics/dist/css/addons/panel.css';
+            CSS
           end
         else
           remove_file 'app/views/layouts/panel.html.slim'

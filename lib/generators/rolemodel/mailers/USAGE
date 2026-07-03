@@ -5,7 +5,7 @@ Example:
     rails generate rolemodel:mailers
 
     This will create:
-        app/javascript/packs/mailer_stylesheets.scss
+        app/assets/stylesheets/mailer.css
         app/mailers/user_mailer.rb
         app/views/layouts/mailer.html.slim
         app/views/user_mailer/welcome_email.html.slim

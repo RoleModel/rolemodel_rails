@@ -161,11 +161,11 @@ module Rolemodel
         say 'importing login stylesheet', :green
         copy_file 'app/assets/stylesheets/login.css'
 
-        return unless File.exist?(File.join(destination_root, 'app/assets/stylesheets/application.scss'))
+        return unless File.exist?(File.join(destination_root, 'app/assets/stylesheets/application.css'))
 
-        append_to_file 'app/assets/stylesheets/application.scss', <<~SCSS
-          @import 'login';
-        SCSS
+        append_to_file 'app/assets/stylesheets/application.css', <<~CSS
+          @import 'login.css';
+        CSS
       end
     end
   end

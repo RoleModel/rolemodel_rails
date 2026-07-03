@@ -12,11 +12,6 @@ module Rolemodel
       copy_file 'config/initializers/premailer_rails.rb'
     end
 
-    def include_postcss_calc
-      inject_into_file 'postcss.config.cjs', ",\n    require('postcss-calc')",
-                       after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
-    end
-
     def add_action_mailer_asset_host
       unless File.exist?(Rails.root.join('config/initializers/devise.rb'))
         inject_into_file 'config/environments/development.rb',
@@ -74,7 +69,19 @@ module Rolemodel
     end
 
     def add_mailer_css
-      copy_file 'app/assets/stylesheets/mailer.scss'
+      copy_file 'app/assets/stylesheets/mailer.css'
+    end
+
+    def add_mailer_webpack_entry
+      say 'Adding mailer stylesheet to Webpack entry points', :green
+
+      inject_into_file 'webpack.config.js', after: /entry: \{\n/ do
+        <<-JS
+    mailer: [
+      './app/assets/stylesheets/mailer.css'
+    ],
+        JS
+      end
     end
 
     def add_mailer_layout

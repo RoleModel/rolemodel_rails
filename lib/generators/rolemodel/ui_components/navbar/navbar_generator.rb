@@ -42,11 +42,11 @@ module Rolemodel
       def copy_shoelace_css_imports
         say 'Copying Shoelace CSS imports', :green
 
-        copy_file 'app/assets/stylesheets/components/shoelace/index.scss'
-        append_to_file 'app/assets/stylesheets/application.scss' do
-          <<~SCSS
-            @import 'components/shoelace/index.scss';
-          SCSS
+        copy_file 'app/assets/stylesheets/components/shoelace/index.css'
+        append_to_file 'app/assets/stylesheets/application.css' do
+          <<~CSS
+            @import 'components/shoelace/index.css';
+          CSS
         end
       end
     end
