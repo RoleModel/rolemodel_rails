@@ -11,8 +11,6 @@ global_job_config:
   env_vars:
     - name: RAILS_ENV
       value: test
-    - name: HONEYBADGER_SOURCE_MAP_DISABLED
-      value: 'true'
     - name: DATABASE_URL
       value: 'postgres://postgres:@0.0.0.0/<%= Rails.application.config.database_configuration['test']['database'] %>'
     - name: GOOGLE_CHROME_BIN

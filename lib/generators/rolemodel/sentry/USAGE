@@ -1,0 +1,13 @@
+Description:
+    Sets up Sentry error monitoring for both Ruby and JavaScript
+
+Example:
+    rails generate rolemodel:sentry
+
+    This will:
+        Add the sentry-rails gem
+        Create config/initializers/sentry.rb
+        Add Sentry user context to app/controllers/application_controller.rb
+        Add @sentry/browser and @sentry/webpack-plugin JS dependencies
+        Create app/javascript/initializers/sentry.js
+        Wire the Sentry webpack plugin into webpack.config.js
