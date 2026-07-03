@@ -2,7 +2,7 @@
 
 # TablerIconBuilder is an IconBuilder that allows for Tabler icons to be used in the application.
 # https://tablericons.com/
-class TablerIconBuilder < IconBuilder
+class Rolemodel::Optics::TablerIconBuilder < Rolemodel::Optics::IconBuilder
   def self.flash_icons
     {
       notice: 'circle-check',
