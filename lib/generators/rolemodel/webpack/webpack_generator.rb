@@ -3,8 +3,6 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     DEV_DEPS = %w[
-      @honeybadger-io/webpack
-      @honeybadger-io/js
       esbuild
       esbuild-loader
       webpack
@@ -48,15 +46,6 @@ module Rolemodel
 
       dependencies = DEV_DEPS + POSTCSS_PKGS + WEBPACK_CSS_PKGS
       run "yarn add --dev #{dependencies.join(' ')}"
-    end
-
-    def honeybadger_setup
-      say 'Setting up Honeybadger for JS error reporting', :green
-
-      copy_file 'app/javascript/initializers/honeybadger.js'
-      append_to_file 'app/javascript/application.js', <<~JS
-        import './initializers/honeybadger'
-      JS
     end
 
     def replace_css_entrypoint_with_scss

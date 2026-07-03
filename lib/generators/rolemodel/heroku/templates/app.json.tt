@@ -4,12 +4,15 @@
     "postdeploy": "bin/rails db:seed"
   },
   "env": {
-    "HONEYBADGER_API_KEY": {
+    "SENTRY_DSN": {
       "required": true
     },
-    "HONEYBADGER_ENV": {
+    "SENTRY_ENVIRONMENT": {
       "required": true,
       "value": "review-app"
+    },
+    "SENTRY_AUTH_TOKEN": {
+      "required": false
     }
   },
   "addons": [
