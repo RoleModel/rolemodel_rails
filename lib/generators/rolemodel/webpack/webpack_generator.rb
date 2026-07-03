@@ -29,6 +29,12 @@ module Rolemodel
       create_file '.node-version', NODE_VERSION, force: true
     end
 
+    def enable_corepack_and_yarn
+      say 'Enabling Corepack and pinning the project to Yarn 4+', :green
+
+      ensure_yarn
+    end
+
     def force_node_to_use_es_modules
       say 'Configuring project to use ES Modules instead of CommonJS', :green
 

@@ -38,7 +38,7 @@ global_job_config:
 
       # Node setup
       - sem-version node $(cat .node-version)
-      - npm i -g yarn
+      - corepack enable
 
       # Cache setup
       - cache restore gems-$(checksum .ruby-version)-$(checksum Gemfile.lock)
@@ -52,11 +52,11 @@ blocks:
         - name: Install Dependencies
           commands:
             - bundle check || bundle install
-            - yarn check || yarn install
+            - yarn install --immutable
       epilogue:
         commands:
           - cache store gems-$(checksum .ruby-version)-$(checksum Gemfile.lock) vendor/bundle
-          - cache store yarn-cache-$(checksum .node-version)-$(checksum yarn.lock) /home/semaphore/.cache/yarn
+          - cache store yarn-cache-$(checksum .node-version)-$(checksum yarn.lock) .yarn/cache
           - cache store yarn-node-modules-$(checksum .node-version)-$(checksum yarn.lock) node_modules
   - name: Ruby/JS/Linting
     execution_time_limit:
@@ -91,7 +91,7 @@ blocks:
         - name: Webpack Compile and Store Assets
           commands:
             - bundle check || bundle install --without legacy_data_migration
-            - yarn check || yarn install
+            - yarn install --immutable
             - yarn build
             - cache store assets-public-$SEMAPHORE_WORKFLOW_ID public
   - name: System Tests

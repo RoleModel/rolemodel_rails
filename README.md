@@ -104,7 +104,7 @@ bin/rails g
 
 ## Development
 
-Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
+Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `corepack enable` to activate the Yarn 4+ version pinned by each project's `packageManager` field.
 
 ## Adding new Generators
 
