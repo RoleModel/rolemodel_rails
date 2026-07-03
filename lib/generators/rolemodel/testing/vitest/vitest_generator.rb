@@ -23,6 +23,7 @@ module Rolemodel
       def add_dev_dependencies
         say 'Adding new dev dependency to package.json', :green
 
+        ensure_yarn
         run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 

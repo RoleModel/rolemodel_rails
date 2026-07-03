@@ -18,6 +18,7 @@ module Rolemodel
       ].freeze
 
       def install_eslint
+        ensure_yarn
         run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 

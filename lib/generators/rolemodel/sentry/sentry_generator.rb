@@ -42,6 +42,7 @@ module Rolemodel
     def add_js_dependencies
       say 'Adding Sentry JS dependencies to package.json', :green
 
+      ensure_yarn
       run "yarn add --dev #{JS_DEPS.join(' ')}"
     end
 
