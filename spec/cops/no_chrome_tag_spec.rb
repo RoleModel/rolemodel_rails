@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'generators/rolemodel/linters/rubocop/templates/lib/cops/no_chrome_tag'
+require 'generators/rolemodel/linters/rubocop/templates/.rubocop/cops/no_chrome_tag'
 require 'rubocop'
 require 'rubocop/rspec/support'
 
