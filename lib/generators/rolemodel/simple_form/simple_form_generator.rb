@@ -16,5 +16,11 @@ module Rolemodel
       copy_file 'config/initializers/simple_form.rb'
       copy_file 'config/locales/simple_form.en.yml'
     end
+
+    def add_tailored_select_input
+      return unless yes?('Would you like to include the tailored_select custom input?')
+
+      copy_file 'optional/tailored_select_input.rb', 'app/inputs/tailored_select_input.rb'
+    end
   end
 end
