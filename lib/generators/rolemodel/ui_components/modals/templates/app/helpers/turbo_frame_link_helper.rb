@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TurboFrameLinkHelper
   def panel_link_to(...)
     link_to_frame('panel', ...)
