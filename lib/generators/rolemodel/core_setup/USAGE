@@ -1,0 +1,13 @@
+Description:
+  Runs the core generators every new Rails app should have
+
+  Sets up GitHub config, Heroku deployment, README, Webpack, Sentry, Slim,
+  Optics, testing (RSpec & friends), SimpleForm, linters, UI components,
+  editor config, and Lograge. The result is a new Rails app that is ready
+  to push straight to Heroku.
+
+  Pass --js-runner to also include jasmine-playwright-runner for browser
+  JS testing.
+
+Example:
+  rails generate rolemodel:core_setup

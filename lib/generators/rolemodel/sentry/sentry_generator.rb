@@ -15,6 +15,16 @@ module Rolemodel
       bundle_command 'add sentry-rails'
     end
 
+    def install_profiler_gem
+      say 'Adding stackprof gem for Sentry profiling', :green
+
+      # config/initializers/sentry.rb sets profiles_sample_rate; without stackprof
+      # the SDK logs a warning on every boot and profiling is silently disabled.
+      # stackprof is a native MRI extension, so restrict it to compatible platforms.
+      gem 'stackprof', platforms: :ruby
+      run_bundle
+    end
+
     def add_ruby_initializer
       say 'Setting up Sentry for Ruby error reporting', :green
 

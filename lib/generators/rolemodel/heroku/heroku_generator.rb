@@ -15,6 +15,30 @@ module Rolemodel
       template 'Procfile'
     end
 
+    def install_deploy_app_skill
+      say 'Install deploy-app agent skill', :green
+
+      directory 'skills/deploy-app', '.claude/skills/deploy-app'
+
+      if File.exist?(File.join(destination_root, 'AGENTS.md'))
+        append_to_file 'AGENTS.md', agents_md_skill_entry
+      else
+        create_file 'AGENTS.md', "# Agent instructions\n#{agents_md_skill_entry}"
+      end
+    end
+
+    def pin_ruby_version_for_buildpack
+      say 'Pin the Ruby version in the Gemfile so the Heroku buildpack respects it.', :green
+
+      # A bare .ruby-version file is not enough: without a `ruby` directive the version
+      # never lands in Gemfile.lock, so the Heroku Ruby buildpack falls back to its own
+      # default and can install an incompatible Ruby. Tie the Gemfile to .ruby-version.
+      gemfile = File.join(destination_root, 'Gemfile')
+      return if File.exist?(gemfile) && File.read(gemfile).match?(/^\s*ruby\s/)
+
+      inject_into_file 'Gemfile', "\nruby file: '.ruby-version'\n", after: /^source .*$/
+    end
+
     def force_ssl
       say 'Require SSL for production environment.', :green
 
@@ -47,6 +71,25 @@ module Rolemodel
           end
         end
       RAKE
+    end
+
+    private
+
+    def agents_md_skill_entry
+      <<~MD
+
+        ## Agent skills
+
+        Reusable, agent-agnostic task instructions live in `.claude/skills/` (Agent Skills
+        format). If your agent does not auto-discover that directory, read the relevant
+        `SKILL.md` and follow it directly.
+
+        * `deploy-app` (`.claude/skills/deploy-app/SKILL.md`) — completes deployment setup:
+          cleans up the generated Gemfile, verifies the test suite and RuboCop pass, creates
+          the Sentry project and wires up the DSN, creates and deploys the Heroku staging
+          app, and creates the GitHub `Staging` environment + deploy workflow. Use when
+          asked to set up staging, Heroku, or deployment.
+      MD
     end
   end
 end
