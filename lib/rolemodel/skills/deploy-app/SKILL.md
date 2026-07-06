@@ -169,10 +169,12 @@ fix the root cause (and flag it for the generator), never paper over it.
 2. Set the environment variables:
    - `gh variable set HEROKU_APP_NAME --env Staging --body "$APP_NAME"`
    - `gh variable set HEROKU_APP_URL --env Staging --body "$APP_URL"`
-3. If `.github/workflows/deploy-staging.yml` doesn't exist, copy it from this skill's
-   `templates/deploy-staging.yml`, commit it, and push. The workflow relies on the
-   RoleModel **org-level** `HEROKU_IT_SUPPORT_API_KEY` secret and
-   `HEROKU_IT_SUPPORT_EMAIL` variable — do not create per-repo copies.
+3. Confirm `.github/workflows/deploy-staging.yml` exists (the rolemodel-rails github
+   generator installs it). If it's missing, the app skipped the github generator — tell
+   the user to run it (`rails generate rolemodel:github`) rather than hand-writing the
+   workflow. The workflow relies on the RoleModel **org-level**
+   `HEROKU_IT_SUPPORT_API_KEY` secret and `HEROKU_IT_SUPPORT_EMAIL` variable — do not
+   create per-repo copies.
 4. Verify end-to-end: `gh workflow run deploy-staging.yml` then `gh run watch` the run.
    A green run (including its `/up` healthcheck) is the definition of done.
 
@@ -184,9 +186,9 @@ Same phases with these differences — ask, don't assume, on every sizing choice
 - Sentry: reuse the existing project; set `SENTRY_ENVIRONMENT=production`.
 - Heroku tiers: ask the user for dyno type (basic/standard-1x/standard-2x/performance),
   Postgres plan, and Papertrail plan instead of assuming the staging defaults.
-- GitHub environment is `Production`; workflow template is
-  `templates/deploy-production.yml` (manual `workflow_dispatch` only — production never
-  auto-deploys on push).
+- GitHub environment is `Production`; the workflow is
+  `.github/workflows/deploy-production.yml` (also installed by the github generator; manual
+  `workflow_dispatch` only — production never auto-deploys on push).
 
 ## Notes
 
