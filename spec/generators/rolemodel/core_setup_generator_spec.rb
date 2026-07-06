@@ -18,18 +18,12 @@ RSpec.describe Rolemodel::CoreSetupGenerator do
       ['rolemodel:sentry'],
       ['rolemodel:slim'],
       ['rolemodel:optics:all'],
-      ['rolemodel:testing:all', '--no-js-runner'],
+      ['rolemodel:testing:all'],
       ['rolemodel:simple_form'],
       ['rolemodel:linters:all'],
-      ['rolemodel:ui_components:all'],
-      ['rolemodel:editors'],
+      ['rolemodel:ui_components:flash'],
+      ['rolemodel:ui_components:modals'],
       ['rolemodel:lograge']
     ]
-  end
-
-  it 'passes --js-runner through to the testing generators' do
-    invoke_core_setup(['--js-runner'])
-
-    expect(invocations).to include ['rolemodel:testing:all', '--js-runner']
   end
 end
