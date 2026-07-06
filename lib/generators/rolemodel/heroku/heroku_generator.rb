@@ -15,11 +15,13 @@ module Rolemodel
       template 'Procfile'
     end
 
-    def install_deploy_app_skill
-      say 'Install deploy-app agent skill', :green
+    def reference_deploy_app_skill
+      say 'Reference the deploy-app agent skill from rolemodel-rails', :green
 
-      directory 'skills/deploy-app', '.claude/skills/deploy-app'
-
+      # The deploy-app skill is one-time, run-once deployment setup. Rather than
+      # copying ~200 lines of instructions into every app repo, point the agent at
+      # the SKILL.md that ships inside the rolemodel-rails gem (already a bundled
+      # dependency). Nothing skill-related is committed to the generated app.
       if File.exist?(File.join(destination_root, 'AGENTS.md'))
         append_to_file 'AGENTS.md', agents_md_skill_entry
       else
@@ -95,15 +97,17 @@ module Rolemodel
 
         ## Agent skills
 
-        Reusable, agent-agnostic task instructions live in `.claude/skills/` (Agent Skills
-        format). If your agent does not auto-discover that directory, read the relevant
-        `SKILL.md` and follow it directly.
+        Reusable, agent-agnostic task instructions (Agent Skills format) ship inside the
+        `rolemodel-rails` gem — a bundled dependency of this app — rather than being copied
+        into this repo. Locate the gem's skills directory with
+        `bundle show rolemodel-rails` (the skills live under `lib/rolemodel/skills/`), then
+        read the relevant `SKILL.md` and follow it directly.
 
-        * `deploy-app` (`.claude/skills/deploy-app/SKILL.md`) — completes deployment setup:
-          cleans up the generated Gemfile, verifies the test suite and RuboCop pass, creates
-          the Sentry project and wires up the DSN, creates and deploys the Heroku staging
-          app, and creates the GitHub `Staging` environment + deploy workflow. Use when
-          asked to set up staging, Heroku, or deployment.
+        * `deploy-app` (`$(bundle show rolemodel-rails)/lib/rolemodel/skills/deploy-app/SKILL.md`)
+          — one-time deployment setup: cleans up the generated Gemfile, verifies the test
+          suite and RuboCop pass, creates the Sentry project and wires up the DSN, creates
+          and deploys the Heroku staging app, and creates the GitHub `Staging` environment +
+          deploy workflow. Use when asked to set up staging, Heroku, or deployment.
       MD
     end
   end

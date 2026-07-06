@@ -27,4 +27,12 @@ RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
   it 'creates assets.rake task to remove node_modules directory during production build' do
     assert_file 'lib/tasks/assets.rake'
   end
+
+  it 'references the deploy-app skill from AGENTS.md instead of copying it into the repo' do
+    assert_file 'AGENTS.md' do |content|
+      expect(content).to include('deploy-app')
+      expect(content).to include('bundle show rolemodel-rails')
+    end
+    assert_no_file '.claude/skills/deploy-app/SKILL.md'
+  end
 end
