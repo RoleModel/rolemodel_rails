@@ -1,0 +1,28 @@
+name: Deploy to Heroku Production
+
+on:
+  workflow_dispatch:
+
+concurrency: production-deployment
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: Production
+      url: ${{ vars.HEROKU_APP_URL }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - uses: akhileshns/heroku-deploy@v3.15.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_IT_SUPPORT_API_KEY }}
+          heroku_app_name: ${{ vars.HEROKU_APP_NAME }}
+          heroku_email: ${{ vars.HEROKU_IT_SUPPORT_EMAIL }}
+          healthcheck: '${{ vars.HEROKU_APP_URL }}/up'

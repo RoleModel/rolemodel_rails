@@ -40,7 +40,14 @@ And then execute:
 
 ## Usage
 
-Run all generators (useful on a new app)
+Run the core generators (recommended on a new app — sets up our standard
+baseline so the app is ready to push straight to Heroku)
+
+```shell
+bin/rails g rolemodel:core_setup
+```
+
+Or run every generator, including app-specific extras like React, SaaS/Devise, and GoodJob
 
 ```shell
 bin/rails g rolemodel:all
@@ -66,6 +73,7 @@ bin/rails g
 
 ## Generators
 
+* [Core Setup](./lib/generators/rolemodel/core_setup)
 * [Github](./lib/generators/rolemodel/github)
 * [Semaphore](./lib/generators/rolemodel/semaphore)
 * [Heroku](./lib/generators/rolemodel/heroku)

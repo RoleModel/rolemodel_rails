@@ -14,7 +14,7 @@
 # <%= f.input :my_field, as: :switch_checkbox, label_after_input: true %>
 # <%= f.input :my_field, as: :switch_checkbox, wrapper: :switch_wrapper %>
 class SwitchCheckboxInput < SimpleForm::Inputs::BooleanInput
-  def input(wrapper_options = nil)
+  def input(wrapper_options = nil) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     merged_input_options = merge_wrapper_options(input_html_options, wrapper_options)
 
     switch_group = template.content_tag(:div, class: "switch #{'switch--small' if options[:small]}") do
