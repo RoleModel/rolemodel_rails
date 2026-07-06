@@ -5,6 +5,7 @@ module Rolemodel
     DEV_DEPS = %w[
       esbuild
       esbuild-loader
+      terser-webpack-plugin
       webpack
       webpack-cli
     ]

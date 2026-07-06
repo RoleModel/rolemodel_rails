@@ -2,10 +2,11 @@
 name: deploy-app
 description: >
   Set up deployment for a RoleModel Rails app after running the rolemodel_rails
-  core_setup generator. Cleans up the generated Gemfile, verifies the test suite and
-  RuboCop pass, creates the Sentry project and wires up the DSN, creates and deploys
-  the Heroku app (buildpacks, dynos, Postgres, Papertrail), and creates the GitHub
-  deployment environment + deploy workflow. Use when the user says "deploy app",
+  core_setup generator. Cleans up the generated Gemfile, verifies RuboCop, the test
+  suite, and a local production smoke test pass, creates the Sentry project and wires
+  up the DSN, creates and deploys the Heroku app (buildpacks, dynos, Postgres,
+  Papertrail), and creates the GitHub deployment environment + deploy workflow. Use
+  when the user says "deploy app",
   "set up staging", "set up heroku", "set up sentry for deploy", or "set up production
   deploy". Defaults to staging; pass "production" for the production flow.
 ---
@@ -13,8 +14,9 @@ description: >
 # Deploy App
 
 Completes deployment setup for a RoleModel Rails app in five phases: Gemfile cleanup,
-green build (tests + RuboCop), Sentry, Heroku, GitHub. Default mode is **staging**. If
-invoked with `production`, follow the [Production mode](#production-mode) differences.
+green build (RuboCop + tests + production smoke test), Sentry, Heroku, GitHub. Default
+mode is **staging**. If invoked with `production`, follow the
+[Production mode](#production-mode) differences.
 
 Every step must be **idempotent**: check whether the resource already exists before
 creating it, and skip or repair rather than failing. Report each phase's outcome as you
@@ -37,6 +39,15 @@ fail:
 6. Read `config/initializers/sentry.rb` — determine how the DSN is consumed:
    - reads `ENV['SENTRY_DSN']` → **env-var mode** (RoleModel standard)
    - reads `Rails.application.credentials...` → **credentials mode**
+7. Deploy-readiness (recent `rolemodel-rails` bakes these in; older apps need the manual
+   fixes noted in each phase). Confirm the generated app already has:
+   - `terser-webpack-plugin` in `package.json` (webpack config imports it)
+   - custom cops under `.rubocop/cops/`, not `lib/cops/` (the latter crashes prod boot)
+   - `config/initializers/lograge.rb` uses `controller.try(:current_user)`
+   - `config/database.yml` `production:` block uses `url: <%= ENV["DATABASE_URL"] %>`
+   - a `ruby` directive in the `Gemfile` (so the version reaches `Gemfile.lock`)
+   - `stackprof` in the `Gemfile` (Sentry profiling)
+   If any are missing, apply the fix inline and note the app predates the generator update.
 
 Set `APP_NAME` = `<REPO_NAME>-staging` (staging) or `<REPO_NAME>` (production), but
 confirm it with the user before creating anything on Heroku.
@@ -58,16 +69,34 @@ this phase if it's already clean):
    changes — this is an ordering-only cleanup; if the lockfile changed, you altered a
    dependency and must fix it.
 
-## Phase 2: Green build
+## Phase 2: Green build + production smoke test
 
-Do not deploy a broken app. Both checks must pass before continuing to any later phase:
+Do not deploy a broken app. This is a **verification gate**: on a current generated app
+these should pass with no changes. A failure here usually means a generator regression —
+fix the root cause (and flag it for the generator), never paper over it.
 
 1. RuboCop: `bin/rubocop` (fallback: `bundle exec rubocop`). If there are offenses,
    apply safe autocorrections (`rubocop -a`), then fix the remainder by hand.
-2. Test suite: `bin/rspec` (fallback: `bundle exec rspec`). Fix any failures at the
+2. Test suite: `bundle exec rspec` (fallback: `bin/rspec`). Fix any failures at the
    root cause — never skip, pend, or delete tests to get to green.
-3. Re-run both until clean, then commit the Gemfile cleanup and any fixes (the deploy
-   later pushes this branch, so everything must be committed).
+3. **Local production smoke test** — this is what catches the boot/asset/DB failures that
+   only surface under `RAILS_ENV=production` (eager loading, `force_ssl`, DATABASE_URL).
+   Run against a throwaway local Postgres DB (do not touch development/test data):
+   ```
+   export PROD="RAILS_ENV=production SECRET_KEY_BASE=smoketest \
+     DATABASE_URL=postgres://$(whoami)@localhost/<repo>_prodsmoke"
+   env $PROD bundle exec rails db:create
+   env $PROD bundle exec rails assets:precompile      # webpack + asset pipeline
+   env $PROD RAILS_SERVE_STATIC_FILES=true PORT=3999 bundle exec puma -C config/puma.rb &
+   sleep 6
+   curl -s -o /dev/null -w '%{http_code}\n' -H 'X-Forwarded-Proto: https' \
+     http://localhost:3999/up      # expect 200 (plain http returns 301 due to force_ssl)
+   kill %1; env $PROD bundle exec rails db:drop
+   ```
+   `assets:precompile` succeeding and `/up` → 200 is the gate. If `/up` 500s, read the
+   server log for the root cause before proceeding.
+4. Re-run until clean, then commit the Gemfile cleanup and any fixes (the deploy later
+   pushes this branch, so everything must be committed).
 
 ## Phase 3: Sentry project + DSN
 

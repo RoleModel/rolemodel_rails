@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.configure do |config|
   Capybara.register_driver :playwright_headless do |app|
     create_driver(app)
