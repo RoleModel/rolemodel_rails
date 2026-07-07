@@ -31,4 +31,22 @@ RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
       expect(content).to include('/.yarn/install-state.gz')
     end
   end
+
+  it 'does not wire Sentry into webpack.config.js by default' do
+    assert_file 'webpack.config.js' do |content|
+      expect(content).not_to include('@sentry/webpack-plugin')
+    end
+  end
+
+  context 'with the --sentry option' do
+    before { run_generator_against_test_app(['--sentry']) }
+
+    it 'wires the Sentry plugin into webpack.config.js' do
+      assert_file 'webpack.config.js' do |content|
+        expect(content).to include("import { sentryWebpackPlugin } from '@sentry/webpack-plugin'")
+        expect(content).to include('sentryWebpackPlugin({')
+        expect(content).to include('].filter(Boolean)')
+      end
+    end
+  end
 end

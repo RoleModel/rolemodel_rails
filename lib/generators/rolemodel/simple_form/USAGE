@@ -10,6 +10,5 @@ Example:
         simple_form input wrapper classes
         simple_form template file
 
-    All standard custom inputs are included by default. You will be
-    prompted to confirm whether to include the tailored_select custom
-    input, since not every project uses the tailored-select web component.
+    Pass --tailored_select to also install the experimental tailored_select
+    component input (via the rolemodel:tailored_select generator).

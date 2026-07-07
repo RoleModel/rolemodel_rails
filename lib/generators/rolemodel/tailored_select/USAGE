@@ -1,5 +1,6 @@
 Description:
-  runs the tailored select generator
+  Installs the @rolemodel/tailored-select package. If the app is using
+  SimpleForm, it also installs the matching tailored_select SimpleForm input.
 
 Example:
   rails generate rolemodel:tailored_select

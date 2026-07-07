@@ -1,13 +1,11 @@
 RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
   it 'generates a simple form initializer' do
-    allow_any_instance_of(Thor::Shell::Basic).to receive(:yes?).and_return(false)
     run_generator_against_test_app
 
     assert_file 'config/initializers/simple_form.rb'
   end
 
   it 'generates the default custom input files' do
-    allow_any_instance_of(Thor::Shell::Basic).to receive(:yes?).and_return(false)
     run_generator_against_test_app
 
     assert_file 'app/inputs/collection_check_boxes_input.rb'
@@ -18,7 +16,6 @@ RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
   end
 
   it 'generates slim scaffold templates for simple form' do
-    allow_any_instance_of(Thor::Shell::Basic).to receive(:yes?).and_return(false)
     run_generator_against_test_app
 
     assert_file 'lib/templates/slim/scaffold/_form.html.slim' do |content|
@@ -27,25 +24,28 @@ RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
     end
   end
 
-  context 'when the tailored_select input is declined' do
-    before do
-      allow_any_instance_of(Thor::Shell::Basic).to receive(:yes?).and_return(false)
-      run_generator_against_test_app
+  context 'the --tailored_select option' do
+    let(:invocations) { [] }
+
+    def invoke_simple_form(args = [])
+      generator = described_class.new([], args)
+      allow(generator).to receive(:generate) { |*invocation| invocations << invocation }
+      # Stub the parts that touch the filesystem/network; we only care about
+      # whether the tailored_select generator is delegated to.
+      %i[add_gem add_files].each { |step| allow(generator).to receive(step) }
+      generator.invoke_all
     end
 
-    it 'does not generate the tailored_select input' do
-      assert_no_file 'app/inputs/tailored_select_input.rb'
-    end
-  end
+    it 'delegates to the tailored_select generator when passed' do
+      invoke_simple_form(['--tailored_select'])
 
-  context 'when the tailored_select input is confirmed' do
-    before do
-      allow_any_instance_of(Thor::Shell::Basic).to receive(:yes?).and_return(true)
-      run_generator_against_test_app
+      expect(invocations).to include(['rolemodel:tailored_select'])
     end
 
-    it 'generates the tailored_select input' do
-      assert_file 'app/inputs/tailored_select_input.rb'
+    it 'does not delegate to the tailored_select generator by default' do
+      invoke_simple_form
+
+      expect(invocations).not_to include(['rolemodel:tailored_select'])
     end
   end
 end
