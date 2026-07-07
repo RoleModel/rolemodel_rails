@@ -11,14 +11,6 @@ module Rolemodel
       webpack-cli
     ]
 
-    POSTCSS_PKGS = %w[
-      @csstools/postcss-sass
-      postcss
-      postcss-loader
-      postcss-preset-env
-      postcss-scss
-    ]
-
     WEBPACK_CSS_PKGS = %w[
       css-loader
       css-minimizer-webpack-plugin
@@ -46,7 +38,7 @@ module Rolemodel
     def add_npm_packages
       say 'Adding new dev dependencies to package.json', :green
 
-      dependencies = DEV_DEPS + POSTCSS_PKGS + WEBPACK_CSS_PKGS
+      dependencies = DEV_DEPS + WEBPACK_CSS_PKGS
       run "yarn add --dev #{dependencies.join(' ')}"
     end
 
@@ -59,17 +51,15 @@ module Rolemodel
       JS
     end
 
-    def replace_css_entrypoint_with_scss
-      say 'Replacing CSS entrypoint file with SCSS version', :green
+    def add_css_entrypoint
+      say 'Adding CSS entrypoint file', :green
 
-      remove_file 'app/assets/stylesheets/application.css'
-      copy_file 'app/assets/stylesheets/application.scss'
+      copy_file 'app/assets/stylesheets/application.css', force: true
     end
 
     def add_webpack_config
-      say 'Copying PostCSS & Webpack config files', :green
+      say 'Copying Webpack config file', :green
 
-      copy_file 'postcss.config.cjs', force: true
       copy_file 'webpack.config.js', force: true
     end
   end
