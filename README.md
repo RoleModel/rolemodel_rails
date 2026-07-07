@@ -102,6 +102,117 @@ bin/rails g
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
 
+## Utilities
+
+### `Rolemodel::Utility::TaskTools`
+
+A mixin of helper methods for writing friendlier, more informative Rake tasks. It provides consistent, migration-style console output, progress indication for long-running loops, an opt-in dry-run mode, and sanitized positional task arguments.
+
+#### Requiring & Including
+
+The module is available at runtime (rolemodel-rails must not be restricted to the `development` gem group). Require it and `include` it inside the `namespace` block of your `.rake` file:
+
+```ruby
+require 'rolemodel/utility/task_tools'
+
+namespace :reports do
+  include Rolemodel::Utility::TaskTools
+
+  task total: :environment do
+    @total = GeneratedReport.count
+  end
+
+  namespace :clear do
+    desc 'Delete all non-current report records'
+    task expired: :total do
+      say_with_time "Detecting & Deleting Expired Reports among #{@total} Total" do
+        deleted_reports = 0
+        GeneratedReport.find_each.with_index do |report, index|
+          indicate_progress(index, @total)
+          next if report.current?
+
+          report.destroy unless dry_run?
+          deleted_reports += 1
+        end
+        say "#{deleted_reports}/#{@total} Records Deleted"
+      end
+    end
+  end
+end
+```
+
+> [!NOTE]
+> `include` inside a `namespace` block adds the helper methods to the anonymous object that evaluates your task bodies, making them (and any plain methods you define alongside them) available to every task in that namespace.
+
+#### Helper Methods
+
+##### `say(message)`
+
+Prints a message using the same style as Rails migrations. Pass `subitem: true` to indent the line beneath a preceding `say`.
+
+```ruby
+say 'Doing some important stuff!'
+say 'Like this one specific thing!', subitem: true
+#=> -- Doing some important stuff!
+#=>    -> Like this one specific thing!
+```
+
+##### `say_with_time(message, &block)`
+
+Wraps `say` and prints the block's real execution time as an indented subitem. Use it to announce and time a unit of work.
+
+```ruby
+say_with_time "Deleting all #{@total} Records" do
+  GeneratedReport.destroy_all unless dry_run?
+end
+#=> -- Deleting all 42 Records
+#=>    -> 0.0198s
+```
+
+##### `indicate_progress(index, total = nil, report_interval: 9)`
+
+Renders an animated spinner (and, when `total` is given, a completion percentage) for a long-running loop. Call it once per iteration with the current index; it only redraws every `report_interval` iterations so the animation stays eye-trackable. Pass a reduced `report_interval` when iterations are very slow.
+
+```ruby
+GeneratedReport.find_each.with_index do |report, index|
+  indicate_progress(index, @total)
+  # ...
+end
+```
+
+##### `dry_run?`
+
+Returns `true` when the `DRY_RUN` environment variable is present, enabling a dry-run pattern for your tasks. Guard any code that writes to the database or file system with `unless dry_run?` so the task still produces its console feedback without performing the side effects.
+
+```ruby
+report.destroy unless dry_run?
+```
+
+```shell
+DRY_RUN=true rake reports:clear:expired
+```
+
+##### `sanitize_arguments(args, defaults = {})`
+
+Improves the usability of positional `Rake::Task` arguments, which cannot declare default values and are awkward to skip. Pass the task's `args` and a hash of defaults; it returns a hash with whitespace stripped, blank/skipped values (passed as `_`) replaced by your defaults.
+
+```ruby
+desc 'Seed a dev user with the given name and email'
+task :dev, %i[name email] => :environment do |_, args|
+  name, email = sanitize_arguments(args, name: 'RoleModel', email: 'it-support@rolemodelsoftware.com').values_at(:name, :email)
+  say_with_time "Seeding Dev User (name: #{name}, email: #{email}, role: Admin)" do
+    User.find_or_create(name:, email:, role: 'admin') unless dry_run?
+  end
+end
+```
+
+```shell
+# Skip the name argument with `_` to fall back to its default
+DRY_RUN=true rake users:dev[_,bob@example.com]
+#=> -- Seeding Dev User (name: RoleModel, email: bob@example.com, role: Admin)
+#=>    -> 0.0000s
+```
+
 ## Development
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
