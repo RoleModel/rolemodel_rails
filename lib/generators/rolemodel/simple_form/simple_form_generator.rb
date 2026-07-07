@@ -4,6 +4,9 @@ module Rolemodel
   class SimpleFormGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
+    class_option :tailored_select, type: :boolean, default: false,
+                                   desc: 'Install the tailored_select experimental component input'
+
     def add_gem
       Bundler.with_unbundled_env do
         bundle_command 'add simple_form'
@@ -17,10 +20,12 @@ module Rolemodel
       copy_file 'config/locales/simple_form.en.yml'
     end
 
-    def add_tailored_select_input
-      return unless yes?('Would you like to include the tailored_select custom input?')
+    def install_tailored_select
+      return unless options.tailored_select?
 
-      copy_file 'optional/tailored_select_input.rb', 'app/inputs/tailored_select_input.rb'
+      # The tailored_select generator owns the input template and installs it
+      # here because simple_form is now present.
+      generate 'rolemodel:tailored_select'
     end
   end
 end

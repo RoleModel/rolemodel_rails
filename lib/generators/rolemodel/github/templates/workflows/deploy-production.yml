@@ -2,6 +2,11 @@ name: Deploy to Heroku Production
 
 on:
   workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Specific SHA or Branch name (optional)'
+        required: false
+        type: string
 
 concurrency: production-deployment
 
@@ -25,4 +30,5 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_IT_SUPPORT_API_KEY }}
           heroku_app_name: ${{ vars.HEROKU_APP_NAME }}
           heroku_email: ${{ vars.HEROKU_IT_SUPPORT_EMAIL }}
+          branch: ${{ inputs.sha || 'HEAD' }}
           healthcheck: '${{ vars.HEROKU_APP_URL }}/up'

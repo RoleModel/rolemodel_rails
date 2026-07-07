@@ -22,6 +22,6 @@ app you can push straight to Heroku right after generation.
     (pass `--js-runner` to include jasmine-playwright-runner)
   - [SimpleForm](../simple_form) — SimpleForm with our configuration
   - [Linters](../linters) — Rubocop and ESLint
-  - [UI Components](../ui_components) — flash, modals, navbar
+  - [UI Components](../ui_components) — flash, the modal pattern, & Turbo 8 support
   - [Editors](../editors) — EditorConfig and recommended VSCode extensions
   - [Lograge](../lograge) — condensed request logging

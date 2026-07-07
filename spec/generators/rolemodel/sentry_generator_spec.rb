@@ -16,7 +16,8 @@ RSpec.describe Rolemodel::SentryGenerator, type: :generator do
     end
 
     assert_file 'app/controllers/application_controller.rb' do |content|
-      expect(content).to include('before_action :set_sentry_user, if: :user_signed_in?')
+      expect(content).to include('before_action :set_sentry_user')
+      expect(content).to include('respond_to?(:current_user) && current_user')
       expect(content).to include('Sentry.set_user(id: current_user.id)')
     end
   end

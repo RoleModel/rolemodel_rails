@@ -35,14 +35,17 @@ module Rolemodel
       say 'Adding Sentry user context to ApplicationController', :green
 
       inject_into_class 'app/controllers/application_controller.rb', 'ApplicationController',
-                        "  before_action :set_sentry_user, if: :user_signed_in?\n"
+                        "  before_action :set_sentry_user\n"
 
       inject_into_file 'app/controllers/application_controller.rb', before: /^end\b/ do
         <<-RUBY
 
   private
 
+  # Guarded so it works whether or not an authentication generator has been run.
   def set_sentry_user
+    return unless respond_to?(:current_user) && current_user
+
     Sentry.set_user(id: current_user.id)
   end
         RUBY
@@ -65,36 +68,10 @@ module Rolemodel
       JS
     end
 
+    # For standalone `rolemodel:sentry` runs; when run via core_setup the webpack
+    # generator has already wired this (and this call is a no-op).
     def configure_webpack
-      say 'Wiring Sentry into webpack.config.js', :green
-
-      inject_into_file 'webpack.config.js',
-                       "import { sentryWebpackPlugin } from '@sentry/webpack-plugin'\n",
-                       after: "import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'\n"
-
-      inject_into_file 'webpack.config.js', after: "'process.env.RAILS_ENV': JSON.stringify(process.env.RAILS_ENV),\n" do
-        <<-JS
-      'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
-      'process.env.SENTRY_ENVIRONMENT': JSON.stringify(process.env.SENTRY_ENVIRONMENT),
-      'process.env.SENTRY_AUTH_TOKEN': JSON.stringify(process.env.SENTRY_AUTH_TOKEN),
-        JS
-      end
-
-      gsub_file 'webpack.config.js', "    })\n  ].filter(Boolean)", <<-JS.chomp
-    }),
-
-    // Upload source maps to Sentry in production for easier debugging
-    mode === 'production' &&
-      !process.env.CI &&
-      sentryWebpackPlugin({
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-        org: 'rolemodel-software',
-        project: '#{app_name}',
-        telemetry: false,
-        applicationKey: 'app-frontend'
-      })
-  ].filter(Boolean)
-      JS
+      wire_sentry_into_webpack
     end
 
     def finishing_notes
@@ -105,12 +82,6 @@ module Rolemodel
 
         *** Set the SENTRY_DSN, SENTRY_ENVIRONMENT, and SENTRY_AUTH_TOKEN environment variables.
       NOTES
-    end
-
-    private
-
-    def app_name
-      Rails.application.class.module_parent_name.underscore
     end
   end
 end
