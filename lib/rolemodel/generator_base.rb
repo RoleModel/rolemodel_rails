@@ -83,7 +83,7 @@ module Rolemodel
       sentryWebpackPlugin({
         authToken: process.env.SENTRY_AUTH_TOKEN,
         org: 'rolemodel-software',
-        project: '#{sentry_app_name}',
+        project: '#{Rails.application.name}',
         telemetry: false,
         applicationKey: 'app-frontend'
       })

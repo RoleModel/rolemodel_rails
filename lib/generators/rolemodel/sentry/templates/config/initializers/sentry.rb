@@ -64,7 +64,5 @@ Sentry.init do |config|
   end
 
   config.rails.register_error_subscriber = Rails.env.production?
-  config.rails.structured_logging.subscribers = {
-    action_controller: Sentry::Rails::LogSubscribers::ActionControllerSubscriber,
-  }
+  config.rails.structured_logging.subscribers = config.rails.structured_logging.subscribers.slice(:action_controller)
 end
