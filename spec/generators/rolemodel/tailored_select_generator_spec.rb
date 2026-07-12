@@ -7,15 +7,14 @@ RSpec.describe Rolemodel::TailoredSelectGenerator, type: :generator do
     end
   end
 
-  it 'does not install the SimpleForm input when SimpleForm is absent' do
+  it 'does not install the SimpleForm input by default (SimpleForm not recorded)' do
     run_generator_against_test_app
 
     assert_no_file 'app/inputs/tailored_select_input.rb'
   end
 
-  it 'installs the SimpleForm input when SimpleForm is present' do
-    run_generator_against_test_app generator: ::Rolemodel::SimpleFormGenerator
-    run_generator_against_test_app
+  it 'installs the SimpleForm input when passed --simple-form-input' do
+    run_generator_against_test_app(['--simple-form-input'])
 
     assert_file 'app/inputs/tailored_select_input.rb'
   end
