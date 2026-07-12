@@ -3,6 +3,9 @@ module Rolemodel
     class AllGenerator < GeneratorBase
       source_root File.expand_path('templates', __dir__)
 
+      # Composite generator: orchestrates other generators, not recorded itself.
+      skip_registry_entry!
+
       def run_all_the_generators
         Dir.glob(Pathname(File.expand_path('.', __dir__)).join('*', '*generator.rb')).each do |generator|
           name = File.basename(generator, '_generator.rb')

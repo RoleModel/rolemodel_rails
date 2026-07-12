@@ -3,6 +3,9 @@ module Rolemodel
     class AllGenerator < GeneratorBase
       source_root File.expand_path('templates', __dir__)
 
+      # Composite generator: orchestrates other generators, not recorded itself.
+      skip_registry_entry!
+
       class_option :js_runner, type: :boolean, default: false, desc: 'Include jasmine-playwright-runner for browser testing'
 
       def run_all_the_generators
