@@ -38,8 +38,8 @@ RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
     end
   end
 
-  context 'with the --sentry option' do
-    before { run_generator_against_test_app(['--sentry']) }
+  context 'with the --sentry-webpack option' do
+    before { run_generator_against_test_app(['--sentry-webpack']) }
 
     it 'wires the Sentry plugin into webpack.config.js' do
       assert_file 'webpack.config.js' do |content|
