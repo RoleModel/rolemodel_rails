@@ -1,0 +1,15 @@
+Description:
+    Seed the rolemodel_rails generator registry for an existing app. Scans
+    for characteristic output files of previously applied generators and
+    writes detection-based entries into config/initializers/rolemodel_generators.rb.
+
+    Safe to run multiple times — never overwrites existing version-stamped
+    entries and never writes false entries.
+
+Example:
+    rails generate rolemodel:registry
+
+    This will scan your app for signs of previously applied RoleModel generators
+    (webpack, sentry, simple_form, etc.) and create or update the registry
+    initializer with seeded entries. Review the output for any "not detected"
+    generators that you know were applied and adjust the initializer manually.
