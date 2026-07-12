@@ -25,6 +25,57 @@ module Rolemodel
       end
     end
 
+    # Declares an optional coupling with another generator: a boolean hook_for
+    # sharing +hook_key+ with the other side, defaulting to whether +with+ is
+    # recorded in the app's registry. The framework provides the rest: the
+    # --<hook-key>/--no-<hook-key> switch pair, the rolemodel:<hook_key>
+    # sub-generator lookup, and config-key precedence (an explicit
+    # `g.rolemodel <hook_key>: ...` entry overrides the computed default).
+    #
+    # The default resolves at class-DEFINITION time. That is correct because
+    # generator classes load after Rails::Generators.configure! in real runs —
+    # which is also why a coupling-declaring generator must never be
+    # eagerly required from the engine's generators block.
+    #
+    # Declaration position matters: hook invocations run where they are
+    # declared, so coupling_hook belongs AFTER the action methods it depends
+    # on — the wiring sub-generator must find the files those actions create.
+    def self.coupling_hook(hook_key, with:)
+      hook_for hook_key, type: :boolean, default: Registry.recorded?(with)
+
+      skip_note = "Skipping #{hook_key} — #{with} is not recorded in #{Registry::INITIALIZER_PATH}. " \
+                  "Re-run this generator after installing rolemodel:#{with}, " \
+                  "or pass --#{hook_key.to_s.tr('_', '-')}."
+
+      # Public on purpose: Thor registers it as the command immediately after
+      # the hook invocation, so the skip note prints exactly where the hook
+      # would have run. When the hook fires, its own invoke status line is
+      # the user-facing output and this stays silent.
+      class_eval <<~RUBY, __FILE__, __LINE__ + 1
+        def #{hook_key}_skip_note
+          say #{skip_note.inspect}, :yellow unless options[:#{hook_key}]
+        end
+      RUBY
+    end
+
+    # Declares a hard prerequisite: the generator aborts (via
+    # ensure_required_generators below) before any of its actions run unless
+    # +key+ is recorded in the app's registry. Deliberately exposes no CLI
+    # switch — hard prerequisites are not bypassable per-invocation; the
+    # remedies are installing the missing generator or seeding the registry.
+    def self.requires_generator(key)
+      @required_generator_keys = required_generator_keys + [key.to_sym]
+    end
+
+    # Accumulated prerequisite keys, inherited by subclasses.
+    def self.required_generator_keys
+      if instance_variable_defined?(:@required_generator_keys)
+        @required_generator_keys
+      else
+        superclass.respond_to?(:required_generator_keys) ? superclass.required_generator_keys : []
+      end
+    end
+
     # Thor's method_added turns public instance methods into commands, and
     # invoke_all is NOT in THOR_RESERVED_WORDS — without no_commands this
     # override would itself become a command and recurse.
@@ -36,6 +87,25 @@ module Rolemodel
       def invoke_all
         super.tap { update_registry_entry }
       end
+    end
+
+    # The requires_generator guard. Public on purpose: Thor turns it into a
+    # command, and because inherited commands run before subclass commands it
+    # executes before any subclass action for every generator. It shows up in
+    # every generator's command list, so the name must say what it does —
+    # and nothing else on GeneratorBase may be public.
+    def ensure_required_generators
+      return unless behavior == :invoke # rails destroy teardown is never blocked
+
+      missing = self.class.required_generator_keys.reject { |key| Registry.recorded?(key) }
+      return if missing.empty?
+
+      raise Thor::Error, <<~MESSAGE
+        #{self.class.namespace} requires #{missing.join(', ')} to be installed first,
+        but no entry is recorded in #{Registry::INITIALIZER_PATH}.
+        Install the missing generator (bin/rails generate rolemodel:#{missing.first}) and re-run,
+        or run bin/rails generate rolemodel:registry to seed the registry in an existing app.
+      MESSAGE
     end
 
     private
