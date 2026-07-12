@@ -3,12 +3,43 @@
 require 'rails/generators'
 require 'rails/generators/bundle_helper'
 require_relative 'replace_content_helper'
+require_relative 'registry'
 
 module Rolemodel
+  # Shared base class for all rolemodel_rails generators: common helpers plus
+  # the registry recording seam that runs after every successful invocation.
   class GeneratorBase < ::Rails::Generators::Base
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
 
+    # Exempts a generator from registry recording (composites, hook
+    # sub-generators, the seeding generator). Inherited by subclasses.
+    def self.skip_registry_entry!
+      @skip_registry_entry = true
+    end
+
+    def self.skip_registry_entry?
+      if instance_variable_defined?(:@skip_registry_entry)
+        @skip_registry_entry
+      else
+        superclass.respond_to?(:skip_registry_entry?) && superclass.skip_registry_entry?
+      end
+    end
+
+    # Thor's method_added turns public instance methods into commands, and
+    # invoke_all is NOT in THOR_RESERVED_WORDS — without no_commands this
+    # override would itself become a command and recurse.
+    no_commands do
+      # The registry recording seam: once a run completes without raising,
+      # record this generator in the consuming app's registry initializer
+      # (or remove the entry under `rails destroy`). An exception during the
+      # run propagates and records nothing.
+      def invoke_all
+        super.tap { update_registry_entry }
+      end
+    end
+
     private
+
     # based on https://github.com/rails/rails/blob/main/railties/lib/rails/generators/app_base.rb#L713
     def run_bundle
       bundle_command("install --quiet", "BUNDLE_IGNORE_MESSAGES" => "1")
@@ -93,6 +124,27 @@ module Rolemodel
 
     def sentry_app_name
       Rails.application.class.module_parent_name.underscore
+    end
+
+    def update_registry_entry
+      return if self.class.skip_registry_entry?
+
+      if behavior == :revoke
+        Registry.remove(Registry.key_for(self.class), destination_root: destination_root)
+      elsif behavior == :invoke && !options[:pretend]
+        record_registry_entry
+      end
+    end
+
+    def record_registry_entry
+      key = Registry.key_for(self.class)
+
+      case Registry.record(key, destination_root: destination_root)
+      when :recorded
+        say "Recorded #{key} in #{Registry::INITIALIZER_PATH}", :green
+      when :skipped_opt_out
+        say "Not recording #{key} — explicitly set to false in #{Registry::INITIALIZER_PATH}", :yellow
+      end
     end
   end
 end
