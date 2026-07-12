@@ -13,13 +13,32 @@
 * [Optics](./optics)
 * [README](./readme)
 * [SaaS](./saas)
-* [Semaphore](./semaphore)
 * [SimpleForm](./simple_form)
 * [Slim](./slim)
 * [SoftDestroyable](./soft_destroyable)
 * [Source Map](./source_map)
 * [Testing](./testing)
 * [Webpack](./webpack)
+* [Registry](./registry)
+
+## Generator Registry
+
+Each generator records itself in `config/initializers/rolemodel_generators.rb`
+so that other generators can detect whether it has been applied. See
+[Registry](./registry) for the seeding tool.
+
+### Generator coupling
+
+Some generators declare optional couplings:
+
+* **sentry ↔ webpack:** Whichever is installed second wires the Sentry webpack
+  plugin into `webpack.config.js` via the `sentry_webpack` hook sub-generator.
+  Pass `--no-sentry-webpack` to suppress. Set
+  `g.rolemodel sentry_webpack: false` in the initializer for a persistent opt-out.
+* **tailored_select ↔ simple_form:** Installing simple_form with
+  `--tailored-select` installs the tailored_select package and its input.
+  Installing tailored_select standalone installs the package without the input.
+  Pass `--simple-form-input` to force the input regardless.
 
 ## Helpful documentation
 

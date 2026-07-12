@@ -18,6 +18,18 @@ Error monitoring and performance tracing via [Sentry](https://sentry.io) for bot
 
 Depends on the `rolemodel:webpack` generator having already created `webpack.config.js` and `app/javascript/application.js`.
 
+## Coupling with webpack
+
+When `rolemodel:webpack` is already recorded in the app's generator registry,
+running the sentry generator automatically wires the `sentryWebpackPlugin` into
+`webpack.config.js` via the shared `rolemodel:sentry_webpack` hook sub-generator.
+
+* Pass `--no-sentry-webpack` to suppress this wiring.
+* Set `g.rolemodel sentry_webpack: false` in `config/initializers/rolemodel_generators.rb`
+  for a persistent opt-out.
+* If webpack is installed *after* sentry, running `rolemodel:webpack` will
+  likewise wire the Sentry plugin automatically.
+
 ## After running
 
 * Update the `project` and `applicationKey` in `webpack.config.js`, and the matching `filterKeys` in `app/javascript/initializers/sentry.js`, to match your Sentry project.
