@@ -32,14 +32,14 @@ RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
       allow(generator).to receive(:generate) { |*invocation| invocations << invocation }
       # Stub the parts that touch the filesystem/network; we only care about
       # whether the tailored_select generator is delegated to.
-      %i[add_gem add_files].each { |step| allow(generator).to receive(step) }
+      %i[add_gem add_files update_registry_entry].each { |step| allow(generator).to receive(step) }
       generator.invoke_all
     end
 
     it 'delegates to the tailored_select generator when passed' do
       invoke_simple_form(['--tailored_select'])
 
-      expect(invocations).to include(['rolemodel:tailored_select'])
+      expect(invocations).to include(['rolemodel:tailored_select', '--simple-form-input'])
     end
 
     it 'does not delegate to the tailored_select generator by default' do

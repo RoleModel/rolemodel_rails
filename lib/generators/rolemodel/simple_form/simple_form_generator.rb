@@ -24,8 +24,10 @@ module Rolemodel
       return unless options.tailored_select?
 
       # The tailored_select generator owns the input template and installs it
-      # here because simple_form is now present.
-      generate 'rolemodel:tailored_select'
+      # here because simple_form is now present. simple_form is not recorded in
+      # the registry until this run completes, so pass the switch explicitly
+      # rather than relying on the child's registry-based default.
+      generate 'rolemodel:tailored_select', '--simple-form-input'
     end
   end
 end

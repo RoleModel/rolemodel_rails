@@ -21,3 +21,6 @@ log
 .history
 
 .DS_Store
+
+# Leaked app config from running generators at the repo root during dev/specs
+/config/

@@ -68,11 +68,10 @@ module Rolemodel
       JS
     end
 
-    # For standalone `rolemodel:sentry` runs; when run via core_setup the webpack
-    # generator has already wired this (and this call is a no-op).
-    def configure_webpack
-      wire_sentry_into_webpack
-    end
+    # Optional coupling: when rolemodel:webpack is already installed, wire the
+    # Sentry plugin into its webpack.config.js. Declared after the action
+    # methods so the wiring runs once the config file it edits is present.
+    coupling_hook :sentry_webpack, with: :webpack
 
     def finishing_notes
       say <<~NOTES

@@ -71,11 +71,37 @@ You can see complete list of available generators (including those under the Rol
 bin/rails g
 ```
 
+## Generator Registry
+
+Every rolemodel generator that is run records itself in your app's
+`config/initializers/rolemodel_generators.rb`. This registry powers coupling
+declarations between generators — for example, the sentry and webpack generators
+know about each other through the registry and automatically wire the Sentry
+webpack plugin when both are present.
+
+For apps set up before the registry existed, run the seeding generator:
+
+```shell
+bin/rails g rolemodel:registry
+```
+
+The seeder probes for each generator's characteristic output files and writes
+entries marked as `seeded-by-detection`. It is safe to run multiple times.
+
+### Opting out
+
+* **Persistent opt-out:** Set `g.rolemodel <key>: false` in the initializer.
+  The generator will never re-record over a `false` entry.
+* **Per-invocation opt-out:** Pass `--no-<key>` to any generator that declares
+  a coupling (e.g. `rails g rolemodel:sentry --no-sentry-webpack`).
+* **Drift recovery:** If the managed block markers are missing from the
+  initializer, delete the file and run `rails g rolemodel:registry` to
+  rebuild it.
+
 ## Generators
 
 * [Core Setup](./lib/generators/rolemodel/core_setup)
 * [Github](./lib/generators/rolemodel/github)
-* [Semaphore](./lib/generators/rolemodel/semaphore)
 * [Heroku](./lib/generators/rolemodel/heroku)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Webpack](./lib/generators/rolemodel/webpack)
@@ -109,6 +135,7 @@ bin/rails g
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
+* [Registry](./lib/generators/rolemodel/registry)
 
 ## Development
 

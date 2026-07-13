@@ -2,9 +2,12 @@ module Rolemodel
   class AllGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
+    # Composite generator: it orchestrates other generators and installs nothing
+    # itself, so it is not recorded in the registry.
+    skip_registry_entry!
+
     def run_all_the_generators
       generate 'rolemodel:github'
-      generate 'rolemodel:semaphore'
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
       generate 'rolemodel:webpack'

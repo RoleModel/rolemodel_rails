@@ -1,9 +1,12 @@
 RSpec.describe Rolemodel::SentryGenerator, type: :generator do
   before do
     # The webpack generator lays down the webpack.config.js and application.js
-    # that this generator injects into.
+    # that this generator injects into. In the eager-load spec context webpack
+    # is not "recorded", so the sentry<->webpack coupling is forced explicitly
+    # via --sentry-webpack (the coupling's own resolution is covered in
+    # spec/rolemodel/coupling_hook_spec.rb).
     run_generator_against_test_app generator: ::Rolemodel::WebpackGenerator
-    run_generator_against_test_app
+    run_generator_against_test_app(['--sentry-webpack'])
   end
 
   it 'sets up the Ruby side' do

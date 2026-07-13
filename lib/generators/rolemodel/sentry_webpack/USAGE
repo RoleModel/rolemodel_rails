@@ -1,0 +1,10 @@
+Description:
+    Wires the Sentry webpack plugin into webpack.config.js. This is a hook
+    sub-generator invoked automatically by the sentry<->webpack coupling; you
+    normally do not run it directly.
+
+Example:
+    rails generate rolemodel:sentry_webpack
+
+    This will inject the sentryWebpackPlugin into webpack.config.js (a no-op if
+    webpack.config.js is missing or the plugin is already wired).
