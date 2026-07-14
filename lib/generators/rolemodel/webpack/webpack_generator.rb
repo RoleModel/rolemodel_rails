@@ -26,6 +26,18 @@ module Rolemodel
       mini-css-extract-plugin
     ]
 
+    def ensure_no_importmap
+      return unless Rails.root.join(destination_root, 'config/importmap.rb').exist?
+
+      remove_file 'config/importmap.rb'
+      bundle_command 'remove importmap-rails'
+    end
+
+    def ensure_jsbundling
+      bundle_command 'add jsbundling-rails'
+      run_bundle
+    end
+
     def ensure_node_version
       say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}", :green
 
@@ -58,6 +70,8 @@ module Rolemodel
     end
 
     def replace_css_entrypoint_with_scss
+      return if options.skip_scss?
+
       say 'Replacing CSS entrypoint file with SCSS version', :green
 
       remove_file 'app/assets/stylesheets/application.css'

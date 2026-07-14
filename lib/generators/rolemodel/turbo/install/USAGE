@@ -1,0 +1,5 @@
+Description:
+  Base Turbo Installation
+
+Example:
+  rails generate rolemodel:turbo:install

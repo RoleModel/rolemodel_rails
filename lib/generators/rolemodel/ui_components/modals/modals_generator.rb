@@ -27,7 +27,6 @@ module Rolemodel
         directory 'app/javascript/initializers'
 
         append_to_file 'app/javascript/application.js', <<~JS
-          import './initializers/turbo_confirm.js'
           import './initializers/frame_missing_handler.js'
           import './initializers/before_morph_handler.js'
         JS
@@ -39,7 +38,6 @@ module Rolemodel
         inject_into_file 'app/views/layouts/application.html.slim', after: /\bbody.*\n/ do
           optimize_indentation <<~SLIM, 4
             = turbo_frame_tag 'modal'
-            = render 'confirm'
           SLIM
         end
       end
