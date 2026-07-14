@@ -14,7 +14,7 @@ RSpec.describe Rolemodel::CoreSetupGenerator do
       ['rolemodel:github'],
       ['rolemodel:heroku'],
       ['rolemodel:readme'],
-      ['rolemodel:webpack --sentry'],
+      ['rolemodel:webpack'],
       ['rolemodel:sentry'],
       ['rolemodel:slim'],
       ['rolemodel:optics:all'],

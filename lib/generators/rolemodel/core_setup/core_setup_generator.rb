@@ -4,7 +4,7 @@ module Rolemodel
       generate 'rolemodel:github'
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
-      generate 'rolemodel:webpack --sentry'
+      generate 'rolemodel:webpack'
       generate 'rolemodel:sentry'
       generate 'rolemodel:slim'
       generate 'rolemodel:optics:all'

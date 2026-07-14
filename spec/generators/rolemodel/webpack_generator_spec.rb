@@ -39,14 +39,23 @@ RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
   end
 
   context 'with the --sentry option' do
-    before { run_generator_against_test_app(['--sentry']) }
+    # Stubbed on a single instance (rather than run against the test app)
+    # because Thor treats any method RSpec defines on the class as a generator
+    # action. The wiring itself is covered by the Sentry generator spec.
+    def run_sentry_generator_action(args)
+      invocations = []
+      generator = described_class.new([], args)
+      allow(generator).to receive(:generate) { |*invocation| invocations << invocation }
+      generator.run_sentry_generator
+      invocations
+    end
 
-    it 'wires the Sentry plugin into webpack.config.js' do
-      assert_file 'webpack.config.js' do |content|
-        expect(content).to include("import { sentryWebpackPlugin } from '@sentry/webpack-plugin'")
-        expect(content).to include('sentryWebpackPlugin({')
-        expect(content).to include('].filter(Boolean)')
-      end
+    it 'runs the Sentry generator (which owns the webpack wiring)' do
+      expect(run_sentry_generator_action(['--sentry'])).to eq [['rolemodel:sentry']]
+    end
+
+    it 'does not run the Sentry generator without the option' do
+      expect(run_sentry_generator_action([])).to eq []
     end
   end
 end
