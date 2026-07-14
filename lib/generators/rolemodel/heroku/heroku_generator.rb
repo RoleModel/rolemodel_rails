@@ -15,6 +15,33 @@ module Rolemodel
       template 'Procfile'
     end
 
+    def pin_ruby_version_for_buildpack
+      say 'Pin the Ruby version in the Gemfile so the Heroku buildpack respects it.', :green
+
+      # A bare .ruby-version file is not enough: without a `ruby` directive the version
+      # never lands in Gemfile.lock, so the Heroku Ruby buildpack falls back to its own
+      # default and can install an incompatible Ruby. Tie the Gemfile to .ruby-version.
+      gemfile = File.join(destination_root, 'Gemfile')
+      return if File.exist?(gemfile) && File.read(gemfile).match?(/^\s*ruby\s/)
+
+      inject_into_file 'Gemfile', "\nruby file: '.ruby-version'\n", after: /^source .*$/
+    end
+
+    def use_database_url_in_production
+      say 'Point the production database at DATABASE_URL for Heroku.', :green
+
+      # Rails' generated production block hardcodes database/username/<APP>_DATABASE_PASSWORD,
+      # none of which exist on Heroku, where the Postgres add-on provides a full DATABASE_URL.
+      # Replace the whole block with a url-based config.
+      gsub_file 'config/database.yml',
+                /^production:\n(?:[ \t]+.*\n?)+/,
+                <<~YAML
+                  production:
+                    <<: *default
+                    url: <%= ENV["DATABASE_URL"] %>
+                YAML
+    end
+
     def force_ssl
       say 'Require SSL for production environment.', :green
 
@@ -47,6 +74,14 @@ module Rolemodel
           end
         end
       RAKE
+    end
+
+    def show_deploy_app_skill_path
+      # The deploy-app skill is one-time deployment setup, so it ships inside the
+      # rolemodel-rails gem instead of being copied into the app. Point the user
+      # at it so they can hand it to a coding agent when they're ready to deploy.
+      say "\nWhen you're ready to deploy, point your coding agent at the deploy-app skill:", :green
+      say File.expand_path('templates/deploy-app/SKILL.md', __dir__), :yellow
     end
   end
 end

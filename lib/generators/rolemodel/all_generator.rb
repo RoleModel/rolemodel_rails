@@ -8,6 +8,7 @@ module Rolemodel
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'
       generate 'rolemodel:webpack'
+      generate 'rolemodel:sentry'
       generate 'rolemodel:react'
       generate 'rolemodel:slim'
       generate 'rolemodel:optics:all'

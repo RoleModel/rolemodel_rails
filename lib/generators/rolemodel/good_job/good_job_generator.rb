@@ -64,8 +64,6 @@ module Rolemodel
 
     def finishing_notes
       say <<~NOTES
-        *** Reminder to update Honeybadger gem to version 5.7.0 or later to get correct GoodJob error notifications in Honeybadger
-
         *** Reminder to also update your job classes to include appropriate concurrency controls (enqueue_limit/perform_limit with keys)
       NOTES
     end

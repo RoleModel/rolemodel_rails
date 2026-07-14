@@ -16,7 +16,11 @@ module Rolemodel
 
       def add_config
         copy_file '.rubocop.yml', force: true
-        directory 'lib/cops'
+        # Custom cops live in .rubocop/cops (loaded via .rubocop.yml's require:),
+        # not lib/cops — keeping them out of Rails' autoload/eager-load paths so
+        # they don't crash production boot referencing the dev/test-only RuboCop
+        # constant.
+        directory '.rubocop/cops'
       end
     end
   end

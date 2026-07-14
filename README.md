@@ -40,7 +40,14 @@ And then execute:
 
 ## Usage
 
-Run all generators (useful on a new app)
+Run the core generators (recommended on a new app — sets up our standard
+baseline so the app is ready to push straight to Heroku)
+
+```shell
+bin/rails g rolemodel:core_setup
+```
+
+Or run every generator, including app-specific extras like React, SaaS/Devise, and GoodJob
 
 ```shell
 bin/rails g rolemodel:all
@@ -66,6 +73,7 @@ bin/rails g
 
 ## Generators
 
+* [Core Setup](./lib/generators/rolemodel/core_setup)
 * [Github](./lib/generators/rolemodel/github)
 * [Semaphore](./lib/generators/rolemodel/semaphore)
 * [Heroku](./lib/generators/rolemodel/heroku)
@@ -215,7 +223,7 @@ DRY_RUN=true rake users:dev[_,bob@example.com]
 
 ## Development
 
-Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `npm install -g yarn`.
+Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `corepack enable` to activate the Yarn 4+ version pinned by each project's `packageManager` field.
 
 ## Adding new Generators
 

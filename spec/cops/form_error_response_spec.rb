@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'rubocop'
 require 'rubocop/rspec/support'
-require 'generators/rolemodel/linters/rubocop/templates/lib/cops/form_error_response'
+require 'generators/rolemodel/linters/rubocop/templates/.rubocop/cops/form_error_response'
 
 RSpec.describe Cops::FormErrorResponse, :config do
   include RuboCop::RSpec::ExpectOffense

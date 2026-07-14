@@ -9,3 +9,6 @@ Example:
         config/locales/simple_form.en.yml
         simple_form input wrapper classes
         simple_form template file
+
+    Pass --tailored_select to also install the experimental tailored_select
+    component input (via the rolemodel:tailored_select generator).

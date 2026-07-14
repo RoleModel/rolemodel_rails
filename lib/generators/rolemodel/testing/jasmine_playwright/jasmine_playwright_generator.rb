@@ -18,8 +18,8 @@ module Rolemodel
         raise Thor::InvocationError, 'a --github_package_token option or GITHUB_PACKAGES_TOKEN environment variable is required' if options[:github_package_token].blank?
       end
 
-      def yarn_init_unless_package_json_exists
-        run 'yarn init' unless File.exist?(File.expand_path('package.json', destination_root))
+      def enable_corepack_and_yarn
+        ensure_yarn
       end
 
       def add_browser_test_script

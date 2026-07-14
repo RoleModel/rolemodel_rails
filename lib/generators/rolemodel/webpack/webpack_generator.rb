@@ -2,9 +2,10 @@ module Rolemodel
   class WebpackGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
+    class_option :sentry, type: :boolean, default: false,
+                          desc: 'Also run the rolemodel:sentry generator'
+
     DEV_DEPS = %w[
-      @honeybadger-io/webpack
-      @honeybadger-io/js
       esbuild
       esbuild-loader
       webpack
@@ -31,6 +32,12 @@ module Rolemodel
       create_file '.node-version', NODE_VERSION, force: true
     end
 
+    def enable_corepack_and_yarn
+      say 'Enabling Corepack and pinning the project to Yarn 4+', :green
+
+      ensure_yarn
+    end
+
     def force_node_to_use_es_modules
       say 'Configuring project to use ES Modules instead of CommonJS', :green
 
@@ -50,15 +57,6 @@ module Rolemodel
       run "yarn add --dev #{dependencies.join(' ')}"
     end
 
-    def honeybadger_setup
-      say 'Setting up Honeybadger for JS error reporting', :green
-
-      copy_file 'app/javascript/initializers/honeybadger.js'
-      append_to_file 'app/javascript/application.js', <<~JS
-        import './initializers/honeybadger'
-      JS
-    end
-
     def replace_css_entrypoint_with_scss
       say 'Replacing CSS entrypoint file with SCSS version', :green
 
@@ -71,6 +69,16 @@ module Rolemodel
 
       copy_file 'postcss.config.cjs', force: true
       copy_file 'webpack.config.js', force: true
+    end
+
+    # All Sentry concerns (including wiring its plugin into webpack.config.js)
+    # live in the Sentry generator; this option is a convenience for setting up
+    # both in one run. Runs last so webpack.config.js exists before the Sentry
+    # generator injects into it.
+    def run_sentry_generator
+      return unless options.sentry?
+
+      generate 'rolemodel:sentry'
     end
   end
 end
