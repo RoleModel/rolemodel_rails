@@ -11,7 +11,8 @@ class VersionBumper < Thor::Group
   class_exclusive do
     class_option :patch, type: :boolean, lazy_default: false, desc: 'Bump patch version instead of minor version'
     class_option :major, type: :boolean, lazy_default: false, desc: 'Bump major version instead of minor version'
-    class_option :version, type: :string, desc: 'Bump to a specific version (overrides patch and major options)'
+    class_option :minor, type: :boolean, lazy_default: true, desc: 'Bump minor version (default behavior)'
+    class_option :version, type: :string, desc: 'Bump to a specific version (overrides all other flags)'
   end
 
   source_root File.expand_path('../', __FILE__)
@@ -19,6 +20,7 @@ class VersionBumper < Thor::Group
   def verify_automated_environment
     return if ENV['BUMP_VERSION_AUTOMATED'] == 'true'
 
+    say 'Not so fast, cowboy!', :red
     raise Thor::InvocationError, <<~MSG.strip
       This process is automated via the "Bump Version & Publish a GitHub Release" GitHub Actions workflow.
       Trigger it from the Actions tab instead of running bin/bump_version locally.
