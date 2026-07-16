@@ -11,10 +11,21 @@ class VersionBumper < Thor::Group
   class_exclusive do
     class_option :patch, type: :boolean, lazy_default: false, desc: 'Bump patch version instead of minor version'
     class_option :major, type: :boolean, lazy_default: false, desc: 'Bump major version instead of minor version'
-    class_option :version, type: :string, desc: 'Bump to a specific version (overrides patch and major options)'
+    class_option :minor, type: :boolean, lazy_default: true, desc: 'Bump minor version (default behavior)'
+    class_option :version, type: :string, desc: 'Bump to a specific version (overrides all other flags)'
   end
 
   source_root File.expand_path('../', __FILE__)
+
+  def verify_automated_environment
+    return if ENV['BUMP_VERSION_AUTOMATED'] == 'true'
+
+    say 'Not so fast, cowboy!', :red
+    raise Thor::InvocationError, <<~MSG.strip
+      This process is automated via the "Bump Version & Publish a GitHub Release" GitHub Actions workflow.
+      Trigger it from the Actions tab instead of running bin/bump_version locally.
+    MSG
+  end
 
   def bump_version
     gsub_file 'lib/rolemodel/version.rb', /^  VERSION = .*/, "  VERSION = '#{new_version_string}'"
@@ -24,16 +35,29 @@ class VersionBumper < Thor::Group
     run_clean_bundle_install
   end
 
-  def build_gem
-    run 'gem build rolemodel-rails.gemspec'
-  end
-
   def update_current_example_app
     Rake::FileList.new('example_rails_*').each do |example_path|
       inside(example_path) do
         run_clean_bundle_install
       end
     end
+  end
+
+  def commit_and_tag_version
+    run 'git add .', abort_on_failure: true
+    run "git commit -m #{tag_name}", abort_on_failure: true
+    # -m makes this an annotated tag; `git push --follow-tags` only pushes annotated
+    # tags, so a lightweight `git tag #{tag_name}` would silently never reach origin.
+    run "git tag -m #{tag_name} #{tag_name}", abort_on_failure: true
+  end
+
+  def push_version_and_tag
+    # --atomic is required here: without it, a rejected (non-fast-forward) branch
+    # update wouldn't stop the new tag from landing anyway, since new tag refs
+    # aren't subject to the fast-forward check -- that would publish a tag (and
+    # trigger a real RubyGems release) built from a commit that never reached
+    # the branch it was supposed to land on.
+    run "git push --atomic origin \"HEAD:#{ENV.fetch('GITHUB_REF_NAME')}\" --follow-tags", abort_on_failure: true
   end
 
   def echo_new_version
@@ -61,6 +85,10 @@ class VersionBumper < Thor::Group
     )
   end
 
+  def tag_name
+    "v#{new_version_string}"
+  end
+
   def run_clean_bundle_install
     Bundler.with_original_env do
       run "#{Gem.bin_path("bundler", "bundle")} install --quiet"
@@ -68,9 +96,10 @@ class VersionBumper < Thor::Group
   end
 
   class << self
+    def exit_on_failure? = true
     def banner = 'bin/bump_version [--patch|--major|--version VERSION]'
     def desc = 'Update Gem Version & Sync Example Apps'
   end
 end
 
-VersionBumper.start(ARGV)
+VersionBumper.start(ARGV) if __FILE__ == $PROGRAM_NAME
