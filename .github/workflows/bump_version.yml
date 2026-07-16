@@ -4,11 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       bump-type:
-        description: SemVer Bump Type (minor by default)
+        description: SemVer Bump Type
         required: false
+        default: --minor
         type: choice
         options:
           - --patch
+          - --minor
           - --major
 
 permissions:
@@ -33,5 +35,5 @@ jobs:
 
       - name: Bump, commit, tag, and push version
         env:
-          BUMP_VERSION_AUTOMATED: 'true'
+          BUMP_VERSION_AUTOMATED: "true"
         run: bin/bump_version ${{ github.event.inputs['bump-type'] }}
