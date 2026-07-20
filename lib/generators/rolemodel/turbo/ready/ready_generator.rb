@@ -14,6 +14,28 @@ module Rolemodel
         JS
       end
 
+      def inject_meta_tags
+        say 'adding meta tags to head partial', :green
+
+        inject_into_file 'app/views/application/_head.html.slim', after: /meta name="viewport".*\n/ do
+          optimize_indentation <<~SLIM
+            meta name="turbo-refresh-method" content="morph"
+            meta name="turbo-refresh-scroll" content="preserve"
+          SLIM
+        end
+      end
+
+      def inject_head_outlet
+        say 'adding head outlet to head partial', :green
+
+        inject_into_file 'app/views/application/_head.html.slim', after: /javascript_include_tag.*\n/ do
+          optimize_indentation <<~SLIM
+
+            = yield :head
+          SLIM
+        end
+      end
+
       def register_stimulus_controller
         say 'updating stimulus manifest', :green
 

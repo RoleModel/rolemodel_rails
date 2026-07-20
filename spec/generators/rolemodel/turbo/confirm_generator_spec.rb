@@ -1,14 +1,14 @@
 RSpec.describe Rolemodel::Turbo::ConfirmGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
-  before do
-    run_generator_against_test_app(generator: ::Rolemodel::SlimGenerator)
-    run_generator_against_test_app(generator: ::Rolemodel::WebpackGenerator)
-    run_generator_against_test_app(generator: ::Rolemodel::Optics::BaseGenerator)
-    run_generator_against_test_app(command_line_options)
-  end
+  before { run_generators_against_test_app(generators:) }
+  let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, described_class] }
 
-  let(:command_line_options) { [] }
+  it 'adds the turbo-confirm package to package.json' do
+    assert_file 'package.json' do |content|
+      expect(content).to include('"@rolemodel/turbo-confirm"')
+    end
+  end
 
   it 'adds the correct javascript files' do
     assert_file 'app/javascript/initializers/turbo_confirm.js'

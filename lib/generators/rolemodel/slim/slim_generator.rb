@@ -4,10 +4,6 @@ module Rolemodel
   class SlimGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
-    def add_slim
-      bundle_command 'add slim'
-    end
-
     def add_slim_rails
       bundle_command 'add slim-rails'
     end

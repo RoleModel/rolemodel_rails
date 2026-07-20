@@ -1,3 +1,5 @@
+require 'rolemodel/yarn'
+
 module Rolemodel
   module Optics
     class BaseGenerator < Rolemodel::GeneratorBase
@@ -6,7 +8,7 @@ module Rolemodel
       def add_optics_package
         say 'installing Optics package', :green
 
-        ensure_yarn
+        invoke 'rolemodel:yarn:setup'
         run 'yarn add @rolemodel/optics'
       end
 

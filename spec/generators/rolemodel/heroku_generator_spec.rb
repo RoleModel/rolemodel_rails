@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
-  before { @output = run_generator_against_test_app }
+  before { @output = run_generators_against_test_app }
 
   it 'generates app.json' do
     assert_file 'app.json' do |content|

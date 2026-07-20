@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  before { run_generators_against_test_app }
 
   let(:dev_dependencies) { Rolemodel::WebpackGenerator::DEV_DEPS }
 

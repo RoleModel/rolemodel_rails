@@ -2,8 +2,7 @@ RSpec.describe Rolemodel::UiComponents::FlashGenerator, type: :generator do
   destination File.expand_path('../../tmp', File.dirname(__FILE__))
 
   before do
-    run_generator_against_test_app generator: ::Rolemodel::SlimGenerator
-    run_generator_against_test_app
+    run_generators_against_test_app generator: [::Rolemodel::SlimGenerator, described_class]
   end
 
   it 'adds the flash file' do

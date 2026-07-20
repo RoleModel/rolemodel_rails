@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'rolemodel/yarn'
 
 module Rolemodel
   module Testing
@@ -19,7 +20,7 @@ module Rolemodel
       end
 
       def enable_corepack_and_yarn
-        ensure_yarn
+        invoke 'rolemodel:yarn:setup'
       end
 
       def add_browser_test_script

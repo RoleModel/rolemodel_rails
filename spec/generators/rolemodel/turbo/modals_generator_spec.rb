@@ -1,14 +1,9 @@
 RSpec.describe Rolemodel::Turbo::ModalsGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
-  before do
-    run_generator_against_test_app(generator: ::Rolemodel::SlimGenerator)
-    run_generator_against_test_app(generator: ::Rolemodel::WebpackGenerator)
-    run_generator_against_test_app(generator: ::Rolemodel::Optics::BaseGenerator)
-    run_generator_against_test_app(command_line_options)
-  end
-
+  before { run_generators_against_test_app(command_line_options, generators:) }
   let(:command_line_options) { [] }
+  let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, ::Rolemodel::Optics::BaseGenerator, described_class] }
 
   it 'adds the correct javascript files' do
     assert_file 'app/javascript/controllers/toggle_controller.js'
@@ -17,8 +12,8 @@ RSpec.describe Rolemodel::Turbo::ModalsGenerator, type: :generator do
 
   it 'updates the stimulus manifest' do
     assert_file 'app/javascript/controllers/index.js' do |content|
-      expect(content).to match(/import ToggleController from "\.\/toggle_controller"/)
-      expect(content).to match(/application\.register\("toggle", ToggleController\)/)
+      expect(content).to include('import ToggleController from "./toggle_controller"')
+      expect(content).to include('application.register("toggle", ToggleController)')
     end
   end
 

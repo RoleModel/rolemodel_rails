@@ -1,3 +1,5 @@
+require 'rolemodel/yarn'
+
 module Rolemodel
   module Turbo
     class ModalsGenerator < ::Rolemodel::GeneratorBase
@@ -19,7 +21,6 @@ module Rolemodel
 
         append_to_file 'app/javascript/application.js', <<~JS
           import './initializers/frame_missing_handler.js'
-          import './initializers/before_morph_handler.js'
         JS
       end
 
@@ -54,7 +55,7 @@ module Rolemodel
       def register_stimulus_controller
         say 'updating stimulus manifest', :green
 
-        run 'rails stimulus:manifest:update'
+        rails_command 'stimulus:manifest:update'
       end
     end
   end

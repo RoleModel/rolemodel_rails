@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::Testing::VitestGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  before { run_generators_against_test_app }
 
   it 'adds the correct helpers' do
     assert_file 'vitest.config.js'

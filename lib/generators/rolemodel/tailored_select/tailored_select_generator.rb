@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'rolemodel/yarn'
 
 module Rolemodel
   class TailoredSelectGenerator < GeneratorBase
@@ -7,7 +8,7 @@ module Rolemodel
     def add_tailored_select_package
       say 'Installing Tailored Select package', :green
 
-      ensure_yarn
+      invoke 'rolemodel:yarn:setup'
       run 'yarn add @rolemodel/tailored-select'
     end
 

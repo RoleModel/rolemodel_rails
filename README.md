@@ -248,7 +248,7 @@ e.g.
 
 ```ruby
 RSpec.describe Rolemodel::MyGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  before { run_generators_against_test_app }
 end
 ```
 
@@ -258,7 +258,7 @@ e.g.
 
 ```ruby
 RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
-  before { run_generator_against_test_app(['--github-package-token=123']) }
+  before { run_generators_against_test_app(['--github-package-token=123']) }
 end
 ```
 
@@ -269,8 +269,7 @@ e.g.
 ```ruby
 RSpec.describe Rolemodel::MyGenerator, type: :generator do
   before do
-    run_generator_against_test_app(generator: ::Rolemodel::PrereqGenerator)
-    run_generator_against_test_app
+    run_generators_against_test_app(generators: [::Rolemodel::PrereqGenerator, described_class])
   end
 end
 ```

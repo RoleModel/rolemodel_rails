@@ -1,5 +1,5 @@
 Description:
-  A new generator for RoleModel
+  Enable Turbo Frame Modals/Panels Pattern
 
 Example:
   rails generate rolemodel:turbo:modals

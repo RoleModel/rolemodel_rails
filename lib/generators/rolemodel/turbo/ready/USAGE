@@ -1,5 +1,5 @@
 Description:
-  A new generator for RoleModel
+  Prepare your application for modern Turbo Integration
 
 Example:
   rails generate rolemodel:turbo:ready

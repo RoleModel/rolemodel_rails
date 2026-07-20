@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::Testing::ParallelTestsGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  before { run_generators_against_test_app }
 
   it 'adds the gems, adds .rspec_parallel, and edits the database.yml' do
     assert_file 'Gemfile' do |content|

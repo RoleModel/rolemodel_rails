@@ -4,13 +4,17 @@ RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
   let(:run_flash_generator_first) { false }
   let(:run_modal_generator_first) { false }
 
-  before do
-    run_generator_against_test_app generator: ::Rolemodel::SlimGenerator
-    run_generator_against_test_app generator: ::Rolemodel::WebpackGenerator
-    run_generator_against_test_app generator: ::Rolemodel::Optics::BaseGenerator
-    run_generator_against_test_app(generator: ::Rolemodel::UiComponents::FlashGenerator) if run_flash_generator_first
-    run_generator_against_test_app(generator: ::Rolemodel::Turbo::ModalsGenerator) if run_modal_generator_first
-    run_generator_against_test_app
+  before { run_generators_against_test_app(generators:) }
+
+  let(:generators) do
+    [
+      ::Rolemodel::SlimGenerator,
+      ::Rolemodel::WebpackGenerator,
+      ::Rolemodel::Optics::BaseGenerator,
+      (::Rolemodel::UiComponents::FlashGenerator if run_flash_generator_first),
+      (::Rolemodel::Turbo::ModalsGenerator if run_modal_generator_first),
+      described_class
+    ].compact
   end
 
   it 'adds the navbar file' do
