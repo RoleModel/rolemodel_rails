@@ -69,15 +69,6 @@ module Rolemodel
       run "yarn add --dev #{dependencies.join(' ')}"
     end
 
-    def replace_css_entrypoint_with_scss
-      return if options.skip_scss?
-
-      say 'Replacing CSS entrypoint file with SCSS version', :green
-
-      remove_file 'app/assets/stylesheets/application.css'
-      copy_file 'app/assets/stylesheets/application.scss'
-    end
-
     def add_webpack_config
       say 'Copying PostCSS & Webpack config files', :green
 

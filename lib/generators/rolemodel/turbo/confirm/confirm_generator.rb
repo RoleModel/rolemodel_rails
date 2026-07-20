@@ -6,6 +6,7 @@ module Rolemodel
       def add_turbo_confirm_package
         say 'Installing Turbo Confirm package', :green
 
+        ensure_yarn
         run 'yarn add @rolemodel/turbo-confirm'
       end
 

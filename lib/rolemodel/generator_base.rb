@@ -19,28 +19,18 @@ module Rolemodel
     # `yarn` command to guarantee the modern toolchain is in place.
     def ensure_yarn
       return if @yarn_ensured
-
-      run 'corepack enable'
-
-      unless File.exist?(File.expand_path('package.json', destination_root))
-        create_file 'package.json', JSON.pretty_generate({}) + "\n"
-      end
-
       # Configure the node-modules linker so webpack, Playwright, and the Rails
       # asset pipeline keep working (Yarn 4 defaults to Plug'n'Play otherwise).
-      create_file '.yarnrc.yml', "nodeLinker: node-modules\n", force: true
+      # skip if exists? to avoid overwriting any other existing config
+      create_file '.yarnrc.yml', "nodeLinker: node-modules\n", skip: true
 
-      pin_yarn_version
+      run 'yarn set version stable'
+      yes! 'corepack enable'
+      run 'yarn init'
+
       ignore_yarn_install_state
 
       @yarn_ensured = true
-    end
-
-    def pin_yarn_version
-      modify_json_file('package.json') do |hash|
-        hash['packageManager'] = "yarn@#{YARN_VERSION}"
-        hash
-      end
     end
 
     def ignore_yarn_install_state
@@ -49,6 +39,17 @@ module Rolemodel
       return if File.read(gitignore).include?('/.yarn/install-state.gz')
 
       append_to_file '.gitignore', "\n/.yarn/install-state.gz\n"
+    end
+
+    def application_stylesheet_path
+      Dir.glob('app/assets/stylesheets/application.*').first
+    end
+
+    def yes!(command)
+      Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
+        stdin.puts 'y'
+        stdin.close
+      end
     end
   end
 end

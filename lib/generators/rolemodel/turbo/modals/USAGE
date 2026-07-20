@@ -1,0 +1,5 @@
+Description:
+  A new generator for RoleModel
+
+Example:
+  rails generate rolemodel:turbo:modals

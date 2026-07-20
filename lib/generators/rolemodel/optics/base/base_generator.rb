@@ -13,9 +13,9 @@ module Rolemodel
       def copy_templates
         say 'importing stylesheet', :green
 
-        prepend_to_file Dir.glob('app/assets/stylesheets/application.*').first, <<~SCSS
+        prepend_to_file application_stylesheet_path, <<~CSS
           @import '@rolemodel/optics/dist/css/optics';
-        SCSS
+        CSS
       end
     end
   end

@@ -1,0 +1,5 @@
+Description:
+  All Turbo Generators
+
+Example:
+  rails generate rolemodel:turbo:all

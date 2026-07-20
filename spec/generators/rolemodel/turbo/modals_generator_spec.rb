@@ -1,4 +1,4 @@
-RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
+RSpec.describe Rolemodel::Turbo::ModalsGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
   before do
@@ -11,26 +11,20 @@ RSpec.describe Rolemodel::UiComponents::ModalsGenerator, type: :generator do
   let(:command_line_options) { [] }
 
   it 'adds the correct javascript files' do
-    assert_file 'app/javascript/controllers/morph_controller.js'
     assert_file 'app/javascript/controllers/toggle_controller.js'
-    assert_file 'app/javascript/initializers/turbo_confirm.js'
     assert_file 'app/javascript/initializers/frame_missing_handler.js'
-    assert_file 'app/javascript/initializers/before_morph_handler.js'
+  end
+
+  it 'updates the stimulus manifest' do
+    assert_file 'app/javascript/controllers/index.js' do |content|
+      expect(content).to match(/import ToggleController from "\.\/toggle_controller"/)
+      expect(content).to match(/application\.register\("toggle", ToggleController\)/)
+    end
   end
 
   it 'imports initializers into application.js' do
     assert_file 'app/javascript/application.js' do |content|
-      expect(content).to include("import './initializers/turbo_confirm.js'")
       expect(content).to include("import './initializers/frame_missing_handler.js'")
-      expect(content).to include("import './initializers/before_morph_handler.js'")
-    end
-  end
-
-  it 'adds confirmation partials' do
-    assert_file 'app/views/application/_confirm.html.slim'
-
-    assert_file 'app/views/layouts/application.html.slim' do |content|
-      expect(content).to match(/\s+= render 'confirm'$/)
     end
   end
 
