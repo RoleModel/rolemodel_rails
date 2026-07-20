@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rolemodel/yarn'
-
 module Rolemodel
   module Linters
     class EslintGenerator < GeneratorBase
@@ -20,7 +18,7 @@ module Rolemodel
       ].freeze
 
       def install_eslint
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 

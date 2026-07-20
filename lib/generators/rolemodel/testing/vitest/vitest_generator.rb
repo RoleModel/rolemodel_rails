@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'rolemodel/yarn'
 
 module Rolemodel
   module Testing
@@ -24,7 +23,7 @@ module Rolemodel
       def add_dev_dependencies
         say 'Adding new dev dependency to package.json', :green
 
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 

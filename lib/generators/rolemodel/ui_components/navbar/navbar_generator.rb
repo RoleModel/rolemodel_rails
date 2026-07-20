@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rolemodel/yarn'
-
 module Rolemodel
   module UiComponents
     class NavbarGenerator < GeneratorBase
@@ -27,7 +25,7 @@ module Rolemodel
       def install_shoelace
         say 'Installing Shoelace package', :green
 
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run 'yarn add @shoelace-style/shoelace'
       end
 

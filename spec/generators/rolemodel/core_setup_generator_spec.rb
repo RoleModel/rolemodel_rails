@@ -11,18 +11,18 @@ RSpec.describe Rolemodel::CoreSetupGenerator do
     invoke_core_setup
 
     expect(invocations).to eq [
+      ['rolemodel:slim'],
+      ['rolemodel:webpack'],
+      ['rolemodel:optics:all'],
+      ['rolemodel:simple_form'],
+      ['rolemodel:testing:all'],
+      ['rolemodel:turbo:all'],
+      ['rolemodel:ui_components:flash'],
       ['rolemodel:github'],
       ['rolemodel:heroku'],
       ['rolemodel:readme'],
-      ['rolemodel:webpack'],
       ['rolemodel:sentry'],
-      ['rolemodel:slim'],
-      ['rolemodel:optics:all'],
-      ['rolemodel:testing:all'],
-      ['rolemodel:simple_form'],
       ['rolemodel:linters:all'],
-      ['rolemodel:ui_components:flash'],
-      ['rolemodel:ui_components:modals'],
       ['rolemodel:lograge']
     ]
   end

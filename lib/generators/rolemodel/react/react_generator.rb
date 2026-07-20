@@ -1,5 +1,3 @@
-require 'rolemodel/yarn'
-
 module Rolemodel
   class ReactGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
@@ -8,7 +6,7 @@ module Rolemodel
       @add_react = yes?('Would you like to add react?')
 
       if @add_react
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run 'yarn add react react-dom'
       end
     end

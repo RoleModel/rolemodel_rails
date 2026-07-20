@@ -1,5 +1,3 @@
-require 'rolemodel/yarn'
-
 module Rolemodel
   module Turbo
     class ModalsGenerator < ::Rolemodel::GeneratorBase

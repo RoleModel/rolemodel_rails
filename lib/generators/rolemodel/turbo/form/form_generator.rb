@@ -1,5 +1,3 @@
-require 'rolemodel/yarn'
-
 module Rolemodel
   module Turbo
     class FormGenerator < GeneratorBase
@@ -8,7 +6,7 @@ module Rolemodel
       def add_rails_request_package
         say 'Installing @rails/request.js package', :green
 
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run 'yarn add @rails/request.js'
       end
 

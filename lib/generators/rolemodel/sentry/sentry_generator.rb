@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'rolemodel/yarn'
 
 module Rolemodel
   class SentryGenerator < GeneratorBase
@@ -56,7 +55,7 @@ module Rolemodel
     def add_js_dependencies
       say 'Adding Sentry JS dependencies to package.json', :green
 
-      invoke 'rolemodel:yarn:setup'
+      ensure_yarn
       run "yarn add --dev #{JS_DEPS.join(' ')}"
     end
 

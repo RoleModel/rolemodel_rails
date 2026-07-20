@@ -1,5 +1,3 @@
-require 'rolemodel/yarn'
-
 module Rolemodel
   module Turbo
     class ConfirmGenerator < ::Rolemodel::GeneratorBase
@@ -8,7 +6,7 @@ module Rolemodel
       def add_turbo_confirm_package
         say 'Installing Turbo Confirm package', :green
 
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run 'yarn add @rolemodel/turbo-confirm'
       end
 

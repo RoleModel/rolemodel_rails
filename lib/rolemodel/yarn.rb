@@ -1,7 +1,9 @@
 require 'thor'
+require 'thor/actions'
 
 module Rolemodel
   class Yarn < ::Thor
+    include ::Thor::Actions
 
     # Enable Corepack and pin the project to Yarn 4+ (instead of the classic
     # Yarn 1.22). Idempotent, so any generator can call it before running a

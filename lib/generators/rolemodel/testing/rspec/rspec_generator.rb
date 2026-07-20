@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'rolemodel/yarn'
 
 module Rolemodel
   module Testing
@@ -28,7 +27,7 @@ module Rolemodel
       def install_playwright
         say 'Installing Playwright for system tests', :green
 
-        invoke 'rolemodel:yarn:setup'
+        ensure_yarn
         run 'yarn add --dev playwright'
         run 'yarn run playwright install'
       end

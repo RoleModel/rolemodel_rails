@@ -47,7 +47,7 @@ module Rolemodel
     def enable_corepack_and_yarn
       say 'Enabling Corepack and pinning the project to Yarn 4+', :green
 
-      invoke 'rolemodel:yarn:setup'
+      ensure_yarn
     end
 
     def force_node_to_use_es_modules
