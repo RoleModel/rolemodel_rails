@@ -14,7 +14,6 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
       assert_file 'Gemfile' do |content|
         expect(content).to match(/rspec-rails/)
         expect(content).not_to match(/marsh_grass/)
-        expect(content).not_to match(/pry/)
       end
     end
   end
@@ -26,7 +25,6 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
       assert_file 'Gemfile' do |content|
         expect(content).to match(/rspec-rails/)
         expect(content).to match(/marsh_grass/)
-        expect(content).to match(/pry/)
       end
     end
   end

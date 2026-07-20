@@ -22,7 +22,7 @@ module Rolemodel
       # config/initializers/sentry.rb sets profiles_sample_rate; without stackprof
       # the SDK logs a warning on every boot and profiling is silently disabled.
       # stackprof is a native MRI extension, so restrict it to compatible platforms.
-      gem 'stackprof', platforms: :ruby
+      bundle_command 'add stackprof --platform ruby'
       run_bundle
     end
 
@@ -121,7 +121,7 @@ module Rolemodel
     private
 
     def sentry_app_name
-      Rails.application.class.module_parent_name.underscore
+      Rails.application.name.underscore
     end
   end
 end

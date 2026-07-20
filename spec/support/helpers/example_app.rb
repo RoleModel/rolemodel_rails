@@ -26,6 +26,10 @@ module ExampleApp
         capture(:stderr) { collection[generator] = run_generator(*args) }
       end
     end
+    # result.each do |generator, output|
+    #   puts "Generator: #{generator}"
+    #   puts output
+    # end
     result
   end
 
