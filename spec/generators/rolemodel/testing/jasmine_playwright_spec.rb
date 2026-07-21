@@ -1,6 +1,6 @@
 RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
   before do
-    run_generators_against_test_app(['--github-package-token=123'])
+    run_generators(['--github-package-token=123'])
   end
 
   let(:test_script_content) { Rolemodel::Testing::JasminePlaywrightGenerator::TEST_COMMAND }

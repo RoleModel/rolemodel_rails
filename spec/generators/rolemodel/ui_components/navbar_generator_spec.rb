@@ -4,7 +4,7 @@ RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
   let(:run_flash_generator_first) { false }
   let(:run_modal_generator_first) { false }
 
-  before { run_generators_against_test_app(generators:) }
+  before { run_generators(generators:) }
 
   let(:generators) do
     [

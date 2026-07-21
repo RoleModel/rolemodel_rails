@@ -18,7 +18,7 @@ module ExampleApp
   # run_generator already captures stdout
   # capturing stderr does not prevent tests from failing,
   # but does keep the test output clean and easy to read
-  def run_generators_against_test_app(*args, generators: [described_class])
+  def run_generators(*args, generators: [described_class])
     result = nil
     FileUtils.cd(destination_root) do
       result = generators.each_with_object({}) do |generator, collection|

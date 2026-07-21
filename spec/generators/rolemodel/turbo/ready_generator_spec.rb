@@ -1,7 +1,7 @@
 RSpec.describe Rolemodel::Turbo::ReadyGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
-  before { run_generators_against_test_app(generators:) }
+  before { run_generators(generators:) }
   let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, described_class] }
 
   it 'adds the correct javascript files' do
@@ -22,7 +22,7 @@ RSpec.describe Rolemodel::Turbo::ReadyGenerator, type: :generator do
     end
   end
 
-  it 'adds a head outlet to the head partial' do
+  it 'adds a head outlet to the head partial and the appropriate default meta tags' do
     assert_file 'app/views/application/_head.html.slim' do |content|
       expect(content).to include('meta name="turbo-refresh-method" content="morph"')
       expect(content).to include('meta name="turbo-refresh-scroll" content="preserve"')

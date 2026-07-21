@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::SourceMapGenerator, type: :generator do
-  before { run_generators_against_test_app }
+  before { run_generators }
 
   it 'enhances assets rake tasks to manage sourcemaps' do
     assert_file 'lib/tasks/assets.rake'

@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::SlimGenerator, type: :generator do
-  before { run_generators_against_test_app }
+  before { run_generators }
 
   it 'replaces erb layout' do
     assert_no_file 'app/views/layouts/application.html.erb'

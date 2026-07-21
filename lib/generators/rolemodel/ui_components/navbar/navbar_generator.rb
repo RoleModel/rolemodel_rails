@@ -14,7 +14,7 @@ module Rolemodel
       def insert_navbar_before_content
         say 'Inserting Navbar render tag', :green
 
-        insert_into_file 'app/views/layouts/application.html.slim', after: /\bbody.*/ do
+        insert_into_file 'app/views/layouts/application.html.slim', before: /\s+\.app__content/ do
           optimize_indentation <<~SLIM, 4
 
             = render 'navbar'

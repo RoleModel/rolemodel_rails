@@ -47,12 +47,6 @@ baseline so the app is ready to push straight to Heroku)
 bin/rails g rolemodel:core_setup
 ```
 
-Or run every generator, including app-specific extras like React, SaaS/Devise, and GoodJob
-
-```shell
-bin/rails g rolemodel:all
-```
-
 Or run a single generator
 
 ```shell
@@ -84,6 +78,11 @@ bin/rails g
 * [Optics](./lib/generators/rolemodel/optics)
   * [Base](./lib/generators/rolemodel/optics/base)
   * [Icons](./lib/generators/rolemodel/optics/icons)
+* [Turbo](./lib/generators/rolemodel/turbo)
+  * [Ready](./lib/generators/rolemodel/turbo/ready)
+  * [Confirm](./lib/generators/rolemodel/turbo/confirm)
+  * [Modals](./lib/generators/rolemodel/turbo/modals)
+  * [Form](./lib/generators/rolemodel/turbo/form)
 * [Testing](./lib/generators/rolemodel/testing)
   * [RSpec](./lib/generators/rolemodel/testing/rspec)
   * [Jasmine Playwright](./lib/generators/rolemodel/testing/jasmine_playwright)
@@ -101,7 +100,6 @@ bin/rails g
   * [ESLint](./lib/generators/rolemodel/linters/eslint)
 * [UI Components](./lib/generators/rolemodel/ui_components)
   * [Flash](./lib/generators/rolemodel/ui_components/flash)
-  * [Modals](./lib/generators/rolemodel/ui_components/modals)
   * [Navbar](./lib/generators/rolemodel/ui_components/navbar)
 * [Source Map](./lib/generators/rolemodel/source_map)
 * [Kaminari](./lib/generators/rolemodel/kaminari)
@@ -248,7 +246,7 @@ e.g.
 
 ```ruby
 RSpec.describe Rolemodel::MyGenerator, type: :generator do
-  before { run_generators_against_test_app }
+  before { run_generators }
 end
 ```
 
@@ -258,18 +256,34 @@ e.g.
 
 ```ruby
 RSpec.describe Rolemodel::Testing::JasminePlaywrightGenerator, type: :generator do
-  before { run_generators_against_test_app(['--github-package-token=123']) }
+  before { run_generators(['--github-package-token=123']) }
 end
 ```
 
-If the generator you're testing depends on being run after another generator, you should run that one first.
+If the generator you're testing depends on being run after another generator, you may pass an array to the optional `generators` keyword argument in the order in which they should run.
 
 e.g.
 
 ```ruby
 RSpec.describe Rolemodel::MyGenerator, type: :generator do
   before do
-    run_generators_against_test_app(generators: [::Rolemodel::PrereqGenerator, described_class])
+    run_generators(generators: [::Rolemodel::PrereqGenerator, described_class])
+  end
+end
+```
+
+If you're testing the standard output produced by your generator, assign the return value of `run_generators` to a variable.
+
+e.g.
+
+```ruby
+RSpec.describe Rolemodel::MyGenerator, type: :generator do
+  before do
+    @stdout = run_generators(generators: [::Rolemodel::PrereqGenerator, described_class])
+  end
+
+  it 'prints something useful' do
+    expect(@stdout[Rolemodel::MyGenerator]).to include('something useful')
   end
 end
 ```

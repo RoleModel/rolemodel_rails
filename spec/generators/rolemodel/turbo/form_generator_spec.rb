@@ -1,10 +1,10 @@
 RSpec.describe Rolemodel::Turbo::FormGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
-  before { run_generators_against_test_app(generators:) }
+  before { run_generators(generators:) }
   let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, described_class] }
 
-  it 'adds the turbo-confirm package to package.json' do
+  it 'adds the request.js package to package.json' do
     assert_file 'package.json' do |content|
       expect(content).to include('"@rails/request.js"')
     end

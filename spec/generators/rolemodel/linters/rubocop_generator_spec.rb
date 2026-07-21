@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::Linters::RubocopGenerator, type: :generator do
-  before { run_generators_against_test_app }
+  before { run_generators }
 
   it 'adds the correct helpers' do
     assert_file '.rubocop.yml'

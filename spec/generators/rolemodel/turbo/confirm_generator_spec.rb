@@ -1,7 +1,7 @@
 RSpec.describe Rolemodel::Turbo::ConfirmGenerator, type: :generator do
   destination File.expand_path('../../tmp/', File.dirname(__FILE__))
 
-  before { run_generators_against_test_app(generators:) }
+  before { run_generators(generators:) }
   let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, described_class] }
 
   it 'adds the turbo-confirm package to package.json' do

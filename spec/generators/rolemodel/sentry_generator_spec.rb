@@ -2,7 +2,7 @@ RSpec.describe Rolemodel::SentryGenerator, type: :generator do
   before do
     # The webpack generator lays down the webpack.config.js and application.js
     # that this generator injects into.
-    run_generators_against_test_app generators: [::Rolemodel::WebpackGenerator, described_class]
+    run_generators generators: [::Rolemodel::WebpackGenerator, described_class]
   end
 
   it 'sets up the Ruby side' do

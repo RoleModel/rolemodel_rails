@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::<%= name.camelize %>Generator, type: :generator do
-  before { run_generators_against_test_app }
+  before { run_generators }
 
   pending "add some examples to #{__FILE__}"
 end
