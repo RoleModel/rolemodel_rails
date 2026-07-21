@@ -39,7 +39,7 @@ module Rolemodel
       def register_stimulus_controller
         say 'updating stimulus manifest', :green
 
-        run 'rails stimulus:manifest:update'
+        rails_command 'stimulus:manifest:update'
       end
     end
   end

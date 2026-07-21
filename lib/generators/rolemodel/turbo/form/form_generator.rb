@@ -15,7 +15,7 @@ module Rolemodel
 
         directory 'app/javascript/controllers'
 
-        run 'rails stimulus:manifest:update'
+        rails_command 'stimulus:manifest:update'
       end
 
       def add_system_spec_helper
