@@ -2,9 +2,6 @@ module Rolemodel
   class WebpackGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
-    class_option :sentry, type: :boolean, default: false,
-                          desc: 'Also run the rolemodel:sentry generator'
-
     DEV_DEPS = %w[
       esbuild
       esbuild-loader
@@ -74,16 +71,6 @@ module Rolemodel
 
       copy_file 'postcss.config.cjs', force: true
       copy_file 'webpack.config.js', force: true
-    end
-
-    # All Sentry concerns (including wiring its plugin into webpack.config.js)
-    # live in the Sentry generator; this option is a convenience for setting up
-    # both in one run. Runs last so webpack.config.js exists before the Sentry
-    # generator injects into it.
-    def run_sentry_generator
-      return unless options.sentry?
-
-      generate 'rolemodel:sentry'
     end
   end
 end

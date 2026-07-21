@@ -34,22 +34,10 @@ module Rolemodel
     def add_user_context
       say 'Adding Sentry user context to ApplicationController', :green
 
+      directory 'app/controllers/concerns'
+
       inject_into_class 'app/controllers/application_controller.rb', 'ApplicationController',
-                        "  before_action :set_sentry_user\n"
-
-      inject_into_file 'app/controllers/application_controller.rb', before: /^end\b/ do
-        <<-RUBY
-
-  private
-
-  # Guarded so it works whether or not an authentication generator has been run.
-  def set_sentry_user
-    return unless respond_to?(:current_user) && current_user
-
-    Sentry.set_user(id: current_user.id)
-  end
-        RUBY
-      end
+                        "  include SentryUser\n"
     end
 
     def add_js_dependencies
