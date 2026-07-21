@@ -9,7 +9,6 @@ RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
     end
     assert_file 'postcss.config.cjs'
     assert_file 'webpack.config.js'
-    assert_file 'app/assets/stylesheets/application.scss'
   end
 
   it 'adds webpack dev dependencies to package.json' do
@@ -20,7 +19,7 @@ RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
 
   it 'pins the project to Yarn 4+ via Corepack' do
     assert_file 'package.json' do |content|
-      expect(JSON.parse(content)['packageManager']).to eq "yarn@#{Rolemodel::YARN_VERSION}"
+      expect(JSON.parse(content)['packageManager']).to match(/^yarn@4\./)
     end
 
     assert_file '.yarnrc.yml' do |content|

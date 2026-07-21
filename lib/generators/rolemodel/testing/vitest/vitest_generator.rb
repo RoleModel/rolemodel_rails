@@ -16,6 +16,7 @@ module Rolemodel
 
       def update_test_script
         say 'Update yarn test command', :green
+        ensure_yarn
 
         add_package_json_script 'test', TEST_COMMAND
       end
@@ -23,7 +24,6 @@ module Rolemodel
       def add_dev_dependencies
         say 'Adding new dev dependency to package.json', :green
 
-        ensure_yarn
         run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 
