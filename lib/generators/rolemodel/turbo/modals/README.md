@@ -9,10 +9,8 @@
 
 ## What you get
 
-
 * RoleModel Modal pattern integration. See Notes below for usage documentation.
 * RoleModel Panel pattern integration, if run with the `--panels` flag.
-* some generally useful, global Turbo before-morph handlers.
 
 > [!IMPORTANT]
 > This generator does not provide RoleModel Panel integration, unless run with the `--panels` flag.

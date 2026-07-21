@@ -6,6 +6,7 @@ Add custom dialog support to `data-turbo-confirm`
 
 * `rolmodel:slim`
 * `rolemodel:webpack`
+* `rolemodel:optics:base`
 
 ## What you get
 

@@ -41,7 +41,7 @@ class VersionUpdater < Thor::Group
 
   class << self
     def exit_on_failure? = true
-    def banner = 'bin/update_versions [--node VERSION] [--ruby VERSION]'
+    def banner = 'bin/update_dep_versions [--node VERSION] [--ruby VERSION]'
     def desc = 'Update Rolemodel::NODE_VERSION / Rolemodel::RUBY_VERSION and sync example_rails_current'
   end
 end
