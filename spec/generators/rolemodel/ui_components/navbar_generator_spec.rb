@@ -1,6 +1,4 @@
 RSpec.describe Rolemodel::UiComponents::NavbarGenerator, type: :generator do
-  destination File.expand_path('../../tmp/', File.dirname(__FILE__))
-
   let(:run_flash_generator_first) { false }
   let(:run_modal_generator_first) { false }
 

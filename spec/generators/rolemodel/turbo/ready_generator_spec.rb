@@ -1,6 +1,4 @@
 RSpec.describe Rolemodel::Turbo::ReadyGenerator, type: :generator do
-  destination File.expand_path('../../tmp/', File.dirname(__FILE__))
-
   before { run_generators(generators:) }
   let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, described_class] }
 

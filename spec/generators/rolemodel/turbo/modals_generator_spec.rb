@@ -1,6 +1,4 @@
 RSpec.describe Rolemodel::Turbo::ModalsGenerator, type: :generator do
-  destination File.expand_path('../../tmp/', File.dirname(__FILE__))
-
   before { run_generators(command_line_options, generators:) }
   let(:command_line_options) { [] }
   let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, ::Rolemodel::Optics::BaseGenerator, described_class] }
