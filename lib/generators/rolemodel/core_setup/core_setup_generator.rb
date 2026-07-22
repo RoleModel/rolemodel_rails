@@ -1,6 +1,6 @@
 module Rolemodel
   class CoreSetupGenerator < ::Rolemodel::GeneratorBase
-    class_option :deployable, type: :boolean, default: true, desc: 'Include generators for app deployment (Heroku, Sentry, Lograge)'
+    class_option :skip_deployable, type: :boolean, default: false, desc: 'skip generators for app deployment (Heroku, Sentry, Lograge)'
 
     def run_the_core_generators
       generate 'rolemodel:slim'
@@ -13,7 +13,7 @@ module Rolemodel
       generate 'rolemodel:github'
       generate 'rolemodel:readme'
       generate 'rolemodel:linters:all'
-      return unless options.deployable?
+      return if options.skip_deployable?
 
       generate 'rolemodel:heroku'
       generate 'rolemodel:sentry'
