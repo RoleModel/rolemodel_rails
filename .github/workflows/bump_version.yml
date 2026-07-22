@@ -40,5 +40,7 @@ jobs:
           BUMP_VERSION_ALLOWED: "true"
           BUNDLE_FROZEN: "false"
         run: bin/bump_version ${{ github.event.inputs['bump-type'] }}
+      - name: Install dependencies
+        run: bundle install
       - name: Commit, Tag, and Push
         run: bin/tag
