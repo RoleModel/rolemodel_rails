@@ -2,8 +2,7 @@ RSpec.describe Rolemodel::SentryGenerator, type: :generator do
   before do
     # The webpack generator lays down the webpack.config.js and application.js
     # that this generator injects into.
-    run_generator_against_test_app generator: ::Rolemodel::WebpackGenerator
-    run_generator_against_test_app
+    run_generators generators: [::Rolemodel::WebpackGenerator, described_class]
   end
 
   it 'sets up the Ruby side' do
@@ -15,10 +14,9 @@ RSpec.describe Rolemodel::SentryGenerator, type: :generator do
       expect(content).to include('sentry-rails')
     end
 
+    assert_file 'app/controllers/concerns/sentry_user.rb'
     assert_file 'app/controllers/application_controller.rb' do |content|
-      expect(content).to include('before_action :set_sentry_user')
-      expect(content).to include('respond_to?(:current_user) && current_user')
-      expect(content).to include('Sentry.set_user(id: current_user.id)')
+      expect(content).to include('include SentryUser')
     end
   end
 

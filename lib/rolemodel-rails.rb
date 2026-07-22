@@ -2,8 +2,6 @@
 
 module Rolemodel
   NODE_VERSION = '24.12.0'
-  YARN_VERSION = '4.13.0'
-  RUBY_VERSION = '4.0.1'
 
   GEM_LIB = File.expand_path(__dir__)
 end

@@ -8,7 +8,7 @@ module Rolemodel
       def copy_navbar_files
         say 'Copying Navbar files', :green
 
-        copy_file 'app/views/layouts/_navbar.html.slim'
+        directory 'app/views'
       end
 
       def insert_navbar_before_content
@@ -17,7 +17,7 @@ module Rolemodel
         insert_into_file 'app/views/layouts/application.html.slim', before: /\s+\.app__content/ do
           optimize_indentation <<~SLIM, 4
 
-            = render 'layouts/navbar'
+            = render 'navbar'
           SLIM
         end
       end
@@ -32,23 +32,19 @@ module Rolemodel
       def add_shoelace_javascript_imports
         say 'Copying Shoelace JS imports', :green
 
-        copy_file 'app/javascript/lib/shoelace.js'
-        append_to_file 'app/javascript/application.js' do
-          <<~JS
-            import './lib/shoelace.js'
-          JS
-        end
+        directory 'app/javascript/lib'
+        append_to_file 'app/javascript/application.js', <<~JS
+          import './lib/shoelace.js'
+        JS
       end
 
       def copy_shoelace_css_imports
         say 'Copying Shoelace CSS imports', :green
 
-        copy_file 'app/assets/stylesheets/components/shoelace/index.scss'
-        append_to_file 'app/assets/stylesheets/application.scss' do
-          <<~SCSS
-            @import 'components/shoelace/index.scss';
-          SCSS
-        end
+        copy_file 'app/assets/stylesheets/components/shoelace/index.css'
+        append_to_file application_stylesheet_path, <<~CSS
+          @import 'components/shoelace/index.css';
+        CSS
       end
     end
   end

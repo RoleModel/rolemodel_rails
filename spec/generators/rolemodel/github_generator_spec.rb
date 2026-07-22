@@ -13,7 +13,7 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
 
   before do
     allow_any_instance_of(described_class).to receive(:`).and_return(tags_fixture)
-    run_generator_against_test_app(command_options)
+    run_generators(command_options)
   end
 
   describe 'provided the --no-playwright option' do

@@ -1,6 +1,6 @@
 RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
   describe 'by default' do
-    before { run_generator_against_test_app }
+    before { run_generators }
 
     it 'adds the correct helpers' do
       assert_file 'spec/support/helpers/action_cable_helper.rb'
@@ -14,19 +14,17 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
       assert_file 'Gemfile' do |content|
         expect(content).to match(/rspec-rails/)
         expect(content).not_to match(/marsh_grass/)
-        expect(content).not_to match(/pry/)
       end
     end
   end
 
   describe 'with marsh_grass option' do
-    before { run_generator_against_test_app %w[--marsh-grass] }
+    before { run_generators %w[--marsh-grass] }
 
     it 'adds the additional gems' do
       assert_file 'Gemfile' do |content|
         expect(content).to match(/rspec-rails/)
         expect(content).to match(/marsh_grass/)
-        expect(content).to match(/pry/)
       end
     end
   end

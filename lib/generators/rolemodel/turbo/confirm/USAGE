@@ -1,0 +1,5 @@
+Description:
+  Install @rolemodel/turbo-confirm
+
+Example:
+  rails generate rolemodel:turbo:confirm

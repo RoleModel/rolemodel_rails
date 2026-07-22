@@ -1,0 +1,5 @@
+Description:
+  Prepare your application for modern Turbo Integration
+
+Example:
+  rails generate rolemodel:turbo:ready

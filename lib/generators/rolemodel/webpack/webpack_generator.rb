@@ -2,9 +2,6 @@ module Rolemodel
   class WebpackGenerator < GeneratorBase
     source_root File.expand_path('templates', __dir__)
 
-    class_option :sentry, type: :boolean, default: false,
-                          desc: 'Also run the rolemodel:sentry generator'
-
     DEV_DEPS = %w[
       esbuild
       esbuild-loader
@@ -25,6 +22,18 @@ module Rolemodel
       css-minimizer-webpack-plugin
       mini-css-extract-plugin
     ]
+
+    def ensure_no_importmap
+      return unless Rails.root.join(destination_root, 'config/importmap.rb').exist?
+
+      remove_file 'config/importmap.rb'
+      bundle_command 'remove importmap-rails'
+    end
+
+    def ensure_jsbundling
+      bundle_command 'add jsbundling-rails'
+      run_bundle
+    end
 
     def ensure_node_version
       say "Establish development environment Node version of #{set_color(NODE_VERSION, :yellow)}", :green
@@ -57,28 +66,11 @@ module Rolemodel
       run "yarn add --dev #{dependencies.join(' ')}"
     end
 
-    def replace_css_entrypoint_with_scss
-      say 'Replacing CSS entrypoint file with SCSS version', :green
-
-      remove_file 'app/assets/stylesheets/application.css'
-      copy_file 'app/assets/stylesheets/application.scss'
-    end
-
     def add_webpack_config
       say 'Copying PostCSS & Webpack config files', :green
 
       copy_file 'postcss.config.cjs', force: true
       copy_file 'webpack.config.js', force: true
-    end
-
-    # All Sentry concerns (including wiring its plugin into webpack.config.js)
-    # live in the Sentry generator; this option is a convenience for setting up
-    # both in one run. Runs last so webpack.config.js exists before the Sentry
-    # generator injects into it.
-    def run_sentry_generator
-      return unless options.sentry?
-
-      generate 'rolemodel:sentry'
     end
   end
 end

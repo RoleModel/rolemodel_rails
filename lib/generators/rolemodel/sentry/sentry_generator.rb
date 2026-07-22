@@ -21,7 +21,7 @@ module Rolemodel
       # config/initializers/sentry.rb sets profiles_sample_rate; without stackprof
       # the SDK logs a warning on every boot and profiling is silently disabled.
       # stackprof is a native MRI extension, so restrict it to compatible platforms.
-      gem 'stackprof', platforms: :ruby
+      bundle_command 'add stackprof --platform ruby'
       run_bundle
     end
 
@@ -34,22 +34,10 @@ module Rolemodel
     def add_user_context
       say 'Adding Sentry user context to ApplicationController', :green
 
+      directory 'app/controllers/concerns'
+
       inject_into_class 'app/controllers/application_controller.rb', 'ApplicationController',
-                        "  before_action :set_sentry_user\n"
-
-      inject_into_file 'app/controllers/application_controller.rb', before: /^end\b/ do
-        <<-RUBY
-
-  private
-
-  # Guarded so it works whether or not an authentication generator has been run.
-  def set_sentry_user
-    return unless respond_to?(:current_user) && current_user
-
-    Sentry.set_user(id: current_user.id)
-  end
-        RUBY
-      end
+                        "  include SentryUser\n"
     end
 
     def add_js_dependencies
@@ -120,7 +108,7 @@ module Rolemodel
     private
 
     def sentry_app_name
-      Rails.application.class.module_parent_name.underscore
+      Rails.application.name.underscore
     end
   end
 end

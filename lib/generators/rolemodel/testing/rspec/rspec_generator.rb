@@ -10,26 +10,24 @@ module Rolemodel
       def install_rspec
         say 'Installing RSpec-rails', :green
 
-        gem_group :development, :test do
-          gem 'rspec-rails'
-        end
+        bundle_command('add rspec-rails --group "development, test"')
+      end
 
+      def install_system_test_driver
         say 'Installing capybara-playwright-driver for system tests', :green
 
-        gem_group :test do
-          gem 'capybara-playwright-driver'
+        bundle_command('add capybara-playwright-driver --group "test"')
+        bundle_command('add marsh_grass --group "test"') if options.marsh_grass?
+      end
 
-          if options.marsh_grass?
-            gem 'marsh_grass'
-            gem 'pry'
-          end
-        end
+      def bundle_install
         run_bundle
       end
 
       def install_playwright
         say 'Installing Playwright for system tests', :green
 
+        ensure_yarn
         run 'yarn add --dev playwright'
         run 'yarn run playwright install'
       end

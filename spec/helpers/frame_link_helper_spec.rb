@@ -1,5 +1,5 @@
 require 'action_view'
-require 'generators/rolemodel/ui_components/modals/templates/app/helpers/turbo_frame_link_helper.rb'
+require 'generators/rolemodel/turbo/modals/templates/app/helpers/turbo_frame_link_helper.rb'
 
 RSpec.describe TurboFrameLinkHelper, type: :helper do
   include ActionView::Helpers

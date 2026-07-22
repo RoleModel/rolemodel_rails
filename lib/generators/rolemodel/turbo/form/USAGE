@@ -1,0 +1,5 @@
+Description:
+  Enable Dynamic Form Interactions
+
+Example:
+  rails generate rolemodel:turbo:form

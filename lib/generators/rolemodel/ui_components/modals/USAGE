@@ -1,8 +1,0 @@
-Description:
-  Add Modal, Panel, and Confirmation components
-
-Example:
-  bin/rails generate rolemodel:ui_components:modals
-
-Example including RoleModel Panel Integration:
-  bin/rails generate rolemodel:ui_components:modals --panels

@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::SlimGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  before { run_generators }
 
   it 'replaces erb layout' do
     assert_no_file 'app/views/layouts/application.html.erb'
@@ -17,7 +17,7 @@ RSpec.describe Rolemodel::SlimGenerator, type: :generator do
 
   it 'copies head partial' do
     assert_file 'app/views/application/_head.html.slim' do |content|
-      expect(content).to include("= yield :head")
+      expect(content).to include("stylesheet_link_tag 'application'")
     end
   end
 

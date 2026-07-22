@@ -1,12 +1,12 @@
 RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
   it 'generates a simple form initializer' do
-    run_generator_against_test_app
+    run_generators
 
     assert_file 'config/initializers/simple_form.rb'
   end
 
   it 'generates the default custom input files' do
-    run_generator_against_test_app
+    run_generators
 
     assert_file 'app/inputs/collection_check_boxes_input.rb'
     assert_file 'app/inputs/collection_select_input.rb'
@@ -16,7 +16,7 @@ RSpec.describe Rolemodel::SimpleFormGenerator, type: :generator do
   end
 
   it 'generates slim scaffold templates for simple form' do
-    run_generator_against_test_app
+    run_generators
 
     assert_file 'lib/templates/slim/scaffold/_form.html.slim' do |content|
       expect(content).to include("<%=")

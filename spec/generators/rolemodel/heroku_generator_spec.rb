@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
-  before { @output = run_generator_against_test_app }
+  before { @output = run_generators }
 
   it 'generates app.json' do
     assert_file 'app.json' do |content|
@@ -29,7 +29,7 @@ RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
   end
 
   it 'prints the path to the deploy-app skill instead of copying it into the repo' do
-    expect(@output).to include('deploy-app/SKILL.md')
+    expect(@output.values.join).to include('deploy-app/SKILL.md')
     assert_no_file 'AGENTS.md'
     assert_no_file '.claude/skills/deploy-app/SKILL.md'
   end

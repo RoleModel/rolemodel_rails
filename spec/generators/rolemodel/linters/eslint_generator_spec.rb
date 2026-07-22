@@ -1,5 +1,5 @@
 RSpec.describe Rolemodel::Linters::EslintGenerator, type: :generator do
-  before { run_generator_against_test_app }
+  before { run_generators }
 
   let(:eslint_script) { Rolemodel::Linters::EslintGenerator::ESLINT_COMMAND }
   let(:dev_dependencies) { Rolemodel::Linters::EslintGenerator::DEV_DEPENDENCIES }
