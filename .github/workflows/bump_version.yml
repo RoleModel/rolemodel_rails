@@ -26,14 +26,19 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ruby/setup-ruby@v1
-        with: { bundler-cache: true }
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
 
       - name: Configure git identity
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-      - name: Bump, commit, tag, and push version
+      - name: Bump version
         env:
-          BUMP_VERSION_AUTOMATED: "true"
+          BUMP_VERSION_ALLOWED: "true"
+          BUNDLE_FROZEN: "false"
         run: bin/bump_version ${{ github.event.inputs['bump-type'] }}
+      - name: Commit, Tag, and Push
+        run: bin/tag
