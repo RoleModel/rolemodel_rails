@@ -27,21 +27,6 @@ module Rolemodel
       inject_into_file 'Gemfile', "\nruby file: '.ruby-version'\n", after: /^source .*$/
     end
 
-    def use_database_url_in_production
-      say 'Point the production database at DATABASE_URL for Heroku.', :green
-
-      # Rails' generated production block hardcodes database/username/<APP>_DATABASE_PASSWORD,
-      # none of which exist on Heroku, where the Postgres add-on provides a full DATABASE_URL.
-      # Replace the whole block with a url-based config.
-      gsub_file 'config/database.yml',
-                /^production:\n(?:[ \t]+.*\n?)+/,
-                <<~YAML
-                  production:
-                    <<: *default
-                    url: <%= ENV["DATABASE_URL"] %>
-                YAML
-    end
-
     def force_ssl
       say 'Require SSL for production environment.', :green
 

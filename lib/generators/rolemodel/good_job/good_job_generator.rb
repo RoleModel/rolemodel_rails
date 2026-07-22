@@ -16,13 +16,11 @@ module Rolemodel
     def configure_good_job
       say 'Add GoodJob configuration'
 
-      inject_into_file 'config/application.rb', after: "class Application < Rails::Application\n" do
-        optimize_indentation <<~'RUBY', 4
-          # Add GoodJob ActiveJob queue adapter
-          config.active_job.queue_adapter = :good_job
+      inject_into_class 'config/application.rb', 'Application', optimize_indentation(<<~'RUBY', 4)
+        # Add GoodJob ActiveJob queue adapter
+        config.active_job.queue_adapter = :good_job
 
-        RUBY
-      end
+      RUBY
 
       gsub_file 'config/environments/production.rb', 'config.active_job.queue_adapter', '# config.active_job.queue_adapter'
     end
@@ -30,7 +28,7 @@ module Rolemodel
     def configure_good_job_routes
       say 'Add GoodJob routes'
 
-      route_text = <<~RUBY
+      route <<~RUBY
         # Example but update per the authorization strategy of app
         namespace :admin do
           # authenticate :user, ->(user) { user.admin? } do
@@ -38,7 +36,6 @@ module Rolemodel
           # end
         end
       RUBY
-      route route_text
     end
 
     def configure_procfile
@@ -58,12 +55,11 @@ module Rolemodel
     def copy_initializers
       say 'Add GoodJob initializers'
 
-      copy_file 'config/initializers/active_job.rb'
-      copy_file 'config/initializers/good_job.rb'
+      directory 'config/initializers'
     end
 
     def finishing_notes
-      say <<~NOTES
+      say <<~NOTES, :green
         *** Reminder to also update your job classes to include appropriate concurrency controls (enqueue_limit/perform_limit with keys)
       NOTES
     end
