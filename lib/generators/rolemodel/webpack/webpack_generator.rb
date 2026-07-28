@@ -41,12 +41,6 @@ module Rolemodel
       create_file '.node-version', NODE_VERSION, force: true
     end
 
-    def enable_corepack_and_yarn
-      say 'Enabling Corepack and pinning the project to Yarn 4+', :green
-
-      ensure_yarn
-    end
-
     def force_node_to_use_es_modules
       say 'Configuring project to use ES Modules instead of CommonJS', :green
 
@@ -56,14 +50,14 @@ module Rolemodel
     def remove_obsolete_javascript_dependencies
       say 'Removing webpack & webpack-cli from package.json dependencies', :green
 
-      run 'yarn remove webpack webpack-cli'
+      yarn_command 'remove webpack webpack-cli'
     end
 
     def add_npm_packages
       say 'Adding new dev dependencies to package.json', :green
 
       dependencies = DEV_DEPS + POSTCSS_PKGS + WEBPACK_CSS_PKGS
-      run "yarn add --dev #{dependencies.join(' ')}"
+      yarn_command "add --dev #{dependencies.join(' ')}"
     end
 
     def add_webpack_config

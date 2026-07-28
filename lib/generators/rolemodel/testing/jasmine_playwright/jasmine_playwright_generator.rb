@@ -18,10 +18,6 @@ module Rolemodel
         raise Thor::InvocationError, 'a --github_package_token option or GITHUB_PACKAGES_TOKEN environment variable is required' if options[:github_package_token].blank?
       end
 
-      def enable_corepack_and_yarn
-        ensure_yarn
-      end
-
       def add_browser_test_script
         say 'Adding yarn test:browser command', :green
 
@@ -37,7 +33,7 @@ module Rolemodel
       def add_dev_dependencies
         say 'Adding new dev dependency to package.json', :green
 
-        run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
+        yarn_command "add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 
       def add_spec_config_files

@@ -6,8 +6,7 @@ module Rolemodel
       @add_react = yes?('Would you like to add react?')
 
       if @add_react
-        ensure_yarn
-        run 'yarn add react react-dom'
+        yarn_command 'add react react-dom'
       end
     end
 

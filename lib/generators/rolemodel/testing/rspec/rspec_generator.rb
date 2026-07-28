@@ -27,9 +27,8 @@ module Rolemodel
       def install_playwright
         say 'Installing Playwright for system tests', :green
 
-        ensure_yarn
-        run 'yarn add --dev playwright'
-        run 'yarn run playwright install'
+        yarn_command 'add --dev playwright'
+        yarn_command 'run playwright install'
       end
 
       def add_spec_files

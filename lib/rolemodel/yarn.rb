@@ -5,11 +5,10 @@ module Rolemodel
   class Yarn < ::Thor
     include ::Thor::Actions
 
-    # Enable Corepack and pin the project to Yarn 4+ (instead of the classic
-    # Yarn 1.22). Idempotent, so any generator can call it before running a
-    # `yarn` command to guarantee the modern toolchain is in place.
+    # Enable Corepack and pin the project to Yarn 4+ (instead of the classic Yarn 1.22).
     desc 'setup', 'Set the current stable version of Yarn, enable corepack, and initialize a package.json file'
     def setup
+      say 'Setting up Yarn 4+ and Corepack', :green
       # Configure the node-modules linker so webpack, Playwright, and the Rails
       # asset pipeline keep working (Yarn 4 defaults to Plug'n'Play otherwise).
       # skip if exists? to avoid overwriting any other existing config

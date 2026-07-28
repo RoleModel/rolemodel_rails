@@ -7,8 +7,7 @@ module Rolemodel
     def add_tailored_select_package
       say 'Installing Tailored Select package', :green
 
-      ensure_yarn
-      run 'yarn add @rolemodel/tailored-select'
+      yarn_command 'add @rolemodel/tailored-select'
     end
 
     def add_simple_form_input

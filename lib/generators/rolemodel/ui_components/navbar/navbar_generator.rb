@@ -25,8 +25,7 @@ module Rolemodel
       def install_shoelace
         say 'Installing Shoelace package', :green
 
-        ensure_yarn
-        run 'yarn add @shoelace-style/shoelace'
+        yarn_command 'add @shoelace-style/shoelace'
       end
 
       def add_shoelace_javascript_imports
