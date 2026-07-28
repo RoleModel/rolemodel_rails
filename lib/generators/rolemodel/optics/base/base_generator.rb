@@ -6,8 +6,7 @@ module Rolemodel
       def add_optics_package
         say 'installing Optics package', :green
 
-        ensure_yarn
-        run 'yarn add @rolemodel/optics'
+        yarn_command 'add @rolemodel/optics'
       end
 
       def copy_templates

@@ -9,11 +9,16 @@ module Rolemodel
   class GeneratorBase < ::Rails::Generators::Base
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
 
-
     private
     # based on https://github.com/rails/rails/blob/main/railties/lib/rails/generators/app_base.rb#L713
     def run_bundle
       bundle_command("install --quiet", "BUNDLE_IGNORE_MESSAGES" => "1")
+    end
+
+    def yarn_command(command)
+      ensure_yarn
+
+      run "yarn #{command}"
     end
 
     # Enable Corepack and pin the project to Yarn 4+ before running any `yarn`
@@ -22,6 +27,7 @@ module Rolemodel
     # --skip-bootsnap) into Rolemodel::Yarn#setup, which takes none and raises
     # Thor::InvocationError.
     def ensure_yarn
+      return if Rails.root.join(destination_root, '.yarnrc.yml').exist?
       invoke 'rolemodel:yarn:setup', [], {}
     end
 

@@ -6,8 +6,7 @@ module Rolemodel
       def add_rails_request_package
         say 'Installing @rails/request.js package', :green
 
-        ensure_yarn
-        run 'yarn add @rails/request.js'
+        yarn_command 'add @rails/request.js'
       end
 
       def add_stimulus_controller

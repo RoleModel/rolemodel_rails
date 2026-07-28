@@ -18,8 +18,10 @@ module Rolemodel
         raise Thor::InvocationError, 'a --github_package_token option or GITHUB_PACKAGES_TOKEN environment variable is required' if options[:github_package_token].blank?
       end
 
-      def enable_corepack_and_yarn
-        ensure_yarn
+      def add_dev_dependencies
+        say 'Adding new dev dependency to package.json', :green
+
+        yarn_command "add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 
       def add_browser_test_script
@@ -32,12 +34,6 @@ module Rolemodel
         say "Setting local Node version to #{set_color(NODE_VERSION, :yellow)}", :green
 
         create_file '.node-version', NODE_VERSION, force: true
-      end
-
-      def add_dev_dependencies
-        say 'Adding new dev dependency to package.json', :green
-
-        run "yarn add --dev #{DEV_DEPENDENCIES.join(' ')}"
       end
 
       def add_spec_config_files
