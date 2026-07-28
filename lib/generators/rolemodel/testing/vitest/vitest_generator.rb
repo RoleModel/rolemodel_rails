@@ -14,16 +14,16 @@ module Rolemodel
         @vitest/ui
       ].freeze
 
-      def update_test_script
-        say 'Update yarn test command', :green
-
-        add_package_json_script 'test', TEST_COMMAND
-      end
-
       def add_dev_dependencies
         say 'Adding new dev dependency to package.json', :green
 
         yarn_command "add --dev #{DEV_DEPENDENCIES.join(' ')}"
+      end
+
+      def update_test_script
+        say 'Update yarn test command', :green
+
+        add_package_json_script 'test', TEST_COMMAND
       end
 
       def add_spec_config_files
