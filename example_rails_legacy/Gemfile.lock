@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rolemodel-rails (2.3.1)
+    rolemodel-rails (2.3.2)
       benchmark
       rails (> 7.1)
 
@@ -144,8 +144,8 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.3)
-    net-imap (0.6.4.1)
+    msgpack (1.8.4)
+    net-imap (0.6.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -231,7 +231,7 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.4.2)
-    rbs (4.0.3)
+    rbs (4.1.0)
       logger
       prism (>= 1.6.0)
       tsort
