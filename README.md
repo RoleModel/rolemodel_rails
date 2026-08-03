@@ -219,6 +219,98 @@ DRY_RUN=true rake users:dev[_,bob@example.com]
 #=>    -> 0.0000s
 ```
 
+### `Rolemodel::ResourceFor::ControllerExtension`
+
+Provides the private `resource_for` utility method to all controller classes throughout your app. Use it in conjunction with Routing concerns.
+
+#### The Problem It Solves
+
+Apps accumulate resources that hang off many different parents. Good examples include `comments`, `reports`, `duplications`.
+
+The naive approach involves many namespaced controllers that all do the same thing but with a different parent resource, or adding several non-restful actions to each parent controller.
+
+The following example illustrates a better pattern.
+
+##### Routing
+
+Declare the child resource inside a route concern and pass the parent's class name as a route default using `parent_resource`:
+
+```ruby
+concern :commentable do
+  resources :comments, commentable_type: parent_resource.name.classify
+end
+
+concern :reportable do
+  resources :generated_reports, only: %i[show create], reportable_type: parent_resource.name.classify
+end
+
+shallow do
+  resources :accounts do
+    resources :estimates, concerns: %i[commentable reportable] do
+      resources :widgets, concerns: %i[commentable reportable]
+    end
+  end
+end
+```
+
+##### Controller
+
+One controller serves every parent:
+
+```ruby
+class CommentsController < ApplicationController
+  before_action :set_commentable, only: %i[index new create]
+  before_action :set_comment, except: %i[index new create]
+
+  def create
+    # ...
+  end
+
+  private
+
+  def set_commentable
+    @commentable = resource_for(:commentable_type) # pass in the symbol specified in your routing concern.
+  end
+end
+```
+
+Under `shallow: true`, only the collection actions (`index`, `new`, `create`) carry the parent id — hence the `only:`/`except:` split above. Member actions find the child directly by `params[:id]` and reach the parent through its own association.
+
+`resource_for` returns the record itself, so it composes with authorization and presentation:
+
+```ruby
+def set_resource
+  @resource = authorize resource_for(:resource_type)
+end
+```
+
+#### Guarding User-Supplied Types
+
+Route defaults are merged into `params` last, so a route-supplied type cannot be overridden by a query string or request body. If a type ever arrives from user input instead, allowlist it before calling `resource_for` — `safe_constantize` will happily resolve any constant in the app:
+
+```ruby
+REPORT_CONTEXTS = %w[Accessory Estimate PartProxy Tank].freeze
+
+before_action :verify_context_type, :set_context, only: %i[create]
+
+private
+
+def verify_context_type
+  return if REPORT_CONTEXTS.include?(params[:context_type])
+
+  redirect_back_or_to root_url, alert: 'Invalid Request'
+end
+```
+
+Doing this even for route-supplied types is cheap insurance: it documents which parents the controller actually supports and fails loudly when a new route wires up a parent the controller cannot handle.
+
+#### Notes
+
+* Raises `ActiveRecord::RecordNotFound` when the id does not resolve, which Rails renders as a 404 — the same behavior as any other `find`.
+* `safe_constantize` returns `nil` for an unknown constant, producing a `NoMethodError`; allowlisting avoids that.
+* The class name is demodulized when deriving the id param, so `Reporting::Tank` looks for `params[:tank_id]`.
+* Included via `ActiveSupport.on_load(:action_controller_base)`, so `ActionController::API` controllers do not get it.
+
 ## Development
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `corepack enable` to activate the Yarn 4+ version pinned by each project's `packageManager` field.
