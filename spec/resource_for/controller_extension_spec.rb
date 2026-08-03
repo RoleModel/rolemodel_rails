@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-require 'logger'
-require 'action_controller/railtie'
+require 'action_controller'
 require 'action_dispatch/testing/integration'
 
+# The engine hands `resource_for` to controllers through this initializer during app boot.
+# Running it here gives us the same wiring without booting an app inside the generator specs' process.
+Rolemodel::Engine.initializers.detect { it.name == 'rolemodel.action_controller' }.run
+
 # Stand-ins for ActiveRecord models. `resource_for` only needs a constant that responds to `find`,
-# so these avoid a database while still exercising the real routing & params stack.
+# so these keep the spec database-free while still exercising the real router & params stack.
 class SpecResource
   attr_reader :id
 
@@ -23,7 +26,7 @@ module Reporting
   class Widget < SpecResource; end
 end
 
-# Note the absence of an `include` — Rolemodel::Engine adds `resource_for` to every controller.
+# Note the absence of an `include` — the engine adds `resource_for` to every controller.
 class CommentsController < ActionController::Base
   def index
     commentable = resource_for(:commentable_type)
@@ -40,38 +43,29 @@ class ReportsController < ActionController::Base
   end
 end
 
-class ResourceForApp < Rails::Application
-  config.root = __dir__
-  config.eager_load = false
-  config.enable_reloading = false
-  config.secret_key_base = 'resource_for_spec'
-  config.logger = Logger.new(File::NULL)
-  config.hosts.clear
-  # Surface controller exceptions as raised errors rather than error pages
-  config.action_dispatch.show_exceptions = :none
+RSpec.describe Rolemodel::ResourceFor::ControllerExtension, type: :request do
+  let(:routes) do
+    ActionDispatch::Routing::RouteSet.new.tap do |route_set|
+      route_set.draw do
+        concern :commentable do
+          resources :comments, only: %i[index], commentable_type: parent_resource.name.classify
+        end
 
-  routes.append do
-    concern :commentable do
-      resources :comments, only: %i[index], commentable_type: parent_resource.name.classify
-    end
-
-    shallow do
-      resources :accounts do
-        resources :estimates, concerns: :commentable do
-          resources :widgets, concerns: :commentable do
-            # An explicit, namespaced type — its id param is derived from the demodulized name
-            resources :reports, only: %i[index], reportable_type: 'Reporting::Widget'
+        shallow do
+          resources :accounts do
+            resources :estimates, concerns: :commentable do
+              resources :widgets, concerns: :commentable do
+                # An explicit, namespaced type — its id param comes from the demodulized name
+                resources :reports, only: %i[index], reportable_type: 'Reporting::Widget'
+              end
+            end
           end
         end
       end
     end
   end
-end
 
-ResourceForApp.initialize!
-
-RSpec.describe Rolemodel::ResourceFor::ControllerExtension, type: :request do
-  let(:session) { ActionDispatch::Integration::Session.new(ResourceForApp.instance) }
+  let(:session) { ActionDispatch::Integration::Session.new(routes) }
 
   def get_body(path, **params)
     session.get(path, **params)
