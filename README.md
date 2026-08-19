@@ -69,7 +69,6 @@ bin/rails g
 
 * [Core Setup](./lib/generators/rolemodel/core_setup)
 * [Github](./lib/generators/rolemodel/github)
-* [Semaphore](./lib/generators/rolemodel/semaphore)
 * [Heroku](./lib/generators/rolemodel/heroku)
 * [Readme](./lib/generators/rolemodel/readme)
 * [Webpack](./lib/generators/rolemodel/webpack)
