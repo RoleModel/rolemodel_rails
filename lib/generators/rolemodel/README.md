@@ -13,7 +13,6 @@
 * [Optics](./optics)
 * [README](./readme)
 * [SaaS](./saas)
-* [Semaphore](./semaphore)
 * [SimpleForm](./simple_form)
 * [Slim](./slim)
 * [SoftDestroyable](./soft_destroyable)
