@@ -55,7 +55,12 @@ module Rolemodel
 
         rails_command 'stimulus:manifest:update'
       end
+
+      def install_agent_skill
+        say 'Installing the turbo-modals agent skill', :green
+
+        install_skill 'turbo-modals'
+      end
     end
   end
 end
-

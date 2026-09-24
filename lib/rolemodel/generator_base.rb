@@ -4,10 +4,14 @@ require 'rails/generators'
 require 'rails/generators/bundle_helper'
 require_relative 'replace_content_helper'
 require 'rolemodel/yarn'
+require 'json'
+require 'open-uri'
 
 module Rolemodel
   class GeneratorBase < ::Rails::Generators::Base
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
+
+    SKILLS_REPO = 'RoleModel/rolemodel-skills'
 
     private
     # based on https://github.com/rails/rails/blob/main/railties/lib/rails/generators/app_base.rb#L713
@@ -29,6 +33,21 @@ module Rolemodel
     def ensure_yarn
       return if Rails.root.join(destination_root, '.yarnrc.yml').exist?
       invoke 'rolemodel:yarn:setup', [], {}
+    end
+
+    def install_skill(name, ref: 'main', into: '.claude/skills')
+      files = skill_files(name, ref)
+      return say_status(:missing, "#{SKILLS_REPO} skill '#{name}'", :red) if files.empty?
+
+      files.each do |path|
+        get "https://raw.githubusercontent.com/#{SKILLS_REPO}/#{ref}/#{path}",
+            File.join(into, path.delete_prefix('skills/'))
+      end
+    end
+
+    def skill_files(name, ref)
+      tree = JSON.parse(URI.open("https://api.github.com/repos/#{SKILLS_REPO}/git/trees/#{ref}?recursive=1").read)
+      tree['tree'].filter_map { it['path'] if it['type'] == 'blob' && it['path'].start_with?("skills/#{name}/") }
     end
 
     def application_stylesheet_path

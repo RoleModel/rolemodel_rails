@@ -12,6 +12,10 @@ RSpec.describe Rolemodel::Turbo::FormGenerator, type: :generator do
     assert_file 'app/javascript/controllers/turbo_form_controller.js'
   end
 
+  it 'installs the turbo-fetch skill' do
+    assert_file '.claude/skills/turbo-fetch/SKILL.md'
+  end
+
   it 'updates the stimulus manifest' do
     assert_file 'app/javascript/controllers/index.js' do |content|
       expect(content).to include('import TurboFormController from "./turbo_form_controller"')

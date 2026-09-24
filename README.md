@@ -107,6 +107,18 @@ bin/rails g
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
 
+## Agent Skills
+
+Generators that leave behind conventions a coding agent needs to follow also install the matching skill from [RoleModel/rolemodel-skills](https://github.com/RoleModel/rolemodel-skills) into `.claude/skills`. Skills are fetched from the repo's `main` branch when the generator runs, so there's nothing to sync here. Re-run a generator to pick up skill updates; changed files prompt before they're overwritten.
+
+| Generator | Skill |
+|---|---|
+| `rolemodel:optics:base` | `optics-context` |
+| `rolemodel:testing:rspec` | `tdd` |
+| `rolemodel:turbo:modals` | `turbo-modals` |
+| `rolemodel:turbo:form` | `turbo-fetch` |
+| `rolemodel:soft_destroyable` | `soft-destroyable` |
+
 ## Utilities
 
 ### `Rolemodel::Utility::TaskTools`

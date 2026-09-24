@@ -22,7 +22,12 @@ module Rolemodel
 
         directory 'spec/support/helpers'
       end
+
+      def install_agent_skill
+        say 'Installing the turbo-fetch agent skill', :green
+
+        install_skill 'turbo-fetch'
+      end
     end
   end
 end
-
