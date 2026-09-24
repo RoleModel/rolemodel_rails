@@ -11,7 +11,7 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
     end
 
     it 'installs the tdd skill' do
-      assert_file '.claude/skills/tdd/SKILL.md'
+      assert_file '.agents/skills/tdd/SKILL.md'
     end
 
     it 'adds correct dependencies' do

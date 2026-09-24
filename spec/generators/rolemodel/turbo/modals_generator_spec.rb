@@ -9,9 +9,9 @@ RSpec.describe Rolemodel::Turbo::ModalsGenerator, type: :generator do
   end
 
   it 'installs the turbo-modals and optics-context skills' do
-    assert_file '.claude/skills/turbo-modals/SKILL.md'
-    assert_file '.claude/skills/optics-context/SKILL.md'
-    assert_file '.claude/skills/optics-context/assets/tokens.json'
+    assert_file '.agents/skills/turbo-modals/SKILL.md'
+    assert_file '.agents/skills/optics-context/SKILL.md'
+    assert_file '.agents/skills/optics-context/assets/tokens.json'
   end
 
   it 'updates the stimulus manifest' do

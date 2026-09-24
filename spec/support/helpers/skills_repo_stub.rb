@@ -11,13 +11,13 @@ module SkillsRepoStub
   ].freeze
 
   def stub_skills_repo(files = SKILL_FILES)
-    tree = { tree: files.map { { type: 'blob', path: it } } + [{ type: 'tree', path: 'skills' }] }.to_json
-
-    allow(URI).to receive(:open).and_wrap_original do |original, url, *args, &block|
-      next original.call(url, *args, &block) unless url.to_s.include?(Rolemodel::GeneratorBase::SKILLS_REPO)
-
-      io = StringIO.new(url.include?('/git/trees/') ? tree : "stubbed #{url}")
-      block ? block.call(io) : io
+    root = Dir.mktmpdir
+    files.each do |file|
+      path = File.join(root, 'rolemodel-skills-main', file)
+      FileUtils.mkdir_p(File.dirname(path))
+      File.write(path, file)
     end
+    system('tar', '-czf', "#{root}/archive.tgz", '-C', root, 'rolemodel-skills-main', exception: true)
+    stub_const('Rolemodel::GeneratorBase::SKILLS_ARCHIVE', "file://#{root}/archive.tgz")
   end
 end

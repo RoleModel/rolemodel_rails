@@ -2,7 +2,7 @@
 
 ## What you get
 
-* The [`tdd`](https://github.com/RoleModel/rolemodel-skills/tree/main/skills/tdd) agent skill, installed into `.claude/skills`
+* The [`tdd`](https://github.com/RoleModel/rolemodel-skills/tree/main/skills/tdd) agent skill, installed into `.agents/skills`
 
 ### RSpec Default
 

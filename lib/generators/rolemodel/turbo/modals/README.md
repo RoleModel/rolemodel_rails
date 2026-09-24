@@ -11,7 +11,7 @@
 
 * RoleModel Modal pattern integration. See Notes below for usage documentation.
 * RoleModel Panel pattern integration, if run with the `--panels` flag.
-* The [`turbo-modals`](https://github.com/RoleModel/rolemodel-skills/tree/main/skills/turbo-modals) agent skill, installed into `.claude/skills`
+* The [`turbo-modals`](https://github.com/RoleModel/rolemodel-skills/tree/main/skills/turbo-modals) agent skill, installed into `.agents/skills`
 
 > [!IMPORTANT]
 > This generator does not provide RoleModel Panel integration, unless run with the `--panels` flag.

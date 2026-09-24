@@ -13,7 +13,7 @@ RSpec.describe Rolemodel::Turbo::FormGenerator, type: :generator do
   end
 
   it 'installs the turbo-fetch skill' do
-    assert_file '.claude/skills/turbo-fetch/SKILL.md'
+    assert_file '.agents/skills/turbo-fetch/SKILL.md'
   end
 
   it 'updates the stimulus manifest' do

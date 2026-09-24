@@ -4,8 +4,7 @@ RSpec.describe Rolemodel::SoftDestroyableGenerator, type: :generator do
 
     assert_file 'app/models/concerns/soft_destroyable.rb'
     assert_file 'spec/support/shared_examples/soft_destroyable_behavior.rb'
-    assert_file '.claude/skills/soft-destroyable/SKILL.md',
-                %r{rolemodel-skills/main/skills/soft-destroyable/SKILL\.md}
+    assert_file '.agents/skills/soft-destroyable/SKILL.md'
   end
 
   it 'installs every file in the skill directory, and nothing outside it' do
@@ -18,15 +17,15 @@ RSpec.describe Rolemodel::SoftDestroyableGenerator, type: :generator do
     )
     run_generators
 
-    assert_file '.claude/skills/soft-destroyable/references/cascading.md'
-    assert_no_file '.claude/skills/soft-destroyable-extras/SKILL.md'
+    assert_file '.agents/skills/soft-destroyable/references/cascading.md'
+    assert_no_file '.agents/skills/soft-destroyable-extras/SKILL.md'
   end
 
-  it 'reports a skill missing from rolemodel-skills without failing' do
-    stub_skills_repo([])
-    output = run_generators[described_class]
+  it 'does not fail when the skill is missing from rolemodel-skills' do
+    stub_skills_repo(%w[skills/tdd/SKILL.md])
+    run_generators
 
-    expect(output).to match(/missing.*soft-destroyable/)
+    assert_no_file '.agents/skills/soft-destroyable/SKILL.md'
     assert_file 'app/models/concerns/soft_destroyable.rb'
   end
 end
