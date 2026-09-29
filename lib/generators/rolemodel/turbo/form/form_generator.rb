@@ -1,32 +1,20 @@
 module Rolemodel
   module Turbo
     class FormGenerator < GeneratorBase
-      source_root File.expand_path('templates', __dir__)
+      def install_turbo_form
+        say 'Installing turbo_form', :green
 
-      def add_rails_request_package
-        say 'Installing @rails/request.js package', :green
+        Bundler.with_unbundled_env do
+          bundle_command 'add turbo_form'
+        end
 
-        yarn_command 'add @rails/request.js'
-      end
-
-      def add_stimulus_controller
-        say 'Adding Turbo Form Stimulus Controller', :green
-
-        directory 'app/javascript/controllers'
-
-        rails_command 'stimulus:manifest:update'
-      end
-
-      def add_system_spec_helper
-        say 'Adding Turbo Form System Spec Helper', :green
-
-        directory 'spec/support/helpers'
+        generate 'turbo_form:install'
       end
 
       def install_agent_skill
-        say 'Installing the turbo-fetch agent skill', :green
+        say 'Installing the dynamic-forms agent skill', :green
 
-        install_skill 'turbo-fetch'
+        install_skill 'dynamic-forms'
       end
     end
   end

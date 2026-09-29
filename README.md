@@ -116,7 +116,7 @@ Generators that leave behind conventions a coding agent needs to follow also ins
 | `rolemodel:optics:base` | `optics-context` |
 | `rolemodel:testing:rspec` | `tdd` |
 | `rolemodel:turbo:modals` | `turbo-modals` |
-| `rolemodel:turbo:form` | `turbo-fetch` |
+| `rolemodel:turbo:form` | `dynamic-forms` |
 | `rolemodel:soft_destroyable` | `soft-destroyable` |
 
 ## Utilities

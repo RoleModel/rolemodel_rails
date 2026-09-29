@@ -5,7 +5,7 @@ module SkillsRepoStub
     skills/optics-context/SKILL.md
     skills/optics-context/assets/tokens.json
     skills/tdd/SKILL.md
-    skills/turbo-fetch/SKILL.md
+    skills/dynamic-forms/SKILL.md
     skills/turbo-modals/SKILL.md
     skills/soft-destroyable/SKILL.md
   ].freeze

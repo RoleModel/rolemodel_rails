@@ -13,4 +13,4 @@ Runs all Turbo Generators
   - Turbo meta tags in HEAD
   - TurboConfirm setup
   - Turbo Frame Modals setup
-  - Turbo-Form stimulus controller
+  - turbo_form gem for dynamic forms

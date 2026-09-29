@@ -2,24 +2,19 @@ RSpec.describe Rolemodel::Turbo::FormGenerator, type: :generator do
   before { run_generators(generators:) }
   let(:generators) { [::Rolemodel::SlimGenerator, ::Rolemodel::WebpackGenerator, described_class] }
 
-  it 'adds the request.js package to package.json' do
-    assert_file 'package.json' do |content|
-      expect(content).to include('"@rails/request.js"')
+  it 'adds the turbo_form gem' do
+    assert_file 'Gemfile' do |content|
+      expect(content).to include('turbo_form')
     end
   end
 
-  it 'adds the stimulus controller' do
-    assert_file 'app/javascript/controllers/turbo_form_controller.js'
-  end
-
-  it 'installs the turbo-fetch skill' do
-    assert_file '.agents/skills/turbo-fetch/SKILL.md'
-  end
-
-  it 'updates the stimulus manifest' do
-    assert_file 'app/javascript/controllers/index.js' do |content|
-      expect(content).to include('import TurboFormController from "./turbo_form_controller"')
-      expect(content).to include('application.register("turbo-form", TurboFormController)')
+  it 'runs the turbo_form installer' do
+    assert_file 'app/javascript/application.js' do |content|
+      expect(content).to include('@rolemodel/turbo-form')
     end
+  end
+
+  it 'installs the dynamic-forms skill' do
+    assert_file '.agents/skills/dynamic-forms/SKILL.md'
   end
 end
