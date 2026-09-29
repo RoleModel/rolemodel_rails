@@ -28,4 +28,23 @@ RSpec.describe Rolemodel::SoftDestroyableGenerator, type: :generator do
     assert_no_file '.agents/skills/soft-destroyable/SKILL.md'
     assert_file 'app/models/concerns/soft_destroyable.rb'
   end
+
+  it 'reuses a recently downloaded skills archive' do
+    run_generators
+    FileUtils.rm_rf(File.join(destination_root, '.agents'))
+    stub_skills_repo(%w[skills/tdd/SKILL.md])
+    run_generators
+
+    assert_file '.agents/skills/soft-destroyable/SKILL.md'
+  end
+
+  it 'downloads the skills archive again once it expires' do
+    run_generators
+    FileUtils.rm_rf(File.join(destination_root, '.agents'))
+    File.utime(Time.now, 11.minutes.ago, File.join(destination_root, 'tmp/rolemodel-skills.tar.gz'))
+    stub_skills_repo(%w[skills/tdd/SKILL.md])
+    run_generators
+
+    assert_no_file '.agents/skills/soft-destroyable/SKILL.md'
+  end
 end

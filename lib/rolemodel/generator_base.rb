@@ -10,6 +10,7 @@ module Rolemodel
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
 
     SKILLS_ARCHIVE = 'https://codeload.github.com/RoleModel/rolemodel-skills/tar.gz/main'
+    SKILLS_ARCHIVE_TTL = 10.minutes
 
     private
     # based on https://github.com/rails/rails/blob/main/railties/lib/rails/generators/app_base.rb#L713
@@ -34,9 +35,21 @@ module Rolemodel
     end
 
     def install_skill(name)
+      archive = cached_skills_archive
+
       inside '.agents/skills' do
-        run "curl -fsSL #{SKILLS_ARCHIVE} | tar -xz --strip-components=2 rolemodel-skills-main/skills/#{name}"
+        run "tar -xzf #{archive} --strip-components=2 rolemodel-skills-main/skills/#{name}"
       end
+    end
+
+    # Generators invoked together each run in their own process, so the archive is shared on disk.
+    def cached_skills_archive
+      archive = File.join(destination_root, 'tmp/rolemodel-skills.tar.gz')
+      return archive if File.exist?(archive) && Time.now - File.mtime(archive) < SKILLS_ARCHIVE_TTL
+
+      empty_directory 'tmp'
+      run "curl -fsSL -o #{archive}.part #{SKILLS_ARCHIVE} && mv #{archive}.part #{archive}"
+      archive
     end
 
     def application_stylesheet_path
