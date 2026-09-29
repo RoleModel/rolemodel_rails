@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+namespace :optics do
+  namespace :icons do
+    desc 'Vendor Hugeicons SVGs. ICONS=name,style/name, or every icon the app uses but lacks. Needs HUGEICONS_API_KEY.'
+    task vendor: :environment do
+      hugeicons = Rolemodel::Optics::Hugeicons
+      icons = ENV['ICONS'].present? ? hugeicons.parse(ENV['ICONS']) : hugeicons.missing
+      abort 'Every Hugeicon the app uses is already vendored.' if icons.empty?
+
+      hugeicons.vendor(icons)
+    rescue Rolemodel::Optics::Hugeicons::Error => e
+      abort e.message
+    end
+  end
+end

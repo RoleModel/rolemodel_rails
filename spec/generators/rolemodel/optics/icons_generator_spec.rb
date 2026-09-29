@@ -38,6 +38,16 @@ RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
     end
   end
 
+  context 'selecting hugeicons' do
+    before { run_generators(['--hugeicons']) }
+
+    it 'adds the helper, the vendor task and the icon folder' do
+      assert_file 'app/helpers/icon_helper.rb', /HugeiconsIconBuilder/
+      assert_file 'lib/tasks/optics_icons.rake', /Rolemodel::Optics::Hugeicons/
+      assert_file 'app/icons/hugeicons/.keep'
+    end
+  end
+
   context 're-running the generator' do
     it 'removes existing helper and builders before adding new ones' do
       assert_no_file 'app/helpers/icon_helper.rb'

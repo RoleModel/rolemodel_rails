@@ -1,6 +1,9 @@
 module Rolemodel::Optics
   autoload :IconBuilder, 'rolemodel/optics/icon_builder'
   autoload :CustomIconBuilder, 'rolemodel/optics/custom_icon_builder'
+  autoload :SvgIconBuilder, 'rolemodel/optics/svg_icon_builder'
+  autoload :HugeiconsIconBuilder, 'rolemodel/optics/hugeicons_icon_builder'
+  autoload :Hugeicons, 'rolemodel/optics/hugeicons'
   autoload :FeatherIconBuilder, 'rolemodel/optics/feather_icon_builder'
   autoload :LucideIconBuilder, 'rolemodel/optics/lucide_icon_builder'
   autoload :MaterialIconBuilder, 'rolemodel/optics/material_icon_builder'
