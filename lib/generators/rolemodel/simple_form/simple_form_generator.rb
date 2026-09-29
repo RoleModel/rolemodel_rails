@@ -8,9 +8,7 @@ module Rolemodel
                                    desc: 'Install the tailored_select experimental component input'
 
     def add_gem
-      Bundler.with_unbundled_env do
-        bundle_command 'add simple_form'
-      end
+      bundle_command 'add simple_form'
     end
 
     def add_files
