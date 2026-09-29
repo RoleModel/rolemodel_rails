@@ -4,9 +4,7 @@ module Rolemodel
       def install_turbo_form
         say 'Installing turbo_form', :green
 
-        Bundler.with_unbundled_env do
-          bundle_command 'add turbo_form'
-        end
+        bundle_command 'add turbo_form'
 
         generate 'turbo_form:install'
       end
