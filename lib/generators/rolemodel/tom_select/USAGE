@@ -1,0 +1,7 @@
+Description:
+  Installs the tom-select package, its stylesheet, and a tom-select Stimulus
+  controller. If the app is using SimpleForm, it also installs the matching
+  tom_select and grouped_tom_select SimpleForm inputs.
+
+Example:
+  rails generate rolemodel:tom_select

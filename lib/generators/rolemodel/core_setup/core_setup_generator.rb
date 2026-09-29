@@ -7,6 +7,7 @@ module Rolemodel
       generate 'rolemodel:webpack'
       generate 'rolemodel:optics:all'
       generate 'rolemodel:simple_form'
+      generate 'rolemodel:tom_select'
       generate 'rolemodel:testing:all'
       generate 'rolemodel:turbo:all'
       generate 'rolemodel:ui_components:flash'
