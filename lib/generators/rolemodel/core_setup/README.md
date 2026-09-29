@@ -21,6 +21,7 @@ app you can push straight to Heroku right after generation.
   - [Testing](../testing) — RSpec, FactoryBot, parallel_tests, TestProf
     (pass `--js-runner` to include jasmine-playwright-runner)
   - [SimpleForm](../simple_form) — SimpleForm with our configuration
+  - [Tom Select](../tom_select) — Tom Select with a Stimulus controller and SimpleForm inputs
   - [Linters](../linters) — Rubocop and ESLint
   - [UI Components](../ui_components) — flash, the modal pattern, & Turbo 8 support
   - [Editors](../editors) — EditorConfig and recommended VSCode extensions
