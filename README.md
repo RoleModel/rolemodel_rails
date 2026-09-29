@@ -105,6 +105,7 @@ bin/rails g
 * [GoodJob](./lib/generators/rolemodel/good_job)
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
+* [Tom Select](./lib/generators/rolemodel/tom_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
 
 ## Utilities
