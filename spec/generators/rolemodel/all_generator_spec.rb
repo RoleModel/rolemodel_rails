@@ -1,7 +1,22 @@
 RSpec.describe Rolemodel::AllGenerator, type: :generator do
   # Each sub-generator is exercised by its own spec, so here we only verify
-  # which generators get delegated to (and in what order).
+  # which generators get delegated to.
   let(:invoked_generators) { [] }
+  let(:generators_root) { File.expand_path('../../../lib/generators/rolemodel', __dir__) }
+  let(:excluded_generators) do
+    {
+      'rolemodel:core_setup' => 'a subset of rolemodel:all',
+      'rolemodel:tailored_select' => 'not production ready'
+    }
+  end
+
+  # A directory with its own all generator is delegated to as a group.
+  def generators_on_disk
+    Dir.children(generators_root).select { File.directory?(File.join(generators_root, it)) }.map do |dir|
+      grouped = Dir.exist?(File.join(generators_root, dir, 'all')) || File.exist?(File.join(generators_root, dir, 'all_generator.rb'))
+      grouped ? "rolemodel:#{dir}:all" : "rolemodel:#{dir}"
+    end
+  end
 
   before do
     # Stub on the Actions module rather than the generator class: stubbing the
@@ -14,43 +29,7 @@ RSpec.describe Rolemodel::AllGenerator, type: :generator do
     run_generators
   end
 
-  it 'delegates to every rolemodel generator in order' do
-    expect(invoked_generators).to eq([
-      'rolemodel:github',
-      'rolemodel:heroku',
-      'rolemodel:readme',
-      'rolemodel:webpack',
-      'rolemodel:sentry',
-      'rolemodel:react',
-      'rolemodel:slim',
-      'rolemodel:optics:all',
-      'rolemodel:testing:all',
-      'rolemodel:simple_form',
-      'rolemodel:tom_select',
-      'rolemodel:soft_destroyable',
-      'rolemodel:saas:all',
-      'rolemodel:mailers',
-      'rolemodel:linters:all',
-      'rolemodel:ui_components:all',
-      'rolemodel:source_map',
-      'rolemodel:good_job',
-      'rolemodel:kaminari',
-      'rolemodel:editors',
-      'rolemodel:lograge'
-    ])
-  end
-
-  it 'only delegates to generators that exist' do
-    unknown = invoked_generators.reject { |name| Rails::Generators.find_by_namespace(name) }
-
-    expect(unknown).to eq([])
-  end
-
-  it 'does not delegate to tailored_select, which is not production ready' do
-    expect(invoked_generators).not_to include('rolemodel:tailored_select')
-  end
-
-  it 'does not delegate to a semaphore generator' do
-    expect(invoked_generators).not_to include(a_string_matching(/semaphore/))
+  it 'delegates to every generator on disk that is not excluded' do
+    expect(invoked_generators).to match_array(generators_on_disk - excluded_generators.keys)
   end
 end

@@ -12,6 +12,7 @@ module Rolemodel
       generate 'rolemodel:slim'
       generate 'rolemodel:optics:all'
       generate 'rolemodel:testing:all'
+      generate 'rolemodel:turbo:all'
       generate 'rolemodel:simple_form'
       generate 'rolemodel:tom_select'
       generate 'rolemodel:soft_destroyable'
