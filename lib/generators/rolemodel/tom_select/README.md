@@ -10,5 +10,6 @@
 
 ```slim
 = f.input :project_manager, as: :tom_select, collection: User.all
+= f.input :substance, as: :tom_select, collection: Substance.all, allow_create: true
 = f.input :material, as: :grouped_tom_select, collection: Category.all, group_method: :materials
 ```
