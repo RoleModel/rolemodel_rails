@@ -4,14 +4,19 @@
 
 ## What you get
 
+* [Editors](./editors)
 * [Github](./github)
 * [GoodJob](./good_job)
 * [Heroku](./heroku)
+* [Kaminari](./kaminari)
 * [Linters](./linters)
+* [Lograge](./lograge)
 * [Mailers](./mailers)
 * [Optics](./optics)
+* [React](./react)
 * [README](./readme)
 * [SaaS](./saas)
+* [Sentry](./sentry)
 * [SimpleForm](./simple_form)
 * [Slim](./slim)
 * [SoftDestroyable](./soft_destroyable)
@@ -23,6 +28,7 @@
   * [Confirm](./turbo/confirm)
   * [Modals](./turbo/modals)
   * [Form](./turbo/form)
+* [UI Components](./ui_components)
 * [Webpack](./webpack)
 
 ## Helpful documentation
