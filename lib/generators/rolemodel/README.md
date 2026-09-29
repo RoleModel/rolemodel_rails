@@ -18,6 +18,7 @@
 * [SoftDestroyable](./soft_destroyable)
 * [Source Map](./source_map)
 * [Testing](./testing)
+* [Tom Select](./tom_select)
 * [Webpack](./webpack)
 
 ## Helpful documentation

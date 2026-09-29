@@ -26,6 +26,7 @@ RSpec.describe Rolemodel::AllGenerator, type: :generator do
       'rolemodel:optics:all',
       'rolemodel:testing:all',
       'rolemodel:simple_form',
+      'rolemodel:tom_select',
       'rolemodel:soft_destroyable',
       'rolemodel:saas:all',
       'rolemodel:mailers',
