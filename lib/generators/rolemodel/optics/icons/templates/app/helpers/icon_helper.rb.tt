@@ -16,11 +16,11 @@ require 'rolemodel/optics'
 module IconHelper
   # <%= @supported_properties %>
   def icon(name, **)
-    Rolemodel::Optics::<%= @chosen_library.camelize %>IconBuilder.new(name, **).build
+    Rolemodel::Optics::<%= @chosen_library.classify %>IconBuilder.new(name, **).build
   end
 
   # <%= @supported_properties %>
   def flash_icon(type, **)
-    Rolemodel::Optics::<%= @chosen_library.camelize %>IconBuilder.flash_icon(type, **).build
+    Rolemodel::Optics::<%= @chosen_library.classify %>IconBuilder.flash_icon(type, **).build
   end
 end

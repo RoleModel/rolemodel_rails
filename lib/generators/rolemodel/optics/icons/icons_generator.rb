@@ -11,13 +11,12 @@ module Rolemodel
         tabler: 'filled, size, additional_classes, color, hover_text',
         feather: 'size, additional_classes, color, hover_text',
         lucide: 'size, additional_classes, color, hover_text',
-        hugeicons: 'style, duotone, filled, size, weight, emphasis, additional_classes, color, hover_text',
         custom: 'filled, size, weight, emphasis, additional_classes, color, hover_text'
       ).freeze
 
       source_root File.expand_path('templates', __dir__)
       class_option :install_builders, aliases: '-i', type: :boolean, default: false,
-                                      desc: 'Install IconBuilder classes for customization'
+                   desc: "Install IconBuilder classes for customization"
 
       class_exclusive do
         SUPPORTED_LIBRARIES.keys.each do |library|
@@ -37,26 +36,10 @@ module Rolemodel
 
         source_paths << File.expand_path(BUILDER_DIR, Rolemodel::GEM_LIB)
         copy_file 'icon_builder.rb', "lib/#{BUILDER_DIR}/icon_builder.rb", force: true
-        copy_file 'svg_icon_builder.rb', "lib/#{BUILDER_DIR}/svg_icon_builder.rb", force: true if svg_library?
-        copy_file "#{@chosen_library}_icon_builder.rb", "lib/#{BUILDER_DIR}/#{@chosen_library}_icon_builder.rb",
-                  force: true
+        copy_file "#{@chosen_library}_icon_builder.rb", "lib/#{BUILDER_DIR}/#{@chosen_library}_icon_builder.rb", force: true
       end
 
-      # Hugeicons render from SVG files the app vendors, so the app gets a task to fetch them and a
-      # spec that fails when a view uses an icon that is not vendored yet.
-      def add_svg_vendoring
-        return unless @chosen_library.to_s == 'hugeicons'
-
-        create_file 'app/icons/hugeicons/.keep'
-        template 'lib/tasks/optics_icons.rake'
-        template 'spec/icons_spec.rb' if File.directory?(File.join(destination_root, 'spec'))
-      end
-
-      private
-
-      def svg_library?
-        @chosen_library.to_s == 'hugeicons'
-      end
+    private
 
       def capture_user_selection
         options.slice(*SUPPORTED_LIBRARIES.keys).invert[true] || ask(
