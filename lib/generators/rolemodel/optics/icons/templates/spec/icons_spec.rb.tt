@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'rolemodel/optics'
 
 # Icons render from SVG files in the repo. This fails when a view names an icon that is not vendored.
 # Names built at runtime are not found here; vendor those by hand.
