@@ -14,6 +14,6 @@ application's `lib/rolemodel/optics` directory.
 ## SVG icons (for example, Hugeicons)
 
 Use `--custom`. Put each SVG in `app/assets/images/icons/`, and `icon('name')` inlines it with
-Optics' `.svg-icon` styles (Optics 2.5+), so size, weight and emphasis modifiers apply. A subfolder
+Optics' `.icon--svg` modifier (Optics 2.5+), so size, weight and emphasis modifiers apply. A subfolder
 works as part of the name: `icon('duotone-rounded/home-01')`. Draw the SVGs with `currentColor`
 so they follow the text color.

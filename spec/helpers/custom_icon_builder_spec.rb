@@ -16,15 +16,15 @@ RSpec.describe Rolemodel::Optics::CustomIconBuilder, type: :helper do
       allow(Rails).to receive(:application).and_return(double(assets: double(load_path:)))
     end
 
-    it 'inlines the SVG inside an Optics svg-icon' do
-      expect(builder.build).to eq("<span class=\"svg-icon icon\">#{svg}</span>")
+    it 'inlines the SVG inside an Optics icon--svg' do
+      expect(builder.build).to eq("<span class=\"icon--svg icon\">#{svg}</span>")
     end
 
     context 'with weight and emphasis' do
       let(:options) { { weight: 'bold', emphasis: 'low', size: 'large' } }
 
       it 'adds the Optics modifiers' do
-        expect(builder.build).to include('class="svg-icon icon--weight-bold icon--low-emphasis icon icon--large"')
+        expect(builder.build).to include('class="icon--svg icon--weight-bold icon--low-emphasis icon icon--large"')
       end
     end
   end
@@ -38,7 +38,7 @@ RSpec.describe Rolemodel::Optics::CustomIconBuilder, type: :helper do
     end
 
     it 'inlines the SVG' do
-      expect(builder.build).to eq("<span class=\"svg-icon icon\">#{svg}</span>")
+      expect(builder.build).to eq("<span class=\"icon--svg icon\">#{svg}</span>")
     end
   end
 

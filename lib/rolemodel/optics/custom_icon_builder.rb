@@ -40,7 +40,7 @@ class Rolemodel::Optics::CustomIconBuilder < Rolemodel::Optics::IconBuilder
 
   def tag_classes
     [
-      'svg-icon',
+      'icon--svg',
       filled ? 'icon--filled' : '',
       weight == DEFAULT_WEIGHT ? '' : "icon--weight-#{weight}",
       emphasis == DEFAULT_EMPHASIS ? '' : "icon--#{emphasis}-emphasis"
