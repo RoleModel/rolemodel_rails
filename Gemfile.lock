@@ -266,6 +266,11 @@ GEM
     turbo-rails (2.0.23)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
+    turbo_form (0.9.0)
+      actionview (>= 7.1.0)
+      activesupport (>= 7.1.0)
+      railties (>= 7.1.0)
+      turbo-rails (>= 2.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (3.2.0)
@@ -301,6 +306,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   stimulus-rails
   turbo-rails
+  turbo_form
 
 BUNDLED WITH
   4.0.8

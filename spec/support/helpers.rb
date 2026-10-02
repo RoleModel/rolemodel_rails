@@ -5,4 +5,6 @@ Dir[File.expand_path('spec/support/helpers/**/*.rb', Dir.pwd)].each { require it
 RSpec.configure do |c|
   c.include ExampleApp
   c.include RespondToPrompt
+  c.include SkillsRepoStub
+  c.before(type: :generator) { stub_skills_repo }
 end

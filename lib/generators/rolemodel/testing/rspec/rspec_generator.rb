@@ -38,6 +38,12 @@ module Rolemodel
 
         append_file '.gitignore', 'spec/examples.txt'
       end
+
+      def install_agent_skill
+        say 'Installing the tdd agent skill', :green
+
+        install_skill 'tdd'
+      end
     end
   end
 end

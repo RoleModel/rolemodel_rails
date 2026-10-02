@@ -9,5 +9,11 @@ module Rolemodel
     def add_shared_example
       copy_file 'soft_destroyable_behavior.rb', 'spec/support/shared_examples/soft_destroyable_behavior.rb'
     end
+
+    def install_agent_skill
+      say 'Installing the soft-destroyable agent skill', :green
+
+      install_skill 'soft-destroyable'
+    end
   end
 end
