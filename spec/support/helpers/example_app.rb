@@ -8,7 +8,7 @@ module ExampleApp
     self.destination_root ||= File.expand_path("spec/tmp#{ENV['TEST_ENV_NUMBER']}")
     cleanup_test_app
     FileUtils.mkdir_p(destination_root)
-    # node_modules is untracked, absent on CI, and removed by Yarn PnP on first use
+    # node_modules is untracked and absent on CI; generators that need packages install them
     template_entries = Dir.children(TEMPLATE_APP_PATH) - ['node_modules']
     FileUtils.cp_r(template_entries.map { File.join(TEMPLATE_APP_PATH, it) }, destination_root)
     require File.expand_path('config/application', destination_root)
