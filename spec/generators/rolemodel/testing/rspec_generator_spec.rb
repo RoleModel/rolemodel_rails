@@ -14,6 +14,10 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
       assert_file '.rspec', /--require spec_helper/
     end
 
+    it 'installs the tdd skill' do
+      assert_file '.agents/skills/tdd/SKILL.md'
+    end
+
     it 'adds correct dependencies' do
       assert_file 'Gemfile' do |content|
         expect(content).to match(/rspec-rails/)

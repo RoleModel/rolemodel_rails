@@ -9,6 +9,9 @@ module Rolemodel
   class GeneratorBase < ::Rails::Generators::Base
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
 
+    SKILLS_ARCHIVE = 'https://codeload.github.com/RoleModel/rolemodel-skills/tar.gz/main'
+    SKILLS_ARCHIVE_TTL = 10.minutes
+
     private
 
     # Thor's ask loops forever on EOF when limited_to is set, so only prompt when someone can answer.
@@ -35,6 +38,24 @@ module Rolemodel
     def ensure_yarn
       return if Rails.root.join(destination_root, '.yarnrc.yml').exist?
       invoke 'rolemodel:yarn:setup', [], options.slice(:pretend)
+    end
+
+    def install_skill(name)
+      archive = cached_skills_archive
+
+      inside '.agents/skills' do
+        run "tar -xzf #{archive} --strip-components=2 rolemodel-skills-main/skills/#{name}"
+      end
+    end
+
+    # Generators invoked together each run in their own process, so the archive is shared on disk.
+    def cached_skills_archive
+      archive = File.join(destination_root, 'tmp/rolemodel-skills.tar.gz')
+      return archive if File.exist?(archive) && Time.now - File.mtime(archive) < SKILLS_ARCHIVE_TTL
+
+      empty_directory 'tmp'
+      run "curl -fsSL -o #{archive}.part #{SKILLS_ARCHIVE} && mv #{archive}.part #{archive}"
+      archive
     end
 
     def application_stylesheet_path

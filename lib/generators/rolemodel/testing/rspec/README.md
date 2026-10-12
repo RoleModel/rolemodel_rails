@@ -2,6 +2,8 @@
 
 ## What you get
 
+* The [`tdd`](https://github.com/RoleModel/rolemodel-skills/tree/main/skills/tdd) agent skill, installed into `.agents/skills`
+
 ### RSpec Default
 
 Based of rspec-rails install generator. Assume all configuration will be placed in `spec/support/*.rb`

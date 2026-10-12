@@ -16,6 +16,12 @@ module Rolemodel
           @import '@rolemodel/optics/dist/css/optics';
         CSS
       end
+
+      def install_agent_skill
+        say 'Installing the optics-context agent skill', :green
+
+        install_skill 'optics-context'
+      end
     end
   end
 end
