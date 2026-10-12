@@ -11,6 +11,7 @@
 .rspec_status
 node_modules
 */**/tmp
+/spec/tmp*
 log
 
 # Ignore generated files in examples

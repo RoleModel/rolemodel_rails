@@ -331,6 +331,19 @@ We use the embeded Rails apps (`example_rails_current` & `example_rails_legacy`)
 
 ## Testing
 
+Run the full suite with `bin/ci`. It splits the spec files across parallel processes, so it is much faster than a plain `bundle exec rspec`. CI uses the same command.
+
+```shell
+bin/ci
+```
+
+During development, you can still run a single file or example with RSpec directly:
+
+```shell
+bundle exec rspec spec/generators/rolemodel/turbo/form_generator_spec.rb
+bundle exec rspec spec/generators/rolemodel/turbo/form_generator_spec.rb:11
+```
+
 Generator specs should be added to the [spec](./spec) directory.
 
 Setup & Teardown of the test-dummy app is handled for you.  All you need to do is run the provided helper method:
