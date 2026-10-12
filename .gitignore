@@ -18,7 +18,7 @@ log
 **/app/assets/builds
 
 # GHA setup-ruby installs gems into vendor/bundle.
-# The bump_version workflow commits and pushes from the action runner so we want vendor/bundle to be ignored.
+# The release workflow commits and pushes from the action runner so we want vendor/bundle to be ignored.
 /vendor/bundle
 
 *.gem
