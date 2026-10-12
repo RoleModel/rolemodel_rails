@@ -1,5 +1,12 @@
 # Changelog
 
+## [v2.5.0] Oct 12, 2026
+
+- Use the shared release workflow from RoleModel/actions (#212)
+- Make CustomIconBuilder work for SVG icon sets on Propshaft (#211)
+- Bump Rails to 8.1.4 (#209)
+- Bump Ruby version to 4.0.7 (#207)
+
 ## [v2.4.1] Aug 19, 2026
 
 - `rolemodel:all` no longer fails calling the Semaphore generator, which was removed in 2.2.0.
@@ -78,6 +85,7 @@ The first release on RubyGems.
   `slim-rails`, under a single `Rolemodel` namespace in place of `RolemodelRails`.
 - A Rails engine lets the host app discover the generators lazily instead of loading them at boot.
 
+[v2.5.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.5.0
 [v2.4.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.4.1
 [v2.4.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.4.0
 [v2.3.2]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.3.2
