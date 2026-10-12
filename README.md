@@ -2,6 +2,8 @@
 
 Executable Best Practices for Rails apps, based on RoleModel's best approaches
 
+![title image](title_image.png)
+
 Attempts to solve the pain of:
 
 * Setup of a new Rails app is harder than it needs to be
@@ -324,8 +326,8 @@ e.g.
 bin/new_generator testing/fantasitic_specs 'A Fantastic Testing Framework'
 ```
 
-We use the embeded Rails apps (`example_rails_current` & `example_rails_legacy`) to test generators against. They reference the rolemodel-rails gem by local path,
-so you can navigate into one of them and run your generator for immediate feedback while developing.
+We use the embeded Rails apps (`example_rails_current` & `example_rails_legacy`) to test generators against. The specs run generators against a copy of `example_rails_current`.
+`example_rails_legacy` references the rolemodel-rails gem by local path, so you can navigate into it and run your generator for immediate feedback while developing.
 
 ## Testing
 
