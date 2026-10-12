@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+set -e
+
+bundle exec parallel_rspec "$@"

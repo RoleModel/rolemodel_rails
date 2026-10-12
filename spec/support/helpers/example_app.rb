@@ -5,9 +5,12 @@ module ExampleApp
   TEMPLATE_APP_PATH = File.expand_path('./example_rails_current')
 
   def prepare_test_app
-    self.destination_root ||= File.expand_path('spec/tmp')
+    self.destination_root ||= File.expand_path("spec/tmp#{ENV['TEST_ENV_NUMBER']}")
     cleanup_test_app
-    FileUtils.cp_r(TEMPLATE_APP_PATH, destination_root)
+    FileUtils.mkdir_p(destination_root)
+    # node_modules is untracked, absent on CI, and removed by Yarn PnP on first use
+    template_entries = Dir.children(TEMPLATE_APP_PATH) - ['node_modules']
+    FileUtils.cp_r(template_entries.map { File.join(TEMPLATE_APP_PATH, it) }, destination_root)
     require File.expand_path('config/application', destination_root)
   end
 
