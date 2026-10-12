@@ -2,6 +2,8 @@
 
 Executable Best Practices for Rails apps, based on RoleModel's best approaches
 
+![title image](title_image.png)
+
 Attempts to solve the pain of:
 
 * Setup of a new Rails app is harder than it needs to be
