@@ -7,6 +7,9 @@ on:
         type: choice
         options: [patch, minor, major]
         default: minor
+      changelog:
+        description: Changelog bullets (separate with $>). Leave blank to use the Unreleased notes or draft them from the commits.
+        type: string
   push:
     tags: ['v*']
 
@@ -22,5 +25,6 @@ jobs:
     uses: RoleModel/actions/.github/workflows/release.yml@v3
     with:
       bump-type: ${{ inputs.bump-type }}
+      changelog: ${{ inputs.changelog }}
       publish-gem: true
     secrets: inherit
