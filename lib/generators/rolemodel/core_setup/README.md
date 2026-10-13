@@ -17,7 +17,8 @@ app you can push straight to Heroku right after generation.
   - [Webpack](../webpack) — Webpack v5 for JS and CSS
   - [Sentry](../sentry) — error monitoring for Ruby and JavaScript
   - [Slim](../slim) — Slim templates
-  - [Optics](../optics) — Optics design system
+  - [Optics](../optics) — Optics design system (pass an icon library flag such as
+    `--material` to choose it up front; otherwise the icons generator asks)
   - [Testing](../testing) — RSpec, FactoryBot, parallel_tests, TestProf
     (pass `--js-runner` to include jasmine-playwright-runner)
   - [SimpleForm](../simple_form) — SimpleForm with our configuration

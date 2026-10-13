@@ -1,11 +1,15 @@
+require_relative '../optics/icons/icon_library_options'
+
 module Rolemodel
   class CoreSetupGenerator < ::Rolemodel::GeneratorBase
+    include Optics::IconLibraryOptions
+
     class_option :skip_deployable, type: :boolean, default: false, desc: 'skip generators for app deployment (Heroku, Sentry, Lograge)'
 
     def run_the_core_generators
       generate 'rolemodel:slim'
       generate 'rolemodel:webpack'
-      generate 'rolemodel:optics:all'
+      generate 'rolemodel:optics:all', *icon_library_flags
       generate 'rolemodel:simple_form'
       generate 'rolemodel:tom_select'
       generate 'rolemodel:testing:all'
