@@ -16,7 +16,8 @@ module Rolemodel
 
       yes! 'yarn set version stable'
       yes! 'corepack enable'
-      yes! 'yarn init'
+      # `yarn init` replaces an existing package.json, dropping the scripts and packages Rails added.
+      yes! 'yarn init' unless File.exist?(File.expand_path('package.json', destination_root))
 
       ignore_yarn_install_state
     end

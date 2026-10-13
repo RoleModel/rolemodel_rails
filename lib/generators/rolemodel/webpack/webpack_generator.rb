@@ -5,6 +5,7 @@ module Rolemodel
     DEV_DEPS = %w[
       esbuild
       esbuild-loader
+      strip-sourcemap-loader
       webpack
       webpack-cli
     ]
