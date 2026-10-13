@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/RoleModel/rolemodel_rails'
   spec.license       = 'MIT'
 
-  spec.files = Dir['{app,lib}/**/*', 'LICENSE.txt', 'Rakefile', 'README.md']
+  spec.files = Dir.glob('{app,lib}/**/*', File::FNM_DOTMATCH).reject { File.directory?(it) } +
+               Dir['.github/instructions/*', 'LICENSE.txt', 'Rakefile', 'README.md']
 
   spec.required_ruby_version = '>= 3.4'
 
