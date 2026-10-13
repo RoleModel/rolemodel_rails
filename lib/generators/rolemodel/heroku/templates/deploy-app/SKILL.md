@@ -24,12 +24,16 @@ go. Ask the user questions **one at a time**.
 
 ## Phase 0: Preflight
 
-Run these checks before touching anything. Stop and tell the user how to fix any that
-fail:
+Run these checks before touching anything (creating a missing GitHub repo is the one
+exception). Stop and tell the user how to fix any that fail:
 
-1. `git remote get-url origin` — must be a GitHub repo. Derive `REPO_NAME` from
-   `gh repo view --json name -q .name` (fallback: basename of the origin URL).
-2. `gh auth status` — GitHub CLI authenticated.
+1. `gh auth status` — GitHub CLI authenticated.
+2. `git remote get-url origin` — must be a GitHub repo. A brand-new app has no `origin` yet:
+   offer to create one, confirming the name (default: the app directory's name) and that it
+   should be private in the RoleModel org, then
+   `gh repo create RoleModel/<name> --private --source . --remote origin --push`.
+   Derive `REPO_NAME` from `gh repo view --json name -q .name` (fallback: basename of the
+   origin URL).
 3. `heroku auth:whoami` — Heroku CLI installed and logged in.
 4. Sentry MCP tools available (try listing organizations). If no Sentry MCP server is
    connected, ask the user to add/authorize the Sentry MCP server
@@ -41,10 +45,8 @@ fail:
    - reads `Rails.application.credentials...` → **credentials mode**
 7. Deploy-readiness (recent `rolemodel-rails` bakes these in; older apps need the manual
    fixes noted in each phase). Confirm the generated app already has:
-   - `terser-webpack-plugin` in `package.json` (webpack config imports it)
    - custom cops under `.rubocop/cops/`, not `lib/cops/` (the latter crashes prod boot)
    - `config/initializers/lograge.rb` uses `controller.try(:current_user)`
-   - `config/database.yml` `production:` block uses `url: <%= ENV["DATABASE_URL"] %>`
    - a `ruby` directive in the `Gemfile` (so the version reaches `Gemfile.lock`)
    - `stackprof` in the `Gemfile` (Sentry profiling)
    If any are missing, apply the fix inline and note the app predates the generator update.
