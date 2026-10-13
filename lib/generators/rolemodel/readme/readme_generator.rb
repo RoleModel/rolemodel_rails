@@ -5,7 +5,7 @@ module Rolemodel
     def install_readme
       @project_name = Rails.application.class.try(:parent_name) || Rails.application.class.module_parent_name
       @project = @project_name.underscore
-      template 'README.md.erb', 'README.md'
+      template 'README.md.erb', 'README.md', force: true
     end
   end
 end
