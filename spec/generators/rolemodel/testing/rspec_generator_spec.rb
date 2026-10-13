@@ -10,6 +10,10 @@ RSpec.describe Rolemodel::Testing::RspecGenerator, type: :generator do
       assert_file 'spec/support/helpers/test_element_helper.rb'
     end
 
+    it 'requires spec_helper from .rspec' do
+      assert_file '.rspec', /--require spec_helper/
+    end
+
     it 'adds correct dependencies' do
       assert_file 'Gemfile' do |content|
         expect(content).to match(/rspec-rails/)

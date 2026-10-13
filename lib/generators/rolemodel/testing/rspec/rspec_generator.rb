@@ -34,6 +34,7 @@ module Rolemodel
       def add_spec_files
         say 'Adding Support Files', :green
 
+        template '.rspec', '.rspec'
         directory 'spec'
 
         append_file '.gitignore', 'spec/examples.txt'
