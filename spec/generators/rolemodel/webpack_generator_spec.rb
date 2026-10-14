@@ -51,3 +51,13 @@ RSpec.describe Rolemodel::WebpackGenerator, type: :generator do
     end
   end
 end
+
+RSpec.describe Rolemodel::WebpackGenerator, 'with --pretend', type: :generator do
+  it 'does not set up Yarn' do
+    expect(Open3).not_to receive(:popen3)
+
+    run_generators(['--pretend'])
+
+    assert_no_file '.yarnrc.yml'
+  end
+end

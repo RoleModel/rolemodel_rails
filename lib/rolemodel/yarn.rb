@@ -33,6 +33,9 @@ module Rolemodel
     end
 
     def yes!(command)
+      say_status :run, command
+      return if options[:pretend]
+
       Open3.popen3(command) do |stdin, stdout, stderr, wait_thr|
         stdin.puts 'y'
         stdin.close

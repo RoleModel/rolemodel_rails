@@ -28,13 +28,13 @@ module Rolemodel
     end
 
     # Enable Corepack and pin the project to Yarn 4+ before running any `yarn`
-    # command. Empty args/opts are required: without them, Thor forwards this
+    # command. Args/opts are passed explicitly: otherwise Thor forwards this
     # generator's own CLI args (e.g. the test harness's --skip-bundle
     # --skip-bootsnap) into Rolemodel::Yarn#setup, which takes none and raises
     # Thor::InvocationError.
     def ensure_yarn
       return if Rails.root.join(destination_root, '.yarnrc.yml').exist?
-      invoke 'rolemodel:yarn:setup', [], {}
+      invoke 'rolemodel:yarn:setup', [], options.slice(:pretend)
     end
 
     def application_stylesheet_path
