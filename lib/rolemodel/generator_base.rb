@@ -10,6 +10,12 @@ module Rolemodel
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
 
     private
+
+    # Thor's ask loops forever on EOF when limited_to is set, so only prompt when someone can answer.
+    def ask_or_default(statement, default:, **)
+      $stdin.tty? ? ask(statement, default:, **) : default
+    end
+
     # based on https://github.com/rails/rails/blob/main/railties/lib/rails/generators/app_base.rb#L713
     def run_bundle
       bundle_command("install --quiet", "BUNDLE_IGNORE_MESSAGES" => "1")
@@ -22,13 +28,13 @@ module Rolemodel
     end
 
     # Enable Corepack and pin the project to Yarn 4+ before running any `yarn`
-    # command. Empty args/opts are required: without them, Thor forwards this
+    # command. Args/opts are passed explicitly: otherwise Thor forwards this
     # generator's own CLI args (e.g. the test harness's --skip-bundle
     # --skip-bootsnap) into Rolemodel::Yarn#setup, which takes none and raises
     # Thor::InvocationError.
     def ensure_yarn
       return if Rails.root.join(destination_root, '.yarnrc.yml').exist?
-      invoke 'rolemodel:yarn:setup', [], {}
+      invoke 'rolemodel:yarn:setup', [], options.slice(:pretend)
     end
 
     def application_stylesheet_path

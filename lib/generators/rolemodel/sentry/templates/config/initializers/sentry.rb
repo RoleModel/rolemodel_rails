@@ -2,7 +2,6 @@
 
 Sentry.init do |config|
   config.dsn = ENV['SENTRY_DSN']
-  config.enable_logs = true
   config.debug = Rails.env.local?
 
   # Traces sampling — 5% for HTTP requests, 10% for other transactions

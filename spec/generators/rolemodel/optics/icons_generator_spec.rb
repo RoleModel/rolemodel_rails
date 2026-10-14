@@ -13,6 +13,18 @@ RSpec.describe Rolemodel::Optics::IconsGenerator, type: :generator do
     end
   end
 
+  context 'without a terminal to answer the prompt' do
+    before do
+      allow($stdin).to receive(:tty?).and_return(false)
+      expect(Thor::LineEditor).not_to receive(:readline)
+      run_generators
+    end
+
+    it 'uses the default library' do
+      assert_file 'app/helpers/icon_helper.rb', /MaterialIconBuilder/
+    end
+  end
+
   context 'selecting an alternate icon library via command line option' do
     before { run_generators(['--phosphor']) }
 

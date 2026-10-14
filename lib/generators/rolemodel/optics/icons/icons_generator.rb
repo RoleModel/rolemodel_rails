@@ -42,7 +42,7 @@ module Rolemodel
     private
 
       def capture_user_selection
-        options.slice(*SUPPORTED_LIBRARIES.keys).invert[true] || ask(
+        options.slice(*SUPPORTED_LIBRARIES.keys).invert[true] || ask_or_default(
           'What icon library would you like to add?',
           default: SUPPORTED_LIBRARIES.keys.first.to_s,
           limited_to: SUPPORTED_LIBRARIES.keys.map(&:to_s)

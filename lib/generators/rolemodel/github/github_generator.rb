@@ -3,10 +3,6 @@
 module Rolemodel
   class GithubGenerator < GeneratorBase
     GITHUB_ACTIONS_REPO = 'https://github.com/RoleModel/actions.git'
-    # Files which are both used by the gem source and copied to the target app without modification
-    # are placed in the `.github` folder at the top level of this repository. This folder is then
-    # symlinked to the `templates` folder relative to this generator so they can still be copied over.
-    # Any files which are significantly different or not used by the gem source are just in `templates`.
     source_root File.expand_path('templates', __dir__)
 
     class_option :playwright, type: :boolean, default: true,
@@ -22,7 +18,6 @@ module Rolemodel
     end
 
     def install_github_config
-      directory 'instructions', '.github/instructions'
       directory 'workflows', '.github/workflows', force: true
       template 'pull_request_template.md', '.github/pull_request_template.md'
     end

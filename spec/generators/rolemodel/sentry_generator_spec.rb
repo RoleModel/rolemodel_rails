@@ -8,6 +8,8 @@ RSpec.describe Rolemodel::SentryGenerator, type: :generator do
   it 'sets up the Ruby side' do
     assert_file 'config/initializers/sentry.rb' do |content|
       expect(content).to include('Sentry.init')
+      # sentry-ruby 7 removed enable_logs; structured logging is on by default.
+      expect(content).not_to include('enable_logs')
     end
 
     assert_file 'Gemfile' do |content|
