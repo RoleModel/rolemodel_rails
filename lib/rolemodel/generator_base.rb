@@ -10,6 +10,12 @@ module Rolemodel
     include ::Rails::Generators::BundleHelper, ReplaceContentHelper
 
     private
+
+    # Thor's ask loops forever on EOF when limited_to is set, so only prompt when someone can answer.
+    def ask_or_default(statement, default:, **)
+      $stdin.tty? ? ask(statement, default:, **) : default
+    end
+
     # based on https://github.com/rails/rails/blob/main/railties/lib/rails/generators/app_base.rb#L713
     def run_bundle
       bundle_command("install --quiet", "BUNDLE_IGNORE_MESSAGES" => "1")
