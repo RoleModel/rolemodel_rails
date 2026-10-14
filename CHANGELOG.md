@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.6.1] Oct 14, 2026
+
+- Make rails new with core_setup run unattended and produce a working app (#215)
+
 ## [v2.6.0] Oct 14, 2026
 
 - Add basic tom_select generator (#210)
@@ -91,6 +95,7 @@ The first release on RubyGems.
   `slim-rails`, under a single `Rolemodel` namespace in place of `RolemodelRails`.
 - A Rails engine lets the host app discover the generators lazily instead of loading them at boot.
 
+[v2.6.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.6.1
 [v2.6.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.6.0
 [v2.5.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.5.0
 [v2.4.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.4.1
