@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files = Dir.glob('{app,lib}/**/*', File::FNM_DOTMATCH).reject { File.directory?(it) } +
-               Dir['.github/instructions/*', 'LICENSE.txt', 'Rakefile', 'README.md']
+               Dir['LICENSE.txt', 'Rakefile', 'README.md']
 
   spec.required_ruby_version = '>= 3.4'
 

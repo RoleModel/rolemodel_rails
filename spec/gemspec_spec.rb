@@ -11,10 +11,6 @@ RSpec.describe 'rolemodel-rails.gemspec' do
     expect(files).to include(a_string_starting_with(cops))
   end
 
-  it 'packages the GitHub instructions the github generator installs' do
-    expect(files).to include('.github/instructions/ruby.instructions.md')
-  end
-
   it 'packages no symlinks, which do not survive gem installation' do
     expect(files.select { File.symlink?(File.expand_path("../#{it}", __dir__)) }).to be_empty
   end

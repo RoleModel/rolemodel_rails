@@ -30,12 +30,6 @@ RSpec.describe Rolemodel::GithubGenerator, type: :generator do
     assert_file '.github/pull_request_template.md' do |content|
       expect(content).not_to include('Update version number in `lib/rolemodel/version.rb`')
     end
-
-    assert_file '.github/instructions/css.instructions.md'
-    assert_file '.github/instructions/js.instructions.md'
-    assert_file '.github/instructions/project.instructions.md'
-    assert_file '.github/instructions/ruby.instructions.md'
-    assert_file '.github/instructions/slim.instructions.md'
   end
 
   it 'creates ci.yml and updates the database.yml' do

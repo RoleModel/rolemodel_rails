@@ -3,9 +3,6 @@
 module Rolemodel
   class GithubGenerator < GeneratorBase
     GITHUB_ACTIONS_REPO = 'https://github.com/RoleModel/actions.git'
-    # Instructions this repository uses itself live in its top-level `.github/instructions`, which
-    # the gem packages, and are copied from there. Everything else the generator installs is in `templates`.
-    INSTRUCTIONS_PATH = File.expand_path('../../../../.github/instructions', __dir__)
     source_root File.expand_path('templates', __dir__)
 
     class_option :playwright, type: :boolean, default: true,
@@ -21,7 +18,6 @@ module Rolemodel
     end
 
     def install_github_config
-      directory INSTRUCTIONS_PATH, '.github/instructions'
       directory 'workflows', '.github/workflows', force: true
       template 'pull_request_template.md', '.github/pull_request_template.md'
     end

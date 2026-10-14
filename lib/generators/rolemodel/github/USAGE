@@ -5,7 +5,6 @@ Example:
     rails generate rolemodel:github
 
     This will create:
-        .github/instructions/
         .github/workflows/ci.yml
         .github/pull_request_template.md
         .github/dependabot.yml
