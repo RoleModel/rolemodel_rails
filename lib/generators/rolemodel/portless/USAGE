@@ -1,0 +1,9 @@
+Description:
+    Serves the app at https://<app-name>.localhost through portless, so apps never fight over port 3000
+
+Example:
+    rails generate rolemodel:portless
+
+    This will create:
+        bin/portless
+        Procfile.pdev

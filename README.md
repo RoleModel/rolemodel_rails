@@ -107,6 +107,7 @@ bin/rails g
 * [Editors](./lib/generators/rolemodel/editors)
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
+* [Portless](./lib/generators/rolemodel/portless)
 
 ## Utilities
 
