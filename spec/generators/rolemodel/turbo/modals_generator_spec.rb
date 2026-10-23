@@ -8,6 +8,12 @@ RSpec.describe Rolemodel::Turbo::ModalsGenerator, type: :generator do
     assert_file 'app/javascript/initializers/frame_missing_handler.js'
   end
 
+  it 'installs the turbo-modals and optics-context skills' do
+    assert_file '.agents/skills/turbo-modals/SKILL.md'
+    assert_file '.agents/skills/optics-context/SKILL.md'
+    assert_file '.agents/skills/optics-context/assets/tokens.json'
+  end
+
   it 'updates the stimulus manifest' do
     assert_file 'app/javascript/controllers/index.js' do |content|
       expect(content).to include('import ToggleController from "./toggle_controller"')
