@@ -127,57 +127,41 @@ fix the root cause (and flag it for the generator), never paper over it.
 2. Ensure the current branch is pushed: check `git status` and
    `git rev-parse @ @{u}`. If there's no upstream or local is ahead, ask the user to
    push (or push for them if they say so) before continuing.
-3. Create the app if it doesn't exist (`heroku apps:info -a $APP_NAME` to check):
-   `heroku apps:create $APP_NAME --team <team>`
-4. Buildpacks, in this exact order (check `heroku buildpacks -a $APP_NAME` first):
-   1. `heroku buildpacks:add heroku/nodejs -a $APP_NAME`
-   2. `heroku buildpacks:add heroku/ruby -a $APP_NAME`
-5. Add-ons (skip any that already exist per `heroku addons -a $APP_NAME`):
-   - `heroku addons:create heroku-postgresql:essential-0 -a $APP_NAME`
-   - Papertrail: run `heroku addons:plans papertrail` and pick the plan whose
-     name/description matches "Development" (case-insensitive); if no plan matches,
-     show the plan list and ask the user which to use. Then
-     `heroku addons:create papertrail:<plan> -a $APP_NAME`.
-6. Config vars:
-   - `RAILS_MASTER_KEY`: **never read `config/master.key` (or
-     `config/credentials/production.key`) — the key must not enter the model's context.**
-     Pause and tell the user to run this in their own terminal:
-     `heroku config:set RAILS_MASTER_KEY=$(cat config/master.key) -a $APP_NAME`
-     (substitute `config/credentials/production.key` if per-environment credentials are
-     in use). Once they confirm, verify presence without exposing the value:
-     `heroku config --json -a $APP_NAME | jq 'has("RAILS_MASTER_KEY")'` — must be `true`.
-   - env-var mode only, set these yourself:
-     `heroku config:set SENTRY_DSN=<dsn> SENTRY_ENVIRONMENT=staging -a $APP_NAME`
-7. Enable runtime dyno metadata (idempotent) so Sentry can detect releases:
-   `heroku labs:enable runtime-dyno-metadata -a $APP_NAME`. This adds `HEROKU_*`
-   env vars (e.g. `HEROKU_SLUG_COMMIT`) on the next release; without it the release
-   command logs a warning about dyno metadata.
-8. Initial deploy from the local machine:
-   - `heroku git:remote -a $APP_NAME -r heroku-staging`
-   - `git push heroku-staging <current-branch>:main`
-   - If the build or release phase fails, read the build output / `heroku logs` and fix
-     the root cause before proceeding — do not create the GitHub environment until the
-     app deploys and boots.
-9. Dyno formation (after the first successful deploy):
-   - `heroku ps:type web=basic -a $APP_NAME`
-   - If the Procfile has a `worker` process: `heroku ps:scale worker=1:basic -a $APP_NAME`
-10. Verify: get the app URL from `heroku apps:info -a $APP_NAME --json` (`web_url`), then
-    curl `<web_url>/up` and confirm a 200. Save the URL as `APP_URL` (no trailing slash).
+3. Run [`heroku_setup`](./heroku_setup) (next to this file) from the app's root. It does
+   the rest of this phase and steps 1–2 of Phase 5, and skips anything that already exists,
+   so it is safe to re-run after a failure:
+   - creates the app in the team, adds the `heroku/nodejs` then `heroku/ruby` buildpacks
+   - adds `heroku-postgresql:essential-0` and the Papertrail plan named "Development"
+   - sets `RAILS_MASTER_KEY` (from `config/credentials/<stage>.key` when it exists, else
+     `config/master.key`), `SENTRY_ENVIRONMENT`, and `SENTRY_DSN` when given; enables
+     `runtime-dyno-metadata` so Sentry can detect releases
+   - pushes the current branch to Heroku's `main`, sets the dyno type, scales a `worker`
+     to 1 if the Procfile has one, and waits for `<web_url>/up` to return 200
+   - creates the GitHub environment and sets `HEROKU_APP_NAME` and `HEROKU_APP_URL`
+
+   The script reads the master key, which must not enter the model's context, so **the user
+   runs it in their own terminal**. Give them the exact command (omit `SENTRY_DSN` in
+   credentials mode):
+   ```
+   SENTRY_DSN=<dsn> bash <path to this folder>/heroku_setup $APP_NAME <team> staging
+   ```
+   If it fails, read the error it stops on (or `heroku logs -a $APP_NAME`), fix the root
+   cause, and have the user run it again. Do not set up the deploy workflow until the app
+   deploys and boots.
 
 ## Phase 5: GitHub environment + deploy workflow
 
-1. Create the environment (idempotent PUT):
-   `gh api -X PUT repos/{owner}/{repo}/environments/Staging`
-2. Set the environment variables:
-   - `gh variable set HEROKU_APP_NAME --env Staging --body "$APP_NAME"`
-   - `gh variable set HEROKU_APP_URL --env Staging --body "$APP_URL"`
-3. Confirm `.github/workflows/deploy-staging.yml` exists (the rolemodel-rails github
+1. Confirm the script set the environment variables:
+   `gh variable list --env Staging` must show `HEROKU_APP_NAME` and `HEROKU_APP_URL`.
+   Never let the deploy workflow run before they exist: with an empty `HEROKU_APP_NAME`
+   the deploy action creates a randomly named Heroku app instead of failing.
+2. Confirm `.github/workflows/deploy-staging.yml` exists (the rolemodel-rails github
    generator installs it). If it's missing, the app skipped the github generator — tell
    the user to run it (`rails generate rolemodel:github`) rather than hand-writing the
    workflow. The workflow relies on the RoleModel **org-level**
    `HEROKU_IT_SUPPORT_API_KEY` secret and `HEROKU_IT_SUPPORT_EMAIL` variable — do not
    create per-repo copies.
-4. Verify end-to-end: `gh workflow run deploy-staging.yml` then `gh run watch` the run.
+3. Verify end-to-end: `gh workflow run deploy-staging.yml` then `gh run watch` the run.
    A green run (including its `/up` healthcheck) is the definition of done.
 
 ## Production mode
@@ -187,7 +171,9 @@ Same phases with these differences — ask, don't assume, on every sizing choice
 - App name defaults to `<REPO_NAME>` (confirm with the user).
 - Sentry: reuse the existing project; set `SENTRY_ENVIRONMENT=production`.
 - Heroku tiers: ask the user for dyno type (basic/standard-1x/standard-2x/performance),
-  Postgres plan, and Papertrail plan instead of assuming the staging defaults.
+  Postgres plan, and Papertrail plan instead of assuming the staging defaults. Pass them to
+  the script as `DYNO_TYPE`, `POSTGRES_PLAN` and `PAPERTRAIL_PLAN`, with `production` as
+  its third argument.
 - GitHub environment is `Production`; the workflow is
   `.github/workflows/deploy-production.yml` (also installed by the github generator; manual
   `workflow_dispatch` only — production never auto-deploys on push).
