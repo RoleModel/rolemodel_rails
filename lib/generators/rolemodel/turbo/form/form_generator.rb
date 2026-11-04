@@ -8,6 +8,12 @@ module Rolemodel
 
         generate 'turbo_form:install'
       end
+
+      def install_agent_skill
+        say 'Installing the dynamic-forms agent skill', :green
+
+        install_skill 'dynamic-forms'
+      end
     end
   end
 end

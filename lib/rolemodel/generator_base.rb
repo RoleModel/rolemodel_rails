@@ -3,11 +3,12 @@
 require 'rails/generators'
 require 'rails/generators/bundle_helper'
 require_relative 'replace_content_helper'
+require_relative 'skills_helper'
 require 'rolemodel/yarn'
 
 module Rolemodel
   class GeneratorBase < ::Rails::Generators::Base
-    include ::Rails::Generators::BundleHelper, ReplaceContentHelper
+    include ::Rails::Generators::BundleHelper, ReplaceContentHelper, SkillsHelper
 
     private
 

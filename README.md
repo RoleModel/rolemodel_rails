@@ -110,6 +110,18 @@ bin/rails g
 * [Tom Select](./lib/generators/rolemodel/tom_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
 
+## Agent Skills
+
+Generators that leave behind conventions a coding agent needs to follow also install the matching skill from [RoleModel/skills](https://github.com/RoleModel/skills) with [`npx skills`](https://github.com/vercel-labs/skills), without prompting. Skills land in `.agents/skills` (read by Copilot and Codex) and are symlinked into `.claude/skills`, and `skills-lock.json` records what was installed so `npx skills update` can refresh them. If you've picked agents in the skills CLI before, generators install for those agents instead of Claude Code, GitHub Copilot, and Codex.
+
+| Generator | Skill |
+|---|---|
+| `rolemodel:optics:base` | `optics-context` |
+| `rolemodel:testing:rspec` | `tdd` |
+| `rolemodel:turbo:modals` | `turbo-modals` |
+| `rolemodel:turbo:form` | `dynamic-forms` |
+| `rolemodel:soft_destroyable` | `soft-destroyable` |
+
 ## Utilities
 
 ### `Rolemodel::Utility::TaskTools`
