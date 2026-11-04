@@ -27,3 +27,6 @@ app you can push straight to Heroku right after generation.
   - [UI Components](../ui_components) — flash, the modal pattern, & Turbo 8 support
   - [Editors](../editors) — EditorConfig and recommended VSCode extensions
   - [Lograge](../lograge) — condensed request logging
+  - The [`polymorphic-parent-resources`](https://github.com/RoleModel/skills/tree/main/skills/polymorphic-parent-resources)
+    and [`rake-tasks`](https://github.com/RoleModel/skills/tree/main/skills/rake-tasks) agent skills for
+    `resource_for` and `Rolemodel::Utility::TaskTools`, installed into `.agents/skills`

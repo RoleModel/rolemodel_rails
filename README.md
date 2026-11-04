@@ -121,6 +121,7 @@ Generators that leave behind conventions a coding agent needs to follow also ins
 | `rolemodel:turbo:modals` | `turbo-modals` |
 | `rolemodel:turbo:form` | `dynamic-forms` |
 | `rolemodel:soft_destroyable` | `soft-destroyable` |
+| `rolemodel:core_setup` | `polymorphic-parent-resources`, `rake-tasks` |
 
 ## Utilities
 
