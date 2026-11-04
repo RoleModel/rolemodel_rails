@@ -2,7 +2,13 @@
 
 ## [v2.7.0] Nov 4, 2026
 
-- Generators may now use `install_skill(name) to install a project level skill from RoleModel/skills.Initial Generators that do so:    - optics:base → optics-context   - testing:rspec → tdd   - turbo:modals → turbo-modals   - turbo:form → dynamic-forms   - soft_destroyable → soft-destroyable
+- Generators may now use `install_skill(name)` to install a project level skill from RoleModel/skills (#208)
+- Initial generators that do so:
+  - optics:base → optics-context
+  - testing:rspec → tdd
+  - turbo:modals → turbo-modals
+  - turbo:form → dynamic-forms
+  - soft_destroyable → soft-destroyable
 
 ## [v2.6.1] Oct 14, 2026
 
