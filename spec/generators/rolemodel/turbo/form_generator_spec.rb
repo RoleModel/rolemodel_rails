@@ -15,6 +15,6 @@ RSpec.describe Rolemodel::Turbo::FormGenerator, type: :generator do
   end
 
   it 'installs the dynamic-forms skill' do
-    assert_file '.agents/skills/dynamic-forms/SKILL.md'
+    expect(installed_skills).to include 'dynamic-forms'
   end
 end

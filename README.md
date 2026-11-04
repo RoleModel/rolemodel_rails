@@ -112,7 +112,7 @@ bin/rails g
 
 ## Agent Skills
 
-Generators that leave behind conventions a coding agent needs to follow also install the matching skill from [RoleModel/rolemodel-skills](https://github.com/RoleModel/rolemodel-skills) into `.agents/skills`. Skills are fetched from the repo's `main` branch when the generator runs, so there's nothing to sync here. Re-run a generator to pick up skill updates. It overwrites the installed skill, so make local changes upstream.
+Generators that leave behind conventions a coding agent needs to follow also install the matching skill from [RoleModel/skills](https://github.com/RoleModel/skills) with [`npx skills`](https://github.com/vercel-labs/skills), without prompting. Skills land in `.agents/skills` (read by Copilot and Codex) and are symlinked into `.claude/skills`, and `skills-lock.json` records what was installed so `npx skills update` can refresh them. If you've picked agents in the skills CLI before, generators install for those agents instead of Claude Code, GitHub Copilot, and Codex.
 
 | Generator | Skill |
 |---|---|
