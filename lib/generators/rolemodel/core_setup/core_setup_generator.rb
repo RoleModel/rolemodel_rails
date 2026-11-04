@@ -6,6 +6,13 @@ module Rolemodel
 
     class_option :skip_deployable, type: :boolean, default: false, desc: 'skip generators for app deployment (Heroku, Sentry, Lograge)'
 
+    def install_agent_skills
+      say 'Installing agent skills for the rolemodel_rails utilities', :green
+
+      install_skill 'polymorphic-parent-resources'
+      install_skill 'rake-tasks'
+    end
+
     def run_the_core_generators
       generate 'rolemodel:slim'
       generate 'rolemodel:webpack'
