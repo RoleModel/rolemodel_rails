@@ -62,7 +62,7 @@ module Rolemodel
       end
 
       def to_h
-        @args.transform_values { it.to_s.strip.match?('_') ? nil : it.to_s.strip }.compact
+        @args.transform_values { it.to_s.strip.presence unless it.to_s.strip == '_' }.compact
       end
     end
   end
