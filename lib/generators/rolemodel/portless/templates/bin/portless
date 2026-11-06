@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+
+cd "$(dirname "$0")/.."
+
+echo "Installing dependencies..."
+bundle install --quiet
+npm install -g portless
+
+PORTLESS_DOCTOR=$(portless doctor 2>&1 || true)
+PORTLESS_MODE=$(echo "$PORTLESS_DOCTOR" | grep "Mode:" || true)
+
+restart_portless_proxy() {
+  echo "Restarting portless proxy with HTTPS, .localhost..."
+  sudo portless proxy stop
+  sudo portless proxy start
+}
+
+if ! echo "$PORTLESS_DOCTOR" | grep -q "Proxy is responding"; then
+  echo "Starting portless proxy..."
+  sudo portless proxy start
+elif echo "$PORTLESS_MODE" | grep -qE '\bLAN\b'; then
+  echo "Detected portless proxy running in LAN mode (forces the .local TLD)"
+  restart_portless_proxy
+elif echo "$PORTLESS_MODE" | grep -qE '\bHTTP\b'; then
+  echo "Detected portless proxy running in HTTP mode"
+  restart_portless_proxy
+fi
+
+echo "Starting Rails server..."
+exec foreman start -f Procfile.pdev "$@"
