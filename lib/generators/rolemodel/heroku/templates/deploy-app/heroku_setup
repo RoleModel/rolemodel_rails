@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+# Phases 4 and 5 of the deploy-app skill: sets up and deploys a Heroku app for the
+# Rails app in the current directory. Safe to re-run: each step skips what already exists.
+#
+#   path/to/heroku_setup <app-name> <heroku-team> [staging|production]
+#
+# Optional environment:
+#   SENTRY_DSN       set it when config/initializers/sentry.rb reads ENV['SENTRY_DSN']
+#   DYNO_TYPE        default basic
+#   POSTGRES_PLAN    default heroku-postgresql:essential-0
+#   PAPERTRAIL_PLAN  default the Papertrail plan named "Development"
+#
+# Needs: heroku and gh CLIs logged in, jq, config/master.key (or config/credentials/<stage>.key), and the current branch pushed.
+set -euo pipefail
+
+cd "$(git rev-parse --show-toplevel)"
+
+USAGE="usage: heroku_setup <app-name> <heroku-team> [staging|production]"
+APP=${1:?$USAGE}
+TEAM=${2:?$USAGE}
+STAGE=${3:-staging}
+DYNO_TYPE=${DYNO_TYPE:-basic}
+POSTGRES_PLAN=${POSTGRES_PLAN:-heroku-postgresql:essential-0}
+
+case $STAGE in
+  staging) ENVIRONMENT=Staging ;;
+  production) ENVIRONMENT=Production ;;
+  *) echo "stage must be staging or production" >&2; exit 1 ;;
+esac
+
+step() { printf '\n==> %s\n' "$*"; }
+
+step "App $APP"
+if heroku apps:info -a "$APP" >/dev/null 2>&1; then
+  echo "exists"
+else
+  heroku apps:create "$APP" --team "$TEAM" --no-remote
+fi
+
+step "Buildpacks"
+BUILDPACKS=$(heroku buildpacks -a "$APP")
+[[ $BUILDPACKS == *heroku/nodejs* ]] || heroku buildpacks:add --index 1 heroku/nodejs -a "$APP"
+[[ $BUILDPACKS == *heroku/ruby* ]] || heroku buildpacks:add heroku/ruby -a "$APP"
+
+step "Add-ons"
+ADDONS=$(heroku addons -a "$APP" --json | jq -r '.[].addon_service.name')
+[[ $ADDONS == *heroku-postgresql* ]] || heroku addons:create "$POSTGRES_PLAN" -a "$APP"
+if [[ $ADDONS != *papertrail* ]]; then
+  PLAN=${PAPERTRAIL_PLAN:-$(heroku addons:plans papertrail --json | jq -r '[.[] | select(.human_name == "Development")][0].name')}
+  [[ $PLAN != null ]] || { echo "No Papertrail Development plan; pick one from: heroku addons:plans papertrail" >&2; exit 1; }
+  heroku addons:create "$PLAN" -a "$APP"
+fi
+
+step "Config vars"
+# The key goes straight from the file to Heroku and is never printed.
+KEY_FILE=config/credentials/$STAGE.key
+[[ -f $KEY_FILE ]] || KEY_FILE=config/master.key
+CONFIG=(RAILS_MASTER_KEY="$(cat "$KEY_FILE")" SENTRY_ENVIRONMENT="$STAGE")
+[[ -z ${SENTRY_DSN:-} ]] || CONFIG+=(SENTRY_DSN="$SENTRY_DSN")
+heroku config:set -a "$APP" "${CONFIG[@]}" >/dev/null
+heroku labs:enable runtime-dyno-metadata -a "$APP"
+
+step "Deploy $(git branch --show-current)"
+git remote get-url "heroku-$STAGE" >/dev/null 2>&1 || heroku git:remote -a "$APP" -r "heroku-$STAGE"
+git push "heroku-$STAGE" HEAD:main
+
+step "Dynos"
+heroku ps:type "web=$DYNO_TYPE" -a "$APP"
+if grep -q '^worker:' Procfile; then
+  heroku ps:scale "worker=1:$DYNO_TYPE" -a "$APP"
+fi
+
+step "Health check"
+URL=$(heroku apps:info -a "$APP" --json | jq -r '.app.web_url' | sed 's:/*$::')
+for _ in {1..12}; do
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$URL/up")
+  [[ $STATUS == 200 ]] && break
+  sleep 5
+done
+[[ $STATUS == 200 ]] || { echo "$URL/up returned $STATUS; check: heroku logs -a $APP" >&2; exit 1; }
+echo "$URL/up -> 200"
+
+step "GitHub $ENVIRONMENT environment"
+gh api -X PUT "repos/{owner}/{repo}/environments/$ENVIRONMENT" >/dev/null
+gh variable set HEROKU_APP_NAME --env "$ENVIRONMENT" --body "$APP"
+gh variable set HEROKU_APP_URL --env "$ENVIRONMENT" --body "$URL"
+echo "Done. Check the workflow with: gh workflow run deploy-$STAGE.yml && gh run watch"
