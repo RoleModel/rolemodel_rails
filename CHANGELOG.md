@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+- core_setup installs the polymorphic-parent-resources and rake-tasks skills (#222)
+- TaskTools keeps rake arguments that contain an underscore (#222)
+- Update the core_setup and ui_components READMEs (#222)
+
 ## [v2.7.0] Nov 4, 2026
 
 - Generators may now use `install_skill(name)` to install a project level skill from RoleModel/skills (#208)
