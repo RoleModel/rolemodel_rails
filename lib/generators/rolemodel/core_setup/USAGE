@@ -1,12 +1,16 @@
 Description:
   Runs the core generators every new Rails app should have
 
-  Sets up GitHub config, Heroku deployment, README, Webpack, Sentry, Slim,
-  Optics, testing (RSpec & friends), SimpleForm, linters, Turbo 8+ support,
-  and Lograge. The result is an app that is ready to push directly to Heroku.
+  Sets up Slim, Webpack, Optics, SimpleForm, Tom Select, testing (RSpec &
+  friends), Turbo, flash messages, GitHub config, README, linters, Heroku
+  deployment, Sentry, and Lograge. It also installs the agent skills for
+  resource_for and TaskTools. The result is an app that is ready to push
+  directly to Heroku.
 
-  Pass --js-runner to also include jasmine-playwright-runner for browser
-  JS testing.
+  Pass an icon library flag (--material, --phosphor, --tabler, --feather,
+  --lucide, or --custom) to choose the Optics icons up front.
+
+  Pass --skip-deployable to skip Heroku, Sentry, and Lograge.
 
 Example:
-  rails generate rolemodel:core_setup
+  rails generate rolemodel:core_setup --material
