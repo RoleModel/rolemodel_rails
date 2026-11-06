@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [v2.7.1] Nov 6, 2026
 
 - `core_setup` installs the `polymorphic-parent-resources` and `rake-tasks` skills (#222)
 - `TaskTools` keeps rake arguments that contain an underscore. Only a bare `_` or a blank value falls back to the default (#222)
@@ -111,6 +111,7 @@ The first release on RubyGems.
   `slim-rails`, under a single `Rolemodel` namespace in place of `RolemodelRails`.
 - A Rails engine lets the host app discover the generators lazily instead of loading them at boot.
 
+[v2.7.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.7.1
 [v2.7.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.7.0
 [v2.6.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.6.1
 [v2.6.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.6.0
