@@ -2,9 +2,9 @@
 
 ## [Unreleased]
 
-- core_setup installs the polymorphic-parent-resources and rake-tasks skills (#222)
-- TaskTools keeps rake arguments that contain an underscore (#222)
-- Update the core_setup and ui_components READMEs (#222)
+- `core_setup` installs the `polymorphic-parent-resources` and `rake-tasks` skills (#222)
+- `TaskTools` keeps rake arguments that contain an underscore. Only a bare `_` or a blank value falls back to the default (#222)
+- Bring the `core_setup` and `ui_components` READMEs up to date (#222)
 
 ## [v2.7.0] Nov 4, 2026
 
