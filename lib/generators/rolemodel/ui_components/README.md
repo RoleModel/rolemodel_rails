@@ -5,5 +5,6 @@
 ## What you get
 
 * [Flash](./flash)
-* [Modals](./modals)
 * [Navbar](./navbar)
+
+Modals moved to the [Turbo modals](../turbo/modals) generator.
