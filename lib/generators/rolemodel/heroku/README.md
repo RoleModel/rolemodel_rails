@@ -22,6 +22,8 @@ The skill cleans up the generated Gemfile (merges duplicate groups, removes comm
 alphabetizes), verifies the test suite and RuboCop pass, creates the Sentry project and wires
 up the DSN, creates and deploys the Heroku staging app (buildpacks, dynos, Postgres,
 Papertrail), and creates the GitHub `Staging` environment with the
-`HEROKU_APP_NAME`/`HEROKU_APP_URL` variables the deploy workflow consumes. The skill is
+`HEROKU_APP_NAME`/`HEROKU_APP_URL` variables the deploy workflow consumes. The Heroku and
+GitHub steps live in a `heroku_setup` script beside `SKILL.md`, which you run yourself so the
+master key never reaches the agent. The skill is
 LLM-agnostic (Agent Skills format). Requires the Heroku CLI, the GitHub CLI, and the Sentry
 MCP server.
