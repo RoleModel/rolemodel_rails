@@ -41,17 +41,23 @@ module Rolemodel
     end
 
     def add_production_mailer_defaults
+      add_setting "config.x.whitelisted_emails = EnvValue.array('WHITELISTED_EMAILS')"
+      add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
+      add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
+      add_setting "config.x.sendgrid.api_key = EnvValue.string('SENDGRID_API_KEY')"
+
+      copy_file 'app/mailers/staging_mailer_interceptor.rb'
       prepend_to_file 'config/environments/production.rb',
                       "require Rails.root.join('app/mailers/staging_mailer_interceptor')\n"
 
-      inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
+      inject_into_file 'config/environments/production.rb', before: /^end\s*\z/ do
         optimize_indentation <<~'RUBY', 2
           # Prevent live user emails from being sent out in staging
-          if ENV['WHITELISTED_EMAILS'].present?
+          if config.x.whitelisted_emails.any?
             ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
           end
 
-          host = ENV['PRODUCTION_HOST']
+          host = config.x.production_host
 
           # Ensure premailer_rails can point to webpack compiled resources
           # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
@@ -62,7 +68,7 @@ module Rolemodel
           config.action_mailer.perform_deliveries = true
           config.action_mailer.smtp_settings = {
             user_name: 'apikey',
-            password: ENV['SENDGRID_API_KEY'],
+            password: config.x.sendgrid.api_key,
             domain: host,
             address: 'smtp.sendgrid.net',
             port: 587,

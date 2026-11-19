@@ -11,6 +11,7 @@
 * [Kaminari](./kaminari)
 * [Linters](./linters)
 * [Lograge](./lograge)
+* [Dotenv](./dotenv)
 * [Mailers](./mailers)
 * [Optics](./optics)
 * [React](./react)

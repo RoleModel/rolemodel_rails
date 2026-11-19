@@ -79,6 +79,10 @@ module Rolemodel
       end
 
       def modify_existing_files
+        add_setting "config.x.review_app = EnvValue.boolean('REVIEW_APP')"
+        add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
+        add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
+
         unless File.exist?(Rails.root.join('config/initializers/premailer_rails.rb'))
           inject_into_file 'config/environments/development.rb',
                            after: "config.action_mailer.perform_caching = false\n" do
@@ -90,14 +94,14 @@ module Rolemodel
           end
         end
 
-        inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
+        inject_into_file 'config/environments/production.rb', before: /^end\s*\z/ do
           optimize_indentation <<~'RUBY', 2
 
             # Tell Devise about your host, so it can send password reset emails
-            if ENV['REVIEW_APP'] == 'true' && ENV['HEROKU_APP_NAME'].present?
-              config.action_mailer.default_url_options = { host: "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com" }
+            if config.x.review_app && config.x.heroku_app_name
+              config.action_mailer.default_url_options = { host: "https://#{config.x.heroku_app_name}.herokuapp.com" }
             else
-              config.action_mailer.default_url_options = { host: ENV['PRODUCTION_HOST'] }
+              config.action_mailer.default_url_options = { host: config.x.production_host }
             end
           RUBY
         end

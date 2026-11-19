@@ -109,6 +109,7 @@ bin/rails g
 * [Tailored Select](./lib/generators/rolemodel/tailored_select)
 * [Tom Select](./lib/generators/rolemodel/tom_select)
 * [Lograge](./lib/generators/rolemodel/lograge)
+* [Dotenv](./lib/generators/rolemodel/dotenv)
 
 ## Agent Skills
 

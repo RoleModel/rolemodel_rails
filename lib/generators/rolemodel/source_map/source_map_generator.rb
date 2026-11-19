@@ -12,6 +12,7 @@ module Rolemodel
     end
 
     def copy_middleware_files
+      add_setting "config.x.source_maps.allowed_user_emails = EnvValue.array('SOURCE_MAPS_ALLOWED_USERS_EMAILS')"
       copy_file 'lib/middleware/rolemodel/source_map.rb'
     end
 

@@ -38,6 +38,22 @@ module Rolemodel
       invoke 'rolemodel:yarn:setup', [], options.slice(:pretend)
     end
 
+    # Adds a setting to config/application.rb that reads ENV through EnvValue,
+    # for example add_setting("config.x.sentry.dsn = EnvValue.string('SENTRY_DSN')").
+    # Runs rolemodel:dotenv first when the app has no EnvValue yet. Skips a setting the file already has.
+    def add_setting(line)
+      ensure_env_value
+      return if File.read(File.join(destination_root, 'config/application.rb')).include?(line)
+
+      inject_into_file 'config/application.rb', "    #{line}\n", before: /^  end\nend/
+    end
+
+    def ensure_env_value
+      return if File.exist?(File.join(destination_root, 'lib/env_value.rb'))
+
+      invoke 'rolemodel:dotenv', [], options.slice(:pretend)
+    end
+
     def application_stylesheet_path
       Dir.glob('app/assets/stylesheets/application.*').first
     end

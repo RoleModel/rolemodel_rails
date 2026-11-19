@@ -18,10 +18,17 @@ RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
     end
   end
 
-  it 'enables log-level adjustment via "LOG_LEVEL" environment variable' do
-    assert_file 'config/environments/production.rb' do |content|
-      expect(content).to include("config.log_level = ENV.fetch('LOG_LEVEL', 'INFO')")
+  it 'reads the log level from the "LOG_LEVEL" environment variable' do
+    assert_file 'config/application.rb' do |content|
+      expect(content).to include("config.x.log_level = EnvValue.string('LOG_LEVEL', default: 'INFO')")
     end
+    assert_file 'config/environments/production.rb' do |content|
+      expect(content).to include('config.log_level = config.x.log_level')
+    end
+  end
+
+  it 'adds EnvValue when the app has none' do
+    assert_file 'lib/env_value.rb'
   end
 
   it 'creates assets.rake task to remove node_modules directory during production build' do

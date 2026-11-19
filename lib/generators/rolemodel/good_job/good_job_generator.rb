@@ -55,6 +55,7 @@ module Rolemodel
     def copy_initializers
       say 'Add GoodJob initializers'
 
+      add_setting "config.x.good_job.queues = EnvValue.string('GOOD_JOB_QUEUES', default: 'pdf:1;-pdf')"
       directory 'config/initializers'
     end
 
