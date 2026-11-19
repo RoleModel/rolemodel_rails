@@ -12,10 +12,11 @@ module Rolemodel
 
     # New Rails apps already ignore /.env*. Older apps may not.
     def ignore_env_files
-      return if File.exist?(gitignore_path) && File.read(gitignore_path).include?('/.env*')
+      gitignore = File.join(destination_root, '.gitignore')
+      content = File.exist?(gitignore) ? File.read(gitignore) : ''
+      return if content.include?('/.env*')
 
-      create_file '.gitignore' unless File.exist?(gitignore_path)
-      append_to_file '.gitignore', <<~IGNORE
+      create_file '.gitignore', content + <<~IGNORE, force: true
 
         # Ignore all environment files.
         /.env*
@@ -34,12 +35,6 @@ module Rolemodel
       return unless Dir.exist?(File.join(destination_root, 'spec'))
 
       copy_file 'spec/lib/env_value_spec.rb'
-    end
-
-    private
-
-    def gitignore_path
-      File.join(destination_root, '.gitignore')
     end
   end
 end

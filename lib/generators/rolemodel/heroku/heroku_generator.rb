@@ -38,12 +38,9 @@ module Rolemodel
 
       add_setting "config.x.log_level = EnvValue.string('LOG_LEVEL', default: 'INFO')"
 
-      gsub_file(
-        'config/environments/production.rb',
-        'config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")',
-        'config.log_level = config.x.log_level'
-      )
-      gsub_file('config/environments/production.rb', 'config.log_level = :info', 'config.log_level = config.x.log_level')
+      gsub_file 'config/environments/production.rb',
+                /config\.log_level = (ENV\.fetch\("RAILS_LOG_LEVEL", "info"\)|:info)/,
+                'config.log_level = config.x.log_level'
     end
 
     def create_assets_rake_tasks # rubocop:disable Metrics/MethodLength

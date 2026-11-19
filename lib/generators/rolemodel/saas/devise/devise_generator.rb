@@ -94,17 +94,15 @@ module Rolemodel
           end
         end
 
-        inject_into_file 'config/environments/production.rb', before: /^end\s*\z/ do
-          optimize_indentation <<~'RUBY', 2
+        append_to_environment 'production', <<~'RUBY'
 
-            # Tell Devise about your host, so it can send password reset emails
-            if config.x.review_app && config.x.heroku_app_name
-              config.action_mailer.default_url_options = { host: "https://#{config.x.heroku_app_name}.herokuapp.com" }
-            else
-              config.action_mailer.default_url_options = { host: config.x.production_host }
-            end
-          RUBY
-        end
+          # Tell Devise about your host, so it can send password reset emails
+          if config.x.review_app && config.x.heroku_app_name
+            config.action_mailer.default_url_options = { host: "https://#{config.x.heroku_app_name}.herokuapp.com" }
+          else
+            config.action_mailer.default_url_options = { host: config.x.production_host }
+          end
+        RUBY
 
         # Update Devise email_regexp to something more useful
         gsub_file 'config/initializers/devise.rb', '/\A[^@\s]+@[^@\s]+\z/',

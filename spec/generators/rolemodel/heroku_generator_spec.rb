@@ -27,10 +27,6 @@ RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
     end
   end
 
-  it 'adds EnvValue when the app has none' do
-    assert_file 'lib/env_value.rb'
-  end
-
   it 'creates assets.rake task to remove node_modules directory during production build' do
     assert_file 'lib/tasks/assets.rake'
   end

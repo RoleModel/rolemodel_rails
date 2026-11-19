@@ -50,33 +50,31 @@ module Rolemodel
       prepend_to_file 'config/environments/production.rb',
                       "require Rails.root.join('app/mailers/staging_mailer_interceptor')\n"
 
-      inject_into_file 'config/environments/production.rb', before: /^end\s*\z/ do
-        optimize_indentation <<~'RUBY', 2
-          # Prevent live user emails from being sent out in staging
-          if config.x.whitelisted_emails.any?
-            ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
-          end
+      append_to_environment 'production', <<~'RUBY'
+        # Prevent live user emails from being sent out in staging
+        if config.x.whitelisted_emails.any?
+          ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
+        end
 
-          host = config.x.production_host
+        host = config.x.production_host
 
-          # Ensure premailer_rails can point to webpack compiled resources
-          # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-          config.action_mailer.asset_host = host
+        # Ensure premailer_rails can point to webpack compiled resources
+        # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
+        config.action_mailer.asset_host = host
 
-          config.action_mailer.default_url_options = { host: host }
-          config.action_mailer.delivery_method = :smtp
-          config.action_mailer.perform_deliveries = true
-          config.action_mailer.smtp_settings = {
-            user_name: 'apikey',
-            password: config.x.sendgrid.api_key,
-            domain: host,
-            address: 'smtp.sendgrid.net',
-            port: 587,
-            authentication: :plain,
-            enable_starttls_auto: true
-          }
-        RUBY
-      end
+        config.action_mailer.default_url_options = { host: host }
+        config.action_mailer.delivery_method = :smtp
+        config.action_mailer.perform_deliveries = true
+        config.action_mailer.smtp_settings = {
+          user_name: 'apikey',
+          password: config.x.sendgrid.api_key,
+          domain: host,
+          address: 'smtp.sendgrid.net',
+          port: 587,
+          authentication: :plain,
+          enable_starttls_auto: true
+        }
+      RUBY
     end
 
     def add_mailer_css

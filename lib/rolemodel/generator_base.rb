@@ -40,11 +40,10 @@ module Rolemodel
 
     # Adds a setting to config/application.rb that reads ENV through EnvValue,
     # for example add_setting("config.x.sentry.dsn = EnvValue.string('SENTRY_DSN')").
-    # Runs rolemodel:dotenv first when the app has no EnvValue yet. Skips a setting the file already has.
+    # Runs rolemodel:dotenv first when the app has no EnvValue yet.
+    # Thor skips the line when the file already has it.
     def add_setting(line)
       ensure_env_value
-      return if File.read(File.join(destination_root, 'config/application.rb')).include?(line)
-
       inject_into_file 'config/application.rb', "    #{line}\n", before: /^  end\nend/
     end
 
@@ -52,6 +51,12 @@ module Rolemodel
       return if File.exist?(File.join(destination_root, 'lib/env_value.rb'))
 
       invoke 'rolemodel:dotenv', [], options.slice(:pretend)
+    end
+
+    # Adds code at the end of an environment file, so it overrides the Rails defaults above it.
+    # Rails' own `environment(code, env:)` adds it at the top instead.
+    def append_to_environment(env, code)
+      inject_into_file "config/environments/#{env}.rb", optimize_indentation(code, 2), before: /^end\s*\z/
     end
 
     def application_stylesheet_path
