@@ -20,7 +20,10 @@ module ExampleApp
 
   def add_env_value_to_test_app
     FileUtils.mkdir_p(File.join(destination_root, 'lib'))
-    FileUtils.cp(File.join(Rolemodel::DotenvGenerator.source_root, 'lib/env_value.rb'), File.join(destination_root, 'lib'))
+    FileUtils.cp(
+      File.join(Rolemodel::DotenvGenerator.source_root, 'lib/env_value.rb'),
+      File.join(destination_root, 'lib')
+    )
   end
 
   # run_generator already captures stdout

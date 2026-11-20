@@ -27,8 +27,11 @@ module Rolemodel
       say 'Adding EnvValue to read settings from ENV', :green
 
       copy_file 'lib/env_value.rb'
-      inject_into_file 'config/application.rb', "require_relative '../lib/env_value'\n",
-                       before: /^# Require the gems listed in Gemfile/
+      inject_into_file(
+        'config/application.rb',
+        "require_relative '../lib/env_value'\n",
+        before: /^# Require the gems listed in Gemfile/
+      )
     end
 
     def add_env_value_spec

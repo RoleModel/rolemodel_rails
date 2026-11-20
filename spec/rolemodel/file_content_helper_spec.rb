@@ -5,18 +5,23 @@ RSpec.describe Rolemodel::FileContentHelper do
     Rolemodel::LogrageGenerator.new([], options, destination_root:)
   end
 
+  def app_class = Rolemodel::FileContentHelper.class_matcher(superclass: 'Rails::Application')
+  def configure_block = Rolemodel::FileContentHelper.call_matcher('Rails.application.configure')
+
   def write(relative_path, content)
     path = File.join(destination_root, relative_path)
     FileUtils.mkdir_p(File.dirname(path))
     File.write(path, content)
   end
 
-  describe '#append_to_block', type: :generator do
-    def append(code, matcher: Rolemodel::FileContentHelper::RAILS_APPLICATION_CLASS, **options)
-      capture(:stdout) { generator(options).send(:append_to_block, 'example.rb', code, matcher) }
+  describe '#inject_into_block', type: :generator do
+    def inject(data, matcher: app_class, generator_options: {}, **config)
+      capture(:stdout) do
+        generator(generator_options).send(:inject_into_block, 'example.rb', matcher, data, config)
+      end
     end
 
-    it 'adds the code as the last lines of the block, one level deeper than its end, in order' do
+    it 'with at: :end, adds the data just before the end, as given, in order' do
       write 'example.rb', <<~RUBY
         module Example
           class Application < Rails::Application
@@ -25,8 +30,8 @@ RSpec.describe Rolemodel::FileContentHelper do
         end
       RUBY
 
-      append("config.b = 2\n")
-      append("if true\n  config.c = 3\nend\n")
+      inject("    config.b = 2\n", at: :end)
+      inject("    if true\n      config.c = 3\n    end\n", at: :end)
 
       assert_file 'example.rb', <<~RUBY
         module Example
@@ -41,10 +46,28 @@ RSpec.describe Rolemodel::FileContentHelper do
       RUBY
     end
 
-    it 'skips code the file already has' do
+    it 'by default, adds the data right after the opening line, even when it wraps' do
+      write 'example.rb', "Rails.application.configure do |config,\n                               other|\n  config.a = 1\nend\n"
+
+      inject("  config.b = 2\n", matcher: configure_block)
+
+      assert_file 'example.rb', "Rails.application.configure do |config,\n                               other|\n  config.b = 2\n  config.a = 1\nend\n"
+    end
+
+    it 'takes the data from a block, as Thor does' do
       write 'example.rb', "class Application < Rails::Application\nend\n"
 
-      2.times { append("config.a = 1\n") }
+      capture(:stdout) do
+        generator.send(:inject_into_block, 'example.rb', app_class) { "  config.a = 1\n" }
+      end
+
+      assert_file 'example.rb', "class Application < Rails::Application\n  config.a = 1\nend\n"
+    end
+
+    it 'skips data the file already has' do
+      write 'example.rb', "class Application < Rails::Application\nend\n"
+
+      2.times { inject("  config.a = 1\n", at: :end) }
 
       assert_file 'example.rb', "class Application < Rails::Application\n  config.a = 1\nend\n"
     end
@@ -52,15 +75,15 @@ RSpec.describe Rolemodel::FileContentHelper do
     it 'finds the right end when other code follows the block' do
       write 'example.rb', "class Application < Rails::Application\nend\n\n# A comment\nclass Other\nend\n"
 
-      append("config.a = 1\n")
+      inject("  config.a = 1\n", at: :end)
 
       assert_file 'example.rb', "class Application < Rails::Application\n  config.a = 1\nend\n\n# A comment\nclass Other\nend\n"
     end
 
-    it 'puts the code in the right place when non-ASCII text comes before the block' do
+    it 'puts the data in the right place when non-ASCII text comes before the block' do
       write 'example.rb', "# Café — settings\nclass Application < Rails::Application\nend\n"
 
-      append("config.a = 1\n")
+      inject("  config.a = 1\n", at: :end)
 
       assert_file 'example.rb', "# Café — settings\nclass Application < Rails::Application\n  config.a = 1\nend\n"
     end
@@ -68,7 +91,7 @@ RSpec.describe Rolemodel::FileContentHelper do
     it 'does not write the file with --pretend' do
       write 'example.rb', "class Application < Rails::Application\nend\n"
 
-      append("config.a = 1\n", pretend: true)
+      inject("  config.a = 1\n", generator_options: { pretend: true })
 
       assert_file 'example.rb', "class Application < Rails::Application\nend\n"
     end
@@ -76,71 +99,136 @@ RSpec.describe Rolemodel::FileContentHelper do
     it 'raises when no block matches' do
       write 'example.rb', "class Application < Other::Application\nend\n"
 
-      expect { append("config.a = 1\n") }
-        .to raise_error(Thor::Error, 'Could not find `class Application < Rails::Application` with `end` on its own line in example.rb')
+      expect { inject("  config.a = 1\n") }
+        .to raise_error(Thor::Error, 'Could not find `class Example < Rails::Application` with `end` on its own line in example.rb')
     end
 
     it 'raises when the matching block closes on the same line it opens' do
       write 'example.rb', "Rails.application.configure do end\n"
 
-      expect { append("config.a = 1\n", matcher: Rolemodel::FileContentHelper::RAILS_CONFIGURE_BLOCK) }
+      expect { inject("  config.a = 1\n", matcher: configure_block) }
         .to raise_error(Thor::Error, 'Could not find `Rails.application.configure do` with `end` on its own line in example.rb')
+    end
+
+    it 'rejects an unknown at: value' do
+      write 'example.rb', "class Application < Rails::Application\nend\n"
+
+      expect { inject("x = 1\n", at: :middle) }.to raise_error(ArgumentError, /at: must be :start or :end/)
     end
   end
 
   describe 'BlockMatcher' do
-    matchers = Rolemodel::FileContentHelper.constants
-                                       .map { Rolemodel::FileContentHelper.const_get(it) }
-                                       .grep(Rolemodel::FileContentHelper::BlockMatcher)
-
-    it 'has matchers to check' do
-      expect(matchers).not_to eq []
-    end
-
-    matchers.each do |matcher|
+    helper = Rolemodel::FileContentHelper
+    [
+      helper.class_matcher(superclass: 'Rails::Application'),
+      helper.class_matcher(name: 'User'),
+      helper.class_matcher(name: 'User', superclass: 'ApplicationRecord'),
+      helper.call_matcher('Rails.application.configure')
+    ].each do |matcher|
       it "matches its own example: #{matcher}" do
         expect(matcher.find_in(matcher.example)).to be_truthy
       end
     end
   end
 
-  describe 'RAILS_APPLICATION_CLASS' do
-    let(:matcher) { Rolemodel::FileContentHelper::RAILS_APPLICATION_CLASS }
+  describe '.call_matcher' do
+    let(:matcher) { Rolemodel::FileContentHelper.call_matcher('Rails.application.configure') }
 
-    it 'matches a class of any name that inherits from ::Rails::Application' do
-      expect(matcher.find_in("class MyApp < ::Rails::Application\nend")).to be_truthy
+    it 'matches the same call chain with a block, with or without a leading ::, and with any arguments' do
+      expect(matcher.find_in("::Rails.application.configure do\nend")).to be_truthy
+      expect(matcher.find_in("Rails.application.configure(:x) do |config|\nend")).to be_truthy
     end
 
-    it 'does not match a class with another parent, or none' do
-      expect(matcher.find_in("class Application < Other::Application\nend")).to be_falsey
-      expect(matcher.find_in("class Application < Foo::Rails::Application\nend")).to be_falsey
-      expect(matcher.find_in("class Application\nend")).to be_falsey
-    end
-  end
-
-  describe 'RAILS_CONFIGURE_BLOCK' do
-    let(:matcher) { Rolemodel::FileContentHelper::RAILS_CONFIGURE_BLOCK }
-
-    it 'does not match a look-alike call, or configure with no block' do
-      expect(matcher.find_in("Other.application.configure do\nend")).to be_falsey
+    it 'does not match a different chain, a longer or shorter one, or a call with no block' do
+      expect(matcher.find_in("Rails.app.configure do\nend")).to be_falsey
+      expect(matcher.find_in("Foo::Rails.application.configure do\nend")).to be_falsey
+      expect(matcher.find_in("application.configure do\nend")).to be_falsey
       expect(matcher.find_in('Rails.application.configure')).to be_falsey
     end
-  end
 
-  describe '#append_to_class', type: :generator do
-    it 'adds the code as the last lines of the named class, not a class whose name starts the same' do
-      write 'app/models/user.rb', "class UserPolicy\nend\n\nclass User < ApplicationRecord\n  devise :database_authenticatable,\n         :recoverable\nend\n"
+    it 'works for other calls, such as routes' do
+      routes = Rolemodel::FileContentHelper.call_matcher('Rails.application.routes.draw')
 
-      capture(:stdout) { generator.send(:append_to_class, 'app/models/user.rb', 'User', "\nenum :role, { user: 'user' }\n") }
-
-      assert_file 'app/models/user.rb',
-                  "class UserPolicy\nend\n\nclass User < ApplicationRecord\n  devise :database_authenticatable,\n         :recoverable\n\n  enum :role, { user: 'user' }\nend\n"
+      expect(routes.find_in("Rails.application.routes.draw do\n  root 'home#show'\nend")).to be_truthy
+      expect(routes.to_s).to eq 'Rails.application.routes.draw do'
     end
 
-    it 'names the class in the error when the file has no such class' do
-      write 'app/models/user.rb', "class Account\nend\n"
+    it 'rejects code that is not one method call with no block' do
+      expect { Rolemodel::FileContentHelper.call_matcher('Rails') }.to raise_error(ArgumentError, /must be one method call/)
+      expect { Rolemodel::FileContentHelper.call_matcher('a.b; c.d') }.to raise_error(ArgumentError, /must be one method call/)
+      expect { Rolemodel::FileContentHelper.call_matcher('a.b do end') }.to raise_error(ArgumentError, /must be one method call/)
+    end
+  end
 
-      expect { capture(:stdout) { generator.send(:append_to_class, 'app/models/user.rb', 'User', "x = 1\n") } }
+  describe '.class_matcher' do
+    it 'matches a class by its name as written, not a class whose name starts the same' do
+      matcher = Rolemodel::FileContentHelper.class_matcher(name: 'User')
+
+      expect(matcher.find_in("class UserPolicy\nend\nclass User<ApplicationRecord\nend")&.constant_path&.slice).to eq 'User'
+      expect(matcher.find_in("# class User\nclass Account\nend")).to be_falsey
+    end
+
+    it 'matches a class by its superclass, with or without a leading ::' do
+      matcher = Rolemodel::FileContentHelper.class_matcher(superclass: 'ApplicationRecord')
+
+      expect(matcher.find_in("class User < ::ApplicationRecord\nend")).to be_truthy
+      expect(matcher.find_in("class User < Struct.new(:x)\nend")).to be_falsey
+      expect(matcher.find_in("class User < foo::ApplicationRecord\nend")).to be_falsey
+    end
+
+it 'matches any class name under Rails::Application, and not another parent or none' do
+      expect(app_class.find_in("class MyApp < ::Rails::Application\nend")).to be_truthy
+      expect(app_class.find_in("class Application < Other::Application\nend")).to be_falsey
+      expect(app_class.find_in("class Application < Foo::Rails::Application\nend")).to be_falsey
+      expect(app_class.find_in("class Application\nend")).to be_falsey
+    end
+
+    it 'matches by both name and superclass' do
+      matcher = Rolemodel::FileContentHelper.class_matcher(name: 'User', superclass: 'ApplicationRecord')
+
+      expect(matcher.find_in("class User < Base\nend")).to be_falsey
+      expect(matcher.find_in("class User < ApplicationRecord\nend")).to be_truthy
+      expect(matcher.to_s).to eq 'class User < ApplicationRecord'
+    end
+  end
+
+  describe '#inject_into_class', type: :generator do
+    let(:user_rb) { "# class User is below\nclass User < ApplicationRecord\n  devise :database_authenticatable,\n         :recoverable\nend\n" }
+
+    def inject(*args, &block)
+      capture(:stdout) do
+        generator.send(:inject_into_class, 'app/models/user.rb', 'User', *args, &block)
+      end
+    end
+
+    it 'adds the data right after the class line by default, as Thor does, skipping comments that mention the class' do
+      write 'app/models/user.rb', user_rb
+
+      inject("  include Searchable\n")
+
+      assert_file 'app/models/user.rb', user_rb.sub("ApplicationRecord\n", "ApplicationRecord\n  include Searchable\n")
+    end
+
+    it 'adds the data just before the end with at: :end, from a block, without changing its indentation' do
+      write 'app/models/user.rb', user_rb
+
+      inject(at: :end) { "\n  enum :role, { user: 'user' }\n" }
+
+      assert_file 'app/models/user.rb', user_rb.sub("\nend\n", "\n\n  enum :role, { user: 'user' }\nend\n")
+    end
+
+    it 'finds the class line when it wraps' do
+      write 'app/models/user.rb', "class User <\n    ApplicationRecord\nend\n"
+
+      inject("  include Searchable\n")
+
+      assert_file 'app/models/user.rb', "class User <\n    ApplicationRecord\n  include Searchable\nend\n"
+    end
+
+    it 'raises when the file has no such class, or the class is on one line' do
+      write 'app/models/user.rb', "class Account\nend\nclass User; end\n"
+
+      expect { inject("x = 1\n") }
         .to raise_error(Thor::Error, 'Could not find `class User` with `end` on its own line in app/models/user.rb')
     end
   end

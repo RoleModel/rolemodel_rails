@@ -5,8 +5,10 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def inject_config_for_production
-      prepend_to_file 'config/environments/production.rb',
-                      "require_relative Rails.root.join('lib/middleware/rolemodel/source_map.rb')\n"
+      prepend_to_file(
+        'config/environments/production.rb',
+        "require_relative Rails.root.join('lib/middleware/rolemodel/source_map.rb')\n"
+      )
       append_to_environment 'production', <<~'RUBY'
         config.middleware.insert_after Warden::Manager, Middleware::Rolemodel::SourceMap
       RUBY
