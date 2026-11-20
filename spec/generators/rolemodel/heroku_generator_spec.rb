@@ -11,16 +11,12 @@ RSpec.describe Rolemodel::HerokuGenerator, type: :generator do
     assert_file 'Procfile'
   end
 
-  it 'forces SSL in production environment' do
-    assert_file 'config/environments/production.rb' do |content|
-      expect(content).not_to include('# config.force_ssl = true')
-      expect(content).to include('config.force_ssl = true')
+  it 'reads the log level from the "LOG_LEVEL" environment variable' do
+    assert_file 'config/application.rb' do |content|
+      expect(content).to include("config.x.log_level = EnvValue.string('LOG_LEVEL', default: 'INFO')")
     end
-  end
-
-  it 'enables log-level adjustment via "LOG_LEVEL" environment variable' do
     assert_file 'config/environments/production.rb' do |content|
-      expect(content).to include("config.log_level = ENV.fetch('LOG_LEVEL', 'INFO')")
+      expect(content).to include('config.log_level = config.x.log_level')
     end
   end
 

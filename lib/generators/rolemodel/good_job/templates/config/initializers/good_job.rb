@@ -11,7 +11,7 @@
 Rails.application.configure do
   config.good_job = {
     smaller_number_is_higher_priority: true, # new default in V4 and for all of ActiveJob
-    queues: ENV.fetch('GOOD_JOB_QUEUES', 'pdf:1;-pdf'), # see note above
+    queues: config.x.good_job.queues, # see note above
     execution_mode: Rails.env.test? ? :inline : :external # see note above
     # enable_cron: true,
     # cron: {

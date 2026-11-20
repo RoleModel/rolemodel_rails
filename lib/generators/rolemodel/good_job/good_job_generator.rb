@@ -16,13 +16,10 @@ module Rolemodel
     def configure_good_job
       say 'Add GoodJob configuration'
 
-      inject_into_class 'config/application.rb', 'Application', optimize_indentation(<<~'RUBY', 4)
+      append_to_application <<~'RUBY'
         # Add GoodJob ActiveJob queue adapter
         config.active_job.queue_adapter = :good_job
-
       RUBY
-
-      gsub_file 'config/environments/production.rb', 'config.active_job.queue_adapter', '# config.active_job.queue_adapter'
     end
 
     def configure_good_job_routes
@@ -55,6 +52,7 @@ module Rolemodel
     def copy_initializers
       say 'Add GoodJob initializers'
 
+      add_setting "config.x.good_job.queues = EnvValue.string('GOOD_JOB_QUEUES', default: 'pdf:1;-pdf')"
       directory 'config/initializers'
     end
 

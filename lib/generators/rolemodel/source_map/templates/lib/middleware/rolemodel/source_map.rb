@@ -8,7 +8,7 @@ module Middleware
         default_headers = { 'Set-Cookie' => 'Same-Site=None', 'Cache-Control' => 'max-age=0;no-cache' }
         custom_headers = default_headers.merge(options.delete(:headers) || {})
         @app = app
-        @allowed_users_emails = ENV.fetch('SOURCE_MAPS_ALLOWED_USERS_EMAILS', '').split(',')
+        @allowed_users_emails = Rails.configuration.x.source_maps.allowed_user_emails
         @file_server = Rack::Files.new(root, custom_headers)
       end
 

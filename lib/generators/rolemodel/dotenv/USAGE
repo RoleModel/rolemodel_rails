@@ -1,0 +1,15 @@
+Description:
+    Loads local settings from a .env.local file with the dotenv gem,
+    and adds EnvValue to read typed settings from ENV.
+
+Example:
+    rails generate rolemodel:dotenv
+
+    This will create:
+        lib/env_value.rb
+        spec/lib/env_value_spec.rb (when the app has a spec folder)
+
+    This will change:
+        Gemfile (adds dotenv to the development and test groups)
+        config/application.rb (requires lib/env_value)
+        .gitignore (ignores /.env*)

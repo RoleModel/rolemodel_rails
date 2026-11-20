@@ -28,6 +28,7 @@ module Rolemodel
     def add_ruby_initializer
       say 'Setting up Sentry for Ruby error reporting', :green
 
+      add_setting "config.x.sentry.dsn = EnvValue.string('SENTRY_DSN')"
       copy_file 'config/initializers/sentry.rb'
     end
 

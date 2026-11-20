@@ -3,6 +3,7 @@ module Rolemodel
     source_root File.expand_path('templates', __dir__)
 
     def run_all_the_generators
+      generate 'rolemodel:dotenv'
       generate 'rolemodel:github'
       generate 'rolemodel:heroku'
       generate 'rolemodel:readme'

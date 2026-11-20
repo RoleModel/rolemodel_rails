@@ -19,6 +19,7 @@ app you can push straight to Heroku right after generation.
 
 ## What you get
 
+  - [Dotenv](../dotenv) — local settings in `.env.local`, and `EnvValue` to read them
   - [Slim](../slim) — Slim templates
   - [Webpack](../webpack) — Webpack v5 for JS and CSS
   - [Optics](../optics) — Optics design system and icons
