@@ -16,10 +16,9 @@ module Rolemodel
     def configure_good_job
       say 'Add GoodJob configuration'
 
-      inject_into_class 'config/application.rb', 'Application', optimize_indentation(<<~'RUBY', 4)
+      append_to_application <<~'RUBY'
         # Add GoodJob ActiveJob queue adapter
         config.active_job.queue_adapter = :good_job
-
       RUBY
 
       gsub_file 'config/environments/production.rb', 'config.active_job.queue_adapter', '# config.active_job.queue_adapter'

@@ -19,8 +19,12 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  config.before(:each, type: :generator) do
+  config.before(:each, type: :generator) do |example|
     prepare_test_app
+    # Generators that add settings run rolemodel:dotenv when lib/env_value.rb is missing,
+    # and its `bundle add dotenv` would slow every example. Specs that test that install
+    # opt out with `env_value: false`.
+    add_env_value_to_test_app unless example.metadata[:env_value] == false
   end
 
   config.after(:each, type: :generator) do

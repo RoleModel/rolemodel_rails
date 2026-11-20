@@ -17,27 +17,13 @@ module Rolemodel
                        after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
     end
 
+    # Rails already sets the development default_url_options to localhost:3000.
     def add_action_mailer_asset_host
-      unless File.exist?(Rails.root.join('config/initializers/devise.rb'))
-        inject_into_file 'config/environments/development.rb',
-                         after: "config.action_mailer.perform_caching = false\n" do
-          optimize_indentation <<~'RUBY', 2
-
-            # Default mailing host suggested by Devise installation instructions
-            config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-          RUBY
-        end
-      end
-
-      inject_into_file 'config/environments/development.rb',
-                       after: "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }\n" do
-        optimize_indentation <<~'RUBY', 2
-
-          # Ensure premailer_rails can point to webpack compiled resources
-          # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-          config.action_mailer.asset_host = 'http://localhost:3000'
-        RUBY
-      end
+      append_to_environment 'development', <<~'RUBY'
+        # Ensure premailer_rails can point to webpack compiled resources
+        # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
+        config.action_mailer.asset_host = 'http://localhost:3000'
+      RUBY
     end
 
     def add_production_mailer_defaults

@@ -2,13 +2,13 @@
 
 require 'rails/generators'
 require 'rails/generators/bundle_helper'
-require_relative 'replace_content_helper'
+require_relative 'file_content_helper'
 require_relative 'skills_helper'
 require 'rolemodel/yarn'
 
 module Rolemodel
   class GeneratorBase < ::Rails::Generators::Base
-    include ::Rails::Generators::BundleHelper, ReplaceContentHelper, SkillsHelper
+    include ::Rails::Generators::BundleHelper, FileContentHelper, SkillsHelper
 
     private
 
@@ -38,25 +38,19 @@ module Rolemodel
       invoke 'rolemodel:yarn:setup', [], options.slice(:pretend)
     end
 
-    # Adds a setting to config/application.rb that reads ENV through EnvValue,
-    # for example add_setting("config.x.sentry.dsn = EnvValue.string('SENTRY_DSN')").
+    # Adds a setting that reads ENV through EnvValue as the last line of `class Application`
+    # in config/application.rb, for example
+    # add_setting("config.x.sentry.dsn = EnvValue.string('SENTRY_DSN')").
     # Runs rolemodel:dotenv first when the app has no EnvValue yet.
-    # Thor skips the line when the file already has it.
     def add_setting(line)
       ensure_env_value
-      inject_into_file 'config/application.rb', "    #{line}\n", before: /^  end\nend/
+      append_to_application("#{line}\n")
     end
 
     def ensure_env_value
       return if File.exist?(File.join(destination_root, 'lib/env_value.rb'))
 
       invoke 'rolemodel:dotenv', [], options.slice(:pretend)
-    end
-
-    # Adds code at the end of an environment file, so it overrides the Rails defaults above it.
-    # Rails' own `environment(code, env:)` adds it at the top instead.
-    def append_to_environment(env, code)
-      inject_into_file "config/environments/#{env}.rb", optimize_indentation(code, 2), before: /^end\s*\z/
     end
 
     def application_stylesheet_path

@@ -83,17 +83,6 @@ module Rolemodel
         add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
         add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
 
-        unless File.exist?(Rails.root.join('config/initializers/premailer_rails.rb'))
-          inject_into_file 'config/environments/development.rb',
-                           after: "config.action_mailer.perform_caching = false\n" do
-            optimize_indentation <<~'RUBY', 2
-
-              # Default mailing host suggested by Devise installation instructions
-              config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-            RUBY
-          end
-        end
-
         append_to_environment 'production', <<~'RUBY'
 
           # Tell Devise about your host, so it can send password reset emails

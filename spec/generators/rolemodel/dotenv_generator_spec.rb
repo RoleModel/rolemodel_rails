@@ -1,4 +1,4 @@
-RSpec.describe Rolemodel::DotenvGenerator, type: :generator do
+RSpec.describe Rolemodel::DotenvGenerator, type: :generator, env_value: false do
   it 'adds dotenv to the development and test groups' do
     run_generators
 
