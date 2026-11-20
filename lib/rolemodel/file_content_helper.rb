@@ -49,7 +49,9 @@ module Rolemodel
 
     def modify_json_file(relative_path)
       replace_content(relative_path) do |content|
-        hash = JSON.parse(content.presence || '{}')
+        # Editor config files such as .vscode/*.json allow comments and trailing commas.
+        # Writing the file back drops the comments.
+        hash = JSON.parse(content.presence || '{}', allow_comments: true, allow_trailing_comma: true)
         yield(hash)
         JSON.pretty_generate(hash) + "\n"
       end
@@ -66,6 +68,16 @@ module Rolemodel
     # Adds code as the last lines of the `class ... < Rails::Application` body in config/application.rb.
     def append_to_application(code)
       append_to_block('config/application.rb', code, RAILS_APPLICATION_CLASS)
+    end
+
+    # Adds code as the last lines of the class named `class_name`, such as 'User', in a file.
+    def append_to_class(relative_path, class_name, code)
+      name = class_name.to_sym
+      matcher = BlockMatcher.new(
+        example: "class #{class_name}\nend\n",
+        pattern: ->(node) { node in Prism::ClassNode[constant_path: { name: ^name }] }
+      )
+      append_to_block(relative_path, code, matcher)
     end
 
     # Adds code as the last lines of the `Rails.application.configure` block in an environment file,

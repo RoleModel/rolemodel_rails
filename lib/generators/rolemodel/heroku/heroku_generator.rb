@@ -27,12 +27,6 @@ module Rolemodel
       inject_into_file 'Gemfile', "\nruby file: '.ruby-version'\n", after: /^source .*$/
     end
 
-    def force_ssl
-      say 'Require SSL for production environment.', :green
-
-      uncomment_lines('config/environments/production.rb', 'config.force_ssl = true')
-    end
-
     def enable_log_level_configurability
       say 'Enable log-level adjustment via "LOG_LEVEL" environment variable', :green
 

@@ -102,18 +102,16 @@ module Rolemodel
                     'config.validate_on_invite = true'
         end
 
-        inject_into_file 'app/models/user.rb', after: /devise\s+:.*\n.*\n/ do
-          optimize_indentation <<~'RUBY', 2
+        append_to_class 'app/models/user.rb', 'User', <<~'RUBY'
 
-            enum :role, { user: 'user', admin: 'admin' }
+          enum :role, { user: 'user', admin: 'admin' }
 
-            belongs_to :organization, inverse_of: :users
-            accepts_nested_attributes_for :organization
+          belongs_to :organization, inverse_of: :users
+          accepts_nested_attributes_for :organization
 
-            validates :first_name, :last_name, :role, presence: true
-            delegate :name, to: :organization, prefix: true
-          RUBY
-        end
+          validates :first_name, :last_name, :role, presence: true
+          delegate :name, to: :organization, prefix: true
+        RUBY
 
         inject_into_file 'db/seeds.rb', after: "Examples:\n" do
           <<~'RUBY'

@@ -127,6 +127,36 @@ RSpec.describe Rolemodel::FileContentHelper do
     end
   end
 
+  describe '#append_to_class', type: :generator do
+    it 'adds the code as the last lines of the named class, not a class whose name starts the same' do
+      write 'app/models/user.rb', "class UserPolicy\nend\n\nclass User < ApplicationRecord\n  devise :database_authenticatable,\n         :recoverable\nend\n"
+
+      capture(:stdout) { generator.send(:append_to_class, 'app/models/user.rb', 'User', "\nenum :role, { user: 'user' }\n") }
+
+      assert_file 'app/models/user.rb',
+                  "class UserPolicy\nend\n\nclass User < ApplicationRecord\n  devise :database_authenticatable,\n         :recoverable\n\n  enum :role, { user: 'user' }\nend\n"
+    end
+
+    it 'names the class in the error when the file has no such class' do
+      write 'app/models/user.rb', "class Account\nend\n"
+
+      expect { capture(:stdout) { generator.send(:append_to_class, 'app/models/user.rb', 'User', "x = 1\n") } }
+        .to raise_error(Thor::Error, 'Could not find `class User` with `end` on its own line in app/models/user.rb')
+    end
+  end
+
+  describe '#modify_json_file', type: :generator do
+    it 'reads a file with comments and trailing commas, as VS Code writes them' do
+      write '.vscode/extensions.json', "{\n  // See https://go.microsoft.com/fwlink\n  \"recommendations\": [\"a.b\",],\n}\n"
+
+      capture(:stdout) { generator.send(:modify_json_file, '.vscode/extensions.json') { it['recommendations'] << 'c.d' } }
+
+      assert_file '.vscode/extensions.json' do |content|
+        expect(JSON.parse(content)).to eq('recommendations' => %w[a.b c.d])
+      end
+    end
+  end
+
   describe '#append_to_application', type: :generator do
     it 'adds the code as the last lines of the Rails::Application class' do
       capture(:stdout) { generator.send(:append_to_application, "config.x.a = 1\n") }

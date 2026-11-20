@@ -20,8 +20,6 @@ module Rolemodel
         # Add GoodJob ActiveJob queue adapter
         config.active_job.queue_adapter = :good_job
       RUBY
-
-      gsub_file 'config/environments/production.rb', 'config.active_job.queue_adapter', '# config.active_job.queue_adapter'
     end
 
     def configure_good_job_routes
