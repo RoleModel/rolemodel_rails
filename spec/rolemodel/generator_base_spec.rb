@@ -13,12 +13,14 @@ RSpec.describe Rolemodel::GeneratorBase, type: :generator do
       expect(instance).to have_received(:invoke).with('rolemodel:dotenv', [], anything)
     end
 
-    # Where the line goes is covered by the append_to_application spec.
-    it 'adds the setting to config/application.rb' do
+    it 'adds each setting as the last line of the Application class, in order' do
       capture(:stdout) { generator.send(:add_setting, "config.x.a = EnvValue.string('A')") }
+      capture(:stdout) { generator.send(:add_setting, "config.x.b = EnvValue.string('B')") }
 
       assert_file 'config/application.rb' do |content|
-        expect(content).to include("config.x.a = EnvValue.string('A')")
+        expect(content).to end_with(
+          "    config.x.a = EnvValue.string('A')\n    config.x.b = EnvValue.string('B')\n  end\nend\n"
+        )
       end
     end
   end

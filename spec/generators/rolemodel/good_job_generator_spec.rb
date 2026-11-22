@@ -8,11 +8,14 @@ RSpec.describe Rolemodel::GoodJobGenerator, type: :generator do
     end
   end
 
-  it 'sets the GoodJob adapter in config/application.rb' do
+  it 'sets the GoodJob adapter at the top of the Application class in config/application.rb' do
     configure_good_job
 
     assert_file 'config/application.rb' do |content|
-      expect(content).to include("    config.active_job.queue_adapter = :good_job\n  end\nend\n")
+      expect(content).to include(
+        "class Application < Rails::Application\n    # Add GoodJob ActiveJob queue adapter\n" \
+        "    config.active_job.queue_adapter = :good_job\n"
+      )
     end
   end
 

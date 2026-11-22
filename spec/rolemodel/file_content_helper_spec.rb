@@ -277,16 +277,6 @@ RSpec.describe Rolemodel::FileContentHelper do
     end
   end
 
-  describe '#append_to_application', type: :generator do
-    it 'adds the code as the last lines of the Rails::Application class' do
-      capture(:stdout) { generator.send(:append_to_application, "config.x.a = 1\n") }
-
-      assert_file 'config/application.rb' do |content|
-        expect(content).to end_with("    config.x.a = 1\n  end\nend\n")
-      end
-    end
-  end
-
   describe '#append_to_environment', type: :generator do
     it 'adds the code as the last lines of the Rails.application.configure block' do
       capture(:stdout) { generator.send(:append_to_environment, 'production', "config.x.a = 1\n") }

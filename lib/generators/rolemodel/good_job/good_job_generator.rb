@@ -16,9 +16,10 @@ module Rolemodel
     def configure_good_job
       say 'Add GoodJob configuration'
 
-      append_to_application <<~'RUBY'
+      inject_into_class 'config/application.rb', 'Application', optimize_indentation(<<~'RUBY', 4)
         # Add GoodJob ActiveJob queue adapter
         config.active_job.queue_adapter = :good_job
+
       RUBY
 
       # production.rb runs after application.rb, so an adapter it sets, such as Solid Queue's,

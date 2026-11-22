@@ -116,17 +116,6 @@ module Rolemodel
       end
     end
 
-    # Adds code as the last lines of the `class ... < Rails::Application` body in config/application.rb,
-    # indented 4 spaces, as Rails' own `application` helper does.
-    def append_to_application(code)
-      inject_into_block(
-        'config/application.rb',
-        BlockMatcher.for_class(superclass: 'Rails::Application'),
-        optimize_indentation(code, 4),
-        at: :end
-      )
-    end
-
     # Adds code as the last lines of the `Rails.application.configure` block in an environment file,
     # indented 2 spaces, so it overrides the Rails defaults above it.
     # Rails' own `environment(code, env:)` adds it at the top instead.

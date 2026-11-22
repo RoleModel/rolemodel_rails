@@ -44,7 +44,7 @@ module Rolemodel
     # Runs rolemodel:dotenv first when the app has no EnvValue yet.
     def add_setting(line)
       ensure_env_value
-      append_to_application("#{line}\n")
+      inject_into_class 'config/application.rb', 'Application', optimize_indentation(line, 4), at: :end
     end
 
     # Sets every URL built outside a request, such as links and assets in emails, from DEFAULT_URL,
@@ -52,7 +52,7 @@ module Rolemodel
     # address, and local apps use http://localhost:3000. Safe to call from several generators.
     def add_default_url
       ensure_env_value
-      append_to_application <<~'RUBY'
+      inject_into_class 'config/application.rb', 'Application', optimize_indentation(<<~'RUBY', 4), at: :end
         # Links in emails, and URLs built outside a request, use DEFAULT_URL.
         config.x.default_url = EnvValue.url('DEFAULT_URL') do
           heroku_app = EnvValue.string('HEROKU_APP_NAME')
