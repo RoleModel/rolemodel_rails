@@ -21,7 +21,7 @@ RSpec.describe Rolemodel::MailersGenerator, type: :generator do
   it 'adds the mailer settings inside the configure block' do
     assert_file 'config/environments/production.rb' do |content|
       expect(content).to include('if config.x.whitelisted_emails.any?')
-      expect(content).to include('host = config.x.production_host')
+      expect(content).to include('domain: URI(config.x.default_url).host,')
       expect(content).to include('password: config.x.sendgrid.api_key,')
       expect(content).to end_with("  }\nend\n")
     end
@@ -31,18 +31,45 @@ RSpec.describe Rolemodel::MailersGenerator, type: :generator do
     assert_file 'config/application.rb' do |content|
       expect(content).to include("config.x.whitelisted_emails = EnvValue.array('WHITELISTED_EMAILS')")
       expect(content).to include("config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')")
-      expect(content).to include("config.x.production_host = EnvValue.string('PRODUCTION_HOST')")
       expect(content).to include("config.x.sendgrid.api_key = EnvValue.string('SENDGRID_API_KEY')")
       expect(content).to end_with("EnvValue.string('SENDGRID_API_KEY')\n  end\nend\n")
     end
   end
 
-  it 'adds the asset host for development, and keeps the single localhost default_url_options Rails wrote' do
+  it 'points email links and assets at DEFAULT_URL in every environment' do
     run_step(:add_action_mailer_asset_host)
 
-    assert_file 'config/environments/development.rb' do |content|
-      expect(content).to end_with("  config.action_mailer.asset_host = 'http://localhost:3000'\nend\n")
-      expect(content.scan('config.action_mailer.default_url_options').size).to eq 1
+    assert_file 'config/application.rb' do |content|
+      expect(content).to include("config.x.default_url = EnvValue.url('DEFAULT_URL') do")
+      expect(content).to include('heroku_app ? "https://#{heroku_app}.herokuapp.com" : \'http://localhost:3000\'')
+      expect(content).to include('config.action_mailer.asset_host = config.x.default_url')
+      expect(content).to include('Rails.application.routes.default_url_options = config.action_mailer.default_url_options')
     end
+    assert_file 'config/environments/development.rb' do |content|
+      expect(content).not_to include('config.x.default_url')
+    end
+  end
+
+  it 'adds the DEFAULT_URL settings only once when another generator already added them' do
+    2.times { run_step(:add_action_mailer_asset_host) }
+
+    assert_file 'config/application.rb' do |content|
+      expect(content.scan("config.x.default_url = EnvValue.url('DEFAULT_URL')").size).to eq 1
+    end
+    assert_file 'config/environments/production.rb' do |content|
+      expect(content).not_to include('# # config.action_mailer.default_url_options')
+    end
+  end
+
+  it 'comments out the development and production default_url_options, which would win over DEFAULT_URL' do
+    run_step(:add_action_mailer_asset_host)
+
+    %w[development production].each do |env|
+      assert_file "config/environments/#{env}.rb" do |content|
+        expect(content).to match(/^\s*# config\.action_mailer\.default_url_options = /)
+        expect(content).not_to match(/^\s*config\.action_mailer\.default_url_options = /)
+      end
+    end
+    assert_file 'config/environments/test.rb', /^\s*config\.action_mailer\.default_url_options = /
   end
 end

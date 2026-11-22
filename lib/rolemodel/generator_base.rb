@@ -47,6 +47,39 @@ module Rolemodel
       append_to_application("#{line}\n")
     end
 
+    # Sets every URL built outside a request, such as links and assets in emails, from DEFAULT_URL,
+    # as Almanac does. Heroku apps with no DEFAULT_URL, such as review apps, use their herokuapp.com
+    # address, and local apps use http://localhost:3000. Safe to call from several generators.
+    def add_default_url
+      ensure_env_value
+      append_to_application <<~'RUBY'
+        # Links in emails, and URLs built outside a request, use DEFAULT_URL.
+        config.x.default_url = EnvValue.url('DEFAULT_URL') do
+          heroku_app = EnvValue.string('HEROKU_APP_NAME')
+          heroku_app ? "https://#{heroku_app}.herokuapp.com" : 'http://localhost:3000'
+        end
+        default_url = URI(config.x.default_url)
+        config.action_mailer.default_url_options = {
+          protocol: default_url.scheme,
+          host: default_url.host,
+          port: default_url.port
+        }
+        config.action_mailer.asset_host = config.x.default_url
+        Rails.application.routes.default_url_options = config.action_mailer.default_url_options
+      RUBY
+
+      # New Rails apps set their own default_url_options in development.rb and production.rb, and
+      # those files run after application.rb, so they would win over DEFAULT_URL. Comment them out.
+      # test.rb keeps its own, so tests still build URLs for example.com.
+      %w[development production].each do |env|
+        gsub_file(
+          "config/environments/#{env}.rb",
+          /^(\s*)(config\.action_mailer\.default_url_options\s*=)/,
+          '\1# \2'
+        )
+      end
+    end
+
     def ensure_env_value
       return if File.exist?(File.join(destination_root, 'lib/env_value.rb'))
 

@@ -18,18 +18,16 @@ module Rolemodel
     end
 
     # Rails already sets the development default_url_options to localhost:3000.
+    # Email links and assets use DEFAULT_URL in every environment. The asset host lets
+    # premailer_rails find webpack compiled resources:
+    # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
     def add_action_mailer_asset_host
-      append_to_environment 'development', <<~'RUBY'
-        # Ensure premailer_rails can point to webpack compiled resources
-        # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-        config.action_mailer.asset_host = 'http://localhost:3000'
-      RUBY
+      add_default_url
     end
 
     def add_production_mailer_defaults
       add_setting "config.x.whitelisted_emails = EnvValue.array('WHITELISTED_EMAILS')"
       add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
-      add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
       add_setting "config.x.sendgrid.api_key = EnvValue.string('SENDGRID_API_KEY')"
 
       copy_file 'app/mailers/staging_mailer_interceptor.rb'
@@ -42,19 +40,12 @@ module Rolemodel
           ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
         end
 
-        host = config.x.production_host
-
-        # Ensure premailer_rails can point to webpack compiled resources
-        # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-        config.action_mailer.asset_host = host
-
-        config.action_mailer.default_url_options = { host: host }
         config.action_mailer.delivery_method = :smtp
         config.action_mailer.perform_deliveries = true
         config.action_mailer.smtp_settings = {
           user_name: 'apikey',
           password: config.x.sendgrid.api_key,
-          domain: host,
+          domain: URI(config.x.default_url).host,
           address: 'smtp.sendgrid.net',
           port: 587,
           authentication: :plain,
