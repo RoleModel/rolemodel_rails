@@ -20,6 +20,15 @@ module Rolemodel
         # Add GoodJob ActiveJob queue adapter
         config.active_job.queue_adapter = :good_job
       RUBY
+
+      # production.rb runs after application.rb, so an adapter it sets, such as Solid Queue's,
+      # would win. Comment out only a line that sets one; new apps made with --skip-solid
+      # already have it as a comment.
+      gsub_file(
+        'config/environments/production.rb',
+        /^(\s*)(config\.active_job\.queue_adapter\s*=)/,
+        '\1# \2'
+      )
     end
 
     def configure_good_job_routes
