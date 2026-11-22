@@ -6,40 +6,26 @@ module Rolemodel
     # `example` is code the pattern matches. Its first line describes the matcher in error messages,
     # and a spec checks that the pattern matches it. Build one with for_class, for_module or for_call.
     BlockMatcher = Data.define(:example, :pattern) do
-      # A matcher for a class, by its name as written ('User', 'Admin::User'), its superclass
-      # ('Rails::Application', with or without a leading ::), or both.
+      # A matcher for a class, by its name ('User', 'Admin::User'), its superclass
+      # ('Rails::Application'), or both. A leading :: on either name does not matter.
       def self.for_class(name: nil, superclass: nil)
-        parent = superclass.to_s.delete_prefix('::').presence
-        new(
-          example: "class #{name || 'Example'}#{" < #{parent}" if parent}\nend\n",
-          pattern: lambda do |node|
-            node.is_a?(Prism::ClassNode) &&
-              (name.nil? || node.constant_path.slice == name.to_s) &&
-              (parent.nil? || constant_name(node.superclass) == parent)
-          end
-        )
+        parent = constant_argument(superclass)
+        definition(Prism::ClassNode, 'class', name, suffix: (" < #{parent}" if parent)) do |node|
+          parent.nil? || constant_name(node.superclass) == parent
+        end
       end
 
-      # A matcher for a module, by its name as written ('Admin', 'Admin::Reports').
+      # A matcher for a module, by its name ('Admin', 'Admin::Reports'). A leading :: does not matter.
       def self.for_module(name)
-        new(
-          example: "module #{name}\nend\n",
-          pattern: lambda do |node|
-            node.is_a?(Prism::ModuleNode) && node.constant_path.slice == name.to_s
-          end
-        )
+        definition(Prism::ModuleNode, 'module', name)
       end
 
       # A matcher for a method call with a do ... end block, given as the names in its chain, such as
       # for_call(:Rails, :application, :configure). The first name may be a constant, such as :Rails or
       # 'Admin::Settings', with or without a leading ::. Without one, the chain must start with a call
       # that has no receiver, as in for_call(:configure). It does not compare arguments.
-      def self.for_call(*names)
-        if names.empty?
-          raise ArgumentError, 'for_call needs at least one name, such as :Rails, :application, :configure'
-        end
-
-        names = names.map(&:to_s)
+      def self.for_call(first, *rest)
+        names = [constant_argument(first), *rest.map(&:to_s)]
         new(
           example: "#{names.join('.')} do\nend\n",
           pattern: lambda do |node|
@@ -48,6 +34,25 @@ module Rolemodel
               same_chain?(node, names)
           end
         )
+      end
+
+      # A matcher for a class or module definition: a node of `type` whose name is `name`, when given,
+      # and that passes the block, when given.
+      def self.definition(type, keyword, name, suffix: nil, &extra)
+        name = constant_argument(name)
+        new(
+          example: "#{keyword} #{name || 'Example'}#{suffix}\nend\n",
+          pattern: lambda do |node|
+            node.is_a?(type) &&
+              (name.nil? || constant_name(node.constant_path) == name) &&
+              (extra.nil? || extra.call(node))
+          end
+        )
+      end
+
+      # A constant name given to a factory, as a String without a leading ::, or nil when not given.
+      def self.constant_argument(name)
+        name&.to_s&.delete_prefix('::')
       end
 
       # A constant's full name without a leading ::, or nil when the node is not a plain constant,
@@ -67,10 +72,10 @@ module Rolemodel
         if node.is_a?(Prism::CallNode)
           node.name.to_s == last && same_chain?(node.receiver, rest)
         else
-          rest.empty? && constant_name(node) == last.delete_prefix('::')
+          rest.empty? && constant_name(node) == last
         end
       end
-      private_class_method :constant_name, :same_chain?
+      private_class_method :definition, :constant_argument, :constant_name, :same_chain?
 
       def call(node) = pattern.call(node)
       def to_s = example.lines.first.strip

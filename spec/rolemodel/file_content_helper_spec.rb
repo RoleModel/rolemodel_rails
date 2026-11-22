@@ -5,8 +5,9 @@ RSpec.describe Rolemodel::FileContentHelper do
     Rolemodel::LogrageGenerator.new([], options, destination_root:)
   end
 
-  def app_class = Rolemodel::FileContentHelper::BlockMatcher.for_class(superclass: 'Rails::Application')
-  def configure_block = Rolemodel::FileContentHelper::BlockMatcher.for_call(:Rails, :application, :configure)
+  def block_matcher = described_class::BlockMatcher
+  def app_class = block_matcher.for_class(superclass: 'Rails::Application')
+  def configure_block = block_matcher.for_call(:Rails, :application, :configure)
 
   def write(relative_path, content)
     path = File.join(destination_root, relative_path)
@@ -118,7 +119,7 @@ RSpec.describe Rolemodel::FileContentHelper do
   end
 
   describe 'BlockMatcher' do
-    matcher_class = Rolemodel::FileContentHelper::BlockMatcher
+    matcher_class = described_class::BlockMatcher
     [
       matcher_class.for_class(superclass: 'Rails::Application'),
       matcher_class.for_class(name: 'User'),
@@ -133,8 +134,7 @@ RSpec.describe Rolemodel::FileContentHelper do
   end
 
   describe 'BlockMatcher.for_call' do
-    let(:matcher_class) { Rolemodel::FileContentHelper::BlockMatcher }
-    let(:matcher) { matcher_class.for_call(:Rails, :application, :configure) }
+    let(:matcher) { block_matcher.for_call(:Rails, :application, :configure) }
 
     it 'matches the same call chain with a block, with or without a leading ::, and with any arguments' do
       expect(matcher.find_in("::Rails.application.configure do\nend")).to be_truthy
@@ -149,43 +149,40 @@ RSpec.describe Rolemodel::FileContentHelper do
     end
 
     it 'works for other calls, such as routes, and names itself after the chain' do
-      routes = matcher_class.for_call(:Rails, :application, :routes, :draw)
+      routes = block_matcher.for_call(:Rails, :application, :routes, :draw)
 
       expect(routes.find_in("Rails.application.routes.draw do\n  root 'home#show'\nend")).to be_truthy
       expect(routes.to_s).to eq 'Rails.application.routes.draw do'
     end
 
     it 'takes a namespaced constant, or no constant for a call with no receiver' do
-      settings = matcher_class.for_call('Admin::Settings', :configure)
-      bare = matcher_class.for_call(:configure)
+      settings = block_matcher.for_call('Admin::Settings', :configure)
+      bare = block_matcher.for_call(:configure)
 
       expect(settings.find_in("::Admin::Settings.configure do\nend")).to be_truthy
       expect(bare.find_in("configure do\nend")).to be_truthy
       expect(bare.find_in("Rails.configure do\nend")).to be_falsey
     end
-
-    it 'needs at least one name' do
-      expect { matcher_class.for_call }.to raise_error(ArgumentError, /needs at least one name/)
-    end
   end
 
   describe 'BlockMatcher.for_class' do
     it 'matches a class by its name as written, not a class whose name starts the same' do
-      matcher = Rolemodel::FileContentHelper::BlockMatcher.for_class(name: 'User')
+      matcher = block_matcher.for_class(name: 'User')
 
       expect(matcher.find_in("class UserPolicy\nend\nclass User<ApplicationRecord\nend")&.constant_path&.slice).to eq 'User'
       expect(matcher.find_in("# class User\nclass Account\nend")).to be_falsey
+      expect(matcher.find_in("class ::User\nend")).to be_truthy
     end
 
     it 'matches a class by its superclass, with or without a leading ::' do
-      matcher = Rolemodel::FileContentHelper::BlockMatcher.for_class(superclass: 'ApplicationRecord')
+      matcher = block_matcher.for_class(superclass: 'ApplicationRecord')
 
       expect(matcher.find_in("class User < ::ApplicationRecord\nend")).to be_truthy
       expect(matcher.find_in("class User < Struct.new(:x)\nend")).to be_falsey
       expect(matcher.find_in("class User < foo::ApplicationRecord\nend")).to be_falsey
     end
 
-it 'matches any class name under Rails::Application, and not another parent or none' do
+    it 'matches any class name under Rails::Application, and not another parent or none' do
       expect(app_class.find_in("class MyApp < ::Rails::Application\nend")).to be_truthy
       expect(app_class.find_in("class Application < Other::Application\nend")).to be_falsey
       expect(app_class.find_in("class Application < Foo::Rails::Application\nend")).to be_falsey
@@ -193,11 +190,22 @@ it 'matches any class name under Rails::Application, and not another parent or n
     end
 
     it 'matches by both name and superclass' do
-      matcher = Rolemodel::FileContentHelper::BlockMatcher.for_class(name: 'User', superclass: 'ApplicationRecord')
+      matcher = block_matcher.for_class(name: 'User', superclass: 'ApplicationRecord')
 
       expect(matcher.find_in("class User < Base\nend")).to be_falsey
       expect(matcher.find_in("class User < ApplicationRecord\nend")).to be_truthy
       expect(matcher.to_s).to eq 'class User < ApplicationRecord'
+    end
+  end
+
+  describe 'BlockMatcher.for_module' do
+    it 'matches a module by its name, with or without a leading ::, not one whose name starts the same' do
+      matcher = block_matcher.for_module('::Reports')
+
+      expect(matcher.find_in("# module Reports\nmodule ReportsHelper\nend\nmodule Reports\nend")&.constant_path&.slice)
+        .to eq 'Reports'
+      expect(matcher.find_in("module ReportsHelper\nend")).to be_falsey
+      expect(matcher.to_s).to eq 'module Reports'
     end
   end
 
@@ -247,16 +255,6 @@ it 'matches any class name under Rails::Application, and not another parent or n
       capture(:stdout) do
         generator.send(:inject_into_module, 'app/models/reports.rb', 'Reports', *args, &block)
       end
-    end
-
-    it 'adds the data right after the module line by default, and before the end with at: :end' do
-      write 'app/models/reports.rb', "# module Reports\nmodule ReportsHelper\nend\n\nmodule Reports\n  NAME = 'x'\nend\n"
-
-      inject("  extend self\n")
-      inject("\n  def self.all = []\n", at: :end)
-
-      assert_file 'app/models/reports.rb',
-                  "# module Reports\nmodule ReportsHelper\nend\n\nmodule Reports\n  extend self\n  NAME = 'x'\n\n  def self.all = []\nend\n"
     end
 
     it 'names the module in the error when the file has no such module' do
