@@ -21,7 +21,7 @@ RSpec.describe Rolemodel::MailersGenerator, type: :generator do
   it 'adds the mailer settings inside the configure block' do
     assert_file 'config/environments/production.rb' do |content|
       expect(content).to include('if config.x.whitelisted_emails.any?')
-      expect(content).to include('domain: URI(config.x.default_url).host,')
+      expect(content).to include('host = config.x.production_host')
       expect(content).to include('password: config.x.sendgrid.api_key,')
       expect(content).to end_with("  }\nend\n")
     end
@@ -31,15 +31,18 @@ RSpec.describe Rolemodel::MailersGenerator, type: :generator do
     assert_file 'config/application.rb' do |content|
       expect(content).to include("config.x.whitelisted_emails = EnvValue.array('WHITELISTED_EMAILS')")
       expect(content).to include("config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')")
+      expect(content).to include("config.x.production_host = EnvValue.string('PRODUCTION_HOST')")
       expect(content).to include("config.x.sendgrid.api_key = EnvValue.string('SENDGRID_API_KEY')")
       expect(content).to end_with("EnvValue.string('SENDGRID_API_KEY')\n  end\nend\n")
     end
   end
 
-  # What add_default_url writes is covered in spec/rolemodel/generator_base_spec.rb.
-  it 'points email links and assets at DEFAULT_URL' do
-    run_step(:use_default_url)
+  it 'adds the asset host for development, and keeps the single localhost default_url_options Rails wrote' do
+    run_step(:add_action_mailer_asset_host)
 
-    assert_file 'config/application.rb', /config\.x\.default_url = EnvValue\.url\('DEFAULT_URL'\)/
+    assert_file 'config/environments/development.rb' do |content|
+      expect(content).to end_with("  config.action_mailer.asset_host = 'http://localhost:3000'\nend\n")
+      expect(content.scan('config.action_mailer.default_url_options').size).to eq 1
+    end
   end
 end

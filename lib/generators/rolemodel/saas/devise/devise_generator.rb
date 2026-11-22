@@ -79,8 +79,19 @@ module Rolemodel
       end
 
       def modify_existing_files
-        # Devise links in emails, such as password resets, use DEFAULT_URL.
-        add_default_url
+        add_setting "config.x.review_app = EnvValue.boolean('REVIEW_APP')"
+        add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
+        add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
+
+        append_to_environment 'production', <<~'RUBY'
+
+          # Tell Devise about your host, so it can send password reset emails
+          if config.x.review_app && config.x.heroku_app_name
+            config.action_mailer.default_url_options = { host: "https://#{config.x.heroku_app_name}.herokuapp.com" }
+          else
+            config.action_mailer.default_url_options = { host: config.x.production_host }
+          end
+        RUBY
 
         # Update Devise email_regexp to something more useful
         gsub_file 'config/initializers/devise.rb', '/\A[^@\s]+@[^@\s]+\z/',
