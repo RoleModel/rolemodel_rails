@@ -17,11 +17,10 @@ module Rolemodel
                        after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
     end
 
-    # Rails already sets the development default_url_options to localhost:3000.
     # Email links and assets use DEFAULT_URL in every environment. The asset host lets
     # premailer_rails find webpack compiled resources:
     # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-    def add_action_mailer_asset_host
+    def use_default_url
       add_default_url
     end
 
