@@ -20,4 +20,15 @@ RSpec.describe Rolemodel::EditorsGenerator, type: :generator do
       expect(JSON.parse(content)).to eq('recommendations' => ['Shopify.ruby-lsp', 'EditorConfig.EditorConfig'])
     end
   end
+
+  it 'does not add EditorConfig again when the file lists it in another case' do
+    FileUtils.mkdir_p(File.dirname(extensions_json))
+    File.write(extensions_json, %({"recommendations": ["editorconfig.editorconfig"]}\n))
+
+    run_generators
+
+    assert_file '.vscode/extensions.json' do |content|
+      expect(JSON.parse(content)).to eq('recommendations' => ['editorconfig.editorconfig'])
+    end
+  end
 end
