@@ -5,8 +5,8 @@ RSpec.describe Rolemodel::FileContentHelper do
     Rolemodel::LogrageGenerator.new([], options, destination_root:)
   end
 
-  def app_class = Rolemodel::FileContentHelper.class_matcher(superclass: 'Rails::Application')
-  def configure_block = Rolemodel::FileContentHelper.call_matcher('Rails.application.configure')
+  def app_class = Rolemodel::FileContentHelper::BlockMatcher.for_class(superclass: 'Rails::Application')
+  def configure_block = Rolemodel::FileContentHelper::BlockMatcher.for_call(:Rails, :application, :configure)
 
   def write(relative_path, content)
     path = File.join(destination_root, relative_path)
@@ -118,12 +118,13 @@ RSpec.describe Rolemodel::FileContentHelper do
   end
 
   describe 'BlockMatcher' do
-    helper = Rolemodel::FileContentHelper
+    matcher_class = Rolemodel::FileContentHelper::BlockMatcher
     [
-      helper.class_matcher(superclass: 'Rails::Application'),
-      helper.class_matcher(name: 'User'),
-      helper.class_matcher(name: 'User', superclass: 'ApplicationRecord'),
-      helper.call_matcher('Rails.application.configure')
+      matcher_class.for_class(superclass: 'Rails::Application'),
+      matcher_class.for_class(name: 'User'),
+      matcher_class.for_class(name: 'User', superclass: 'ApplicationRecord'),
+      matcher_class.for_module('Reports'),
+      matcher_class.for_call(:Rails, :application, :configure)
     ].each do |matcher|
       it "matches its own example: #{matcher}" do
         expect(matcher.find_in(matcher.example)).to be_truthy
@@ -131,8 +132,9 @@ RSpec.describe Rolemodel::FileContentHelper do
     end
   end
 
-  describe '.call_matcher' do
-    let(:matcher) { Rolemodel::FileContentHelper.call_matcher('Rails.application.configure') }
+  describe 'BlockMatcher.for_call' do
+    let(:matcher_class) { Rolemodel::FileContentHelper::BlockMatcher }
+    let(:matcher) { matcher_class.for_call(:Rails, :application, :configure) }
 
     it 'matches the same call chain with a block, with or without a leading ::, and with any arguments' do
       expect(matcher.find_in("::Rails.application.configure do\nend")).to be_truthy
@@ -146,30 +148,37 @@ RSpec.describe Rolemodel::FileContentHelper do
       expect(matcher.find_in('Rails.application.configure')).to be_falsey
     end
 
-    it 'works for other calls, such as routes' do
-      routes = Rolemodel::FileContentHelper.call_matcher('Rails.application.routes.draw')
+    it 'works for other calls, such as routes, and names itself after the chain' do
+      routes = matcher_class.for_call(:Rails, :application, :routes, :draw)
 
       expect(routes.find_in("Rails.application.routes.draw do\n  root 'home#show'\nend")).to be_truthy
       expect(routes.to_s).to eq 'Rails.application.routes.draw do'
     end
 
-    it 'rejects code that is not one method call with no block' do
-      expect { Rolemodel::FileContentHelper.call_matcher('Rails') }.to raise_error(ArgumentError, /must be one method call/)
-      expect { Rolemodel::FileContentHelper.call_matcher('a.b; c.d') }.to raise_error(ArgumentError, /must be one method call/)
-      expect { Rolemodel::FileContentHelper.call_matcher('a.b do end') }.to raise_error(ArgumentError, /must be one method call/)
+    it 'takes a namespaced constant, or no constant for a call with no receiver' do
+      settings = matcher_class.for_call('Admin::Settings', :configure)
+      bare = matcher_class.for_call(:configure)
+
+      expect(settings.find_in("::Admin::Settings.configure do\nend")).to be_truthy
+      expect(bare.find_in("configure do\nend")).to be_truthy
+      expect(bare.find_in("Rails.configure do\nend")).to be_falsey
+    end
+
+    it 'needs at least one name' do
+      expect { matcher_class.for_call }.to raise_error(ArgumentError, /needs at least one name/)
     end
   end
 
-  describe '.class_matcher' do
+  describe 'BlockMatcher.for_class' do
     it 'matches a class by its name as written, not a class whose name starts the same' do
-      matcher = Rolemodel::FileContentHelper.class_matcher(name: 'User')
+      matcher = Rolemodel::FileContentHelper::BlockMatcher.for_class(name: 'User')
 
       expect(matcher.find_in("class UserPolicy\nend\nclass User<ApplicationRecord\nend")&.constant_path&.slice).to eq 'User'
       expect(matcher.find_in("# class User\nclass Account\nend")).to be_falsey
     end
 
     it 'matches a class by its superclass, with or without a leading ::' do
-      matcher = Rolemodel::FileContentHelper.class_matcher(superclass: 'ApplicationRecord')
+      matcher = Rolemodel::FileContentHelper::BlockMatcher.for_class(superclass: 'ApplicationRecord')
 
       expect(matcher.find_in("class User < ::ApplicationRecord\nend")).to be_truthy
       expect(matcher.find_in("class User < Struct.new(:x)\nend")).to be_falsey
@@ -184,7 +193,7 @@ it 'matches any class name under Rails::Application, and not another parent or n
     end
 
     it 'matches by both name and superclass' do
-      matcher = Rolemodel::FileContentHelper.class_matcher(name: 'User', superclass: 'ApplicationRecord')
+      matcher = Rolemodel::FileContentHelper::BlockMatcher.for_class(name: 'User', superclass: 'ApplicationRecord')
 
       expect(matcher.find_in("class User < Base\nend")).to be_falsey
       expect(matcher.find_in("class User < ApplicationRecord\nend")).to be_truthy
@@ -230,6 +239,31 @@ it 'matches any class name under Rails::Application, and not another parent or n
 
       expect { inject("x = 1\n") }
         .to raise_error(Thor::Error, 'Could not find `class User` with `end` on its own line in app/models/user.rb')
+    end
+  end
+
+  describe '#inject_into_module', type: :generator do
+    def inject(*args, &block)
+      capture(:stdout) do
+        generator.send(:inject_into_module, 'app/models/reports.rb', 'Reports', *args, &block)
+      end
+    end
+
+    it 'adds the data right after the module line by default, and before the end with at: :end' do
+      write 'app/models/reports.rb', "# module Reports\nmodule ReportsHelper\nend\n\nmodule Reports\n  NAME = 'x'\nend\n"
+
+      inject("  extend self\n")
+      inject("\n  def self.all = []\n", at: :end)
+
+      assert_file 'app/models/reports.rb',
+                  "# module Reports\nmodule ReportsHelper\nend\n\nmodule Reports\n  extend self\n  NAME = 'x'\n\n  def self.all = []\nend\n"
+    end
+
+    it 'names the module in the error when the file has no such module' do
+      write 'app/models/reports.rb', "class Reports\nend\n"
+
+      expect { inject("x = 1\n") }
+        .to raise_error(Thor::Error, 'Could not find `module Reports` with `end` on its own line in app/models/reports.rb')
     end
   end
 

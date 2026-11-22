@@ -4,75 +4,80 @@ module Rolemodel
   module FileContentHelper
     # Finds a block for inject_into_block. `pattern` matches a Prism node by its structure, not its text.
     # `example` is code the pattern matches. Its first line describes the matcher in error messages,
-    # and a spec checks that the pattern matches it.
+    # and a spec checks that the pattern matches it. Build one with for_class, for_module or for_call.
     BlockMatcher = Data.define(:example, :pattern) do
+      # A matcher for a class, by its name as written ('User', 'Admin::User'), its superclass
+      # ('Rails::Application', with or without a leading ::), or both.
+      def self.for_class(name: nil, superclass: nil)
+        parent = superclass.to_s.delete_prefix('::').presence
+        new(
+          example: "class #{name || 'Example'}#{" < #{parent}" if parent}\nend\n",
+          pattern: lambda do |node|
+            node.is_a?(Prism::ClassNode) &&
+              (name.nil? || node.constant_path.slice == name.to_s) &&
+              (parent.nil? || constant_name(node.superclass) == parent)
+          end
+        )
+      end
+
+      # A matcher for a module, by its name as written ('Admin', 'Admin::Reports').
+      def self.for_module(name)
+        new(
+          example: "module #{name}\nend\n",
+          pattern: lambda do |node|
+            node.is_a?(Prism::ModuleNode) && node.constant_path.slice == name.to_s
+          end
+        )
+      end
+
+      # A matcher for a method call with a do ... end block, given as the names in its chain, such as
+      # for_call(:Rails, :application, :configure). The first name may be a constant, such as :Rails or
+      # 'Admin::Settings', with or without a leading ::. Without one, the chain must start with a call
+      # that has no receiver, as in for_call(:configure). It does not compare arguments.
+      def self.for_call(*names)
+        if names.empty?
+          raise ArgumentError, 'for_call needs at least one name, such as :Rails, :application, :configure'
+        end
+
+        names = names.map(&:to_s)
+        new(
+          example: "#{names.join('.')} do\nend\n",
+          pattern: lambda do |node|
+            node.is_a?(Prism::CallNode) &&
+              node.block.is_a?(Prism::BlockNode) &&
+              same_chain?(node, names)
+          end
+        )
+      end
+
+      # A constant's full name without a leading ::, or nil when the node is not a plain constant,
+      # such as `Struct.new(:x)` or `foo::Bar`.
+      def self.constant_name(node)
+        node.full_name.delete_prefix('::') if node.respond_to?(:full_name)
+      rescue Prism::ConstantPathNode::DynamicPartsInConstantPathError
+        nil
+      end
+
+      # Whether `node` and its receivers are the chain `names`, read from the end: each call's name
+      # in turn, then either a constant with the first name or no receiver at all.
+      def self.same_chain?(node, names)
+        return node.nil? if names.empty?
+
+        *rest, last = names
+        if node.is_a?(Prism::CallNode)
+          node.name.to_s == last && same_chain?(node.receiver, rest)
+        else
+          rest.empty? && constant_name(node) == last.delete_prefix('::')
+        end
+      end
+      private_class_method :constant_name, :same_chain?
+
       def call(node) = pattern.call(node)
       def to_s = example.lines.first.strip
 
       # The first node in `source` that the pattern matches, or nil.
       def find_in(source) = Prism.parse(source).value.breadth_first_search { call(it) }
     end
-
-    # A BlockMatcher for a class, by its name as written ('User', 'Admin::User'), its superclass
-    # ('Rails::Application', with or without a leading ::), or both.
-    def self.class_matcher(name: nil, superclass: nil)
-      parent = superclass.to_s.delete_prefix('::').presence
-      BlockMatcher.new(
-        example: "class #{name || 'Example'}#{" < #{parent}" if parent}\nend\n",
-        pattern: lambda do |node|
-          node.is_a?(Prism::ClassNode) &&
-            (name.nil? || node.constant_path.slice == name.to_s) &&
-            (parent.nil? || constant_name(node.superclass) == parent)
-        end
-      )
-    end
-
-    # A constant's full name without a leading ::, or nil when the node is not a plain constant,
-    # such as `Struct.new(:x)` or `foo::Bar`.
-    def self.constant_name(node)
-      node.full_name.delete_prefix('::') if node.respond_to?(:full_name)
-    rescue Prism::ConstantPathNode::DynamicPartsInConstantPathError
-      nil
-    end
-
-    # A BlockMatcher for a method call with a do ... end block, given as Ruby code such as
-    # 'Rails.application.configure'. Prism parses the code, and the matcher compares the structure:
-    # each method name and constant in the chain must be the same. It does not compare arguments,
-    # and a leading :: on a constant does not matter.
-    def self.call_matcher(source)
-      expected = Prism.parse(source).value.statements.body
-      expected = expected.first if expected.size == 1
-      unless expected.is_a?(Prism::CallNode) && expected.block.nil?
-        raise(
-          ArgumentError,
-          "#{source.inspect} must be one method call with no block, such as 'Rails.application.configure'"
-        )
-      end
-
-      BlockMatcher.new(
-        example: "#{source} do\nend\n",
-        pattern: lambda do |node|
-          node.is_a?(Prism::CallNode) &&
-            node.block.is_a?(Prism::BlockNode) &&
-            same_chain?(node, expected)
-        end
-      )
-    end
-
-    # Whether a receiver chain names the same methods and constants as `expected`, in the same order.
-    def self.same_chain?(node, expected)
-      case expected
-      in nil then node.nil?
-      in Prism::CallNode
-        node.is_a?(Prism::CallNode) &&
-          node.name == expected.name &&
-          same_chain?(node.receiver, expected.receiver)
-      in Prism::ConstantReadNode | Prism::ConstantPathNode
-        !constant_name(node).nil? && constant_name(node) == constant_name(expected)
-      else false
-      end
-    end
-    private_class_method :constant_name, :same_chain?
 
     private
 
@@ -111,7 +116,7 @@ module Rolemodel
     def append_to_application(code)
       inject_into_block(
         'config/application.rb',
-        FileContentHelper.class_matcher(superclass: 'Rails::Application'),
+        BlockMatcher.for_class(superclass: 'Rails::Application'),
         optimize_indentation(code, 4),
         at: :end
       )
@@ -123,7 +128,7 @@ module Rolemodel
     def append_to_environment(env, code)
       inject_into_block(
         "config/environments/#{env}.rb",
-        FileContentHelper.call_matcher('Rails.application.configure'),
+        BlockMatcher.for_call(:Rails, :application, :configure),
         optimize_indentation(code, 2),
         at: :end
       )
@@ -131,7 +136,12 @@ module Rolemodel
 
     # Overrides Thor's inject_into_class, with the same arguments and options. See inject_into_block.
     def inject_into_class(path, klass, *args, &block)
-      inject_into_block(path, FileContentHelper.class_matcher(name: klass), *args, &block)
+      inject_into_block(path, BlockMatcher.for_class(name: klass), *args, &block)
+    end
+
+    # Overrides Thor's inject_into_module, with the same arguments and options. See inject_into_block.
+    def inject_into_module(path, module_name, *args, &block)
+      inject_into_block(path, BlockMatcher.for_module(module_name), *args, &block)
     end
 
     # Adds data inside the first block in a file that `matcher`, a BlockMatcher, accepts. A block is any
