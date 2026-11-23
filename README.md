@@ -327,6 +327,10 @@ Doing this even for route-supplied types is cheap insurance: it documents which 
 * The class name is demodulized when deriving the id param, so `Reporting::Tank` looks for `params[:tank_id]`.
 * Included via `ActiveSupport.on_load(:action_controller_base)`, so `ActionController::API` controllers do not get it.
 
+### LightningCAD
+
+For LightningCAD apps there are [generators](./lib/generators/lightning_cad) to add the required setup
+
 ## Development
 
 Install the versions of Node and Ruby specified in `.node-version` and `.ruby-version` on your machine. https://asdf-vm.com/ is a great tool for managing language versions. Then run `corepack enable` to activate the Yarn 4+ version pinned by each project's `packageManager` field.
