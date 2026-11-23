@@ -11,13 +11,20 @@ Attempts to solve the pain of:
 * Our BestPractice learns don't often get ported into other projects as it isn't straightforward to do so
 * There is an emerging pattern of libraries using generators (e.g. webpacker) to migrate a setup between library versions
 
-## Precondition
+## New Apps
 
-The rolemodel-rails gem expects to be added to an existing Rails project. Typically those are started with:
+Start a new app with `rmr`, which wraps `rails new`:
 
 ```shell
-rails new <app-name> --javascript=webpack --database=postgresql --skip-test --skip-solid --skip-kamal
+gem install rolemodel-rails
+rmr new <app-name>
 ```
+
+`rmr` passes `--database=postgresql --javascript=webpack --skip-kamal --skip-solid --skip-test` and a template that adds this gem and runs `rolemodel:core_setup --material`. Flags in your `~/.railsrc` override those defaults, and flags on the command line override both.
+
+## Existing Apps
+
+The rolemodel-rails gem can be added to an existing Rails project.
 
 The Devise generator requires your database to exist before running.
 
