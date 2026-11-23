@@ -18,6 +18,14 @@ module ExampleApp
     FileUtils.rm_rf(destination_root)
   end
 
+  def add_env_value_to_test_app
+    FileUtils.mkdir_p(File.join(destination_root, 'lib'))
+    FileUtils.cp(
+      File.join(Rolemodel::DotenvGenerator.source_root, 'lib/env_value.rb'),
+      File.join(destination_root, 'lib')
+    )
+  end
+
   # run_generator already captures stdout
   # capturing stderr does not prevent tests from failing,
   # but does keep the test output clean and easy to read

@@ -2,13 +2,13 @@
 
 require 'rails/generators'
 require 'rails/generators/bundle_helper'
-require_relative 'replace_content_helper'
+require_relative 'file_content_helper'
 require_relative 'skills_helper'
 require 'rolemodel/yarn'
 
 module Rolemodel
   class GeneratorBase < ::Rails::Generators::Base
-    include ::Rails::Generators::BundleHelper, ReplaceContentHelper, SkillsHelper
+    include ::Rails::Generators::BundleHelper, FileContentHelper, SkillsHelper
 
     private
 
@@ -36,6 +36,21 @@ module Rolemodel
     def ensure_yarn
       return if Rails.root.join(destination_root, '.yarnrc.yml').exist?
       invoke 'rolemodel:yarn:setup', [], options.slice(:pretend)
+    end
+
+    # Adds a setting that reads ENV through EnvValue as the last line of `class Application`
+    # in config/application.rb, for example
+    # add_setting("config.x.sentry.dsn = EnvValue.string('SENTRY_DSN')").
+    # Runs rolemodel:dotenv first when the app has no EnvValue yet.
+    def add_setting(line)
+      ensure_env_value
+      inject_into_class 'config/application.rb', 'Application', optimize_indentation(line, 4), at: :end
+    end
+
+    def ensure_env_value
+      return if File.exist?(File.join(destination_root, 'lib/env_value.rb'))
+
+      invoke 'rolemodel:dotenv', [], options.slice(:pretend)
     end
 
     def application_stylesheet_path

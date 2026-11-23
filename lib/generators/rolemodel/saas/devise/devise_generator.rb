@@ -79,28 +79,19 @@ module Rolemodel
       end
 
       def modify_existing_files
-        unless File.exist?(Rails.root.join('config/initializers/premailer_rails.rb'))
-          inject_into_file 'config/environments/development.rb',
-                           after: "config.action_mailer.perform_caching = false\n" do
-            optimize_indentation <<~'RUBY', 2
+        add_setting "config.x.review_app = EnvValue.boolean('REVIEW_APP')"
+        add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
+        add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
 
-              # Default mailing host suggested by Devise installation instructions
-              config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-            RUBY
+        append_to_environment 'production', <<~'RUBY'
+
+          # Tell Devise about your host, so it can send password reset emails
+          if config.x.review_app && config.x.heroku_app_name
+            config.action_mailer.default_url_options = { host: "https://#{config.x.heroku_app_name}.herokuapp.com" }
+          else
+            config.action_mailer.default_url_options = { host: config.x.production_host }
           end
-        end
-
-        inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
-          optimize_indentation <<~'RUBY', 2
-
-            # Tell Devise about your host, so it can send password reset emails
-            if ENV['REVIEW_APP'] == 'true' && ENV['HEROKU_APP_NAME'].present?
-              config.action_mailer.default_url_options = { host: "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com" }
-            else
-              config.action_mailer.default_url_options = { host: ENV['PRODUCTION_HOST'] }
-            end
-          RUBY
-        end
+        RUBY
 
         # Update Devise email_regexp to something more useful
         gsub_file 'config/initializers/devise.rb', '/\A[^@\s]+@[^@\s]+\z/',
@@ -111,7 +102,7 @@ module Rolemodel
                     'config.validate_on_invite = true'
         end
 
-        inject_into_file 'app/models/user.rb', after: /devise\s+:.*\n.*\n/ do
+        inject_into_class 'app/models/user.rb', 'User', at: :end do
           optimize_indentation <<~'RUBY', 2
 
             enum :role, { user: 'user', admin: 'admin' }

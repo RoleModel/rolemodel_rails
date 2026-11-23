@@ -17,60 +17,50 @@ module Rolemodel
                        after: /^\s*require\('postcss-preset-env'\)\({(.|\n)*?}\)/
     end
 
+    # Rails already sets the development default_url_options to localhost:3000.
     def add_action_mailer_asset_host
-      unless File.exist?(Rails.root.join('config/initializers/devise.rb'))
-        inject_into_file 'config/environments/development.rb',
-                         after: "config.action_mailer.perform_caching = false\n" do
-          optimize_indentation <<~'RUBY', 2
-
-            # Default mailing host suggested by Devise installation instructions
-            config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-          RUBY
-        end
-      end
-
-      inject_into_file 'config/environments/development.rb',
-                       after: "config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }\n" do
-        optimize_indentation <<~'RUBY', 2
-
-          # Ensure premailer_rails can point to webpack compiled resources
-          # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-          config.action_mailer.asset_host = 'http://localhost:3000'
-        RUBY
-      end
+      append_to_environment 'development', <<~'RUBY'
+        # Ensure premailer_rails can point to webpack compiled resources
+        # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
+        config.action_mailer.asset_host = 'http://localhost:3000'
+      RUBY
     end
 
     def add_production_mailer_defaults
+      add_setting "config.x.whitelisted_emails = EnvValue.array('WHITELISTED_EMAILS')"
+      add_setting "config.x.heroku_app_name = EnvValue.string('HEROKU_APP_NAME')"
+      add_setting "config.x.production_host = EnvValue.string('PRODUCTION_HOST')"
+      add_setting "config.x.sendgrid.api_key = EnvValue.string('SENDGRID_API_KEY')"
+
+      copy_file 'app/mailers/staging_mailer_interceptor.rb'
       prepend_to_file 'config/environments/production.rb',
                       "require Rails.root.join('app/mailers/staging_mailer_interceptor')\n"
 
-      inject_into_file 'config/environments/production.rb', after: "config.action_mailer.perform_caching = false\n" do
-        optimize_indentation <<~'RUBY', 2
-          # Prevent live user emails from being sent out in staging
-          if ENV['WHITELISTED_EMAILS'].present?
-            ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
-          end
+      append_to_environment 'production', <<~'RUBY'
+        # Prevent live user emails from being sent out in staging
+        if config.x.whitelisted_emails.any?
+          ActionMailer::Base.register_interceptor(StagingMailerInterceptor)
+        end
 
-          host = ENV['PRODUCTION_HOST']
+        host = config.x.production_host
 
-          # Ensure premailer_rails can point to webpack compiled resources
-          # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
-          config.action_mailer.asset_host = host
+        # Ensure premailer_rails can point to webpack compiled resources
+        # https://github.com/fphilipe/premailer-rails/issues/232#issuecomment-839819705
+        config.action_mailer.asset_host = host
 
-          config.action_mailer.default_url_options = { host: host }
-          config.action_mailer.delivery_method = :smtp
-          config.action_mailer.perform_deliveries = true
-          config.action_mailer.smtp_settings = {
-            user_name: 'apikey',
-            password: ENV['SENDGRID_API_KEY'],
-            domain: host,
-            address: 'smtp.sendgrid.net',
-            port: 587,
-            authentication: :plain,
-            enable_starttls_auto: true
-          }
-        RUBY
-      end
+        config.action_mailer.default_url_options = { host: host }
+        config.action_mailer.delivery_method = :smtp
+        config.action_mailer.perform_deliveries = true
+        config.action_mailer.smtp_settings = {
+          user_name: 'apikey',
+          password: config.x.sendgrid.api_key,
+          domain: host,
+          address: 'smtp.sendgrid.net',
+          port: 587,
+          authentication: :plain,
+          enable_starttls_auto: true
+        }
+      RUBY
     end
 
     def add_mailer_css

@@ -41,7 +41,7 @@ exception). Stop and tell the user how to fix any that fail:
    fall back to another mechanism.
 5. Read `Procfile` — note whether a `worker` process exists.
 6. Read `config/initializers/sentry.rb` — determine how the DSN is consumed:
-   - reads `ENV['SENTRY_DSN']` → **env-var mode** (RoleModel standard)
+   - reads `Rails.configuration.x.sentry.dsn` or `ENV['SENTRY_DSN']` → **env-var mode** (RoleModel standard)
    - reads `Rails.application.credentials...` → **credentials mode**
 7. Deploy-readiness (recent `rolemodel-rails` bakes these in; older apps need the manual
    fixes noted in each phase). Confirm the generated app already has:

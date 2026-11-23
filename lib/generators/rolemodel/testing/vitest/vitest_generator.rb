@@ -3,7 +3,6 @@
 module Rolemodel
   module Testing
     class VitestGenerator < GeneratorBase
-      include ReplaceContentHelper
       source_root File.expand_path('templates', __dir__)
 
       TEST_COMMAND = 'NODE_ENV=test vitest'

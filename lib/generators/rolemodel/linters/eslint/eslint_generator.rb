@@ -3,7 +3,6 @@
 module Rolemodel
   module Linters
     class EslintGenerator < GeneratorBase
-      include ReplaceContentHelper
       source_root File.expand_path('templates', __dir__)
 
       ESLINT_COMMAND = "eslint 'app/**/*.js' 'spec/**/*.js'"

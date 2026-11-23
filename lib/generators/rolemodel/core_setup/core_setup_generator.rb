@@ -14,6 +14,7 @@ module Rolemodel
     end
 
     def run_the_core_generators
+      generate 'rolemodel:dotenv'
       generate 'rolemodel:slim'
       generate 'rolemodel:webpack'
       generate 'rolemodel:optics:all', *icon_library_flags
