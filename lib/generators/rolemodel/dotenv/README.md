@@ -102,11 +102,9 @@ These generators add their settings to `config/application.rb` with `EnvValue`. 
 | `rolemodel:heroku` | `LOG_LEVEL` | `config.x.log_level` (default `INFO`) |
 | `rolemodel:sentry` | `SENTRY_DSN` | `config.x.sentry.dsn` |
 | `rolemodel:mailers` | `WHITELISTED_EMAILS` | `config.x.whitelisted_emails` |
+| | `DEFAULT_URL` | `config.x.default_url`: the app's full URL, such as `https://app.example.com`, used for links and assets in emails. Set it in production. Without it, a Heroku review app uses `https://<HEROKU_APP_NAME>.herokuapp.com`, and development uses `http://localhost:3000`. It replaces `PRODUCTION_HOST` and `REVIEW_APP`. The generator comments out the `default_url_options` line in development.rb and production.rb, so set the URL here, not there. |
 | | `HEROKU_APP_NAME` | `config.x.heroku_app_name` |
-| | `PRODUCTION_HOST` | `config.x.production_host` |
 | | `SENDGRID_API_KEY` | `config.x.sendgrid.api_key` |
-| `rolemodel:saas:devise` | `REVIEW_APP` | `config.x.review_app` |
-| | `HEROKU_APP_NAME` | `config.x.heroku_app_name` |
-| | `PRODUCTION_HOST` | `config.x.production_host` |
+| `rolemodel:saas:devise` | `DEFAULT_URL` | `config.x.default_url`, the same setting as `rolemodel:mailers` |
 | `rolemodel:source_map` | `SOURCE_MAPS_ALLOWED_USERS_EMAILS` | `config.x.source_maps.allowed_user_emails` |
 | `rolemodel:good_job` | `GOOD_JOB_QUEUES` | `config.x.good_job.queues` (default `pdf:1;-pdf`) |
