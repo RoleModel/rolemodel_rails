@@ -16,6 +16,8 @@ bin/rails generate rolemodel:dotenv
   - `/.env*` in `.gitignore`, so Git never commits your local values. New Rails apps already ignore it.
   - `lib/env_value.rb`, required from `config/application.rb`.
   - `spec/lib/env_value_spec.rb`, when the app has a `spec` folder.
+  - Database settings in `config/database.yml` that come from ENV. See [Connect to a different database server](#connect-to-a-different-database-server).
+  - A warning in development and test when `.env_overrides.rb` still exists. See [Move from `env.rb`](#move-from-envrb).
 
 ## Put a local value in `.env.local`
 
@@ -30,6 +32,30 @@ Restart the server after you change the file.
 To copy values from a Heroku app, run `heroku config -s -a <app>`. It prints `KEY=value` lines. Paste the lines you need into `.env.local`.
 
 The dotenv gem loads `.env.local` in development. Tests don't read `.env.local`, so a test run never depends on your machine. Put a value that tests need in `.env.test`, or give it a `local:` or `default:` value (see [Defaults for each environment](#defaults-for-each-environment)). Production reads its values from the host, for example Heroku config vars.
+
+## Connect to a different database server
+
+The generator adds these lines to the `default:` block in `config/database.yml`. Every environment that starts with `<<: *default` gets them:
+
+```yaml
+host: <%= EnvValue.string('DB_HOST') %>
+port: <%= EnvValue.string('DB_PORT') %>
+username: <%= EnvValue.string('POSTGRES_USER') %>
+password: <%= EnvValue.string('POSTGRES_PASSWORD') %>
+```
+
+If PostgreSQL runs on your computer with its usual settings, leave these keys unset. The app connects the way a new Rails app does: through the local socket on port 5432, as your computer's user.
+
+To use a database server in Docker or on another computer, put the values in `.env.local`:
+
+```
+DB_HOST=localhost
+DB_PORT=5433
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+```
+
+You don't need to change production. In production, the `username:` and `password:` lines in the `production:` block take the place of `POSTGRES_USER` and `POSTGRES_PASSWORD`. On Heroku, `DATABASE_URL` takes the place of all four keys.
 
 ## Read a setting with `EnvValue`
 
@@ -92,6 +118,14 @@ If the app has `env.rb` or `.env_overrides.rb`:
   3. If `env.rb` set a value that production uses, add it as a default in `config/application.rb` with `EnvValue`.
   4. Remove the line that requires `env.rb` from `config/application.rb`.
   5. Delete `env.rb` and `.env_overrides.rb`.
+
+If the app prints this warning when it starts in development or test, your computer still has a `.env_overrides.rb` file, and the app no longer reads it:
+
+```
+.env_overrides.rb is no longer loaded. Move its values to .env.local as KEY=value lines, then delete it.
+```
+
+Git ignores `.env_overrides.rb`, so each developer has their own copy, and step 5 deletes only yours. After your change merges, ask each teammate to move their values and delete their copy.
 
 ## Generators that add settings
 

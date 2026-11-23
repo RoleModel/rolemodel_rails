@@ -39,5 +39,33 @@ module Rolemodel
 
       copy_file 'spec/lib/env_value_spec.rb'
     end
+
+    # .env_overrides.rb is ignored by Git, so it stays on a developer's machine after the app
+    # moves to .env.local. Nothing loads it any more, so warn until it is gone.
+    def warn_about_env_overrides
+      return if File.read(File.join(destination_root, 'config/application.rb')).include?('.env_overrides.rb')
+
+      inject_into_class 'config/application.rb', 'Application', optimize_indentation(<<~'RUBY', 4), at: :end
+        if Rails.env.local? && File.exist?(File.expand_path('../.env_overrides.rb', __dir__))
+          warn '.env_overrides.rb is no longer loaded. Move its values to .env.local as KEY=value lines, then delete it.'
+        end
+      RUBY
+    end
+
+    # A blank value renders as an empty YAML value, which is nil, so PostgreSQL uses its own
+    # default: the local socket, port 5432 and the OS user. DATABASE_URL still wins over these.
+    def read_database_settings_from_env
+      database_yml = File.join(destination_root, 'config/database.yml')
+      return if !File.exist?(database_yml) || File.read(database_yml).include?("EnvValue.string('DB_HOST')")
+
+      inject_into_file 'config/database.yml', after: /^default: &default\n\s+adapter: .*\n/ do
+        <<~'YML'.indent(2)
+          host: <%= EnvValue.string('DB_HOST') %>
+          port: <%= EnvValue.string('DB_PORT') %>
+          username: <%= EnvValue.string('POSTGRES_USER') %>
+          password: <%= EnvValue.string('POSTGRES_PASSWORD') %>
+        YML
+      end
+    end
   end
 end

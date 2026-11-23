@@ -34,6 +34,34 @@ RSpec.describe Rolemodel::DotenvGenerator, type: :generator, env_value: false do
     end
   end
 
+  it 'warns about a leftover .env_overrides.rb once' do
+    run_generators
+    run_generators
+
+    assert_file 'config/application.rb' do |content|
+      expect(content.scan("File.expand_path('../.env_overrides.rb', __dir__)").size).to eq 1
+      expect(content).to include("warn '.env_overrides.rb is no longer loaded.")
+    end
+  end
+
+  it 'reads database settings from ENV in the default block once' do
+    run_generators
+    run_generators
+
+    assert_file 'config/database.yml' do |content|
+      expect(content).to include(<<~YML)
+        default: &default
+          adapter: postgresql
+          host: <%= EnvValue.string('DB_HOST') %>
+          port: <%= EnvValue.string('DB_PORT') %>
+          username: <%= EnvValue.string('POSTGRES_USER') %>
+          password: <%= EnvValue.string('POSTGRES_PASSWORD') %>
+          encoding: unicode
+      YML
+      expect(content.scan('DB_HOST').size).to eq 1
+    end
+  end
+
   it 'adds the EnvValue spec only when the app has a spec folder' do
     run_generators
     assert_no_file 'spec/lib/env_value_spec.rb'
