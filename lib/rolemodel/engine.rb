@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rails'
+
 module Rolemodel
   class Engine < ::Rails::Engine
     require_relative 'generator_base'
