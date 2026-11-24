@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.8.0] Nov 24, 2026
+
+- Add rmr executable for new app generation (#229)
+- Add --skip-kamal to the README's rails new command (#227)
+- Build email links from DEFAULT_URL (#225)
+- Switch from env.rb to .env (#224)
+- Bump Ruby to 4.0.10 (#223)
+
 ## [v2.7.1] Nov 6, 2026
 
 - `core_setup` installs the `polymorphic-parent-resources` and `rake-tasks` skills (#222)
@@ -111,6 +119,7 @@ The first release on RubyGems.
   `slim-rails`, under a single `Rolemodel` namespace in place of `RolemodelRails`.
 - A Rails engine lets the host app discover the generators lazily instead of loading them at boot.
 
+[v2.8.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.8.0
 [v2.7.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.7.1
 [v2.7.0]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.7.0
 [v2.6.1]: https://github.com/RoleModel/rolemodel_rails/releases/tag/v2.6.1
