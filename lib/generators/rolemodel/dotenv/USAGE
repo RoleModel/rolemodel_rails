@@ -11,5 +11,6 @@ Example:
 
     This will change:
         Gemfile (adds dotenv to the development and test groups)
-        config/application.rb (requires lib/env_value)
+        config/application.rb (requires lib/env_value, warns about a leftover .env_overrides.rb)
+        config/database.yml (reads DB_HOST, DB_PORT, POSTGRES_USER and POSTGRES_PASSWORD)
         .gitignore (ignores /.env*)
