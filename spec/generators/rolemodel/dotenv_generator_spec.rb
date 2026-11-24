@@ -52,7 +52,7 @@ RSpec.describe Rolemodel::DotenvGenerator, type: :generator, env_value: false do
       expect(content).to include(<<~YML)
         default: &default
           adapter: postgresql
-          host: <%= EnvValue.string('DB_HOST') %>
+          host: <%= EnvValue.string('DB_HOST') { 'localhost' if EnvValue.string('POSTGRES_USER') } %>
           port: <%= EnvValue.string('DB_PORT') %>
           username: <%= EnvValue.string('POSTGRES_USER') %>
           password: <%= EnvValue.string('POSTGRES_PASSWORD') %>

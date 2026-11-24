@@ -53,14 +53,15 @@ module Rolemodel
     end
 
     # A blank value renders as an empty YAML value, which is nil, so PostgreSQL uses its own
-    # default: the local socket, port 5432 and the OS user. DATABASE_URL still wins over these.
+    # default: the local socket, port 5432 and the OS user. A password needs a TCP connection,
+    # so the host falls back to localhost when POSTGRES_USER is set. DATABASE_URL still wins.
     def read_database_settings_from_env
       database_yml = File.join(destination_root, 'config/database.yml')
       return if !File.exist?(database_yml) || File.read(database_yml).include?("EnvValue.string('DB_HOST')")
 
       inject_into_file 'config/database.yml', after: /^default: &default\n\s+adapter: .*\n/ do
         <<~'YML'.indent(2)
-          host: <%= EnvValue.string('DB_HOST') %>
+          host: <%= EnvValue.string('DB_HOST') { 'localhost' if EnvValue.string('POSTGRES_USER') } %>
           port: <%= EnvValue.string('DB_PORT') %>
           username: <%= EnvValue.string('POSTGRES_USER') %>
           password: <%= EnvValue.string('POSTGRES_PASSWORD') %>

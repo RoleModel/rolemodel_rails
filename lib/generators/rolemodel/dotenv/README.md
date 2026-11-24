@@ -38,7 +38,7 @@ The dotenv gem loads `.env.local` in development. Tests don't read `.env.local`,
 The generator adds these lines to the `default:` block in `config/database.yml`. Every environment that starts with `<<: *default` gets them:
 
 ```yaml
-host: <%= EnvValue.string('DB_HOST') %>
+host: <%= EnvValue.string('DB_HOST') { 'localhost' if EnvValue.string('POSTGRES_USER') } %>
 port: <%= EnvValue.string('DB_PORT') %>
 username: <%= EnvValue.string('POSTGRES_USER') %>
 password: <%= EnvValue.string('POSTGRES_PASSWORD') %>
@@ -46,10 +46,10 @@ password: <%= EnvValue.string('POSTGRES_PASSWORD') %>
 
 If PostgreSQL runs on your computer with its usual settings, leave these keys unset. The app connects the way a new Rails app does: through the local socket on port 5432, as your computer's user.
 
-To use a database server in Docker or on another computer, put the values in `.env.local`:
+To use a database server in Docker or on another computer, put the values in `.env.local`. When you set `POSTGRES_USER` and leave `DB_HOST` unset, the app connects to `localhost`:
 
 ```
-DB_HOST=localhost
+DB_HOST=db.example.com
 DB_PORT=5433
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=password
