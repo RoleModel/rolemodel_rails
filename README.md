@@ -20,7 +20,7 @@ gem install rolemodel-rails
 rmr new <app-name>
 ```
 
-`rmr` passes `--database=postgresql --javascript=webpack --skip-kamal --skip-solid --skip-test` and a template that adds this gem and runs `rolemodel:core_setup --material`. Flags in your `~/.railsrc` override those defaults, and flags on the command line override both.
+`rmr` passes `--database=postgresql --javascript=webpack --skip-kamal --skip-solid --skip-test` and a template that adds this gem and runs `rolemodel:core_setup`, which asks for an icon library (default Material). Flags in your `~/.railsrc` override those defaults, and flags on the command line override both.
 
 ## Existing Apps
 

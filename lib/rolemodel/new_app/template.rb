@@ -3,5 +3,5 @@
 gem 'rolemodel-rails'
 
 after_bundle do
-  rails_command 'generate rolemodel:core_setup --material'
+  rails_command 'generate rolemodel:core_setup'
 end
