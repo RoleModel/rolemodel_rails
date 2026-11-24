@@ -10,6 +10,7 @@ RSpec.describe Rolemodel::CoreSetupGenerator do
 
   it 'installs the skills for the rolemodel_rails utilities' do
     generator = described_class.new
+    allow(generator).to receive(:say)
     allow(generator).to receive(:install_skill)
 
     generator.install_agent_skills
